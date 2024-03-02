@@ -1,18 +1,29 @@
 ![](docs/readme/images/Freezbe_logo.svg)
 
 # Freezbe
-**Lorem Ipsum** is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Application for managing tasks and projects.<br>
+Designed to assist users in organizing their responsibilities, schedules, and projects efficiently.
+
+## Motivation
+The application is being developed for the purposes of the "**100 Commits**" Contest.<br>
+The main motivations for participating in the contest for me are the following factors:
+- Creating a product that I will use.
+- Practicing consistency.
+- Practicing Reverse Engineering.
+- Expanding my technological stack with new technologies.
+- Adding an interesting entry to my CV.
+
 ## Backlog
 - [x] Create Logotype
 - [x] Created Template for Delivery Log
-- [ ] Create a short description
+- [x] Created a short description
 
 ## Delivery Log
 
 | Ordinal number | Day of the week | Date       | Delivered                                             |
 | -------------- | --------------- | ---------- | ----------------------------------------------------- |
 | 1              | Friday          | 2024-03-01 | Created Logotype<br>Created Template for Delivery Log |
-| 2              | Saturday        | 2024-03-02 |                                                       |
+| 2              | Saturday        | 2024-03-02 | Created a short description                           |
 | 3              | Sunday          | 2024-03-03 |                                                       |
 | 4              | Monday          | 2024-03-04 |                                                       |
 | 5              | Tuesday         | 2024-03-05 |                                                       |
