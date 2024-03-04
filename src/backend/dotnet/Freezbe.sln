@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freezbe.Core", "Freezbe.Core\Freezbe.Core.csproj", "{35E368EC-17AA-4271-A122-8C10CD0FAD10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35E368EC-17AA-4271-A122-8C10CD0FAD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E368EC-17AA-4271-A122-8C10CD0FAD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E368EC-17AA-4271-A122-8C10CD0FAD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E368EC-17AA-4271-A122-8C10CD0FAD10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7145B7CA-1508-4C11-BD81-A6B545B9FAC2}
+	EndGlobalSection
+EndGlobal

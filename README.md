@@ -18,6 +18,7 @@ The main motivations for participating in the contest for me are the following f
 - [x] Created Template for Delivery Log
 - [x] Created a short description
 - [x] [Created a list of available operations for MVP](docs/Operations.md)
+- [x] Created Backend project template
 ## Delivery Log
 
 | Ordinal number | Day of the week | Date       | Delivered                                                            |
@@ -25,7 +26,7 @@ The main motivations for participating in the contest for me are the following f
 | 1              | Friday          | 2024-03-01 | Created Logotype<br>Created Template for Delivery Log                |
 | 2              | Saturday        | 2024-03-02 | Created a short description                                          |
 | 3              | Sunday          | 2024-03-03 | [Created a list of available operations for MVP](docs/Operations.md) |
-| 4              | Monday          | 2024-03-04 |                                                                      |
+| 4              | Monday          | 2024-03-04 | Created Backend project template                                     |
 | 5              | Tuesday         | 2024-03-05 |                                                                      |
 | 6              | Wednesday       | 2024-03-06 |                                                                      |
 | 7              | Thursday        | 2024-03-07 |                                                                      |
