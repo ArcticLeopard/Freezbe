@@ -23,6 +23,7 @@ The main motivations for participating in the contest for me are the following f
 - [x] Created Backend Application layer
 - [x] Created Backend Api layer
 - [x] Created references between layers
+- [x] Prepared solution structure
 ## Delivery Log
 
 | Ordinal number | Day of the week | Date       | Delivered                                                                                                                                   |
@@ -32,7 +33,7 @@ The main motivations for participating in the contest for me are the following f
 | 3              | Sunday          | 2024-03-03 | [Created a list of available operations for MVP](docs/Operations.md)                                                                        |
 | 4              | Monday          | 2024-03-04 | Created Backend project template                                                                                                            |
 | 5              | Tuesday         | 2024-03-05 | Created Backend Infrastructure layer<br>Created Backend Application layer<br>Created Backend Api layer<br>Created references between layers |
-| 6              | Wednesday       | 2024-03-06 |                                                                                                                                             |
+| 6              | Wednesday       | 2024-03-06 | Prepared solution structure                                                                                                                 |
 | 7              | Thursday        | 2024-03-07 |                                                                                                                                             |
 | 8              | Friday          | 2024-03-08 |                                                                                                                                             |
 | 9              | Saturday        | 2024-03-09 |                                                                                                                                             |
