@@ -1,6 +1,6 @@
 @Freezbe.Api_HostAddress = http://localhost:5278
 
-GET {{Freezbe.Api_HostAddress}}/weatherforecast/
+GET {{Freezbe.Api_HostAddress}}/assignments/
 Accept: application/json
 
 ###
