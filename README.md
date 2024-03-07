@@ -14,7 +14,7 @@ The main motivations for participating in the contest for me are the following f
 - Adding an interesting entry to my CV.
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/feature/day7/docs/readme/images/Developer.png" />
+ <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/main/docs/readme/images/Developer.png" />
 </p>
 
 ## Backlog
