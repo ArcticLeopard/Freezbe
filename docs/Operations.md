@@ -1,13 +1,13 @@
 # Available Operations (MVP)
 ## The system will contain:
 - [ ] Spaces
-- [ ] Tasks
+- [ ] Assignments
 - [ ] Projects
 ## Space
 - [ ] Create a space.
 - [ ] Delete a space. (Hard Delete)
 - [ ] Rename.
-## Task
+## Assignment
 - [ ] Create.
 - [ ] Delete. (Hard Delete)
 - [ ] Rename.
