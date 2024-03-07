@@ -2,16 +2,16 @@
 
 namespace Freezbe.Core.Entities;
 
-public class Assignment
+public class Space
 {
-    public AssignmentId Id { get; }
+    public SpaceId Id { get; }
     public Description Description { get; private set; }
 
-    public Assignment(AssignmentId id, Description description)
+    public Space(SpaceId id, Description description)
     {
         Id = id;
         Description = description;
     }
 
     public void ChangeDescription(Description description) => Description = description;
-} 
+}
