@@ -6,11 +6,11 @@
 ## Space
 - [ ] Create a space.
 - [ ] Delete a space. (Hard Delete)
-- [ ] Rename.
+- [ ] Change description.
 ## Assignment
 - [ ] Create.
 - [ ] Delete. (Hard Delete)
-- [ ] Rename.
+- [ ] Change description.
 - [ ] Abandon. (Soft Delete)
 - [ ] Restore. (Undo Soft Delete)
 - [ ] Assign a project.
@@ -18,7 +18,7 @@
 ## Project
 - [ ] Create.
 - [ ] Delete. (Hard Delete)
-- [ ] Rename.
+- [ ] Change description.
 - [ ] Abandon. (Soft Delete)
 - [ ] Restore. (Undo Soft Delete)
 - [ ] Assign a project goal.
