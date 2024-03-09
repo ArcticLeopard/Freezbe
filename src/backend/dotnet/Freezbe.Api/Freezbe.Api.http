@@ -1,6 +1,12 @@
-@Freezbe.Api_HostAddress = http://localhost:5278
-
-GET {{Freezbe.Api_HostAddress}}/assignments/
-Accept: application/json
-
+GET http://localhost:5127/assignments/
+###
+POST http://localhost:5127/assignments/
+###
+GET http://localhost:5127/Tests/SomeCommandHandler/
+###
+GET http://localhost:5127/Tests/SomeQueryHandler/
+###
+GET http://localhost:5127/ApplicationConfiguration/Name/
+###
+GET http://localhost:5127/ApplicationConfiguration/Version/
 ###
