@@ -1,6 +1,8 @@
-﻿using Freezbe.Application.Abstractions;
+﻿using System.Text.RegularExpressions;
+using Freezbe.Application.Abstractions;
 using Freezbe.Infrastructure.Configurations;
 using Freezbe.Infrastructure.DataAccessLayer;
+using Freezbe.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +16,8 @@ public static class Extensions
     {
         services.AddControllers();
         services.AddConfigurations(configuration);
-        // Learn more about configuring Swagger/OpenA   PI at https://aka.ms/aspnetcore/swashbuckle
+        services.AddSingleton<ExceptionMiddleware>();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddDataAccessLayer();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
@@ -29,6 +32,7 @@ public static class Extensions
 
     public static WebApplication UseInfrastructure(this WebApplication app)
     {
+        app.UseMiddleware<ExceptionMiddleware>();
         // Configure the HTTP request pipeline.
         if(app.Environment.IsDevelopment())
         {
@@ -55,5 +59,10 @@ public static class Extensions
         .WithScopedLifetime());
 
         return services;
+    }
+
+    internal static string Underscore(this string input)
+    {
+        return Regex.Replace(Regex.Replace(Regex.Replace(input, @"([\p{Lu}]+)([\p{Lu}][\p{Ll}])", "$1_$2"), @"([\p{Ll}\d])([\p{Lu}])", "$1_$2"), @"[-\s]", "_").ToLower();
     }
 }

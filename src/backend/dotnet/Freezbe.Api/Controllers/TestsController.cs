@@ -22,41 +22,16 @@ public class TestsController : ControllerBase
     [HttpGet("SomeCommandHandler")]
     public IActionResult SomeCommandHandler()
     {
-        var message = NotImplementedWrapper(SomeCommandHandlerInvoke);
-
-        return Ok(message);
+        var someCommand = new SomeCommand();
+        _commandHandler.HandleAsync(someCommand);
+        return Ok();
     }
 
     [HttpGet("SomeQueryHandler")]
     public IActionResult SomeQueryHandler()
     {
-        var message = NotImplementedWrapper(SomeQueryHandlerInvoke);
-        return Ok(message);
-    }
-
-    private string NotImplementedWrapper(Action action)
-    {
-        var message = $"{action.Method.Name} invoked";
-        try
-        {
-            action();
-        }
-        catch(NotImplementedException)
-        {
-            message += " but not implemented";
-        }
-        return message;
-    }
-
-    private void SomeQueryHandlerInvoke()
-    {
         var someQuery = new SomeQuery();
         _queryHandler.HandleAsync(someQuery);
-    }
-
-    private void SomeCommandHandlerInvoke()
-    {
-        var someCommand = new SomeCommand();
-        _commandHandler.HandleAsync(someCommand);
+        return Ok();
     }
 }
