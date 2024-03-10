@@ -1,4 +1,3 @@
-[Back to ReadMe](../README.md)
 # Available Operations (MVP)
 ## The system will contain:
 - [ ] Spaces
@@ -9,7 +8,7 @@
 - [ ] Delete a space. (Hard Delete)
 - [ ] Change description.
 ## Assignment
-- [ ] Create.
+- [ ] Create. 
 - [ ] Delete. (Hard Delete)
 - [ ] Change description.
 - [ ] Abandon. (Soft Delete)
