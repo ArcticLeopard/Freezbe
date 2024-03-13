@@ -14,4 +14,4 @@ public class Project
     }
 
     public void ChangeDescription(Description description) => Description = description;
-} 
+}
