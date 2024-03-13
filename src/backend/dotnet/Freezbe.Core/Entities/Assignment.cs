@@ -14,4 +14,4 @@ public class Assignment
     }
 
     public void ChangeDescription(Description description) => Description = description;
-} 
+}
