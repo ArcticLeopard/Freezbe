@@ -5,9 +5,9 @@ namespace Freezbe.Core.Repositories;
 
 public interface IAssignmentRepository
 {
-    Task<Assignment> Get(AssignmentId assignmentId);
+    Task<Assignment> GetAsync(AssignmentId assignmentId);
     Task<IEnumerable<Assignment>> GetAllAsync();
     Task AddAsync(Assignment assignment);
-    Task Update(Assignment assignment);
+    Task UpdateAsync(Assignment assignment);
     Task DeleteAsync(Assignment assignment);
 }
