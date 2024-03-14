@@ -9,7 +9,7 @@ public class InMemoryAssignmentRepository : IAssignmentRepository
 {
     private readonly List<Assignment> _assignments = new();
 
-    public async Task<Assignment> Get(AssignmentId assignmentId)
+    public async Task<Assignment> GetAsync(AssignmentId assignmentId)
     {
         await Task.CompletedTask;
         return _assignments.SingleOrDefault(p => p.Id == assignmentId);
@@ -27,7 +27,7 @@ public class InMemoryAssignmentRepository : IAssignmentRepository
         return Task.CompletedTask;
     }
 
-    public Task Update(Assignment assignment)
+    public Task UpdateAsync(Assignment assignment)
     {
         throw new NotImplementedException();
     }

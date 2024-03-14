@@ -9,7 +9,7 @@ public class InMemorySpaceRepository : ISpaceRepository
 {
     private readonly List<Space> _spaces = new();
 
-    public async Task<Space> Get(SpaceId spaceId)
+    public async Task<Space> GetAsync(SpaceId spaceId)
     {
         await Task.CompletedTask;
         return _spaces.SingleOrDefault(p => p.Id == spaceId);
@@ -27,7 +27,7 @@ public class InMemorySpaceRepository : ISpaceRepository
         return Task.CompletedTask;
     }
 
-    public Task Update(Space space)
+    public Task UpdateAsync(Space space)
     {
         throw new NotImplementedException();
     }
