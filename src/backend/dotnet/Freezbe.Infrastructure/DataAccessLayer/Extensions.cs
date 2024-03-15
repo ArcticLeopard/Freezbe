@@ -8,6 +8,7 @@ public static class Extensions
 {
     public static IServiceCollection AddDataAccessLayer(this IServiceCollection services)
     {
+        //services.AddPostgres();
         services.AddRepositories();
         return services;
     }
@@ -16,6 +17,12 @@ public static class Extensions
     {
         services.AddSingleton<IAssignmentRepository, InMemoryAssignmentRepository>();
         services.AddSingleton<ISpaceRepository, InMemorySpaceRepository>();
+        return services;
+    }
+
+    private static IServiceCollection AddPostgres(this IServiceCollection services)
+    {
+        //services.AddDbContext<FreezbeDbContext>(p => p.UseNpgsql(""));
         return services;
     }
 }
