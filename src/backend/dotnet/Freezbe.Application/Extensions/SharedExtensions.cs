@@ -1,9 +1,9 @@
 ﻿using Freezbe.Application.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Freezbe.Application;
+namespace Freezbe.Application.Extensions;
 
-public static class Extensions
+public static class SharedExtensions
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
