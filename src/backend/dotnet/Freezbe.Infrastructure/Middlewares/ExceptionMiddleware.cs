@@ -1,9 +1,10 @@
 ﻿using Freezbe.Core.Exceptions;
+using Freezbe.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 
-namespace Freezbe.Infrastructure.Exceptions;
+namespace Freezbe.Infrastructure.Middlewares;
 
 public class ExceptionMiddleware : IMiddleware
 {
