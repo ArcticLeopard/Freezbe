@@ -1,5 +1,5 @@
 ﻿using Freezbe.Core.Exceptions;
-using Freezbe.Infrastructure.Exceptions;
+using Freezbe.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Moq;

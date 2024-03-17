@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Freezbe.Core;
+namespace Freezbe.Core.Extensions;
 
-public static class Extensions
+public static class SharedExtensions
 {
     public static IServiceCollection AddCore(this IServiceCollection services)
     {

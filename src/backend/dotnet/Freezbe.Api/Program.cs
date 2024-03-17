@@ -1,6 +1,6 @@
-using Freezbe.Application;
-using Freezbe.Core;
-using Freezbe.Infrastructure;
+using Freezbe.Application.Extensions;
+using Freezbe.Core.Extensions;
+using Freezbe.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
