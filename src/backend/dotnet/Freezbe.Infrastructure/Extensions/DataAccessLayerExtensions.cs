@@ -2,7 +2,7 @@
 using Freezbe.Core.Repositories;
 using Freezbe.Infrastructure.Configurations;
 using Freezbe.Infrastructure.DataAccessLayer;
-using Freezbe.Infrastructure.DataAccessLayer.Repositories;
+using Freezbe.Infrastructure.DataAccessLayer.Repositories.InMemory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,8 +28,8 @@ internal static class DataAccessLayerExtensions
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddSingleton<IAssignmentRepository, InMemoryAssignmentRepository>();
-        services.AddSingleton<ISpaceRepository, InMemorySpaceRepository>();
+        services.AddSingleton<IAssignmentRepository, AssignmentRepository>();
+        services.AddSingleton<ISpaceRepository, SpaceRepository>();
         return services;
     }
 

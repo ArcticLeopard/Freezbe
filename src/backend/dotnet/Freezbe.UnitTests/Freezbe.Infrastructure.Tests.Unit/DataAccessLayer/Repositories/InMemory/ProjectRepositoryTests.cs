@@ -1,18 +1,18 @@
 ﻿using Freezbe.Core.Entities;
 using Freezbe.Core.ValueObjects;
-using Freezbe.Infrastructure.DataAccessLayer.Repositories;
+using Freezbe.Infrastructure.DataAccessLayer.Repositories.InMemory;
 using Shouldly;
 using Xunit;
 
-namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories;
+namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories.InMemory;
 
-public class InMemoryProjectRepositoryTests
+public class ProjectRepositoryTests
 {
     [Fact]
     public async Task GetAsyncReturnsCorrectProject()
     {
         // ARRANGE
-        var repository = new InMemoryProjectRepository();
+        var repository = new ProjectRepository();
         var projectId = new ProjectId(Guid.NewGuid());
         var project = new Project(projectId, "Test Project");
         await repository.AddAsync(project);
@@ -28,7 +28,7 @@ public class InMemoryProjectRepositoryTests
     public async Task GetAllAsyncReturnsAllProjects()
     {
         // ARRANGE
-        var repository = new InMemoryProjectRepository();
+        var repository = new ProjectRepository();
         var projects = new List<Project>
         {
             new(new ProjectId(Guid.NewGuid()), "Project 1"),
@@ -48,7 +48,7 @@ public class InMemoryProjectRepositoryTests
     public async Task AddAsyncAddsProjectToRepository()
     {
         // ARRANGE
-        var repository = new InMemoryProjectRepository();
+        var repository = new ProjectRepository();
         var projectId = new ProjectId(Guid.NewGuid());
         var project = new Project(projectId, "Test Project");
 
@@ -64,7 +64,7 @@ public class InMemoryProjectRepositoryTests
     public async Task DeleteAsyncRemovesProjectFromRepository()
     {
         // ARRANGE
-        var repository = new InMemoryProjectRepository();
+        var repository = new ProjectRepository();
         var projectId = new ProjectId(Guid.NewGuid());
         var project = new Project(projectId, "Test Project");
         await repository.AddAsync(project);
@@ -81,7 +81,7 @@ public class InMemoryProjectRepositoryTests
     public async Task UpdateAsyncThrowsNotImplementedException()
     {
         // ARRANGE
-        var repository = new InMemoryProjectRepository();
+        var repository = new ProjectRepository();
         var projectId = new ProjectId(Guid.NewGuid());
         var project = new Project(projectId, "Test Project");
 
@@ -93,7 +93,7 @@ public class InMemoryProjectRepositoryTests
     public async Task AfterAddingAnItemToTheCollectionTheItemShouldExistInTheRepositoryAndHaveCorrectValueAfterUseGet()
     {
         // ARRANGE
-        var memoryProjectRepository = new InMemoryProjectRepository();
+        var memoryProjectRepository = new ProjectRepository();
         var projectId = new ProjectId(Guid.NewGuid());
         var createdProject = new Project(projectId, "Test Project");
         await memoryProjectRepository.AddAsync(createdProject);
@@ -112,7 +112,7 @@ public class InMemoryProjectRepositoryTests
     public async Task AfterAddingAnItemToTheCollectionTheItemShouldExistInTheRepositoryAndHaveCorrectValueAfterUseGetAll()
     {
         // ARRANGE
-        var memoryProjectRepository = new InMemoryProjectRepository();
+        var memoryProjectRepository = new ProjectRepository();
         var projectId = new ProjectId(Guid.NewGuid());
         var createdProject = new Project(projectId, "Test Project");
         await memoryProjectRepository.AddAsync(createdProject);

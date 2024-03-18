@@ -2,10 +2,10 @@
 using Freezbe.Core.Repositories;
 using Freezbe.Core.ValueObjects;
 
-namespace Freezbe.Infrastructure.DataAccessLayer.Repositories;
+namespace Freezbe.Infrastructure.DataAccessLayer.Repositories.InMemory;
 
 //Temporary implementation
-public class InMemoryProjectRepository : IProjectRepository
+public class ProjectRepository : IProjectRepository
 {
     private readonly List<Project> _projects = new();
 
