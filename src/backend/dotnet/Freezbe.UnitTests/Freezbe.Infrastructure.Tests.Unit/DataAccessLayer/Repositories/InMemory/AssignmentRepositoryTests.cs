@@ -1,18 +1,18 @@
 ﻿using Freezbe.Core.Entities;
 using Freezbe.Core.ValueObjects;
-using Freezbe.Infrastructure.DataAccessLayer.Repositories;
+using Freezbe.Infrastructure.DataAccessLayer.Repositories.InMemory;
 using Shouldly;
 using Xunit;
 
-namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories;
+namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories.InMemory;
 
-public class InMemoryAssignmentRepositoryTests
+public class AssignmentRepositoryTests
 {
     [Fact]
     public async Task GetAsyncReturnsCorrectAssignment()
     {
         // ARRANGE
-        var repository = new InMemoryAssignmentRepository();
+        var repository = new AssignmentRepository();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var assignment = new Assignment(assignmentId, "Test Assignment");
         await repository.AddAsync(assignment);
@@ -28,7 +28,7 @@ public class InMemoryAssignmentRepositoryTests
     public async Task GetAllAsyncReturnsAllAssignments()
     {
         // ARRANGE
-        var repository = new InMemoryAssignmentRepository();
+        var repository = new AssignmentRepository();
         var assignments = new List<Assignment>
         {
             new(new AssignmentId(Guid.NewGuid()), "Assignment 1"),
@@ -48,7 +48,7 @@ public class InMemoryAssignmentRepositoryTests
     public async Task AddAsyncAddsAssignmentToRepository()
     {
         // ARRANGE
-        var repository = new InMemoryAssignmentRepository();
+        var repository = new AssignmentRepository();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var assignment = new Assignment(assignmentId, "Test Assignment");
 
@@ -64,7 +64,7 @@ public class InMemoryAssignmentRepositoryTests
     public async Task DeleteAsyncRemovesAssignmentFromRepository()
     {
         // ARRANGE
-        var repository = new InMemoryAssignmentRepository();
+        var repository = new AssignmentRepository();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var assignment = new Assignment(assignmentId, "Test Assignment");
         await repository.AddAsync(assignment);
@@ -81,7 +81,7 @@ public class InMemoryAssignmentRepositoryTests
     public async Task UpdateAsyncThrowsNotImplementedException()
     {
         // ARRANGE
-        var repository = new InMemoryAssignmentRepository();
+        var repository = new AssignmentRepository();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var assignment = new Assignment(assignmentId, "Test Assignment");
 
@@ -93,7 +93,7 @@ public class InMemoryAssignmentRepositoryTests
     public async Task AfterAddingAnItemToTheCollectionTheItemShouldExistInTheRepositoryAndHaveCorrectValueAfterUseGet()
     {
         // ARRANGE
-        var memoryAssignmentRepository = new InMemoryAssignmentRepository();
+        var memoryAssignmentRepository = new AssignmentRepository();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var createdAssignment = new Assignment(assignmentId, "Test Assignment");
         await memoryAssignmentRepository.AddAsync(createdAssignment);
@@ -112,7 +112,7 @@ public class InMemoryAssignmentRepositoryTests
     public async Task AfterAddingAnItemToTheCollectionTheItemShouldExistInTheRepositoryAndHaveCorrectValueAfterUseGetAll()
     {
         // ARRANGE
-        var memoryAssignmentRepository = new InMemoryAssignmentRepository();
+        var memoryAssignmentRepository = new AssignmentRepository();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var createdAssignment = new Assignment(assignmentId, "Test Assignment");
         await memoryAssignmentRepository.AddAsync(createdAssignment);

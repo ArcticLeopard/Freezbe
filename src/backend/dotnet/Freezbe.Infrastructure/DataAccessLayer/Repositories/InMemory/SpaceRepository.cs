@@ -2,10 +2,10 @@
 using Freezbe.Core.Repositories;
 using Freezbe.Core.ValueObjects;
 
-namespace Freezbe.Infrastructure.DataAccessLayer.Repositories;
+namespace Freezbe.Infrastructure.DataAccessLayer.Repositories.InMemory;
 
 //Temporary implementation
-public class InMemorySpaceRepository : ISpaceRepository
+public class SpaceRepository : ISpaceRepository
 {
     private readonly List<Space> _spaces = new();
 
