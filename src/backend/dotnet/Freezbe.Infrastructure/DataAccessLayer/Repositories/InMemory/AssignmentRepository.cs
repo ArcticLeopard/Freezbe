@@ -2,10 +2,10 @@
 using Freezbe.Core.Repositories;
 using Freezbe.Core.ValueObjects;
 
-namespace Freezbe.Infrastructure.DataAccessLayer.Repositories;
+namespace Freezbe.Infrastructure.DataAccessLayer.Repositories.InMemory;
 
 //Temporary implementation
-public class InMemoryAssignmentRepository : IAssignmentRepository
+public class AssignmentRepository : IAssignmentRepository
 {
     private readonly List<Assignment> _assignments = new();
 

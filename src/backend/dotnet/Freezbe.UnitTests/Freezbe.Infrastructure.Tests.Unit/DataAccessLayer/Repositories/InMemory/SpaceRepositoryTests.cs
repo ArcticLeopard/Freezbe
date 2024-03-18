@@ -1,18 +1,18 @@
 ﻿using Freezbe.Core.Entities;
 using Freezbe.Core.ValueObjects;
-using Freezbe.Infrastructure.DataAccessLayer.Repositories;
+using Freezbe.Infrastructure.DataAccessLayer.Repositories.InMemory;
 using Shouldly;
 using Xunit;
 
-namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories;
+namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories.InMemory;
 
-public class InMemorySpaceRepositoryTests
+public class SpaceRepositoryTests
 {
     [Fact]
     public async Task GetAsyncReturnsCorrectSpace()
     {
         // ARRANGE
-        var repository = new InMemorySpaceRepository();
+        var repository = new SpaceRepository();
         var spaceId = new SpaceId(Guid.NewGuid());
         var space = new Space(spaceId, "Test Space");
         await repository.AddAsync(space);
@@ -28,7 +28,7 @@ public class InMemorySpaceRepositoryTests
     public async Task GetAllAsyncReturnsAllSpaces()
     {
         // ARRANGE
-        var repository = new InMemorySpaceRepository();
+        var repository = new SpaceRepository();
         var spaces = new List<Space>
         {
             new(new SpaceId(Guid.NewGuid()), "Space 1"),
@@ -48,7 +48,7 @@ public class InMemorySpaceRepositoryTests
     public async Task AddAsyncAddsSpaceToRepository()
     {
         // ARRANGE
-        var repository = new InMemorySpaceRepository();
+        var repository = new SpaceRepository();
         var spaceId = new SpaceId(Guid.NewGuid());
         var space = new Space(spaceId, "Test Space");
 
@@ -64,7 +64,7 @@ public class InMemorySpaceRepositoryTests
     public async Task DeleteAsyncRemovesSpaceFromRepository()
     {
         // ARRANGE
-        var repository = new InMemorySpaceRepository();
+        var repository = new SpaceRepository();
         var spaceId = new SpaceId(Guid.NewGuid());
         var space = new Space(spaceId, "Test Space");
         await repository.AddAsync(space);
@@ -81,7 +81,7 @@ public class InMemorySpaceRepositoryTests
     public async Task UpdateAsyncThrowsNotImplementedException()
     {
         // ARRANGE
-        var repository = new InMemorySpaceRepository();
+        var repository = new SpaceRepository();
         var spaceId = new SpaceId(Guid.NewGuid());
         var space = new Space(spaceId, "Test Space");
 
@@ -93,7 +93,7 @@ public class InMemorySpaceRepositoryTests
     public async Task AfterAddingAnItemToTheCollectionTheItemShouldExistInTheRepositoryAndHaveCorrectValueAfterUseGet()
     {
         // ARRANGE
-        var memorySpaceRepository = new InMemorySpaceRepository();
+        var memorySpaceRepository = new SpaceRepository();
         var spaceId = new SpaceId(Guid.NewGuid());
         var createdSpace = new Space(spaceId, "Test Space");
         await memorySpaceRepository.AddAsync(createdSpace);
@@ -112,7 +112,7 @@ public class InMemorySpaceRepositoryTests
     public async Task AfterAddingAnItemToTheCollectionTheItemShouldExistInTheRepositoryAndHaveCorrectValueAfterUseGetAll()
     {
         // ARRANGE
-        var memorySpaceRepository = new InMemorySpaceRepository();
+        var memorySpaceRepository = new SpaceRepository();
         var spaceId = new SpaceId(Guid.NewGuid());
         var createdSpace = new Space(spaceId, "Test Space");
         await memorySpaceRepository.AddAsync(createdSpace);
