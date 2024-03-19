@@ -24,4 +24,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Freezbe.Infrastructure.Tests.Unit" />
+  </ItemGroup>
 </Project>

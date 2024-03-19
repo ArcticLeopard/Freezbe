@@ -15,4 +15,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Freezbe.Api.Tests.Unit" />
+  </ItemGroup>
 </Project>
