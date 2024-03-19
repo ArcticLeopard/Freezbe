@@ -14,4 +14,7 @@
       <PackageReference Include="Scrutor" Version="4.2.2" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="Freezbe.Application.Tests.Unit" />
+    </ItemGroup>
 </Project>
