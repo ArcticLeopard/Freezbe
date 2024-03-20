@@ -16,12 +16,12 @@ internal class ProjectRepository : IProjectRepository
 
     public async Task<Project> GetAsync(ProjectId projectId)
     {
-        return await _dbContext.Projects.SingleOrDefaultAsync(p => p.Id == projectId);
+        return await _dbContext.Projects.Include(p => p.Assignments).SingleOrDefaultAsync(p => p.Id == projectId);
     }
 
     public async Task<IEnumerable<Project>> GetAllAsync()
     {
-        return await _dbContext.Projects.ToListAsync();
+        return await _dbContext.Projects.Include(p=>p.Assignments).ToListAsync();
     }
 
     public async Task AddAsync(Project project)
