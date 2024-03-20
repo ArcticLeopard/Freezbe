@@ -482,4 +482,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+#Others
 .obsidian
+Migrations/

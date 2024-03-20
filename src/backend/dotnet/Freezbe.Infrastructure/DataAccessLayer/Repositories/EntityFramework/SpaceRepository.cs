@@ -16,12 +16,12 @@ internal class SpaceRepository : ISpaceRepository
 
     public async Task<Space> GetAsync(SpaceId spaceId)
     {
-        return await _dbContext.Spaces.SingleOrDefaultAsync(p => p.Id == spaceId);
+        return await _dbContext.Spaces.Include(p=>p.Projects).SingleOrDefaultAsync(p => p.Id == spaceId);
     }
 
     public async Task<IEnumerable<Space>> GetAllAsync()
     {
-        return await _dbContext.Spaces.ToListAsync();
+        return await _dbContext.Spaces.Include(p=>p.Projects).ToListAsync();
     }
 
     public async Task AddAsync(Space space)
