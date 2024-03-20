@@ -1,5 +1,7 @@
 ﻿using Freezbe.Core.Entities;
+using Freezbe.Core.Exceptions;
 using Freezbe.Core.ValueObjects;
+using Shouldly;
 using Xunit;
 
 namespace Freezbe.Core.Tests.Unit.Entities;
@@ -17,8 +19,8 @@ public class AssignmentTests
         var assignment = new Assignment(assignmentId, description);
 
         // ASSERT
-        Assert.Equal(assignmentId, assignment.Id);
-        Assert.Equal(description, assignment.Description);
+        assignment.Id.ShouldBe(assignmentId);
+        assignment.Description.ShouldBe(description);
     }
     
     [Fact]
@@ -34,6 +36,22 @@ public class AssignmentTests
         assignment.ChangeDescription(newDescription);
 
         // ASSERT
-        Assert.Equal(newDescription, assignment.Description);
+        assignment.Description.ShouldBe(newDescription);
+    }
+
+    [Fact]
+    public void ChangeDescription_WithNullDescription_ThrowsInvalidDescriptionException()
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var initialDescription = new Description("Initial description");
+        var assignment = new Assignment(assignmentId, initialDescription);
+
+        // ACT
+        var exception = Record.Exception(() => assignment.ChangeDescription(null));
+
+        // ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<InvalidDescriptionException>();
     }
 }

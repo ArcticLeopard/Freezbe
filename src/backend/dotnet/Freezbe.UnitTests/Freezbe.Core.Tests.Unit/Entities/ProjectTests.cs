@@ -1,5 +1,7 @@
 ﻿using Freezbe.Core.Entities;
+using Freezbe.Core.Exceptions;
 using Freezbe.Core.ValueObjects;
+using Shouldly;
 using Xunit;
 
 namespace Freezbe.Core.Tests.Unit.Entities;
@@ -17,8 +19,9 @@ public class ProjectTests
         var project = new Project(projectId, description);
 
         // ASSERT
-        Assert.Equal(projectId, project.Id);
-        Assert.Equal(description, project.Description);
+        project.Id.ShouldBe(projectId);
+        project.Description.ShouldBe(description);
+        project.Assignments.ShouldBeEmpty();
     }
     
     [Fact]
@@ -34,6 +37,53 @@ public class ProjectTests
         project.ChangeDescription(newDescription);
 
         // ASSERT
-        Assert.Equal(newDescription, project.Description);
+        project.Description.ShouldBe(newDescription);
+    }
+
+    [Fact]
+    public void ChangeDescription_WithNullDescription_ThrowsInvalidDescriptionException()
+    {
+        // ARRANGE
+        var projectId = TestUtils.CreateCorrectProjectId();
+        var initialDescription = new Description("Initial description");
+        var project = new Project(projectId, initialDescription);
+
+        // ACT
+        var exception = Record.Exception(() => project.ChangeDescription(null));
+
+        // ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<InvalidDescriptionException>();
+    }
+
+    [Fact]
+    public void AddAssignment_WithNullArgument_ThrowsAddedEntityCannotBeNullException()
+    {
+        // ARRANGE
+        var projectId = TestUtils.CreateCorrectProjectId();
+        var initialDescription = new Description("Initial description");
+        var project = new Project(projectId, initialDescription);
+
+        // ACT
+        var exception = Record.Exception(() => project.AddAssignment(null));
+
+        // ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<AddedEntityCannotBeNullException>();
+    }
+
+    [Fact]
+    public void AddAssignment_WithCorrectArgument_ShouldAddElementToCollection()
+    {
+        // ARRANGE
+        var projectId = TestUtils.CreateCorrectProjectId();
+        var initialDescription = new Description("Initial description");
+        var project = new Project(projectId, initialDescription);
+
+        // ACT
+        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description"));
+
+        // ASSERT
+        project.Assignments.ShouldNotBeEmpty();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Freezbe.Core.ValueObjects;
+﻿using Freezbe.Core.Exceptions;
+using Freezbe.Core.ValueObjects;
 
 namespace Freezbe.Core.Entities;
 
@@ -13,5 +14,12 @@ public class Assignment
         Description = description;
     }
 
-    public void ChangeDescription(Description description) => Description = description;
+    public void ChangeDescription(Description description)
+    {
+        if(description == null)
+        {
+            throw new InvalidDescriptionException("null");
+        }
+        Description = description;
+    }
 }

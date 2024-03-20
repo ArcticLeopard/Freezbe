@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freezbe.Infrastructure.Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Freezbe.UnitTests", "Freezbe.UnitTests", "{4B182599-88A7-49A8-A131-9F14BF55CDEF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Freezbe.IntegrationTests", "Freezbe.IntegrationTests", "{40E4A351-70B9-441A-B88A-C00F31D0A7A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
