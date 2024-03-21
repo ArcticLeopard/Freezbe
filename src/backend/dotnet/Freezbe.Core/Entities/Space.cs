@@ -18,18 +18,14 @@ public class Space
 
     public void ChangeDescription(Description description)
     {
-        if(description == null)
-        {
-            throw new InvalidDescriptionException("null");
-        }
-        Description = description;
+        Description = description ?? throw new InvalidDescriptionException("null");
     }
 
     public void AddProject(Project project)
     {
         if(project == null)
         {
-            throw new AddedEntityCannotBeNullException(project);
+            throw new AddedEntityCannotBeNullException();
         }
         _projects.Add(project);
     }

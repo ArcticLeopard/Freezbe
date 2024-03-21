@@ -52,11 +52,11 @@ public class SpaceRepositoryTests
         var repository = new SpaceRepository(dbContext);
 
         // ACT
-        var result = await repository.GetAllAsync();
+        var result = (await repository.GetAllAsync()).ToList();
 
         // ASSERT
         result.ShouldNotBeNull();
-        result.Count().ShouldBe(expectedSpaces.Count);
+        result.Count.ShouldBe(expectedSpaces.Count);
         foreach(var expectedSpace in expectedSpaces) result.ShouldContain(a => a.Id == expectedSpace.Id);
     }
 

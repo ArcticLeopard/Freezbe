@@ -7,9 +7,7 @@ public static class SharedExtensions
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddCommandHandlers();
-
-        return services;
+        return services.AddCommandHandlers();
     }
 
     private static IServiceCollection AddCommandHandlers(this IServiceCollection services)
