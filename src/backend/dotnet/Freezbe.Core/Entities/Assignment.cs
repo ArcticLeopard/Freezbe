@@ -16,10 +16,6 @@ public class Assignment
 
     public void ChangeDescription(Description description)
     {
-        if(description == null)
-        {
-            throw new InvalidDescriptionException("null");
-        }
-        Description = description;
+        Description = description ?? throw new InvalidDescriptionException("null");
     }
 }

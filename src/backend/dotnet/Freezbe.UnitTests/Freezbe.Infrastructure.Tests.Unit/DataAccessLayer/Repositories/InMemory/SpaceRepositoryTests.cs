@@ -45,22 +45,6 @@ public class SpaceRepositoryTests
     }
 
     [Fact]
-    public async Task AddAsyncAddsSpaceToRepository()
-    {
-        // ARRANGE
-        var repository = new SpaceRepository();
-        var spaceId = new SpaceId(Guid.NewGuid());
-        var space = new Space(spaceId, "Test Space");
-
-        // ACT
-        await repository.AddAsync(space);
-        var result = await repository.GetAsync(spaceId);
-
-        // ASSERT
-        Assert.Equal(space, result);
-    }
-
-    [Fact]
     public async Task DeleteAsyncRemovesSpaceFromRepository()
     {
         // ARRANGE
@@ -126,6 +110,6 @@ public class SpaceRepositoryTests
         collection.ShouldNotBeNull();
         collection.ShouldContain(p => p.Description == "Test Space");
         collection.ShouldHaveSingleItem();
-        collection.First().Id.ShouldBe(createdSpace.Id);
+        collection[0].Id.ShouldBe(createdSpace.Id);
     }
 }

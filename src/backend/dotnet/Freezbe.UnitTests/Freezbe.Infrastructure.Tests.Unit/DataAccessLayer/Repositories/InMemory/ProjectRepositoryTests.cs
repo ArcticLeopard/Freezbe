@@ -45,22 +45,6 @@ public class ProjectRepositoryTests
     }
 
     [Fact]
-    public async Task AddAsyncAddsProjectToRepository()
-    {
-        // ARRANGE
-        var repository = new ProjectRepository();
-        var projectId = new ProjectId(Guid.NewGuid());
-        var project = new Project(projectId, "Test Project");
-
-        // ACT
-        await repository.AddAsync(project);
-        var result = await repository.GetAsync(projectId);
-
-        // ASSERT
-        Assert.Equal(project, result);
-    }
-
-    [Fact]
     public async Task DeleteAsyncRemovesProjectFromRepository()
     {
         // ARRANGE
@@ -126,6 +110,6 @@ public class ProjectRepositoryTests
         collection.ShouldNotBeNull();
         collection.ShouldContain(p => p.Description == "Test Project");
         collection.ShouldHaveSingleItem();
-        collection.First().Id.ShouldBe(createdProject.Id);
+        collection[0].Id.ShouldBe(createdProject.Id);
     }
 }

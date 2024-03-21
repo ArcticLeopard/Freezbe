@@ -52,11 +52,11 @@ public class AssignmentRepositoryTests
         var repository = new AssignmentRepository(dbContext);
 
         // ACT
-        var result = await repository.GetAllAsync();
+        var result = (await repository.GetAllAsync()).ToList();
 
         // ASSERT
         result.ShouldNotBeNull();
-        result.Count().ShouldBe(expectedAssignments.Count);
+        result.Count.ShouldBe(expectedAssignments.Count);
         foreach(var expectedAssignment in expectedAssignments) result.ShouldContain(a => a.Id == expectedAssignment.Id);
     }
 
