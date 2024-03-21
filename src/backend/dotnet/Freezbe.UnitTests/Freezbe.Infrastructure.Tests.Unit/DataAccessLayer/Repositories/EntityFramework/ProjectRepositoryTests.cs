@@ -52,11 +52,11 @@ public class ProjectRepositoryTests
         var repository = new ProjectRepository(dbContext);
 
         // ACT
-        var result = await repository.GetAllAsync();
+        var result = (await repository.GetAllAsync()).ToList();
 
         // ASSERT
         result.ShouldNotBeNull();
-        result.Count().ShouldBe(expectedProjects.Count);
+        result.Count.ShouldBe(expectedProjects.Count);
         foreach(var expectedProject in expectedProjects) result.ShouldContain(a => a.Id == expectedProject.Id);
     }
 

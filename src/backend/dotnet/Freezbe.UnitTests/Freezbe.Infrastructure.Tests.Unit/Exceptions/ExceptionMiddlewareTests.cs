@@ -18,14 +18,15 @@ public class ExceptionMiddlewareTests
         var middleware = new ExceptionMiddleware(CreateWebHostEnvironmentMock(environmentName));
         var context = new DefaultHttpContext();
         var nextDelegateCalled = false;
-        RequestDelegate nextDelegate = _ =>
+
+        Task NextDelegate(HttpContext _)
         {
             nextDelegateCalled = true;
             return Task.CompletedTask;
-        };
+        }
 
         // ACT
-        await middleware.InvokeAsync(context, nextDelegate);
+        await middleware.InvokeAsync(context, NextDelegate);
 
         // ASSERT
         Assert.True(nextDelegateCalled);
@@ -41,10 +42,10 @@ public class ExceptionMiddlewareTests
         var middleware = new ExceptionMiddleware(CreateWebHostEnvironmentMock(environmentName));
         var context = new DefaultHttpContext();
         var exception = new Exception();
-        RequestDelegate nextDelegate = _ => throw exception;
+        Task NextDelegate(HttpContext _) => throw exception;
 
         // ACT
-        await middleware.InvokeAsync(context, nextDelegate);
+        await middleware.InvokeAsync(context, NextDelegate);
 
         // ASSERT
         Assert.Equal(StatusCodes.Status500InternalServerError, context.Response.StatusCode);
@@ -57,10 +58,10 @@ public class ExceptionMiddlewareTests
         // ARRANGE
         var middleware = new ExceptionMiddleware(CreateWebHostEnvironmentMock(environmentName));
         var context = new DefaultHttpContext();
-        RequestDelegate nextDelegate = _ => throw exception;
+        Task NextDelegate(HttpContext _) => throw exception;
 
         // ACT
-        await middleware.InvokeAsync(context, nextDelegate);
+        await middleware.InvokeAsync(context, NextDelegate);
 
         // ASSERT
         Assert.Equal(StatusCodes.Status400BadRequest, context.Response.StatusCode);

@@ -13,16 +13,14 @@ internal static class DataAccessLayerExtensions
 {
     public static IServiceCollection AddDataAccessLayer(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddPostgres(configuration);
-        services.AddRepositories();
-        services.AddQueryHandlers();
-        return services;
+        return services.AddPostgres(configuration).AddRepositories().AddQueryHandlers();
     }
 
     private static IServiceCollection AddPostgres(this IServiceCollection services, IConfiguration configuration)
     {
         var databaseConfiguration = configuration.GetOptions<DatabaseConfiguration>(nameof(DatabaseConfiguration));
         services.AddDbContext<FreezbeDbContext>(p => p.UseNpgsql(databaseConfiguration.ConnectionString));
+        services.AddHostedService<DatabaseInitializer>();
         return services;
     }
 
@@ -38,11 +36,7 @@ internal static class DataAccessLayerExtensions
     {
         var currentAssembly = typeof(ApplicationConfiguration).Assembly;
 
-        services
-        .Scan(s => s.FromAssemblies(currentAssembly)
-                    .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime());
+        services.Scan(s => s.FromAssemblies(currentAssembly).AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>))).AsImplementedInterfaces().WithScopedLifetime());
 
         return services;
     }

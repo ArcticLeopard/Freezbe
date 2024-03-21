@@ -18,18 +18,14 @@ public class Project
 
     public void ChangeDescription(Description description)
     {
-        if(description == null)
-        {
-            throw new InvalidDescriptionException("null");
-        }
-        Description = description;
+        Description = description ?? throw new InvalidDescriptionException("null");
     }
 
     public void AddAssignment(Assignment assignment)
     {
         if(assignment == null)
         {
-            throw new AddedEntityCannotBeNullException(assignment);
+            throw new AddedEntityCannotBeNullException();
         }
         _assignments.Add(assignment);
     }

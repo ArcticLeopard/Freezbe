@@ -70,5 +70,5 @@ public class ExceptionMiddleware : IMiddleware
         return new Error("error", "There was an error.");
     }
 
-    private record Error(string Code, string Reason);
+    private sealed record Error(string Code, string Reason);
 }

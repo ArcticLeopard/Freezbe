@@ -9,15 +9,11 @@ public class AddedEntityCannotBeNullExceptionTests
     [Fact]
     public void AddedEntityCannotBeNullExceptionShouldContainCorrectDescription()
     {
-        // ARRANGE
-        string entity = null;
-
         // ACT
-        var exception = new AddedEntityCannotBeNullException(entity);
+        var exception = new AddedEntityCannotBeNullException();
 
         // ASSERT
         exception.ShouldNotBeNull();
-        exception.Entity.ShouldBe(entity);
         exception.Message.ShouldBe($"Created entity cannot be Null");   
     }
 }

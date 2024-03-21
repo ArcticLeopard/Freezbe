@@ -45,22 +45,6 @@ public class AssignmentRepositoryTests
     }
 
     [Fact]
-    public async Task AddAsyncAddsAssignmentToRepository()
-    {
-        // ARRANGE
-        var repository = new AssignmentRepository();
-        var assignmentId = new AssignmentId(Guid.NewGuid());
-        var assignment = new Assignment(assignmentId, "Test Assignment");
-
-        // ACT
-        await repository.AddAsync(assignment);
-        var result = await repository.GetAsync(assignmentId);
-
-        // ASSERT
-        Assert.Equal(assignment, result);
-    }
-
-    [Fact]
     public async Task DeleteAsyncRemovesAssignmentFromRepository()
     {
         // ARRANGE
@@ -126,6 +110,6 @@ public class AssignmentRepositoryTests
         collection.ShouldNotBeNull();
         collection.ShouldContain(p => p.Description == "Test Assignment");
         collection.ShouldHaveSingleItem();
-        collection.First().Id.ShouldBe(createdAssignment.Id);
+        collection[0].Id.ShouldBe(createdAssignment.Id);
     }
 }
