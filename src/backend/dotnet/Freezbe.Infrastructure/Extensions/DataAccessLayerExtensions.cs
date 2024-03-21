@@ -28,9 +28,9 @@ internal static class DataAccessLayerExtensions
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddSingleton<IAssignmentRepository, AssignmentRepository>();
-        services.AddSingleton<IProjectRepository, ProjectRepository>();
-        services.AddSingleton<ISpaceRepository, SpaceRepository>();
+        services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+        services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<ISpaceRepository, SpaceRepository>();
         return services;
     }
 
