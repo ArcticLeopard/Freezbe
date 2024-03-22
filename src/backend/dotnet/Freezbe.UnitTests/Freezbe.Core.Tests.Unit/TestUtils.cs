@@ -23,4 +23,9 @@ public static class TestUtils
     {
         return CreateCorrectGuid();
     }
+
+    public static CommentId CreateCorrectCommentId()
+    {
+        return CreateCorrectGuid();
+    }
 }
