@@ -1,4 +1,5 @@
-﻿using Freezbe.Core.Exceptions;
+﻿using Freezbe.Core.Entities;
+using Freezbe.Core.Exceptions;
 using Freezbe.Core.ValueObjects;
 using Shouldly;
 using Xunit;
@@ -62,5 +63,36 @@ public class AssignmentIdTests
         // ASSERT
         result.ShouldNotBeNull();
         result.Value.ShouldBe(correctGuid);
+    }
+
+    [Fact]
+    public void AddComment_WithNullArgument_ThrowsAddedEntityCannotBeNullException()
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var initialDescription = new Description("Initial description");
+        var assignment = new Assignment(assignmentId, initialDescription);
+
+        // ACT
+        var exception = Record.Exception(() => assignment.AddComment(null));
+
+        // ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<AddedEntityCannotBeNullException>();
+    }
+
+    [Fact]
+    public void AddComment_WithCorrectArgument_ShouldAddElementToCollection()
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var initialDescription = new Description("Initial description");
+        var assignment = new Assignment(assignmentId, initialDescription);
+
+        // ACT
+        assignment.AddComment(new Comment(Guid.NewGuid(),"Description"));
+
+        // ASSERT
+        assignment.Comments.ShouldNotBeEmpty();
     }
 }

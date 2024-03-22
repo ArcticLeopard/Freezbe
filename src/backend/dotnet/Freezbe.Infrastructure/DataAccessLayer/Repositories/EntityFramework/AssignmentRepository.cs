@@ -16,12 +16,12 @@ internal class AssignmentRepository : IAssignmentRepository
 
     public async Task<Assignment> GetAsync(AssignmentId assignmentId)
     {
-        return await _dbContext.Assignments.SingleOrDefaultAsync(p => p.Id == assignmentId);
+        return await _dbContext.Assignments.Include(p => p.Comments).SingleOrDefaultAsync(p => p.Id == assignmentId);
     }
 
     public async Task<IEnumerable<Assignment>> GetAllAsync()
     {
-        return await _dbContext.Assignments.ToListAsync();
+        return await _dbContext.Assignments.Include(p => p.Comments).ToListAsync();
     }
 
     public async Task AddAsync(Assignment assignment)
