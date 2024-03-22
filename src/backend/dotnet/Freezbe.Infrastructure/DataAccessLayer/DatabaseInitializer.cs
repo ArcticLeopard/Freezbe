@@ -36,8 +36,11 @@ internal sealed class DatabaseInitializer : IHostedService
         {
             var space = new Space(Guid.NewGuid(), "Personal space");
             var project = new Project(Guid.NewGuid(), "Make a freezbe");
-            
-            project.AddAssignment(new Assignment(Guid.NewGuid(), "Complete day 21"));
+            var assignment = new Assignment(Guid.NewGuid(), "Complete day 21");
+            var comment = new Comment(Guid.NewGuid(), "Completed yesterday as per requirements.");
+
+            assignment.AddComment(comment);
+            project.AddAssignment(assignment);
             space.AddProject(project);
             await dbContext.Spaces.AddAsync(space, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);
