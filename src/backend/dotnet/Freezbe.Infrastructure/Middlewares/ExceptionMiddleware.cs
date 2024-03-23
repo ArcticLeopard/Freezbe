@@ -3,15 +3,18 @@ using Freezbe.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Freezbe.Infrastructure.Middlewares;
 
 public class ExceptionMiddleware : IMiddleware
 {
+    private readonly ILogger<ExceptionMiddleware> _logger;
     private readonly Func<Exception, Error> _getError;
 
-    public ExceptionMiddleware(IWebHostEnvironment webHostEnvironment)
+    public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger, IWebHostEnvironment webHostEnvironment)
     {
+        _logger = logger;
         if(webHostEnvironment.IsDevelopment())
         {
             _getError = GetErrorWithDetails;
@@ -30,6 +33,7 @@ public class ExceptionMiddleware : IMiddleware
         }
         catch(Exception exception)
         {
+            _logger.LogError(exception, exception.Message);
             await HandleExceptionAsync(exception, context);
         }
     }

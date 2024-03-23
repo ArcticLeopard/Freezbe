@@ -11,6 +11,7 @@ internal static class ConfigurationExtensions
     {
         services.Configure<ApplicationConfiguration>(configuration.GetRequiredSection(nameof(ApplicationConfiguration)));
         services.Configure<DatabaseConfiguration>(configuration.GetRequiredSection(nameof(DatabaseConfiguration)));
+        services.Configure<DependencyConfiguration>(configuration.GetRequiredSection(nameof(DependencyConfiguration)));
         services.AddSingleton<IConfigProvider, ConfigProvider>();
         return services;
     }
