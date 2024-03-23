@@ -9,6 +9,8 @@ builder.Services
        .AddApplication()
        .AddInfrastructure(builder.Configuration);
 
+builder.UseSerilog();
+
 var app = builder.Build();
 app.UseInfrastructure();
 

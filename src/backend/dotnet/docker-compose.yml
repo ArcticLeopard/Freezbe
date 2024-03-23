@@ -13,6 +13,15 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
 
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:80
+
 volumes:
   postgres:
     driver: local

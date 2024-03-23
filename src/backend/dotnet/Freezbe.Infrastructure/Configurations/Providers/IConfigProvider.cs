@@ -4,4 +4,5 @@ public interface IConfigProvider
 {
     ApplicationConfiguration Application { get; }
     DatabaseConfiguration Database { get; }
+    DependencyConfiguration Dependency { get; }
 }
