@@ -23,14 +23,22 @@ public class ConfigProviderTests
             ConnectionString = "Connection"
         };
 
+        var dependencyConfigurationExpectedConfig = new DependencyConfiguration()
+        {
+            SeqServerAddress = "localhost"
+        };
+
         var applicationConfigurationOptionsMock = new Mock<IOptions<ApplicationConfiguration>>();
         applicationConfigurationOptionsMock.Setup(m => m.Value).Returns(applicationConfigurationExpectedConfig);
 
         var databaseConfigurationOptionsMock = new Mock<IOptions<DatabaseConfiguration>>();
         databaseConfigurationOptionsMock.Setup(m => m.Value).Returns(databaseConfigurationExpectedConfig);
 
+        var dependencyConfigurationOptionsMock = new Mock<IOptions<DependencyConfiguration>>();
+        dependencyConfigurationOptionsMock.Setup(m => m.Value).Returns(dependencyConfigurationExpectedConfig);
+
         // ACT
-        var configProvider = new ConfigProvider(applicationConfigurationOptionsMock.Object, databaseConfigurationOptionsMock.Object);
+        var configProvider = new ConfigProvider(applicationConfigurationOptionsMock.Object, databaseConfigurationOptionsMock.Object, dependencyConfigurationOptionsMock.Object);
 
         // ASSERT
         Assert.Equal(applicationConfigurationExpectedConfig, configProvider.Application);
