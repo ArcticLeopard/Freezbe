@@ -2,6 +2,7 @@
 using Freezbe.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -15,7 +16,7 @@ public class ExceptionMiddlewareTests
     public async Task InvokeAsyncNoExceptionReturnsNextDelegate(string environmentName)
     {
         // ARRANGE
-        var middleware = new ExceptionMiddleware(CreateWebHostEnvironmentMock(environmentName));
+        var middleware = new ExceptionMiddleware(CreateLoggerMock(), CreateWebHostEnvironmentMock(environmentName));
         var context = new DefaultHttpContext();
         var nextDelegateCalled = false;
 
@@ -39,7 +40,7 @@ public class ExceptionMiddlewareTests
     public async Task InvokeAsyncHandlesGeneralExceptionReturnsInternalServerError(string environmentName)
     {
         // ARRANGE
-        var middleware = new ExceptionMiddleware(CreateWebHostEnvironmentMock(environmentName));
+        var middleware = new ExceptionMiddleware(CreateLoggerMock(), CreateWebHostEnvironmentMock(environmentName));
         var context = new DefaultHttpContext();
         var exception = new Exception();
         Task NextDelegate(HttpContext _) => throw exception;
@@ -56,7 +57,7 @@ public class ExceptionMiddlewareTests
     public async Task InvokeAsyncHandlesCustomExceptionReturnsBadRequest(CustomException exception, string environmentName)
     {
         // ARRANGE
-        var middleware = new ExceptionMiddleware(CreateWebHostEnvironmentMock(environmentName));
+        var middleware = new ExceptionMiddleware(CreateLoggerMock(), CreateWebHostEnvironmentMock(environmentName));
         var context = new DefaultHttpContext();
         Task NextDelegate(HttpContext _) => throw exception;
 
@@ -76,6 +77,12 @@ public class ExceptionMiddlewareTests
             new object[] { new InvalidDescriptionException("Example"), "Production" },
             new object[] { new InvalidEntityIdException("Example"), "Production" }
         };
+    }
+
+    private static ILogger<ExceptionMiddleware> CreateLoggerMock()
+    {
+        var mockEnvironment = new Mock<ILogger<ExceptionMiddleware>>();
+        return mockEnvironment.Object;
     }
 
     private static IWebHostEnvironment CreateWebHostEnvironmentMock(string environmentName)
