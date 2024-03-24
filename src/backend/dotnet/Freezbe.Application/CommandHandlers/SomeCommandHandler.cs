@@ -1,6 +1,7 @@
 ﻿using Freezbe.Application.Abstractions;
+using Freezbe.Application.Commands;
 
-namespace Freezbe.Application.Commands.Handlers;
+namespace Freezbe.Application.CommandHandlers;
 
 public class SomeCommandHandler : ICommandHandler<SomeCommand>
 {
