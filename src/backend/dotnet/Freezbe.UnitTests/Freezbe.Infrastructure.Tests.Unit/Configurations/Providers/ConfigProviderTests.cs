@@ -9,7 +9,7 @@ namespace Freezbe.Infrastructure.Tests.Unit.Configurations.Providers;
 public class ConfigProviderTests
 {
     [Fact]
-    public void ConfigProviderSetsTheValuesCorrectly()
+    public void ConfigProvider_SetsTheValuesCorrectly()
     {
         // ARRANGE
         var applicationConfigurationExpectedConfig = new ApplicationConfiguration()
@@ -46,5 +46,7 @@ public class ConfigProviderTests
         Assert.Equal(applicationConfigurationExpectedConfig.Version, configProvider.Application.Version);
 
         Assert.Equal(databaseConfigurationExpectedConfig.ConnectionString, configProvider.Database.ConnectionString);
+
+        Assert.Equal(dependencyConfigurationExpectedConfig.SeqServerAddress, configProvider.Dependency.SeqServerAddress);
     }
 }

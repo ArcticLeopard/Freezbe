@@ -9,7 +9,7 @@ namespace Freezbe.Core.Tests.Unit.ValueObjects;
 public class AssignmentIdTests
 {
     [Fact]
-    public void WhenAssignmentIdReceivesAnEmptyGuidItShouldThrowAnInvalidEntityIdException()
+    public void Constructor_WhenAssignmentIdReceivesAnEmptyGuid_ShouldThrowAnInvalidEntityIdException()
     {
         //ARRANGE
         var emptyGuid = Guid.Empty;
@@ -23,7 +23,7 @@ public class AssignmentIdTests
     }
 
     [Fact]
-    public void WhenAssignmentIdReceivesAnCorrectGuidItShouldAssignValue()
+    public void Constructor_WhenAssignmentIdReceivesACorrectGuid_ShouldAssignValue()
     {
         //ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();
@@ -36,9 +36,9 @@ public class AssignmentIdTests
         assignmentId.Value.ShouldNotBe(Guid.Empty);
         assignmentId.Value.ShouldBe(correctGuid);
     }
-    
+
     [Fact]
-    public void ImplicitConversionFromAssignmentIdToGuidShouldReturnCorrectValue()
+    public void ImplicitConversionFromAssignmentIdToGuid_ShouldReturnCorrectValue()
     {
         // ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();
@@ -50,9 +50,9 @@ public class AssignmentIdTests
         // ASSERT
         result.ShouldBe(correctGuid);
     }
-    
+
     [Fact]
-    public void ImplicitConversionFromGuidToAssignmentIdShouldReturnCorrectValue()
+    public void ImplicitConversionFromGuidToAssignmentId_ShouldReturnCorrectValue()
     {
         // ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();

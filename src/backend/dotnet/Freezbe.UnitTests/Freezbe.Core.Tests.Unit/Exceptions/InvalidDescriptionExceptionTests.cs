@@ -7,7 +7,7 @@ namespace Freezbe.Core.Tests.Unit.Exceptions;
 public class InvalidDescriptionExceptionTests
 {
     [Fact]
-    public void InvalidDescriptionExceptionShouldContainCorrectDescription()
+    public void InvalidDescriptionException_ShouldContainCorrectDescription()
     {
         // ARRANGE
         string description = "Invalid description";
