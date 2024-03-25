@@ -9,7 +9,7 @@ namespace Freezbe.Core.Tests.Unit.Entities;
 public class ProjectTests
 {
     [Fact]
-    public void ConstructorValidProjectIdAndDescriptionPropertiesInitializedCorrectly()
+    public void Constructor_ValidProjectIdAndDescription_PropertiesInitializedCorrectly()
     {
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();
@@ -23,9 +23,9 @@ public class ProjectTests
         project.Description.ShouldBe(description);
         project.Assignments.ShouldBeEmpty();
     }
-    
+
     [Fact]
-    public void WhenChangeDescriptionIsCalledWithNewDescriptionDescriptionPropertyShouldBeUpdated()
+    public void ChangeDescription_WhenCalledWithNewDescription_DescriptionPropertyShouldBeUpdated()
     {
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();

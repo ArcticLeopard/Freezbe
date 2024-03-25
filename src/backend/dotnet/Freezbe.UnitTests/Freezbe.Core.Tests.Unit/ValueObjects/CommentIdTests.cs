@@ -8,7 +8,7 @@ namespace Freezbe.Core.Tests.Unit.ValueObjects;
 public class CommentIdTests
 {
     [Fact]
-    public void WhenCommentIdReceivesAnEmptyGuidItShouldThrowAnInvalidEntityIdException()
+    public void Constructor_WhenCommentIdReceivesAnEmptyGuid_ShouldThrowAnInvalidEntityIdException()
     {
         //ARRANGE
         var emptyGuid = Guid.Empty;
@@ -22,7 +22,7 @@ public class CommentIdTests
     }
 
     [Fact]
-    public void WhenCommentIdReceivesAnCorrectGuidItShouldAssignValue()
+    public void Constructor_WhenCommentIdReceivesACorrectGuid_ShouldAssignValue()
     {
         //ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();
@@ -37,7 +37,7 @@ public class CommentIdTests
     }
 
     [Fact]
-    public void ImplicitConversionFromCommentIdToGuidShouldReturnCorrectValue()
+    public void ImplicitConversionFromCommentIdToGuid_ShouldReturnCorrectValue()
     {
         // ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();
@@ -51,7 +51,7 @@ public class CommentIdTests
     }
 
     [Fact]
-    public void ImplicitConversionFromGuidToCommentIdShouldReturnCorrectValue()
+    public void ImplicitConversionFromGuidToCommentId_ShouldReturnCorrectValue()
     {
         // ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();

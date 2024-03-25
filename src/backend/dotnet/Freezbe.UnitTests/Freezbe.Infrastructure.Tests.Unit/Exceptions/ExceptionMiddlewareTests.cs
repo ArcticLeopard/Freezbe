@@ -13,7 +13,7 @@ public class ExceptionMiddlewareTests
     [Theory]
     [InlineData("Development")]
     [InlineData("Production")]
-    public async Task InvokeAsyncNoExceptionReturnsNextDelegate(string environmentName)
+    public async Task InvokeAsync_NoException_ReturnsNextDelegate(string environmentName)
     {
         // ARRANGE
         var middleware = new ExceptionMiddleware(CreateLoggerMock(), CreateWebHostEnvironmentMock(environmentName));
@@ -37,7 +37,7 @@ public class ExceptionMiddlewareTests
     [Theory]
     [InlineData("Development")]
     [InlineData("Production")]
-    public async Task InvokeAsyncHandlesGeneralExceptionReturnsInternalServerError(string environmentName)
+    public async Task InvokeAsync_HandlesGeneralException_ReturnsInternalServerError(string environmentName)
     {
         // ARRANGE
         var middleware = new ExceptionMiddleware(CreateLoggerMock(), CreateWebHostEnvironmentMock(environmentName));
@@ -54,7 +54,7 @@ public class ExceptionMiddlewareTests
 
     [Theory]
     [MemberData(nameof(GetCustomExceptions))]
-    public async Task InvokeAsyncHandlesCustomExceptionReturnsBadRequest(CustomException exception, string environmentName)
+    public async Task InvokeAsync_HandlesCustomException_ReturnsBadRequest(CustomException exception, string environmentName)
     {
         // ARRANGE
         var middleware = new ExceptionMiddleware(CreateLoggerMock(), CreateWebHostEnvironmentMock(environmentName));
