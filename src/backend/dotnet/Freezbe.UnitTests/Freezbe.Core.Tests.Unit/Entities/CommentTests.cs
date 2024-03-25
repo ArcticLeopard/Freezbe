@@ -9,7 +9,7 @@ namespace Freezbe.Core.Tests.Unit.Entities;
 public class CommentTests
 {
     [Fact]
-    public void ConstructorValidCommentIdAndDescriptionPropertiesInitializedCorrectly()
+    public void Constructor_ValidCommentIdAndDescription_PropertiesInitializedCorrectly()
     {
         // ARRANGE
         var commentId = TestUtils.CreateCorrectCommentId();
@@ -24,7 +24,7 @@ public class CommentTests
     }
 
     [Fact]
-    public void WhenChangeDescriptionIsCalledWithNewDescriptionDescriptionPropertyShouldBeUpdated()
+    public void ChangeDescription_WhenCalledWithNewDescription_DescriptionPropertyShouldBeUpdated()
     {
         // ARRANGE
         var commentId = TestUtils.CreateCorrectCommentId();

@@ -2,4 +2,4 @@
 
 namespace Freezbe.Application.Commands;
 
-public record CreateSpaceCommand(Guid Id, string Description) : ICommand;
+public sealed record SpaceCreateCommand(Guid Id, string Description) : ICommand;

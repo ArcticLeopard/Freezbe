@@ -8,7 +8,7 @@ namespace Freezbe.Core.Tests.Unit.ValueObjects;
 public class ProjectIdTests
 {
     [Fact]
-    public void WhenProjectIdReceivesAnEmptyGuidItShouldThrowAnInvalidEntityIdException()
+    public void Constructor_WhenProjectIdReceivesAnEmptyGuid_ShouldThrowAnInvalidEntityIdException()
     {
         //ARRANGE
         var emptyGuid = Guid.Empty;
@@ -22,7 +22,7 @@ public class ProjectIdTests
     }
 
     [Fact]
-    public void WhenProjectIdReceivesAnCorrectGuidItShouldAssignValue()
+    public void Constructor_WhenProjectIdReceivesACorrectGuid_ShouldAssignValue()
     {
         //ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();
@@ -35,9 +35,9 @@ public class ProjectIdTests
         projectId.Value.ShouldNotBe(Guid.Empty);
         projectId.Value.ShouldBe(correctGuid);
     }
-    
+
     [Fact]
-    public void ImplicitConversionFromProjectIdToGuidShouldReturnCorrectValue()
+    public void ImplicitConversionFromProjectIdToGuid_ShouldReturnCorrectValue()
     {
         // ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();
@@ -49,9 +49,9 @@ public class ProjectIdTests
         // ASSERT
         result.ShouldBe(correctGuid);
     }
-    
+
     [Fact]
-    public void ImplicitConversionFromGuidToProjectIdShouldReturnCorrectValue()
+    public void ImplicitConversionFromGuidToProjectId_ShouldReturnCorrectValue()
     {
         // ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();

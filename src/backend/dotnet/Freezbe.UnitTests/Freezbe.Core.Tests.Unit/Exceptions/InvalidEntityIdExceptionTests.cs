@@ -7,7 +7,7 @@ namespace Freezbe.Core.Tests.Unit.Exceptions;
 public class InvalidEntityIdExceptionTests
 {
     [Fact]
-    public void InvalidEntityIdExceptionShouldContainCorrectId()
+    public void InvalidEntityIdException_ShouldContainCorrectId()
     {
         // ARRANGE
         object entityId = 123;

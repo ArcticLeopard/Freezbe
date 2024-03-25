@@ -5,16 +5,16 @@ using Freezbe.Core.Repositories;
 
 namespace Freezbe.Application.CommandHandlers;
 
-public class CreateSpaceCommandHandler : ICommandHandler<CreateSpaceCommand>
+public class SpaceCreateCommandHandler : ICommandHandler<SpaceCreateCommand>
 {
     private readonly ISpaceRepository _spaceRepository;
 
-    public CreateSpaceCommandHandler(ISpaceRepository spaceRepository)
+    public SpaceCreateCommandHandler(ISpaceRepository spaceRepository)
     {
         _spaceRepository = spaceRepository;
     }
 
-    public async Task HandleAsync(CreateSpaceCommand command)
+    public async Task HandleAsync(SpaceCreateCommand command)
     {
         var space = new Space(command.Id, command.Description);
         await _spaceRepository.AddAsync(space);

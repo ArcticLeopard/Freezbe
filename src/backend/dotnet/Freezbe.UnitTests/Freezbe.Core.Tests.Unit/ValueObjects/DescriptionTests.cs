@@ -13,7 +13,7 @@ public class DescriptionTests
     [InlineData(" ")]
     [InlineData("   ")]
     [InlineData("         ")]
-    public void WhenDescriptionReceivesAnIsNullOrWhiteSpaceItShouldThrowAnInvalidDescriptionException(string input)
+    public void Constructor_WhenDescriptionReceivesAnIsNullOrWhiteSpace_ShouldThrowAnInvalidDescriptionException(string input)
     {
         //ACT
         var exception = Record.Exception(() => new Description(input));
@@ -26,7 +26,7 @@ public class DescriptionTests
     [Theory]
     [InlineData("Lorem ipsum")]
     [InlineData("Example")]
-    public void ShouldAssignCorrectValueWhenDescriptionReceivesValidInput(string input)
+    public void ShouldAssignCorrectValue_WhenDescriptionReceivesValidInput(string input)
     {
         //ACT
         var description = new Description(input);
@@ -37,11 +37,11 @@ public class DescriptionTests
         description.Value.ShouldNotBeEmpty();
         description.Value.ShouldBe(input);
     }
-    
+
     [Theory]
     [InlineData("Lorem ipsum")]
     [InlineData("Example")]
-    public void ImplicitConversionFromDescriptionToStringShouldReturnCorrectValue(string input)
+    public void ImplicitConversionFromDescriptionToString_ShouldReturnCorrectValue(string input)
     {
         // ARRANGE
         var description = new Description(input);
@@ -52,11 +52,11 @@ public class DescriptionTests
         // ASSERT
         result.ShouldBe(description);
     }
-    
+
     [Theory]
     [InlineData("Lorem ipsum")]
     [InlineData("Example")]
-    public void ImplicitConversionFromStringToDescriptionShouldReturnCorrectValue(string input)
+    public void ImplicitConversionFromStringToDescription_ShouldReturnCorrectValue(string input)
     {
         // ACT
         Description result = input;

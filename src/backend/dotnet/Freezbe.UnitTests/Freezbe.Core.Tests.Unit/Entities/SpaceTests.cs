@@ -9,7 +9,7 @@ namespace Freezbe.Core.Tests.Unit.Entities;
 public class SpaceTests
 {
     [Fact]
-    public void ConstructorValidSpaceIdAndDescriptionPropertiesInitializedCorrectly()
+    public void Constructor_ValidSpaceIdAndDescription_PropertiesInitializedCorrectly()
     {
         // ARRANGE
         var spaceId = TestUtils.CreateCorrectSpaceId();
@@ -24,7 +24,7 @@ public class SpaceTests
     }
 
     [Fact]
-    public void WhenChangeDescriptionIsCalledWithNewDescriptionDescriptionPropertyShouldBeUpdated()
+    public void ChangeDescription_WhenCalledWithNewDescription_DescriptionPropertyShouldBeUpdated()
     {
         // ARRANGE
         var spaceId = TestUtils.CreateCorrectSpaceId();

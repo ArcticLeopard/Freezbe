@@ -8,7 +8,7 @@ namespace Freezbe.Core.Tests.Unit.ValueObjects;
 public class SpaceIdTests
 {
     [Fact]
-    public void WhenSpaceIdReceivesAnEmptyGuidItShouldThrowAnInvalidEntityIdException()
+    public void Constructor_WhenSpaceIdReceivesAnEmptyGuid_ShouldThrowAnInvalidEntityIdException()
     {
         //ARRANGE
         var emptyGuid = Guid.Empty;
@@ -22,7 +22,7 @@ public class SpaceIdTests
     }
 
     [Fact]
-    public void WhenSpaceIdReceivesAnCorrectGuidItShouldAssignValue()
+    public void Constructor_WhenSpaceIdReceivesACorrectGuid_ShouldAssignValue()
     {
         //ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();
@@ -35,9 +35,9 @@ public class SpaceIdTests
         spaceId.Value.ShouldNotBe(Guid.Empty);
         spaceId.Value.ShouldBe(correctGuid);
     }
-    
+
     [Fact]
-    public void ImplicitConversionFromSpaceIdToGuidShouldReturnCorrectValue()
+    public void ImplicitConversionFromSpaceIdToGuid_ShouldReturnCorrectValue()
     {
         // ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();
@@ -49,9 +49,9 @@ public class SpaceIdTests
         // ASSERT
         result.ShouldBe(correctGuid);
     }
-    
+
     [Fact]
-    public void ImplicitConversionFromGuidToSpaceIdShouldReturnCorrectValue()
+    public void ImplicitConversionFromGuidToSpaceId_ShouldReturnCorrectValue()
     {
         // ARRANGE
         var correctGuid = TestUtils.CreateCorrectGuid();

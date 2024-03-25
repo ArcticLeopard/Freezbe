@@ -9,7 +9,7 @@ namespace Freezbe.Core.Tests.Unit.Entities;
 public class AssignmentTests
 {
     [Fact]
-    public void ConstructorValidAssignmentIdAndDescriptionPropertiesInitializedCorrectly()
+    public void Constructor_ValidAssignmentIdAndDescription_PropertiesInitializedCorrectly()
     {
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
@@ -22,9 +22,9 @@ public class AssignmentTests
         assignment.Id.ShouldBe(assignmentId);
         assignment.Description.ShouldBe(description);
     }
-    
+
     [Fact]
-    public void WhenChangeDescriptionIsCalledWithNewDescriptionDescriptionPropertyShouldBeUpdated()
+    public void ChangeDescription_WhenCalledWithNewDescription_DescriptionPropertyShouldBeUpdated()
     {
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
