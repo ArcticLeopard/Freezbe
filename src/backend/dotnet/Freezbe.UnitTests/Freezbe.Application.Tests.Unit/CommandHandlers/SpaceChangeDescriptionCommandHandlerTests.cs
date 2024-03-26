@@ -24,7 +24,7 @@ public class SpaceChangeDescriptionCommandHandlerTests
         var command = new SpaceChangeDescriptionCommand(spaceId, newDescription);
 
         // ACT
-        await handler.HandleAsync(command);
+        await handler.Handle(command, CancellationToken.None);
 
         // ASSERT
         Assert.Equal(newDescription, space.Description);
