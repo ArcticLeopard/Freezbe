@@ -1,4 +1,5 @@
-﻿using Freezbe.Infrastructure.Middlewares;
+﻿using System.Reflection;
+using Freezbe.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,10 @@ public static class SharedExtensions
         services.AddMiddlewares();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
+        services.AddMediatR(serviceConfiguration =>
+        {
+            serviceConfiguration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        });
         //services.AddSingleton<Interface, Implementation>();
         //services.AddScoped<Interface, Implementation>();
         //services.AddTransient<Interface, Implementation>();

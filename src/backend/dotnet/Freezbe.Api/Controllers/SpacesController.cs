@@ -1,6 +1,8 @@
 ﻿using Freezbe.Api.Requests;
-using Freezbe.Application.Abstractions;
 using Freezbe.Application.Commands;
+using Freezbe.Application.DataTransferObject;
+using Freezbe.Application.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Freezbe.Api.Controllers;
@@ -9,18 +11,26 @@ namespace Freezbe.Api.Controllers;
 [Route("[controller]")]
 public class SpacesController : ControllerBase
 {
-    private readonly ICommandHandler<SpaceCreateCommand> _commandHandler;
+    private readonly IMediator _mediator;
 
-    public SpacesController(ICommandHandler<SpaceCreateCommand> commandHandler)
+    public SpacesController(IMediator mediator)
     {
-        _commandHandler = commandHandler;
+        _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<SpaceDto>>> Get()
+    {
+        var command = new GetSpacesQuery();
+        var result = await _mediator.Send(command);
+        return Ok(result);
     }
 
     [HttpPost]
     public async Task<IActionResult> Post(SpaceCreateRequest request)
     {
         var command = new SpaceCreateCommand(Guid.NewGuid(), request.Description);
-        await _commandHandler.HandleAsync(command);
+        await _mediator.Send(command);
         return NoContent();
     }
 }

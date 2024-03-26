@@ -1,4 +1,4 @@
-﻿using Freezbe.Application.Abstractions;
+﻿using System.Reflection;
 using Freezbe.Core.Repositories;
 using Freezbe.Infrastructure.Configurations;
 using Freezbe.Infrastructure.DataAccessLayer;
@@ -34,10 +34,9 @@ internal static class DataAccessLayerExtensions
 
     private static IServiceCollection AddQueryHandlers(this IServiceCollection services)
     {
-        var currentAssembly = typeof(ApplicationConfiguration).Assembly;
-
-        services.Scan(s => s.FromAssemblies(currentAssembly).AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>))).AsImplementedInterfaces().WithScopedLifetime());
-
-        return services;
+        return services.AddMediatR(serviceConfiguration =>
+        {
+            serviceConfiguration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        });
     }
 }

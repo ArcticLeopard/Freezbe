@@ -1,4 +1,4 @@
-﻿using Freezbe.Application.Abstractions;
+﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Freezbe.Application.Extensions;
@@ -12,12 +12,7 @@ public static class SharedExtensions
 
     private static IServiceCollection AddCommandHandlers(this IServiceCollection services)
     {
-        var currentAssembly = typeof(ICommandHandler<>).Assembly;
-
-        services.Scan(s => s.FromAssemblies(currentAssembly)
-        .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>)))
-        .AsImplementedInterfaces()
-        .WithScopedLifetime());
+        services.AddMediatR(serviceConfiguration => { serviceConfiguration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()); });
 
         return services;
     }
