@@ -21,7 +21,7 @@ public class SpaceCreateCommandHandlerTests
         var command = new SpaceCreateCommand(spaceId, description);
 
         // ACT
-        await handler.HandleAsync(command);
+        await handler.Handle(command, CancellationToken.None);
 
         // ASSERT
         spaceRepositoryMock.Verify(repo => repo.AddAsync(It.IsAny<Space>()), Times.Once);
