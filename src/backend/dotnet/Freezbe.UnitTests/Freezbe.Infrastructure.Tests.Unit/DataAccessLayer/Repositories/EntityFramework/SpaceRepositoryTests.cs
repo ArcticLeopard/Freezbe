@@ -14,9 +14,7 @@ public class SpaceRepositoryTests
     public async Task GetAsync_ShouldReturnSpace_WhenSpaceExists()
     {
         // ARRANGE
-        var options = GetDbContextOptionsBuilder();
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var spaceId = new SpaceId(Guid.NewGuid());
         var expectedSpace = new Space(spaceId, "Test Space");
         dbContext.Spaces.Add(expectedSpace);
@@ -37,9 +35,7 @@ public class SpaceRepositoryTests
     public async Task GetAllAsync_ShouldReturnAllSpaces()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var expectedSpaces = new List<Space>
         {
             new(new SpaceId(Guid.NewGuid()), "Test Space 1"),
@@ -64,9 +60,7 @@ public class SpaceRepositoryTests
     public async Task AddAsync_ShouldAddSpace()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var repository = new SpaceRepository(dbContext);
         var spaceId = new SpaceId(Guid.NewGuid());
         var spaceToAdd = new Space(spaceId, new Description("Test Description 1"));
@@ -84,9 +78,7 @@ public class SpaceRepositoryTests
     public async Task UpdateAsync_ShouldUpdateSpace()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var spaceId = new SpaceId(Guid.NewGuid());
         var initialDescription = new Description("Initial Description");
         var updatedDescription = new Description("Updated Description");
@@ -110,9 +102,7 @@ public class SpaceRepositoryTests
     public async Task DeleteAsync_ShouldDeleteSpace()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var spaceId = new SpaceId(Guid.NewGuid());
         var space = new Space(spaceId, new Description("Test Description"));
         dbContext.Spaces.Add(space);
@@ -126,10 +116,5 @@ public class SpaceRepositoryTests
         // ASSERT
         var result = await dbContext.Spaces.FindAsync(spaceId);
         result.ShouldBeNull();
-    }
-
-    private static DbContextOptions<FreezbeDbContext> GetDbContextOptionsBuilder()
-    {
-        return new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
     }
 }

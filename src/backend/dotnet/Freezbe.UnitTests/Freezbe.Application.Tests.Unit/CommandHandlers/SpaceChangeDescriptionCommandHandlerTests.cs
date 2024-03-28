@@ -18,7 +18,7 @@ public class SpaceChangeDescriptionCommandHandlerTests
         var space = new Space(spaceId, "Old description");
 
         var spaceRepositoryMock = new Mock<ISpaceRepository>();
-        spaceRepositoryMock.Setup(repo => repo.GetAsync(spaceId)).ReturnsAsync(space);
+        spaceRepositoryMock.Setup(p => p.GetAsync(spaceId)).ReturnsAsync(space);
 
         var handler = new SpaceChangeDescriptionCommandHandler(spaceRepositoryMock.Object);
         var command = new SpaceChangeDescriptionCommand(spaceId, newDescription);
@@ -28,6 +28,6 @@ public class SpaceChangeDescriptionCommandHandlerTests
 
         // ASSERT
         Assert.Equal(newDescription, space.Description);
-        spaceRepositoryMock.Verify(repo => repo.UpdateAsync(space), Times.Once);
+        spaceRepositoryMock.Verify(p => p.UpdateAsync(space), Times.Once);
     }
 }

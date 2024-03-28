@@ -20,7 +20,7 @@ public class GetSpacesQueryHandlerTests
             new Space(Guid.NewGuid(), "Space 2"),
             new Space(Guid.NewGuid(), "Space 3")
         };
-        mockRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(spaces);
+        mockRepository.Setup(p => p.GetAllAsync()).ReturnsAsync(spaces);
 
         var handler = new GetSpacesQueryHandler(mockRepository.Object);
         var query = new GetSpacesQuery();

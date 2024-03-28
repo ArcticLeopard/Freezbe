@@ -14,9 +14,7 @@ public class AssignmentRepositoryTests
     public async Task GetAsync_ShouldReturnAssignment_WhenAssignmentExists()
     {
         // ARRANGE
-        var options = GetDbContextOptionsBuilder();
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var expectedAssignment = new Assignment(assignmentId, "Test Assignment");
         dbContext.Assignments.Add(expectedAssignment);
@@ -37,9 +35,7 @@ public class AssignmentRepositoryTests
     public async Task GetAllAsync_ShouldReturnAllAssignments()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var expectedAssignments = new List<Assignment>
         {
             new(new AssignmentId(Guid.NewGuid()), "Test Assignment 1"),
@@ -64,9 +60,7 @@ public class AssignmentRepositoryTests
     public async Task AddAsync_ShouldAddAssignment()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var repository = new AssignmentRepository(dbContext);
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var assignmentToAdd = new Assignment(assignmentId, new Description("Test Description 1"));
@@ -84,9 +78,7 @@ public class AssignmentRepositoryTests
     public async Task UpdateAsync_ShouldUpdateAssignment()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var initialDescription = new Description("Initial Description");
         var updatedDescription = new Description("Updated Description");
@@ -110,9 +102,7 @@ public class AssignmentRepositoryTests
     public async Task DeleteAsync_ShouldDeleteAssignment()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var assignment = new Assignment(assignmentId, new Description("Test Description"));
         dbContext.Assignments.Add(assignment);
@@ -126,10 +116,5 @@ public class AssignmentRepositoryTests
         // ASSERT
         var result = await dbContext.Assignments.FindAsync(assignmentId);
         result.ShouldBeNull();
-    }
-
-    private static DbContextOptions<FreezbeDbContext> GetDbContextOptionsBuilder()
-    {
-        return new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
     }
 }
