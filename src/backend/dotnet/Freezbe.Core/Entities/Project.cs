@@ -7,6 +7,10 @@ public class Project
 {
     public ProjectId Id { get; }
     public Description Description { get; private set; }
+
+    public SpaceId SpaceId { get; set; }
+    public Space Space { get; set; }
+
     public IEnumerable<Assignment> Assignments => _assignments;
     private readonly HashSet<Assignment> _assignments = new();
 

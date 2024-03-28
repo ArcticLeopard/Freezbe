@@ -24,6 +24,11 @@ internal class ProjectRepository : IProjectRepository
         return await _dbContext.Projects.Include(p=>p.Assignments).ToListAsync();
     }
 
+    public async Task<IEnumerable<Project>> GetAllBySpaceIdAsync(SpaceId spaceId)
+    {
+        return await _dbContext.Projects.Where(p=>p.SpaceId == spaceId).Include(p=>p.Assignments).ToListAsync();
+    }
+
     public async Task AddAsync(Project project)
     {
         await _dbContext.Projects.AddAsync(project);
