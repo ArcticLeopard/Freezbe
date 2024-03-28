@@ -14,9 +14,7 @@ public class ProjectRepositoryTests
     public async Task GetAsync_ShouldReturnProject_WhenProjectExists()
     {
         // ARRANGE
-        var options = GetDbContextOptionsBuilder();
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var projectId = new ProjectId(Guid.NewGuid());
         var expectedProject = new Project(projectId, "Test Project");
         dbContext.Projects.Add(expectedProject);
@@ -33,19 +31,14 @@ public class ProjectRepositoryTests
         result.Description.ShouldBe(expectedProject.Description);
     }
 
-    [Fact]
-    public async Task GetAllAsync_ShouldReturnAllProjects()
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(10, 10)]
+    public async Task GetAllAsync_ShouldReturnAllProjects(int numberOfProjects, int expectedNumberOfProjects)
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
-        var expectedProjects = new List<Project>
-        {
-            new(new ProjectId(Guid.NewGuid()), "Test Project 1"),
-            new(new ProjectId(Guid.NewGuid()), "Test Project 2"),
-            new(new ProjectId(Guid.NewGuid()), "Test Project 3")
-        };
+        await using var dbContext = TestUtils.GetDbContext();
+        var expectedProjects = CreateProjects(numberOfProjects);
         dbContext.Projects.AddRange(expectedProjects);
         await dbContext.SaveChangesAsync();
 
@@ -56,17 +49,42 @@ public class ProjectRepositoryTests
 
         // ASSERT
         result.ShouldNotBeNull();
-        result.Count.ShouldBe(expectedProjects.Count);
-        foreach(var expectedProject in expectedProjects) result.ShouldContain(a => a.Id == expectedProject.Id);
+        result.Count.ShouldBe(expectedNumberOfProjects);
+        foreach(var expectedProject in expectedProjects)
+            result.ShouldContain(a => a.Id == expectedProject.Id);
+    }
+
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(10, 10)]
+    public async Task GetAllBySpaceIdAsync_ShouldReturnAllProjectsByySpaceId(int numberOfProjects, int expectedNumberOfProjects)
+    {
+        // ARRANGE
+        var spaceId = Guid.NewGuid();
+        await using var dbContext = TestUtils.GetDbContext();
+        var space = new Space(spaceId, "description");
+        var expectedProjects = CreateProjects(numberOfProjects);
+        expectedProjects.ForEach(p=>space.AddProject(p));
+        dbContext.Spaces.Add(space);
+        await dbContext.SaveChangesAsync();
+
+        var repository = new ProjectRepository(dbContext);
+
+        // ACT
+        var result = (await repository.GetAllBySpaceIdAsync(spaceId)).ToList();
+
+        // ASSERT
+        result.ShouldNotBeNull();
+        result.Count.ShouldBe(expectedNumberOfProjects);
+        foreach(var expectedProject in expectedProjects)
+            result.ShouldContain(a => a.Id == expectedProject.Id);
     }
 
     [Fact]
     public async Task AddAsync_ShouldAddProject()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var repository = new ProjectRepository(dbContext);
         var projectId = new ProjectId(Guid.NewGuid());
         var projectToAdd = new Project(projectId, new Description("Test Description 1"));
@@ -84,9 +102,7 @@ public class ProjectRepositoryTests
     public async Task UpdateAsync_ShouldUpdateProject()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var projectId = new ProjectId(Guid.NewGuid());
         var initialDescription = new Description("Initial Description");
         var updatedDescription = new Description("Updated Description");
@@ -110,9 +126,7 @@ public class ProjectRepositoryTests
     public async Task DeleteAsync_ShouldDeleteProject()
     {
         // ARRANGE
-        var options = new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
-
-        await using var dbContext = new FreezbeDbContext(options);
+        await using var dbContext = TestUtils.GetDbContext();
         var projectId = new ProjectId(Guid.NewGuid());
         var project = new Project(projectId, new Description("Test Description"));
         dbContext.Projects.Add(project);
@@ -128,8 +142,13 @@ public class ProjectRepositoryTests
         result.ShouldBeNull();
     }
 
-    private static DbContextOptions<FreezbeDbContext> GetDbContextOptionsBuilder()
+    private static List<Project> CreateProjects(int numberOfProjects)
     {
-        return new DbContextOptionsBuilder<FreezbeDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+        var result = new List<Project>();
+        for(int i = 0; i < numberOfProjects; i++)
+        {
+            result.Add(new Project(Guid.NewGuid(), $"Test Project {i}"));
+        }
+        return result;
     }
 }
