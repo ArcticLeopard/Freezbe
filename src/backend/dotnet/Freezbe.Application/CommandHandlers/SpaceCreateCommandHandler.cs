@@ -16,7 +16,7 @@ public class SpaceCreateCommandHandler : IRequestHandler<SpaceCreateCommand>
 
     public async Task Handle(SpaceCreateCommand command, CancellationToken cancellationToken)
     {
-        var space = new Space(command.Id, command.Description);
+        var space = new Space(command.SpaceId, command.Description);
         await _spaceRepository.AddAsync(space);
     }
 }

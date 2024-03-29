@@ -15,7 +15,7 @@ public class ProjectChangeDescriptionCommandHandler : IRequestHandler<ProjectCha
 
     public async Task Handle(ProjectChangeDescriptionCommand command, CancellationToken cancellationToken)
     {
-        var project = await _projectRepository.GetAsync(command.Id);
+        var project = await _projectRepository.GetAsync(command.ProjectId);
         project.ChangeDescription(command.Description);
         await _projectRepository.UpdateAsync(project);
     }

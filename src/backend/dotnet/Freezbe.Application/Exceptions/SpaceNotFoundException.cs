@@ -4,11 +4,11 @@ namespace Freezbe.Application.Exceptions;
 
 public sealed class SpaceNotFoundException : CustomException
 {
-    public Guid Id { get; }
+    public Guid SpaceId { get; }
 
-    public SpaceNotFoundException(Guid id)
-    : base($"Space with ID: {id} was not found.")
+    public SpaceNotFoundException(Guid spaceId)
+    : base($"Space with ID: {spaceId} was not found.")
     {
-        Id = id;
+        SpaceId = spaceId;
     }
 }

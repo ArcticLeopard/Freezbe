@@ -3,12 +3,4 @@ using MediatR;
 
 namespace Freezbe.Application.Queries;
 
-public class GetProjectsForSpaceQuery : IRequest<IEnumerable<ProjectDto>>
-{
-    public GetProjectsForSpaceQuery(Guid spaceId)
-    {
-        SpaceId = spaceId;
-    }
-
-    public Guid SpaceId { get; }
-}
+public sealed record GetProjectsForSpaceQuery(Guid SpaceId) : IRequest<IEnumerable<ProjectDto>>;

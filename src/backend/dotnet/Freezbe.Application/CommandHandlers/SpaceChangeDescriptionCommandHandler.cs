@@ -15,7 +15,7 @@ public class SpaceChangeDescriptionCommandHandler : IRequestHandler<SpaceChangeD
 
     public async Task Handle(SpaceChangeDescriptionCommand command, CancellationToken cancellationToken)
     {
-        var space = await _spaceRepository.GetAsync(command.Id);
+        var space = await _spaceRepository.GetAsync(command.SpaceId);
         space.ChangeDescription(command.Description);
         await _spaceRepository.UpdateAsync(space);
     }
