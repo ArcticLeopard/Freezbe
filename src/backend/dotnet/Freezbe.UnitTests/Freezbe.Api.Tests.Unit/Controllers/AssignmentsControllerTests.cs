@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Freezbe.Api.Tests.Unit.Controllers;
 
-public class ProjectsControllerTests
+public class AssignmentsControllerTests
 {
     [Fact]
     public async Task Get_ShouldReturnReponse()
@@ -18,14 +18,14 @@ public class ProjectsControllerTests
         // ASSERT
         var commandHandlerMock = new Mock<IMediator>();
         commandHandlerMock
-        .Setup(m => m.Send(It.IsAny<GetProjectsForSpaceQuery>(), It.IsAny<CancellationToken>()))
-        .ReturnsAsync(new List<ProjectDto>()
+        .Setup(m => m.Send(It.IsAny<GetAssignmentsForProjectQuery>(), It.IsAny<CancellationToken>()))
+        .ReturnsAsync(new List<AssignmentDto>()
         {
             new (Guid.NewGuid(), "Description"),
             new (Guid.NewGuid(), "Description")
         });
 
-        var controller = new ProjectsController(commandHandlerMock.Object);
+        var controller = new AssignmentsController(commandHandlerMock.Object);
 
         // ACT
         var result = TestUtils.GetValueFromController(await controller.Get(Guid.NewGuid()));
@@ -33,7 +33,7 @@ public class ProjectsControllerTests
         // ASSERT
         Assert.Equal(2, result.Count());
 
-        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<GetProjectsForSpaceQuery>(), It.IsAny<CancellationToken>()), Times.Once);
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<GetAssignmentsForProjectQuery>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -42,8 +42,8 @@ public class ProjectsControllerTests
         // ASSERT
         var commandHandlerMock = new Mock<IMediator>();
 
-        var controller = new ProjectsController(commandHandlerMock.Object);
-        var request = new ProjectCreateRequest("Test Description");
+        var controller = new AssignmentsController(commandHandlerMock.Object);
+        var request = new AssignmentCreateRequest("Test Description");
 
         // ACT
         var result = await controller.Post(Guid.NewGuid(), request) as NoContentResult;
@@ -52,6 +52,6 @@ public class ProjectsControllerTests
         Assert.NotNull(result);
         Assert.Equal(204, result.StatusCode);
 
-        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<ProjectCreateCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<AssignmentCreateCommand>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

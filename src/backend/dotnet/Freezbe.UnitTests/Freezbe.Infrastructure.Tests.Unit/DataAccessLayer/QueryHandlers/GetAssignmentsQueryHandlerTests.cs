@@ -8,23 +8,23 @@ using Xunit;
 
 namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.QueryHandlers;
 
-public class GetProjectsQueryHandlerTests
+public class GetAssignmentsQueryHandlerTests
 {
     [Fact]
-    public async Task Handle_ReturnsExpectedProjects()
+    public async Task Handle_ReturnsExpectedAssignments()
     {
         // ARRANGE
-        var mockRepository = new Mock<IProjectRepository>();
-        var projects = new List<Project>
+        var mockRepository = new Mock<IAssignmentRepository>();
+        var projects = new List<Assignment>
         {
-            new (Guid.NewGuid(), "Project 1"),
-            new (Guid.NewGuid(), "Project 2"),
-            new (Guid.NewGuid(), "Project 3")
+            new (Guid.NewGuid(), "Assignment 1"),
+            new (Guid.NewGuid(), "Assignment 2"),
+            new (Guid.NewGuid(), "Assignment 3")
         };
-        mockRepository.Setup(p => p.GetAllBySpaceIdAsync(It.IsAny<SpaceId>())).ReturnsAsync(projects);
+        mockRepository.Setup(p => p.GetAllByProjectIdAsync(It.IsAny<ProjectId>())).ReturnsAsync(projects);
 
-        var handler = new GetProjectsForSpaceQueryHandler(mockRepository.Object);
-        var query = new GetProjectsForSpaceQuery(Guid.NewGuid());
+        var handler = new GetAssignmentsForProjectQueryHandler(mockRepository.Object);
+        var query = new GetAssignmentsForProjectQuery(Guid.NewGuid());
 
         // ACT
         var result = await handler.Handle(query, CancellationToken.None);

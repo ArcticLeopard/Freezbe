@@ -2,4 +2,4 @@
 
 namespace Freezbe.Application.Commands;
 
-public sealed record SpaceChangeDescriptionCommand(Guid Id, string Description) : IRequest;
+public sealed record SpaceChangeDescriptionCommand(Guid SpaceId, string Description) : IRequest;

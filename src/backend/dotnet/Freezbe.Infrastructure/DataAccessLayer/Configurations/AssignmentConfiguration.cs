@@ -10,7 +10,10 @@ internal sealed class AssignmentConfiguration : IEntityTypeConfiguration<Assignm
     public void Configure(EntityTypeBuilder<Assignment> builder)
     {
         builder.HasKey(p => p.Id);
+        builder.HasOne(p=>p.Project)
+               .WithMany(p=>p.Assignments)
+               .HasForeignKey(p=>p.ProjectId);
         builder.Property(p => p.Id).HasConversion(p => p.Value, p => new AssignmentId(p));
-        builder.Property(p => p.Description).IsRequired().HasConversion(p => p.Value, p => new Description(p)); 
+        builder.Property(p => p.Description).IsRequired().HasConversion(p => p.Value, p => new Description(p));
     }
 }

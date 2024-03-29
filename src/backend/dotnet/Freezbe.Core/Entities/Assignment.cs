@@ -9,6 +9,8 @@ public class Assignment
     public Description Description { get; private set; }
     public IEnumerable<Comment> Comments => _comments;
     private readonly HashSet<Comment> _comments = new();
+    public ProjectId ProjectId { get; }
+    public Project Project { get; }
 
     public Assignment(AssignmentId id, Description description)
     {

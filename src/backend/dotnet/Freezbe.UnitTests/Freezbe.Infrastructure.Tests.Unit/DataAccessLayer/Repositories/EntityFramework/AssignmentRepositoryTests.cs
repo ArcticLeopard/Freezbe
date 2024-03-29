@@ -1,8 +1,6 @@
 ﻿using Freezbe.Core.Entities;
 using Freezbe.Core.ValueObjects;
-using Freezbe.Infrastructure.DataAccessLayer;
 using Freezbe.Infrastructure.DataAccessLayer.Repositories.EntityFramework;
-using Microsoft.EntityFrameworkCore;
 using Shouldly;
 using Xunit;
 
@@ -31,17 +29,14 @@ public class AssignmentRepositoryTests
         result.Description.ShouldBe(expectedAssignment.Description);
     }
 
-    [Fact]
-    public async Task GetAllAsync_ShouldReturnAllAssignments()
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(10, 10)]
+    public async Task GetAllAsync_ShouldReturnAllProjects(int numberOfAssignments, int expectedNumberOfAssignments)
     {
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
-        var expectedAssignments = new List<Assignment>
-        {
-            new(new AssignmentId(Guid.NewGuid()), "Test Assignment 1"),
-            new(new AssignmentId(Guid.NewGuid()), "Test Assignment 2"),
-            new(new AssignmentId(Guid.NewGuid()), "Test Assignment 3")
-        };
+        var expectedAssignments = CreateAssignments(numberOfAssignments);
         dbContext.Assignments.AddRange(expectedAssignments);
         await dbContext.SaveChangesAsync();
 
@@ -52,8 +47,35 @@ public class AssignmentRepositoryTests
 
         // ASSERT
         result.ShouldNotBeNull();
-        result.Count.ShouldBe(expectedAssignments.Count);
-        foreach(var expectedAssignment in expectedAssignments) result.ShouldContain(a => a.Id == expectedAssignment.Id);
+        result.Count.ShouldBe(expectedNumberOfAssignments);
+        foreach(var expectedAssignment in expectedAssignments)
+            result.ShouldContain(a => a.Id == expectedAssignment.Id);
+    }
+
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(10, 10)]
+    public async Task GetAllByProjectIdAsync_ShouldReturnAllAssignmentsByyProjectId(int numberOfAssignments, int expectedNumberOfAssignments)
+    {
+        // ARRANGE
+        var spaceId = Guid.NewGuid();
+        await using var dbContext = TestUtils.GetDbContext();
+        var space = new Project(spaceId, "description");
+        var expectedAssignments = CreateAssignments(numberOfAssignments);
+        expectedAssignments.ForEach(p=>space.AddAssignment(p));
+        dbContext.Projects.Add(space);
+        await dbContext.SaveChangesAsync();
+
+        var repository = new AssignmentRepository(dbContext);
+
+        // ACT
+        var result = (await repository.GetAllByProjectIdAsync(spaceId)).ToList();
+
+        // ASSERT
+        result.ShouldNotBeNull();
+        result.Count.ShouldBe(expectedNumberOfAssignments);
+        foreach(var expectedAssignment in expectedAssignments)
+            result.ShouldContain(a => a.Id == expectedAssignment.Id);
     }
 
     [Fact]
@@ -116,5 +138,15 @@ public class AssignmentRepositoryTests
         // ASSERT
         var result = await dbContext.Assignments.FindAsync(assignmentId);
         result.ShouldBeNull();
+    }
+
+    private static List<Assignment> CreateAssignments(int numberOfAssignments)
+    {
+        var result = new List<Assignment>();
+        for(int i = 0; i < numberOfAssignments; i++)
+        {
+            result.Add(new Assignment(Guid.NewGuid(), $"Test Assignment {i}"));
+        }
+        return result;
     }
 }

@@ -1,3 +1,3 @@
 ﻿namespace Freezbe.Api.Requests;
 
-public sealed record ProjectCreateRequest(string Description, Guid SpaceId);
+public sealed record ProjectCreateRequest(string Description);

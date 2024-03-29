@@ -2,4 +2,4 @@
 
 namespace Freezbe.Application.Commands;
 
-public sealed record ProjectChangeDescriptionCommand(Guid Id, string Description) : IRequest;
+public sealed record ProjectChangeDescriptionCommand(Guid ProjectId, string Description) : IRequest;

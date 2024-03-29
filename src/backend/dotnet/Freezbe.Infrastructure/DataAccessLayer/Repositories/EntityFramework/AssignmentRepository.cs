@@ -24,6 +24,11 @@ internal class AssignmentRepository : IAssignmentRepository
         return await _dbContext.Assignments.Include(p => p.Comments).ToListAsync();
     }
 
+    public async Task<IEnumerable<Assignment>> GetAllByProjectIdAsync(ProjectId projectId)
+    {
+        return await _dbContext.Assignments.Where(p=>p.ProjectId == projectId).Include(p => p.Comments).ToListAsync();
+    }
+
     public async Task AddAsync(Assignment assignment)
     {
         await _dbContext.Assignments.AddAsync(assignment);
