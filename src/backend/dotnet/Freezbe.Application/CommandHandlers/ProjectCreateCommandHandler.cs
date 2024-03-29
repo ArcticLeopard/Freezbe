@@ -22,8 +22,8 @@ public class ProjectCreateCommandHandler : IRequestHandler<ProjectCreateCommand>
         {
             throw new SpaceNotFoundException(command.SpaceId);
         }
-        var project = new Project(command.Id, command.Description);
+        var project = new Project(command.ProjectId, command.Description);
         space.AddProject(project);
-        _spaceRepository.UpdateAsync(space);
+        await _spaceRepository.UpdateAsync(space);
     }
 }

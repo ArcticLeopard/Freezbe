@@ -3,7 +3,4 @@ using MediatR;
 
 namespace Freezbe.Application.Queries;
 
-public class GetSpacesQuery : IRequest<IEnumerable<SpaceDto>>
-{
-
-}
+public sealed record GetSpacesQuery : IRequest<IEnumerable<SpaceDto>>;

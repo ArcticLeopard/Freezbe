@@ -16,9 +16,9 @@ public class GetSpacesQueryHandlerTests
         var mockRepository = new Mock<ISpaceRepository>();
         var spaces = new List<Space>
         {
-            new Space(Guid.NewGuid(), "Space 1"),
-            new Space(Guid.NewGuid(), "Space 2"),
-            new Space(Guid.NewGuid(), "Space 3")
+            new (Guid.NewGuid(), "Space 1"),
+            new (Guid.NewGuid(), "Space 2"),
+            new (Guid.NewGuid(), "Space 3")
         };
         mockRepository.Setup(p => p.GetAllAsync()).ReturnsAsync(spaces);
 

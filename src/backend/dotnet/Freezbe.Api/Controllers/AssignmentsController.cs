@@ -9,27 +9,27 @@ namespace Freezbe.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ProjectsController : ControllerBase
+public class AssignmentsController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public ProjectsController(IMediator mediator)
+    public AssignmentsController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProjectDto>>> Get([FromHeader] Guid spaceId)
+    public async Task<ActionResult<IEnumerable<AssignmentDto>>> Get([FromHeader] Guid projectId)
     {
-        var command = new GetProjectsForSpaceQuery(spaceId);
+        var command = new GetAssignmentsForProjectQuery(projectId);
         var result = await _mediator.Send(command);
         return Ok(result);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromHeader] Guid spaceId, ProjectCreateRequest request)
+    public async Task<IActionResult> Post([FromHeader] Guid projectId, AssignmentCreateRequest request)
     {
-        var command = new ProjectCreateCommand(Guid.NewGuid(), request.Description, spaceId);
+        var command = new AssignmentCreateCommand(Guid.NewGuid(), request.Description, projectId);
         await _mediator.Send(command);
         return NoContent();
     }

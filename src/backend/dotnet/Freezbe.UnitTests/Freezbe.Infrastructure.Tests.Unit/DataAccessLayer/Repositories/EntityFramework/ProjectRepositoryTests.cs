@@ -1,8 +1,6 @@
 ﻿using Freezbe.Core.Entities;
 using Freezbe.Core.ValueObjects;
-using Freezbe.Infrastructure.DataAccessLayer;
 using Freezbe.Infrastructure.DataAccessLayer.Repositories.EntityFramework;
-using Microsoft.EntityFrameworkCore;
 using Shouldly;
 using Xunit;
 

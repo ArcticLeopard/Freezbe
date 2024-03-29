@@ -7,6 +7,7 @@ public interface IAssignmentRepository
 {
     Task<Assignment> GetAsync(AssignmentId assignmentId);
     Task<IEnumerable<Assignment>> GetAllAsync();
+    Task<IEnumerable<Assignment>> GetAllByProjectIdAsync(ProjectId projectId);
     Task AddAsync(Assignment assignment);
     Task UpdateAsync(Assignment assignment);
     Task DeleteAsync(Assignment assignment);
