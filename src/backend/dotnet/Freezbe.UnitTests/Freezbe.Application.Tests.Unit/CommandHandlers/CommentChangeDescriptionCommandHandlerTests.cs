@@ -1,0 +1,33 @@
+﻿using Freezbe.Application.CommandHandlers;
+using Freezbe.Application.Commands;
+using Freezbe.Core.Entities;
+using Freezbe.Core.Repositories;
+using Moq;
+using Xunit;
+
+namespace Freezbe.Application.Tests.Unit.CommandHandlers;
+
+public class CommentChangeDescriptionCommandHandlerTests
+{
+    [Fact]
+    public async Task HandleAsync_ValidCommand_SuccessfullyChangesDescription()
+    {
+        // ASSERT
+        var commentId = Guid.NewGuid();
+        var newDescription = "New description";
+        var comment = new Comment(commentId, "Old description");
+
+        var commentRepositoryMock = new Mock<ICommentRepository>();
+        commentRepositoryMock.Setup(p => p.GetAsync(commentId)).ReturnsAsync(comment);
+
+        var handler = new CommentChangeDescriptionCommandHandler(commentRepositoryMock.Object);
+        var command = new CommentChangeDescriptionCommand(commentId, newDescription);
+
+        // ACT
+        await handler.Handle(command, CancellationToken.None);
+
+        // ASSERT
+        Assert.Equal(newDescription, comment.Description);
+        commentRepositoryMock.Verify(p => p.UpdateAsync(comment), Times.Once);
+    }
+}

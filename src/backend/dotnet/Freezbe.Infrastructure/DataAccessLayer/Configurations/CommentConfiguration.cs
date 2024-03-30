@@ -10,6 +10,9 @@ internal sealed class CommentConfiguration : IEntityTypeConfiguration<Comment>
     public void Configure(EntityTypeBuilder<Comment> builder)
     {
         builder.HasKey(p => p.Id);
+        builder.HasOne(p=>p.Assignment)
+               .WithMany(p=>p.Comments)
+               .HasForeignKey(p=>p.AssignmentId);
         builder.Property(p => p.Id).HasConversion(p => p.Value, p => new CommentId(p));
         builder.Property(p => p.Description).IsRequired().HasConversion(p => p.Value, p => new Description(p));
     }
