@@ -13,6 +13,7 @@ internal static class DataAccessLayerExtensions
 {
     public static IServiceCollection AddDataAccessLayer(this IServiceCollection services, IConfiguration configuration)
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         return services.AddPostgres(configuration).AddRepositories().AddQueryHandlers();
     }
 

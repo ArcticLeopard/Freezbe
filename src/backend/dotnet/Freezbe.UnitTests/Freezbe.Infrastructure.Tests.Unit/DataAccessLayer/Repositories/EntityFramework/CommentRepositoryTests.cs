@@ -8,6 +8,13 @@ namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories.EntityF
 
 public class CommentRepositoryTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public CommentRepositoryTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task GetAsync_ShouldReturnComment_WhenCommentExists()
     {
@@ -60,7 +67,7 @@ public class CommentRepositoryTests
         // ARRANGE
         var assignmentId = Guid.NewGuid();
         await using var dbContext = TestUtils.GetDbContext();
-        var assignment = new Assignment(assignmentId, "description");
+        var assignment = new Assignment(assignmentId, "description", _fakeTimeProvider.GetUtcNow());
         var expectedComments = CreateComments(numberOfComments);
         expectedComments.ForEach(p=>assignment.AddComment(p));
         dbContext.Assignments.Add(assignment);

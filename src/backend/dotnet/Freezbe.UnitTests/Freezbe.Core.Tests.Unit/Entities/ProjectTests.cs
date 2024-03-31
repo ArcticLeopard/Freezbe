@@ -8,6 +8,13 @@ namespace Freezbe.Core.Tests.Unit.Entities;
 
 public class ProjectTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public ProjectTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public void Constructor_ValidProjectIdAndDescription_PropertiesInitializedCorrectly()
     {
@@ -81,7 +88,7 @@ public class ProjectTests
         var project = new Project(projectId, initialDescription);
 
         // ACT
-        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description"));
+        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
 
         // ASSERT
         project.Assignments.ShouldNotBeEmpty();

@@ -10,18 +10,25 @@ namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.QueryHandlers;
 
 public class GetAssignmentsForProjectQueryHandlerTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public GetAssignmentsForProjectQueryHandlerTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task Handle_ReturnsExpectedAssignments()
     {
         // ARRANGE
         var mockRepository = new Mock<IAssignmentRepository>();
-        var projects = new List<Assignment>
+        var assignments = new List<Assignment>
         {
-            new (Guid.NewGuid(), "Assignment 1"),
-            new (Guid.NewGuid(), "Assignment 2"),
-            new (Guid.NewGuid(), "Assignment 3")
+            new (Guid.NewGuid(), "Assignment 1", _fakeTimeProvider.GetUtcNow()),
+            new (Guid.NewGuid(), "Assignment 2", _fakeTimeProvider.GetUtcNow()),
+            new (Guid.NewGuid(), "Assignment 3", _fakeTimeProvider.GetUtcNow())
         };
-        mockRepository.Setup(p => p.GetAllByProjectIdAsync(It.IsAny<ProjectId>())).ReturnsAsync(projects);
+        mockRepository.Setup(p => p.GetAllByProjectIdAsync(It.IsAny<ProjectId>())).ReturnsAsync(assignments);
 
         var handler = new GetAssignmentsForProjectQueryHandler(mockRepository.Object);
         var query = new GetAssignmentsForProjectQuery(Guid.NewGuid());
@@ -31,7 +38,7 @@ public class GetAssignmentsForProjectQueryHandlerTests
 
         // ASSERT
         Assert.NotNull(result);
-        Assert.Equal(projects.Count, result.Count());
-        Assert.True(result.All(dto => projects.Any(project => project.Id.Value == dto.Id && project.Description == dto.Description)));
+        Assert.Equal(assignments.Count, result.Count());
+        Assert.True(result.All(dto => assignments.Any(assignment => assignment.Id.Value == dto.Id && assignment.Description == dto.Description)));
     }
 }

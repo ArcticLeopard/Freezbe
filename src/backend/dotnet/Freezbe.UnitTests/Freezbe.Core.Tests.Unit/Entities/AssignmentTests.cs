@@ -8,6 +8,12 @@ namespace Freezbe.Core.Tests.Unit.Entities;
 
 public class AssignmentTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+    public AssignmentTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public void Constructor_ValidAssignmentIdAndDescription_PropertiesInitializedCorrectly()
     {
@@ -16,7 +22,7 @@ public class AssignmentTests
         var description = new Description("Initial description");
 
         // ACT
-        var assignment = new Assignment(assignmentId, description);
+        var assignment = new Assignment(assignmentId, description, _fakeTimeProvider.GetUtcNow());
 
         // ASSERT
         assignment.Id.ShouldBe(assignmentId);
@@ -30,7 +36,7 @@ public class AssignmentTests
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
         var newDescription = new Description("New description");
-        var assignment = new Assignment(assignmentId, initialDescription);
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         assignment.ChangeDescription(newDescription);
@@ -45,7 +51,7 @@ public class AssignmentTests
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
-        var assignment = new Assignment(assignmentId, initialDescription);
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         var exception = Record.Exception(() => assignment.ChangeDescription(null));

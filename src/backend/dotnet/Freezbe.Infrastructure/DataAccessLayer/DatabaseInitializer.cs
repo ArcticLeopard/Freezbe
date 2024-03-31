@@ -7,10 +7,12 @@ namespace Freezbe.Infrastructure.DataAccessLayer;
 
 internal sealed class DatabaseInitializer : IHostedService
 {
+    private readonly TimeProvider _timeProvider;
     private readonly IServiceProvider _serviceProvider;
 
-    public DatabaseInitializer(IServiceProvider serviceProvider)
+    public DatabaseInitializer(TimeProvider timeProvider, IServiceProvider serviceProvider)
     {
+        _timeProvider = timeProvider;
         _serviceProvider = serviceProvider;
     }
 
@@ -29,14 +31,14 @@ internal sealed class DatabaseInitializer : IHostedService
         await dbContext.Database.EnsureDeletedAsync(cancellationToken);
     }
 
-    private static async Task SeedData(CancellationToken cancellationToken, FreezbeDbContext dbContext)
+    private async Task SeedData(CancellationToken cancellationToken, FreezbeDbContext dbContext)
     {
         var spaces = dbContext.Spaces.ToList();
         if(spaces.Count == 0)
         {
             var space = new Space(Guid.NewGuid(), "Personal space");
             var project = new Project(Guid.NewGuid(), "Make a freezbe");
-            var assignment = new Assignment(Guid.NewGuid(), "Complete day 21");
+            var assignment = new Assignment(Guid.NewGuid(), "Complete day 21", _timeProvider.GetUtcNow());
             var comment = new Comment(Guid.NewGuid(), "Completed yesterday as per requirements.");
 
             assignment.AddComment(comment);
