@@ -12,14 +12,20 @@ namespace Freezbe.Application.Tests.Unit.CommandHandlers;
 
 public class CommentCreateCommandHandlerTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public CommentCreateCommandHandlerTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task HandleAsync_CommandWithExistingsAssignmentId_ShouldSuccessfullyAddsComment()
     {
         // ASSERT
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         var existingsAssignmentId = new AssignmentId(Guid.NewGuid());
-        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(new Assignment(Guid.NewGuid(),"Description"));
-        var handler = new CommentCreateCommandHandler(assignmentRepositoryMock.Object);
+        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow())); var handler = new CommentCreateCommandHandler(assignmentRepositoryMock.Object);
         var command = new CommentCreateCommand(Guid.NewGuid(), "Test description", existingsAssignmentId);
 
         // ACT
@@ -36,7 +42,7 @@ public class CommentCreateCommandHandlerTests
         // ASSERT
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         var existingsAssignmentId = new AssignmentId(Guid.NewGuid());
-        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(new Assignment(Guid.NewGuid(),"Description"));
+        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
         var handler = new CommentCreateCommandHandler(assignmentRepositoryMock.Object);
         var command = new CommentCreateCommand(Guid.NewGuid(), "Test description", Guid.NewGuid());
 
