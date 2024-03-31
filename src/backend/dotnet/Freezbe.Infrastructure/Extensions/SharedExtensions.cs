@@ -12,6 +12,7 @@ public static class SharedExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers();
+        services.AddSingleton(TimeProvider.System);
         services.AddConfigurations(configuration);
         services.AddDataAccessLayer(configuration);
         services.AddMiddlewares();

@@ -8,10 +8,12 @@ namespace Freezbe.Application.CommandHandlers;
 
 public class AssignmentCreateCommandHandler : IRequestHandler<AssignmentCreateCommand>
 {
+    private readonly TimeProvider _timeProvider;
     private readonly IProjectRepository _projectRepository;
 
-    public AssignmentCreateCommandHandler(IProjectRepository projectRepository)
+    public AssignmentCreateCommandHandler(TimeProvider timeProvider, IProjectRepository projectRepository)
     {
+        _timeProvider = timeProvider;
         _projectRepository = projectRepository;
     }
 
@@ -22,7 +24,7 @@ public class AssignmentCreateCommandHandler : IRequestHandler<AssignmentCreateCo
         {
             throw new ProjectNotFoundException(command.ProjectId);
         }
-        var assignment = new Assignment(command.AssignmentId, command.Description);
+        var assignment = new Assignment(command.AssignmentId, command.Description, _timeProvider.GetUtcNow());
         project.AddAssignment(assignment);
         await _projectRepository.UpdateAsync(project);
     }

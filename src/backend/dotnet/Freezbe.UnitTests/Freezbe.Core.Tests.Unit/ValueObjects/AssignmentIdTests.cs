@@ -8,6 +8,13 @@ namespace Freezbe.Core.Tests.Unit.ValueObjects;
 
 public class AssignmentIdTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public AssignmentIdTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public void Constructor_WhenAssignmentIdReceivesAnEmptyGuid_ShouldThrowAnInvalidEntityIdException()
     {
@@ -71,7 +78,7 @@ public class AssignmentIdTests
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
-        var assignment = new Assignment(assignmentId, initialDescription);
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         var exception = Record.Exception(() => assignment.AddComment(null));
@@ -87,7 +94,7 @@ public class AssignmentIdTests
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
-        var assignment = new Assignment(assignmentId, initialDescription);
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         assignment.AddComment(new Comment(Guid.NewGuid(),"Description"));

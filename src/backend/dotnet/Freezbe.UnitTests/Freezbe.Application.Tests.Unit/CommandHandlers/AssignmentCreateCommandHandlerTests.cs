@@ -12,6 +12,13 @@ namespace Freezbe.Application.Tests.Unit.CommandHandlers;
 
 public class AssignmentCreateCommandHandlerTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public AssignmentCreateCommandHandlerTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task HandleAsync_CommandWithExistingsProjectId_ShouldSuccessfullyAddsAssignment()
     {
@@ -19,7 +26,7 @@ public class AssignmentCreateCommandHandlerTests
         var projectRepositoryMock = new Mock<IProjectRepository>();
         var existingsProjectId = new ProjectId(Guid.NewGuid());
         projectRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(new Project(Guid.NewGuid(),"Description"));
-        var handler = new AssignmentCreateCommandHandler(projectRepositoryMock.Object);
+        var handler = new AssignmentCreateCommandHandler(_fakeTimeProvider, projectRepositoryMock.Object);
         var command = new AssignmentCreateCommand(Guid.NewGuid(), "Test description", existingsProjectId);
 
         // ACT
@@ -37,7 +44,7 @@ public class AssignmentCreateCommandHandlerTests
         var projectRepositoryMock = new Mock<IProjectRepository>();
         var existingsProjectId = new ProjectId(Guid.NewGuid());
         projectRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(new Project(Guid.NewGuid(),"Description"));
-        var handler = new AssignmentCreateCommandHandler(projectRepositoryMock.Object);
+        var handler = new AssignmentCreateCommandHandler(_fakeTimeProvider, projectRepositoryMock.Object);
         var command = new AssignmentCreateCommand(Guid.NewGuid(), "Test description", Guid.NewGuid());
 
         //ACT
