@@ -22,11 +22,12 @@ public class GetAssignmentsForProjectQueryHandlerTests
     {
         // ARRANGE
         var mockRepository = new Mock<IAssignmentRepository>();
+        var createdAt = _fakeTimeProvider.GetUtcNow();
         var assignments = new List<Assignment>
         {
-            new (Guid.NewGuid(), "Assignment 1", _fakeTimeProvider.GetUtcNow()),
-            new (Guid.NewGuid(), "Assignment 2", _fakeTimeProvider.GetUtcNow()),
-            new (Guid.NewGuid(), "Assignment 3", _fakeTimeProvider.GetUtcNow())
+            new (Guid.NewGuid(), "Assignment 1", createdAt),
+            new (Guid.NewGuid(), "Assignment 2", createdAt),
+            new (Guid.NewGuid(), "Assignment 3", createdAt)
         };
         mockRepository.Setup(p => p.GetAllByProjectIdAsync(It.IsAny<ProjectId>())).ReturnsAsync(assignments);
 
@@ -34,11 +35,11 @@ public class GetAssignmentsForProjectQueryHandlerTests
         var query = new GetAssignmentsForProjectQuery(Guid.NewGuid());
 
         // ACT
-        var result = await handler.Handle(query, CancellationToken.None);
+        var result = (await handler.Handle(query, CancellationToken.None)).ToList();
 
         // ASSERT
         Assert.NotNull(result);
-        Assert.Equal(assignments.Count, result.Count());
+        Assert.Equal(assignments.Count, result.Count);
         Assert.True(result.All(dto => assignments.Any(assignment => assignment.Id.Value == dto.Id && assignment.Description == dto.Description)));
     }
 }

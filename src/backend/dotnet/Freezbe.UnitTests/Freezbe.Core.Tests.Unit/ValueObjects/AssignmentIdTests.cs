@@ -97,7 +97,7 @@ public class AssignmentIdTests
         var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
-        assignment.AddComment(new Comment(Guid.NewGuid(),"Description"));
+        assignment.AddComment(new Comment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
 
         // ASSERT
         assignment.Comments.ShouldNotBeEmpty();
