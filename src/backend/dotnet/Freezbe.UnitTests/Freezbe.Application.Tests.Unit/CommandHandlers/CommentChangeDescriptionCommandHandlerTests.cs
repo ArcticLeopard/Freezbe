@@ -9,13 +9,20 @@ namespace Freezbe.Application.Tests.Unit.CommandHandlers;
 
 public class CommentChangeDescriptionCommandHandlerTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public CommentChangeDescriptionCommandHandlerTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task HandleAsync_ValidCommand_SuccessfullyChangesDescription()
     {
         // ASSERT
         var commentId = Guid.NewGuid();
         var newDescription = "New description";
-        var comment = new Comment(commentId, "Old description");
+        var comment = new Comment(commentId, "Old description", _fakeTimeProvider.GetUtcNow());
 
         var commentRepositoryMock = new Mock<ICommentRepository>();
         commentRepositoryMock.Setup(p => p.GetAsync(commentId)).ReturnsAsync(comment);

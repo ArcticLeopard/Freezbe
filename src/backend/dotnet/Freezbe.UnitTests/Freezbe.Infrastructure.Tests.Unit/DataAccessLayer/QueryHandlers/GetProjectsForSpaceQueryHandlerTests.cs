@@ -27,11 +27,11 @@ public class GetProjectsForSpaceQueryHandlerTests
         var query = new GetProjectsForSpaceQuery(Guid.NewGuid());
 
         // ACT
-        var result = await handler.Handle(query, CancellationToken.None);
+        var result = (await handler.Handle(query, CancellationToken.None)).ToList();
 
         // ASSERT
         Assert.NotNull(result);
-        Assert.Equal(projects.Count, result.Count());
+        Assert.Equal(projects.Count, result.Count);
         Assert.True(result.All(dto => projects.Any(project => project.Id.Value == dto.Id && project.Description == dto.Description)));
     }
 }

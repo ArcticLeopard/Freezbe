@@ -15,5 +15,6 @@ internal sealed class CommentConfiguration : IEntityTypeConfiguration<Comment>
                .HasForeignKey(p=>p.AssignmentId);
         builder.Property(p => p.Id).HasConversion(p => p.Value, p => new CommentId(p));
         builder.Property(p => p.Description).IsRequired().HasConversion(p => p.Value, p => new Description(p));
+        builder.Property(p => p.CreatedAt).IsRequired();
     }
 }

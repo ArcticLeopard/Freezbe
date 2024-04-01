@@ -8,10 +8,12 @@ namespace Freezbe.Application.CommandHandlers;
 
 public class CommentCreateCommandHandler : IRequestHandler<CommentCreateCommand>
 {
+    private readonly TimeProvider _timeProvider;
     private readonly IAssignmentRepository _assignmentRepository;
 
-    public CommentCreateCommandHandler(IAssignmentRepository assignmentRepository)
+    public CommentCreateCommandHandler(TimeProvider timeProvider, IAssignmentRepository assignmentRepository)
     {
+        _timeProvider = timeProvider;
         _assignmentRepository = assignmentRepository;
     }
 
@@ -22,7 +24,7 @@ public class CommentCreateCommandHandler : IRequestHandler<CommentCreateCommand>
         {
             throw new AssignmentNotFoundException(command.AssignmentId);
         }
-        var comment = new Comment(command.CommentId, command.Description);
+        var comment = new Comment(command.CommentId, command.Description, _timeProvider.GetUtcNow());
         assignment.AddComment(comment);
         await _assignmentRepository.UpdateAsync(assignment);
     }
