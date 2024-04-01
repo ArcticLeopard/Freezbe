@@ -21,7 +21,7 @@ public class CommentRepositoryTests
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var commentId = new CommentId(Guid.NewGuid());
-        var expectedComment = new Comment(commentId, "Test Comment");
+        var expectedComment = new Comment(commentId, "Test Comment", _fakeTimeProvider.GetUtcNow());
         dbContext.Comments.Add(expectedComment);
         await dbContext.SaveChangesAsync();
 
@@ -92,7 +92,7 @@ public class CommentRepositoryTests
         await using var dbContext = TestUtils.GetDbContext();
         var repository = new CommentRepository(dbContext);
         var commentId = new CommentId(Guid.NewGuid());
-        var commentToAdd = new Comment(commentId, new Description("Test Description 1"));
+        var commentToAdd = new Comment(commentId, new Description("Test Description 1"), _fakeTimeProvider.GetUtcNow());
 
         // ACT
         await repository.AddAsync(commentToAdd);
@@ -111,7 +111,7 @@ public class CommentRepositoryTests
         var commentId = new CommentId(Guid.NewGuid());
         var initialDescription = new Description("Initial Description");
         var updatedDescription = new Description("Updated Description");
-        var comment = new Comment(commentId, initialDescription);
+        var comment = new Comment(commentId, initialDescription, _fakeTimeProvider.GetUtcNow());
         dbContext.Comments.Add(comment);
         await dbContext.SaveChangesAsync();
 
@@ -133,7 +133,7 @@ public class CommentRepositoryTests
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var commentId = new CommentId(Guid.NewGuid());
-        var comment = new Comment(commentId, new Description("Test Description"));
+        var comment = new Comment(commentId, new Description("Test Description"), _fakeTimeProvider.GetUtcNow());
         dbContext.Comments.Add(comment);
         await dbContext.SaveChangesAsync();
 
@@ -147,12 +147,12 @@ public class CommentRepositoryTests
         result.ShouldBeNull();
     }
 
-    private static List<Comment> CreateComments(int numberOfComments)
+    private List<Comment> CreateComments(int numberOfComments)
     {
         var result = new List<Comment>();
         for(int i = 0; i < numberOfComments; i++)
         {
-            result.Add(new Comment(Guid.NewGuid(), $"Test Comment {i}"));
+            result.Add(new Comment(Guid.NewGuid(), $"Test Comment {i}", _fakeTimeProvider.GetUtcNow()));
         }
         return result;
     }

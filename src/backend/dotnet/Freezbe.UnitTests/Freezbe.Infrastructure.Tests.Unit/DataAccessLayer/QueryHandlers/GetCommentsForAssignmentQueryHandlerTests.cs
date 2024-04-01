@@ -10,16 +10,24 @@ namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.QueryHandlers;
 
 public class GetCommentsForAssignmentQueryHandlerTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public GetCommentsForAssignmentQueryHandlerTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task Handle_ReturnsExpectedComments()
     {
         // ARRANGE
         var mockRepository = new Mock<ICommentRepository>();
+        var createdAt = _fakeTimeProvider.GetUtcNow();
         var comments = new List<Comment>
         {
-            new (Guid.NewGuid(), "Comment 1"),
-            new (Guid.NewGuid(), "Comment 2"),
-            new (Guid.NewGuid(), "Comment 3")
+            new (Guid.NewGuid(), "Comment 1", createdAt),
+            new (Guid.NewGuid(), "Comment 2", createdAt),
+            new (Guid.NewGuid(), "Comment 3", createdAt)
         };
         mockRepository.Setup(p => p.GetAllByAssignmentIdAsync(It.IsAny<AssignmentId>())).ReturnsAsync(comments);
 
@@ -27,11 +35,11 @@ public class GetCommentsForAssignmentQueryHandlerTests
         var query = new GetCommentsForAssignmentQuery(Guid.NewGuid());
 
         // ACT
-        var result = await handler.Handle(query, CancellationToken.None);
+        var result = (await handler.Handle(query, CancellationToken.None)).ToList();
 
         // ASSERT
         Assert.NotNull(result);
-        Assert.Equal(comments.Count, result.Count());
+        Assert.Equal(comments.Count, result.Count);
         Assert.True(result.All(dto => comments.Any(comment => comment.Id.Value == dto.Id && comment.Description == dto.Description)));
     }
 }

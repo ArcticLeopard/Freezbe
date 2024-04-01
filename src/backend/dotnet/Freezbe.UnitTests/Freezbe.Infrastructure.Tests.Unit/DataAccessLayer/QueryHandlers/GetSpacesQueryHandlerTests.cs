@@ -26,11 +26,11 @@ public class GetSpacesQueryHandlerTests
         var query = new GetSpacesQuery();
 
         // ACT
-        var result = await handler.Handle(query, CancellationToken.None);
+        var result = (await handler.Handle(query, CancellationToken.None)).ToList();
 
         // ASSERT
         Assert.NotNull(result);
-        Assert.Equal(spaces.Count, result.Count());
+        Assert.Equal(spaces.Count, result.Count);
         Assert.True(result.All(dto => spaces.Any(space => space.Id.Value == dto.Id && space.Description == dto.Description)));
     }
 }
