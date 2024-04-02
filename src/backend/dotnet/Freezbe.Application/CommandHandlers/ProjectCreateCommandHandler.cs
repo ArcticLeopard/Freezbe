@@ -8,10 +8,12 @@ namespace Freezbe.Application.CommandHandlers;
 
 public class ProjectCreateCommandHandler : IRequestHandler<ProjectCreateCommand>
 {
+    private readonly TimeProvider _timeProvider;
     private readonly ISpaceRepository _spaceRepository;
 
-    public ProjectCreateCommandHandler(ISpaceRepository spaceRepository)
+    public ProjectCreateCommandHandler(TimeProvider timeProvider, ISpaceRepository spaceRepository)
     {
+        _timeProvider = timeProvider;
         _spaceRepository = spaceRepository;
     }
 
@@ -22,7 +24,7 @@ public class ProjectCreateCommandHandler : IRequestHandler<ProjectCreateCommand>
         {
             throw new SpaceNotFoundException(command.SpaceId);
         }
-        var project = new Project(command.ProjectId, command.Description);
+        var project = new Project(command.ProjectId, command.Description, _timeProvider.GetUtcNow());
         space.AddProject(project);
         await _spaceRepository.UpdateAsync(space);
     }
