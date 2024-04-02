@@ -23,7 +23,7 @@ public class ProjectTests
         var description = new Description("Initial description");
 
         // ACT
-        var project = new Project(projectId, description);
+        var project = new Project(projectId, description, _fakeTimeProvider.GetUtcNow());
 
         // ASSERT
         project.Id.ShouldBe(projectId);
@@ -38,7 +38,7 @@ public class ProjectTests
         var projectId = TestUtils.CreateCorrectProjectId();
         var initialDescription = new Description("Initial description");
         var newDescription = new Description("New description");
-        var project = new Project(projectId, initialDescription);
+        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         project.ChangeDescription(newDescription);
@@ -53,7 +53,7 @@ public class ProjectTests
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();
         var initialDescription = new Description("Initial description");
-        var project = new Project(projectId, initialDescription);
+        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         var exception = Record.Exception(() => project.ChangeDescription(null));
@@ -69,7 +69,7 @@ public class ProjectTests
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();
         var initialDescription = new Description("Initial description");
-        var project = new Project(projectId, initialDescription);
+        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         var exception = Record.Exception(() => project.AddAssignment(null));
@@ -85,7 +85,7 @@ public class ProjectTests
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();
         var initialDescription = new Description("Initial description");
-        var project = new Project(projectId, initialDescription);
+        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         project.AddAssignment(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));

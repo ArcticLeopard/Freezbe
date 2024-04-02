@@ -15,5 +15,6 @@ internal sealed class ProjectConfiguration : IEntityTypeConfiguration<Project>
                .HasForeignKey(p=>p.SpaceId);
         builder.Property(p => p.Id).HasConversion(p => p.Value, p => new ProjectId(p));
         builder.Property(p => p.Description).IsRequired().HasConversion(p => p.Value, p => new Description(p));
+        builder.Property(p => p.CreatedAt).IsRequired();
     }
 }

@@ -67,7 +67,7 @@ public class AssignmentRepositoryTests
         // ARRANGE
         var spaceId = Guid.NewGuid();
         await using var dbContext = TestUtils.GetDbContext();
-        var space = new Project(spaceId, "description");
+        var space = new Project(spaceId, "description", _fakeTimeProvider.GetUtcNow());
         var expectedAssignments = CreateAssignments(numberOfAssignments);
         expectedAssignments.ForEach(p=>space.AddAssignment(p));
         dbContext.Projects.Add(space);

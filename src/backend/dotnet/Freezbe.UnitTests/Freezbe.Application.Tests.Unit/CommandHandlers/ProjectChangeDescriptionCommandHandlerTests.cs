@@ -9,13 +9,20 @@ namespace Freezbe.Application.Tests.Unit.CommandHandlers;
 
 public class ProjectChangeDescriptionCommandHandlerTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public ProjectChangeDescriptionCommandHandlerTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task HandleAsync_ValidCommand_SuccessfullyChangesDescription()
     {
         // ASSERT
         var projectId = Guid.NewGuid();
         var newDescription = "New description";
-        var project = new Project(projectId, "Old description");
+        var project = new Project(projectId, "Old description", _fakeTimeProvider.GetUtcNow());
 
         var projectRepositoryMock = new Mock<IProjectRepository>();
         projectRepositoryMock.Setup(p => p.GetAsync(projectId)).ReturnsAsync(project);
