@@ -8,6 +8,13 @@ namespace Freezbe.Core.Tests.Unit.Entities;
 
 public class SpaceTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public SpaceTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public void Constructor_ValidSpaceIdAndDescription_PropertiesInitializedCorrectly()
     {
@@ -80,7 +87,7 @@ public class SpaceTests
         var space = new Space(spaceId, initialDescription);
 
         // ACT
-        space.AddProject(new Project(Guid.NewGuid(),"Description"));
+        space.AddProject(new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
 
         // ASSERT
         space.Projects.ShouldNotBeEmpty();

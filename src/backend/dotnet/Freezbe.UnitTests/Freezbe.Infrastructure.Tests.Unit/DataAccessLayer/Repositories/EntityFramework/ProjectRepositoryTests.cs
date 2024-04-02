@@ -8,13 +8,20 @@ namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories.EntityF
 
 public class ProjectRepositoryTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public ProjectRepositoryTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task GetAsync_ShouldReturnProject_WhenProjectExists()
     {
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var projectId = new ProjectId(Guid.NewGuid());
-        var expectedProject = new Project(projectId, "Test Project");
+        var expectedProject = new Project(projectId, "Test Project", _fakeTimeProvider.GetUtcNow());
         dbContext.Projects.Add(expectedProject);
         await dbContext.SaveChangesAsync();
 
@@ -85,7 +92,7 @@ public class ProjectRepositoryTests
         await using var dbContext = TestUtils.GetDbContext();
         var repository = new ProjectRepository(dbContext);
         var projectId = new ProjectId(Guid.NewGuid());
-        var projectToAdd = new Project(projectId, new Description("Test Description 1"));
+        var projectToAdd = new Project(projectId, new Description("Test Description 1"), _fakeTimeProvider.GetUtcNow());
 
         // ACT
         await repository.AddAsync(projectToAdd);
@@ -104,7 +111,7 @@ public class ProjectRepositoryTests
         var projectId = new ProjectId(Guid.NewGuid());
         var initialDescription = new Description("Initial Description");
         var updatedDescription = new Description("Updated Description");
-        var project = new Project(projectId, initialDescription);
+        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
         dbContext.Projects.Add(project);
         await dbContext.SaveChangesAsync();
 
@@ -126,7 +133,7 @@ public class ProjectRepositoryTests
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var projectId = new ProjectId(Guid.NewGuid());
-        var project = new Project(projectId, new Description("Test Description"));
+        var project = new Project(projectId, new Description("Test Description"), _fakeTimeProvider.GetUtcNow());
         dbContext.Projects.Add(project);
         await dbContext.SaveChangesAsync();
 
@@ -140,12 +147,12 @@ public class ProjectRepositoryTests
         result.ShouldBeNull();
     }
 
-    private static List<Project> CreateProjects(int numberOfProjects)
+    private List<Project> CreateProjects(int numberOfProjects)
     {
         var result = new List<Project>();
         for(int i = 0; i < numberOfProjects; i++)
         {
-            result.Add(new Project(Guid.NewGuid(), $"Test Project {i}"));
+            result.Add(new Project(Guid.NewGuid(), $"Test Project {i}", _fakeTimeProvider.GetUtcNow()));
         }
         return result;
     }

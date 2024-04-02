@@ -10,16 +10,24 @@ namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.QueryHandlers;
 
 public class GetProjectsForSpaceQueryHandlerTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public GetProjectsForSpaceQueryHandlerTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task Handle_ReturnsExpectedProjects()
     {
         // ARRANGE
         var mockRepository = new Mock<IProjectRepository>();
+        var createdAt = _fakeTimeProvider.GetUtcNow();
         var projects = new List<Project>
         {
-            new (Guid.NewGuid(), "Project 1"),
-            new (Guid.NewGuid(), "Project 2"),
-            new (Guid.NewGuid(), "Project 3")
+            new (Guid.NewGuid(), "Project 1", createdAt),
+            new (Guid.NewGuid(), "Project 2", createdAt),
+            new (Guid.NewGuid(), "Project 3", createdAt)
         };
         mockRepository.Setup(p => p.GetAllBySpaceIdAsync(It.IsAny<SpaceId>())).ReturnsAsync(projects);
 
