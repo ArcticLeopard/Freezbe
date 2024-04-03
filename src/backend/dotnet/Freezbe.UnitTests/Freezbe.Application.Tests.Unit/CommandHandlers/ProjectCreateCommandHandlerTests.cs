@@ -25,7 +25,7 @@ public class ProjectCreateCommandHandlerTests
         // ASSERT
         var spaceRepositoryMock = new Mock<ISpaceRepository>();
         var existingsSpaceId = new SpaceId(Guid.NewGuid());
-        spaceRepositoryMock.Setup(p => p.GetAsync(existingsSpaceId)).ReturnsAsync(new Space(Guid.NewGuid(),"Description"));
+        spaceRepositoryMock.Setup(p => p.GetAsync(existingsSpaceId)).ReturnsAsync(new Space(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
         var handler = new ProjectCreateCommandHandler(_fakeTimeProvider, spaceRepositoryMock.Object);
         var command = new ProjectCreateCommand(Guid.NewGuid(), "Test description", existingsSpaceId);
 
@@ -43,7 +43,7 @@ public class ProjectCreateCommandHandlerTests
         // ASSERT
         var spaceRepositoryMock = new Mock<ISpaceRepository>();
         var existingsSpaceId = new SpaceId(Guid.NewGuid());
-        spaceRepositoryMock.Setup(p => p.GetAsync(existingsSpaceId)).ReturnsAsync(new Space(Guid.NewGuid(),"Description"));
+        spaceRepositoryMock.Setup(p => p.GetAsync(existingsSpaceId)).ReturnsAsync(new Space(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
         var handler = new ProjectCreateCommandHandler(_fakeTimeProvider, spaceRepositoryMock.Object);
         var command = new ProjectCreateCommand(Guid.NewGuid(), "Test description", Guid.NewGuid());
 
