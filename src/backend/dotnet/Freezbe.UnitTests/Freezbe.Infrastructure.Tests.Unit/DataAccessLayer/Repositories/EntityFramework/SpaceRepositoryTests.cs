@@ -8,13 +8,20 @@ namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.Repositories.EntityF
 
 public class SpaceRepositoryTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public SpaceRepositoryTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task GetAsync_ShouldReturnSpace_WhenSpaceExists()
     {
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var spaceId = new SpaceId(Guid.NewGuid());
-        var expectedSpace = new Space(spaceId, "Test Space");
+        var expectedSpace = new Space(spaceId, "Test Space", _fakeTimeProvider.GetUtcNow());
         dbContext.Spaces.Add(expectedSpace);
         await dbContext.SaveChangesAsync();
 
@@ -29,17 +36,14 @@ public class SpaceRepositoryTests
         result.Description.ShouldBe(expectedSpace.Description);
     }
 
-    [Fact]
-    public async Task GetAllAsync_ShouldReturnAllSpaces()
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(10, 10)]
+    public async Task GetAllAsync_ShouldReturnAllSpaces(int numberOfSpaces, int expectedNumberOfSpaces)
     {
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
-        var expectedSpaces = new List<Space>
-        {
-            new(new SpaceId(Guid.NewGuid()), "Test Space 1"),
-            new(new SpaceId(Guid.NewGuid()), "Test Space 2"),
-            new(new SpaceId(Guid.NewGuid()), "Test Space 3")
-        };
+        var expectedSpaces = CreateSpaces(numberOfSpaces);
         dbContext.Spaces.AddRange(expectedSpaces);
         await dbContext.SaveChangesAsync();
 
@@ -50,7 +54,7 @@ public class SpaceRepositoryTests
 
         // ASSERT
         result.ShouldNotBeNull();
-        result.Count.ShouldBe(expectedSpaces.Count);
+        result.Count.ShouldBe(expectedNumberOfSpaces);
         foreach(var expectedSpace in expectedSpaces) result.ShouldContain(a => a.Id == expectedSpace.Id);
     }
 
@@ -61,7 +65,7 @@ public class SpaceRepositoryTests
         await using var dbContext = TestUtils.GetDbContext();
         var repository = new SpaceRepository(dbContext);
         var spaceId = new SpaceId(Guid.NewGuid());
-        var spaceToAdd = new Space(spaceId, new Description("Test Description 1"));
+        var spaceToAdd = new Space(spaceId, new Description("Test Description 1"), _fakeTimeProvider.GetUtcNow());
 
         // ACT
         await repository.AddAsync(spaceToAdd);
@@ -80,7 +84,7 @@ public class SpaceRepositoryTests
         var spaceId = new SpaceId(Guid.NewGuid());
         var initialDescription = new Description("Initial Description");
         var updatedDescription = new Description("Updated Description");
-        var space = new Space(spaceId, initialDescription);
+        var space = new Space(spaceId, initialDescription, _fakeTimeProvider.GetUtcNow());
         dbContext.Spaces.Add(space);
         await dbContext.SaveChangesAsync();
 
@@ -102,7 +106,7 @@ public class SpaceRepositoryTests
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var spaceId = new SpaceId(Guid.NewGuid());
-        var space = new Space(spaceId, new Description("Test Description"));
+        var space = new Space(spaceId, new Description("Test Description"), _fakeTimeProvider.GetUtcNow());
         dbContext.Spaces.Add(space);
         await dbContext.SaveChangesAsync();
 
@@ -114,5 +118,15 @@ public class SpaceRepositoryTests
         // ASSERT
         var result = await dbContext.Spaces.FindAsync(spaceId);
         result.ShouldBeNull();
+    }
+
+    private List<Space> CreateSpaces(int numberOfSpaces)
+    {
+        var result = new List<Space>();
+        for(int i = 0; i < numberOfSpaces; i++)
+        {
+            result.Add(new Space(Guid.NewGuid(), $"Test Space {i}", _fakeTimeProvider.GetUtcNow()));
+        }
+        return result;
     }
 }
