@@ -23,7 +23,7 @@ public class SpaceTests
         var description = new Description("Initial description");
 
         // ACT
-        var space = new Space(spaceId, description);
+        var space = new Space(spaceId, description, _fakeTimeProvider.GetUtcNow());
 
         // ASSERT
         Assert.Equal(spaceId, space.Id);
@@ -37,7 +37,7 @@ public class SpaceTests
         var spaceId = TestUtils.CreateCorrectSpaceId();
         var initialDescription = new Description("Initial description");
         var newDescription = new Description("New description");
-        var space = new Space(spaceId, initialDescription);
+        var space = new Space(spaceId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         space.ChangeDescription(newDescription);
@@ -52,7 +52,7 @@ public class SpaceTests
         // ARRANGE
         var spaceId = TestUtils.CreateCorrectSpaceId();
         var initialDescription = new Description("Initial description");
-        var space = new Space(spaceId, initialDescription);
+        var space = new Space(spaceId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         var exception = Record.Exception(() => space.ChangeDescription(null));
@@ -68,7 +68,7 @@ public class SpaceTests
         // ARRANGE
         var spaceId = TestUtils.CreateCorrectSpaceId();
         var initialDescription = new Description("Initial description");
-        var space = new Space(spaceId, initialDescription);
+        var space = new Space(spaceId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         var exception = Record.Exception(() => space.AddProject(null));
@@ -84,7 +84,7 @@ public class SpaceTests
         // ARRANGE
         var spaceId = TestUtils.CreateCorrectSpaceId();
         var initialDescription = new Description("Initial description");
-        var space = new Space(spaceId, initialDescription);
+        var space = new Space(spaceId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
         space.AddProject(new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));

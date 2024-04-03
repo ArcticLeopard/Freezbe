@@ -9,16 +9,24 @@ namespace Freezbe.Infrastructure.Tests.Unit.DataAccessLayer.QueryHandlers;
 
 public class GetSpacesQueryHandlerTests
 {
+    private readonly TimeProvider _fakeTimeProvider;
+
+    public GetSpacesQueryHandlerTests()
+    {
+        _fakeTimeProvider = TestUtils.FakeTimeProvider();
+    }
+
     [Fact]
     public async Task Handle_ReturnsExpectedSpaces()
     {
         // ARRANGE
         var mockRepository = new Mock<ISpaceRepository>();
+        var createdAt = _fakeTimeProvider.GetUtcNow();
         var spaces = new List<Space>
         {
-            new (Guid.NewGuid(), "Space 1"),
-            new (Guid.NewGuid(), "Space 2"),
-            new (Guid.NewGuid(), "Space 3")
+            new (Guid.NewGuid(), "Space 1", createdAt),
+            new (Guid.NewGuid(), "Space 2", createdAt),
+            new (Guid.NewGuid(), "Space 3", createdAt)
         };
         mockRepository.Setup(p => p.GetAllAsync()).ReturnsAsync(spaces);
 

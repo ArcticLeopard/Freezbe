@@ -12,5 +12,6 @@ internal sealed class SpaceConfiguration : IEntityTypeConfiguration<Space>
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Id).HasConversion(p => p.Value, p => new SpaceId(p));
         builder.Property(p => p.Description).IsRequired().HasConversion(p => p.Value, p => new Description(p));
+        builder.Property(p => p.CreatedAt).IsRequired();
     }
 }
