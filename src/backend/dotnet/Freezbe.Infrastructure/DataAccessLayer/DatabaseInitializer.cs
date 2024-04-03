@@ -37,7 +37,7 @@ internal sealed class DatabaseInitializer : IHostedService
         if(spaces.Count == 0)
         {
             var createdAt = _timeProvider.GetUtcNow();
-            var space = new Space(Guid.NewGuid(), "Personal space");
+            var space = new Space(Guid.NewGuid(), "Personal space", createdAt);
             var project = new Project(Guid.NewGuid(), "Make a freezbe", createdAt);
             var assignment = new Assignment(Guid.NewGuid(), "Complete day 21", createdAt);
             var comment = new Comment(Guid.NewGuid(), "Completed yesterday as per requirements.", createdAt);

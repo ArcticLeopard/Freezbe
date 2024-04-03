@@ -67,7 +67,7 @@ public class ProjectRepositoryTests
         // ARRANGE
         var spaceId = Guid.NewGuid();
         await using var dbContext = TestUtils.GetDbContext();
-        var space = new Space(spaceId, "description");
+        var space = new Space(spaceId, "description", _fakeTimeProvider.GetUtcNow());
         var expectedProjects = CreateProjects(numberOfProjects);
         expectedProjects.ForEach(p=>space.AddProject(p));
         dbContext.Spaces.Add(space);

@@ -7,13 +7,15 @@ public class Space
 {
     public SpaceId Id { get; }
     public Description Description { get; private set; }
+    public DateTimeOffset CreatedAt { get; }
     public IEnumerable<Project> Projects => _projects;
     private readonly HashSet<Project> _projects = new();
 
-    public Space(SpaceId id, Description description)
+    public Space(SpaceId id, Description description, DateTimeOffset createdAt)
     {
         Id = id;
         Description = description;
+        CreatedAt = createdAt;
     }
 
     public void ChangeDescription(Description description)
