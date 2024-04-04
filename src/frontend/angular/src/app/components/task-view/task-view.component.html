@@ -1,1 +1,10 @@
-<p>task-view works!</p>
+<div>
+  <p>task-view works!</p>
+  <div id="controls">
+    <input type="text" placeholder="Give your task a name…" maxlength="128" autocomplete="off" autofocus (keydown.enter)="buttonRef.click()" #textInputRef>
+    <button (click)="addTask(textInputRef)" #buttonRef>Add</button>
+  </div>
+  <div id="taskList">
+    <div class="slideIn task " [class.animated]="textInputRef.value!=task" *ngFor="let task of tasks">{{ task }}</div>
+  </div>
+</div>
