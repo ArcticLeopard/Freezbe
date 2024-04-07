@@ -25,7 +25,8 @@ public class CommentCreateCommandHandlerTests
         // ASSERT
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         var existingsAssignmentId = new AssignmentId(Guid.NewGuid());
-        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow())); var handler = new CommentCreateCommandHandler(_fakeTimeProvider, assignmentRepositoryMock.Object);
+        var assignment = new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.ToDo);
+        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(assignment); var handler = new CommentCreateCommandHandler(_fakeTimeProvider, assignmentRepositoryMock.Object);
         var command = new CommentCreateCommand(Guid.NewGuid(), "Test description", existingsAssignmentId);
 
         // ACT
@@ -42,7 +43,8 @@ public class CommentCreateCommandHandlerTests
         // ASSERT
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         var existingsAssignmentId = new AssignmentId(Guid.NewGuid());
-        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
+        var assignment = new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.ToDo);
+        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(assignment);
         var handler = new CommentCreateCommandHandler(_fakeTimeProvider, assignmentRepositoryMock.Object);
         var command = new CommentCreateCommand(Guid.NewGuid(), "Test description", Guid.NewGuid());
 

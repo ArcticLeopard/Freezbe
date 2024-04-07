@@ -1,4 +1,5 @@
 ﻿using Freezbe.Core.Entities;
+using Freezbe.Core.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,7 +40,7 @@ internal sealed class DatabaseInitializer : IHostedService
             var createdAt = _timeProvider.GetUtcNow();
             var space = new Space(Guid.NewGuid(), "Personal space", createdAt);
             var project = new Project(Guid.NewGuid(), "Make a freezbe", createdAt);
-            var assignment = new Assignment(Guid.NewGuid(), "Complete day 21", createdAt);
+            var assignment = new Assignment(Guid.NewGuid(), "Complete day 21", createdAt, AssignmentStatus.ToDo);
             var comment = new Comment(Guid.NewGuid(), "Completed yesterday as per requirements.", createdAt);
 
             assignment.AddComment(comment);
