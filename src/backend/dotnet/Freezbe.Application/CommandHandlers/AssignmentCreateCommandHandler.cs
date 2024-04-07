@@ -2,6 +2,7 @@
 using Freezbe.Application.Exceptions;
 using Freezbe.Core.Entities;
 using Freezbe.Core.Repositories;
+using Freezbe.Core.ValueObjects;
 using MediatR;
 
 namespace Freezbe.Application.CommandHandlers;
@@ -24,7 +25,7 @@ public class AssignmentCreateCommandHandler : IRequestHandler<AssignmentCreateCo
         {
             throw new ProjectNotFoundException(command.ProjectId);
         }
-        var assignment = new Assignment(command.AssignmentId, command.Description, _timeProvider.GetUtcNow());
+        var assignment = new Assignment(command.AssignmentId, command.Description, _timeProvider.GetUtcNow(), AssignmentStatus.ToDo);
         project.AddAssignment(assignment);
         await _projectRepository.UpdateAsync(project);
     }
