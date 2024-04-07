@@ -15,18 +15,24 @@ public class AssignmentTests
     }
 
     [Fact]
-    public void Constructor_ValidAssignmentIdAndDescription_PropertiesInitializedCorrectly()
+    public void Constructor_WithValidAttribues_ShouldPropertiesInitializedCorrectly()
     {
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        AssignmentStatus assignmentStatus = AssignmentStatus.ToDo;
 
         // ACT
-        var assignment = new Assignment(assignmentId, description, _fakeTimeProvider.GetUtcNow());
+
+        var assignment = new Assignment(assignmentId, description, createdAt, assignmentStatus);
 
         // ASSERT
         assignment.Id.ShouldBe(assignmentId);
         assignment.Description.ShouldBe(description);
+        assignment.AssignmentStatus.ShouldBe(assignmentStatus);
+        assignment.AssignmentStatus.Value.ShouldBe((string)assignmentStatus);
+        assignment.CreatedAt.ShouldBe(createdAt);
     }
 
     [Fact]
@@ -36,7 +42,8 @@ public class AssignmentTests
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
         var newDescription = new Description("New description");
-        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var dateTimeOffset = _fakeTimeProvider.GetUtcNow();
+        var assignment = new Assignment(assignmentId, initialDescription, dateTimeOffset, AssignmentStatus.ToDo);
 
         // ACT
         assignment.ChangeDescription(newDescription);
@@ -51,7 +58,7 @@ public class AssignmentTests
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
-        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.ToDo);
 
         // ACT
         var exception = Record.Exception(() => assignment.ChangeDescription(null));
@@ -59,5 +66,59 @@ public class AssignmentTests
         // ASSERT
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<InvalidDescriptionException>();
+    }
+
+    [Theory]
+    [InlineData(AssignmentStatus.ToDo)]
+    [InlineData(AssignmentStatus.Complited)]
+    public void Abandon_ShouldChangeAssignmentStatusToAbandon(string startedState)
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState);
+        // ACT
+
+        assignment.Abandon();
+
+        // ASSERT
+        assignment.AssignmentStatus.Value.ShouldBe(AssignmentStatus.Abandon);
+    }
+
+    [Theory]
+    [InlineData(AssignmentStatus.ToDo)]
+    [InlineData(AssignmentStatus.Abandon)]
+    public void Complited_ShouldChangeAssignmentStatusToComplited(string startedState)
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState);
+        // ACT
+
+        assignment.Complited();
+
+        // ASSERT
+        assignment.AssignmentStatus.Value.ShouldBe(AssignmentStatus.Complited);
+    }
+
+    [Theory]
+    [InlineData(AssignmentStatus.Abandon)]
+    [InlineData(AssignmentStatus.Complited)]
+    public void Restore_ShouldChangeAssignmentStatusToToDo(string startedState)
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState);
+        // ACT
+
+        assignment.Restore();
+
+        // ASSERT
+        assignment.AssignmentStatus.Value.ShouldBe(AssignmentStatus.ToDo);
     }
 }
