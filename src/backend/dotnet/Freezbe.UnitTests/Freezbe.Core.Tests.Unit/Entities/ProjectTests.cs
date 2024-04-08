@@ -88,7 +88,7 @@ public class ProjectTests
         var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
-        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.ToDo));
+        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active));
 
         // ASSERT
         project.Assignments.ShouldNotBeEmpty();
