@@ -26,7 +26,7 @@ public class GetAssignmentsForProjectQueryHandlerTests
         var assignments = new List<Assignment>
         {
             new (Guid.NewGuid(), "Assignment 1", createdAt, AssignmentStatus.Abandon),
-            new (Guid.NewGuid(), "Assignment 2", createdAt, AssignmentStatus.ToDo),
+            new (Guid.NewGuid(), "Assignment 2", createdAt, AssignmentStatus.Active),
             new (Guid.NewGuid(), "Assignment 3", createdAt, AssignmentStatus.Complited)
         };
         mockRepository.Setup(p => p.GetAllByProjectIdAsync(It.IsAny<ProjectId>())).ReturnsAsync(assignments);

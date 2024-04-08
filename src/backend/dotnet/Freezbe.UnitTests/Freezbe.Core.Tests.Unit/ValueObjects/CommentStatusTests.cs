@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Freezbe.Core.Tests.Unit.ValueObjects;
 
-public class AssignmentStatusTests
+public class CommentStatusTests
 {
     [Theory]
     [InlineData(null)]
@@ -14,24 +14,23 @@ public class AssignmentStatusTests
     [InlineData("   ")]
     [InlineData("         ")]
     [InlineData("NotExistingStatus")]
-    public void Constructor_WhenAssignmentStatusReceivesInvalidValue_ShouldThrowAnInvalidAssignmentStatusException(string input)
+    public void Constructor_WhenCommentStatusReceivesInvalidValue_ShouldThrowAnInvalidCommentStatusException(string input)
     {
         //ACT
-        var exception = Record.Exception(() => new AssignmentStatus(input));
+        var exception = Record.Exception(() => new CommentStatus(input));
 
         //ASSERT
         exception.ShouldNotBeNull();
-        exception.ShouldBeOfType<InvalidAssignmentStatusException>();
+        exception.ShouldBeOfType<InvalidCommentStatusException>();
     }
 
     [Theory]
-    [InlineData(AssignmentStatus.Abandon)]
-    [InlineData(AssignmentStatus.Complited)]
-    [InlineData(AssignmentStatus.Active)]
-    public void ShouldAssignCorrectValue_WhenAssignmentStatusReceivesValidInput(string input)
+    [InlineData(CommentStatus.Abandon)]
+    [InlineData(CommentStatus.Active)]
+    public void ShouldAssignCorrectValue_WhenCommentStatusReceivesValidInput(string input)
     {
         //ACT
-        var description = new AssignmentStatus(input);
+        var description = new CommentStatus(input);
 
         //ASSERT
         description.ShouldNotBeNull();

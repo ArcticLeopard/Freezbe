@@ -25,9 +25,9 @@ public class GetCommentsForAssignmentQueryHandlerTests
         var createdAt = _fakeTimeProvider.GetUtcNow();
         var comments = new List<Comment>
         {
-            new (Guid.NewGuid(), "Comment 1", createdAt),
-            new (Guid.NewGuid(), "Comment 2", createdAt),
-            new (Guid.NewGuid(), "Comment 3", createdAt)
+            new(Guid.NewGuid(), "Comment 1", createdAt, CommentStatus.Active),
+            new(Guid.NewGuid(), "Comment 2", createdAt, CommentStatus.Active),
+            new(Guid.NewGuid(), "Comment 3", createdAt, CommentStatus.Abandon)
         };
         mockRepository.Setup(p => p.GetAllByAssignmentIdAsync(It.IsAny<AssignmentId>())).ReturnsAsync(comments);
 

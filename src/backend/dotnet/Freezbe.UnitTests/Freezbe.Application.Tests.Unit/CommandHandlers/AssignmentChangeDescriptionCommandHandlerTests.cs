@@ -23,7 +23,7 @@ public class AssignmentChangeDescriptionCommandHandlerTests
         // ASSERT
         var assignmentId = Guid.NewGuid();
         var newDescription = "New description";
-        var assignment = new Assignment(assignmentId, "Old description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.ToDo);
+        var assignment = new Assignment(assignmentId, "Old description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
 
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         assignmentRepositoryMock.Setup(p => p.GetAsync(assignmentId)).ReturnsAsync(assignment);

@@ -38,6 +38,6 @@ public class Assignment
     }
 
     public void Abandon() => AssignmentStatus = AssignmentStatus.Abandon;
-    public void Restore() => AssignmentStatus = AssignmentStatus.ToDo;
+    public void Restore() => AssignmentStatus = AssignmentStatus.Active;
     public void Complited() => AssignmentStatus = AssignmentStatus.Complited;
 }

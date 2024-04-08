@@ -21,7 +21,8 @@ public class CommentRepositoryTests
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var commentId = new CommentId(Guid.NewGuid());
-        var expectedComment = new Comment(commentId, "Test Comment", _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var expectedComment = new Comment(commentId, "Test Comment", createdAt, CommentStatus.Active);
         dbContext.Comments.Add(expectedComment);
         await dbContext.SaveChangesAsync();
 
@@ -67,7 +68,7 @@ public class CommentRepositoryTests
         // ARRANGE
         var assignmentId = Guid.NewGuid();
         await using var dbContext = TestUtils.GetDbContext();
-        var assignment = new Assignment(assignmentId, "description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.ToDo);
+        var assignment = new Assignment(assignmentId, "description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
         var expectedComments = CreateComments(numberOfComments);
         expectedComments.ForEach(p=>assignment.AddComment(p));
         dbContext.Assignments.Add(assignment);
@@ -92,7 +93,8 @@ public class CommentRepositoryTests
         await using var dbContext = TestUtils.GetDbContext();
         var repository = new CommentRepository(dbContext);
         var commentId = new CommentId(Guid.NewGuid());
-        var commentToAdd = new Comment(commentId, new Description("Test Description 1"), _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var commentToAdd = new Comment(commentId, new Description("Test Description 1"), createdAt,  CommentStatus.Active);
 
         // ACT
         await repository.AddAsync(commentToAdd);
@@ -111,7 +113,8 @@ public class CommentRepositoryTests
         var commentId = new CommentId(Guid.NewGuid());
         var initialDescription = new Description("Initial Description");
         var updatedDescription = new Description("Updated Description");
-        var comment = new Comment(commentId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var comment = new Comment(commentId, initialDescription, createdAt,  CommentStatus.Active);
         dbContext.Comments.Add(comment);
         await dbContext.SaveChangesAsync();
 
@@ -133,7 +136,8 @@ public class CommentRepositoryTests
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var commentId = new CommentId(Guid.NewGuid());
-        var comment = new Comment(commentId, new Description("Test Description"), _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var comment = new Comment(commentId, new Description("Test Description"), createdAt,  CommentStatus.Active);
         dbContext.Comments.Add(comment);
         await dbContext.SaveChangesAsync();
 
@@ -152,7 +156,8 @@ public class CommentRepositoryTests
         var result = new List<Comment>();
         for(int i = 0; i < numberOfComments; i++)
         {
-            result.Add(new Comment(Guid.NewGuid(), $"Test Comment {i}", _fakeTimeProvider.GetUtcNow()));
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+            result.Add(new Comment(Guid.NewGuid(), $"Test Comment {i}", createdAt,  CommentStatus.Active));
         }
         return result;
     }

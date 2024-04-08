@@ -8,18 +8,23 @@ public class Comment
     public CommentId Id { get; }
     public Description Description { get; private set; }
     public DateTimeOffset CreatedAt { get; }
+    public CommentStatus CommentStatus { get; private set;}
 
     public AssignmentId AssignmentId { get; }
     public Assignment Assignment { get; }
-    public Comment(CommentId id, Description description, DateTimeOffset createdAt)
+    public Comment(CommentId id, Description description, DateTimeOffset createdAt, CommentStatus commentStatus)
     {
         Id = id;
         Description = description;
         CreatedAt = createdAt;
+        CommentStatus = commentStatus;
     }
 
     public void ChangeDescription(Description description)
     {
         Description = description ?? throw new InvalidDescriptionException("null");
     }
+
+    public void Abandon() => CommentStatus = CommentStatus.Abandon;
+    public void Restore() => CommentStatus = CommentStatus.Active;
 }
