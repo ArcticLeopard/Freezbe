@@ -2,6 +2,7 @@
 using Freezbe.Application.Exceptions;
 using Freezbe.Core.Entities;
 using Freezbe.Core.Repositories;
+using Freezbe.Core.ValueObjects;
 using MediatR;
 
 namespace Freezbe.Application.CommandHandlers;
@@ -24,7 +25,8 @@ public class CommentCreateCommandHandler : IRequestHandler<CommentCreateCommand>
         {
             throw new AssignmentNotFoundException(command.AssignmentId);
         }
-        var comment = new Comment(command.CommentId, command.Description, _timeProvider.GetUtcNow());
+        var createdAt = _timeProvider.GetUtcNow();
+        var comment = new Comment(command.CommentId, command.Description, createdAt, CommentStatus.Active);
         assignment.AddComment(comment);
         await _assignmentRepository.UpdateAsync(assignment);
     }

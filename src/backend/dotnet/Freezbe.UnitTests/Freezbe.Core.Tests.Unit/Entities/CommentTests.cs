@@ -21,13 +21,18 @@ public class CommentTests
         // ARRANGE
         var commentId = TestUtils.CreateCorrectCommentId();
         var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var commentStatus = (CommentStatus)CommentStatus.Active;
 
         // ACT
-        var comment = new Comment(commentId, description, _fakeTimeProvider.GetUtcNow());
+        var comment = new Comment(commentId, description, createdAt, commentStatus);
 
         // ASSERT
-        Assert.Equal(commentId, comment.Id);
-        Assert.Equal(description, comment.Description);
+        comment.Id.ShouldBe(commentId);
+        comment.Description.ShouldBe(description);
+        comment.CommentStatus.ShouldBe(commentStatus);
+        comment.CommentStatus.Value.ShouldBe((string)commentStatus);
+        comment.CreatedAt.ShouldBe(createdAt);
     }
 
     [Fact]
@@ -37,13 +42,15 @@ public class CommentTests
         var commentId = TestUtils.CreateCorrectCommentId();
         var initialDescription = new Description("Initial description");
         var newDescription = new Description("New description");
-        var comment = new Comment(commentId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var commentStatus = CommentStatus.Active;
+        var comment = new Comment(commentId, initialDescription, createdAt, commentStatus);
 
         // ACT
         comment.ChangeDescription(newDescription);
 
         // ASSERT
-        Assert.Equal(newDescription, comment.Description);
+        comment.Description.ShouldBe(newDescription);
     }
 
     [Fact]
@@ -52,7 +59,9 @@ public class CommentTests
         // ARRANGE
         var commentId = TestUtils.CreateCorrectCommentId();
         var initialDescription = new Description("Initial description");
-        var comment = new Comment(commentId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var commentStatus = CommentStatus.Active;
+        var comment = new Comment(commentId, initialDescription, createdAt, commentStatus);
 
         // ACT
         var exception = Record.Exception(() => comment.ChangeDescription(null));
@@ -60,5 +69,39 @@ public class CommentTests
         // ASSERT
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<InvalidDescriptionException>();
+    }
+
+    [Theory]
+    [InlineData(CommentStatus.Active)]
+    public void Abandon_ShouldChangeCommentStatusToAbandon(string startedState)
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectCommentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var assignment = new Comment(assignmentId, description, createdAt, startedState);
+        // ACT
+
+        assignment.Abandon();
+
+        // ASSERT
+        assignment.CommentStatus.Value.ShouldBe(CommentStatus.Abandon);
+    }
+
+    [Theory]
+    [InlineData(CommentStatus.Abandon)]
+    public void Restore_ShouldChangeCommentStatusToActive(string startedState)
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectCommentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var assignment = new Comment(assignmentId, description, createdAt, startedState);
+        // ACT
+
+        assignment.Restore();
+
+        // ASSERT
+        assignment.CommentStatus.Value.ShouldBe(CommentStatus.Active);
     }
 }

@@ -2,6 +2,7 @@
 using Freezbe.Application.Commands;
 using Freezbe.Core.Entities;
 using Freezbe.Core.Repositories;
+using Freezbe.Core.ValueObjects;
 using Moq;
 using Xunit;
 
@@ -22,7 +23,8 @@ public class CommentChangeDescriptionCommandHandlerTests
         // ASSERT
         var commentId = Guid.NewGuid();
         var newDescription = "New description";
-        var comment = new Comment(commentId, "Old description", _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var comment = new Comment(commentId, "Old description", createdAt, CommentStatus.Active);
 
         var commentRepositoryMock = new Mock<ICommentRepository>();
         commentRepositoryMock.Setup(p => p.GetAsync(commentId)).ReturnsAsync(comment);

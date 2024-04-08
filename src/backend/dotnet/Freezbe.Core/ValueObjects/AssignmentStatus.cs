@@ -19,12 +19,12 @@ public sealed record AssignmentStatus
     public static implicit operator AssignmentStatus(string value) => new(value);
 
     public const string Abandon = nameof(Abandon);
-    public const string ToDo = nameof(ToDo);
+    public const string Active = nameof(Active);
     public const string Complited = nameof(Complited);
 
     private string[] AvailableStates = {
         Abandon,
-        ToDo,
+        Active,
         Complited
     };
 }

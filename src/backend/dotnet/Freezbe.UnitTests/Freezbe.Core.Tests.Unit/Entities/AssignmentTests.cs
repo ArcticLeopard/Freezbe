@@ -21,7 +21,7 @@ public class AssignmentTests
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var description = new Description("Initial description");
         var createdAt = _fakeTimeProvider.GetUtcNow();
-        AssignmentStatus assignmentStatus = AssignmentStatus.ToDo;
+        AssignmentStatus assignmentStatus = AssignmentStatus.Active;
 
         // ACT
 
@@ -43,7 +43,7 @@ public class AssignmentTests
         var initialDescription = new Description("Initial description");
         var newDescription = new Description("New description");
         var dateTimeOffset = _fakeTimeProvider.GetUtcNow();
-        var assignment = new Assignment(assignmentId, initialDescription, dateTimeOffset, AssignmentStatus.ToDo);
+        var assignment = new Assignment(assignmentId, initialDescription, dateTimeOffset, AssignmentStatus.Active);
 
         // ACT
         assignment.ChangeDescription(newDescription);
@@ -58,7 +58,7 @@ public class AssignmentTests
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
-        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.ToDo);
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
 
         // ACT
         var exception = Record.Exception(() => assignment.ChangeDescription(null));
@@ -69,7 +69,7 @@ public class AssignmentTests
     }
 
     [Theory]
-    [InlineData(AssignmentStatus.ToDo)]
+    [InlineData(AssignmentStatus.Active)]
     [InlineData(AssignmentStatus.Complited)]
     public void Abandon_ShouldChangeAssignmentStatusToAbandon(string startedState)
     {
@@ -87,7 +87,7 @@ public class AssignmentTests
     }
 
     [Theory]
-    [InlineData(AssignmentStatus.ToDo)]
+    [InlineData(AssignmentStatus.Active)]
     [InlineData(AssignmentStatus.Abandon)]
     public void Complited_ShouldChangeAssignmentStatusToComplited(string startedState)
     {
@@ -107,7 +107,7 @@ public class AssignmentTests
     [Theory]
     [InlineData(AssignmentStatus.Abandon)]
     [InlineData(AssignmentStatus.Complited)]
-    public void Restore_ShouldChangeAssignmentStatusToToDo(string startedState)
+    public void Restore_ShouldChangeAssignmentStatusToActive(string startedState)
     {
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
@@ -119,6 +119,6 @@ public class AssignmentTests
         assignment.Restore();
 
         // ASSERT
-        assignment.AssignmentStatus.Value.ShouldBe(AssignmentStatus.ToDo);
+        assignment.AssignmentStatus.Value.ShouldBe(AssignmentStatus.Active);
     }
 }
