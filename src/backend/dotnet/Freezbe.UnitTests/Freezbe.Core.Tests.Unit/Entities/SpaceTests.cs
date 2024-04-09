@@ -87,7 +87,8 @@ public class SpaceTests
         var space = new Space(spaceId, initialDescription, _fakeTimeProvider.GetUtcNow());
 
         // ACT
-        space.AddProject(new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
+        var project = new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), ProjectStatus.Active);
+        space.AddProject(project);
 
         // ASSERT
         space.Projects.ShouldNotBeEmpty();

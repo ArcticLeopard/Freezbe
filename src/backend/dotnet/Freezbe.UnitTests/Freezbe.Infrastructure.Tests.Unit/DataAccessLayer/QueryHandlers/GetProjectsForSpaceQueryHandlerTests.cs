@@ -25,9 +25,9 @@ public class GetProjectsForSpaceQueryHandlerTests
         var createdAt = _fakeTimeProvider.GetUtcNow();
         var projects = new List<Project>
         {
-            new (Guid.NewGuid(), "Project 1", createdAt),
-            new (Guid.NewGuid(), "Project 2", createdAt),
-            new (Guid.NewGuid(), "Project 3", createdAt)
+            new (Guid.NewGuid(), "Project 1", createdAt, ProjectStatus.Active),
+            new (Guid.NewGuid(), "Project 2", createdAt, ProjectStatus.Active),
+            new (Guid.NewGuid(), "Project 3", createdAt, ProjectStatus.Abandon)
         };
         mockRepository.Setup(p => p.GetAllBySpaceIdAsync(It.IsAny<SpaceId>())).ReturnsAsync(projects);
 

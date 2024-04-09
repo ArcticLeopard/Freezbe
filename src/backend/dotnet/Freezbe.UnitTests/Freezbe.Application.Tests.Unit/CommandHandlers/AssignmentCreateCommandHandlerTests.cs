@@ -25,7 +25,8 @@ public class AssignmentCreateCommandHandlerTests
         // ASSERT
         var projectRepositoryMock = new Mock<IProjectRepository>();
         var existingsProjectId = new ProjectId(Guid.NewGuid());
-        projectRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
+        var project = new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), ProjectStatus.Active);
+        projectRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(project);
         var handler = new AssignmentCreateCommandHandler(_fakeTimeProvider, projectRepositoryMock.Object);
         var command = new AssignmentCreateCommand(Guid.NewGuid(), "Test description", existingsProjectId);
 
@@ -43,7 +44,8 @@ public class AssignmentCreateCommandHandlerTests
         // ASSERT
         var projectRepositoryMock = new Mock<IProjectRepository>();
         var existingsProjectId = new ProjectId(Guid.NewGuid());
-        projectRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow()));
+        var project = new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), ProjectStatus.Active);
+        projectRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(project);
         var handler = new AssignmentCreateCommandHandler(_fakeTimeProvider, projectRepositoryMock.Object);
         var command = new AssignmentCreateCommand(Guid.NewGuid(), "Test description", Guid.NewGuid());
 
