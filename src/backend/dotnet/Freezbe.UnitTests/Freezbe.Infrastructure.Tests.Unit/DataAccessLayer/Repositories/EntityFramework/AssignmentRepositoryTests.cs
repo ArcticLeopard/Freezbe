@@ -65,18 +65,18 @@ public class AssignmentRepositoryTests
     public async Task GetAllByProjectIdAsync_ShouldReturnAllAssignmentsByyProjectId(int numberOfAssignments, int expectedNumberOfAssignments)
     {
         // ARRANGE
-        var spaceId = Guid.NewGuid();
+        var projectId = Guid.NewGuid();
         await using var dbContext = TestUtils.GetDbContext();
-        var space = new Project(spaceId, "description", _fakeTimeProvider.GetUtcNow());
+        var project = new Project(projectId, "description", _fakeTimeProvider.GetUtcNow(), ProjectStatus.Active);
         var expectedAssignments = CreateAssignments(numberOfAssignments);
-        expectedAssignments.ForEach(p=>space.AddAssignment(p));
-        dbContext.Projects.Add(space);
+        expectedAssignments.ForEach(p=>project.AddAssignment(p));
+        dbContext.Projects.Add(project);
         await dbContext.SaveChangesAsync();
 
         var repository = new AssignmentRepository(dbContext);
 
         // ACT
-        var result = (await repository.GetAllByProjectIdAsync(spaceId)).ToList();
+        var result = (await repository.GetAllByProjectIdAsync(projectId)).ToList();
 
         // ASSERT
         result.ShouldNotBeNull();

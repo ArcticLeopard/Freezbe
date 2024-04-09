@@ -156,7 +156,7 @@ public class CommentRepositoryTests
         var result = new List<Comment>();
         for(int i = 0; i < numberOfComments; i++)
         {
-        var createdAt = _fakeTimeProvider.GetUtcNow();
+            var createdAt = _fakeTimeProvider.GetUtcNow();
             result.Add(new Comment(Guid.NewGuid(), $"Test Comment {i}", createdAt,  CommentStatus.Active));
         }
         return result;
