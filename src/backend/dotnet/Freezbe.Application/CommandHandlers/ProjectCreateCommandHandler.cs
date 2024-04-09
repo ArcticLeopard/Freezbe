@@ -2,6 +2,7 @@
 using Freezbe.Application.Exceptions;
 using Freezbe.Core.Entities;
 using Freezbe.Core.Repositories;
+using Freezbe.Core.ValueObjects;
 using MediatR;
 
 namespace Freezbe.Application.CommandHandlers;
@@ -24,7 +25,7 @@ public class ProjectCreateCommandHandler : IRequestHandler<ProjectCreateCommand>
         {
             throw new SpaceNotFoundException(command.SpaceId);
         }
-        var project = new Project(command.ProjectId, command.Description, _timeProvider.GetUtcNow());
+        var project = new Project(command.ProjectId, command.Description, _timeProvider.GetUtcNow(), ProjectStatus.Active);
         space.AddProject(project);
         await _spaceRepository.UpdateAsync(space);
     }

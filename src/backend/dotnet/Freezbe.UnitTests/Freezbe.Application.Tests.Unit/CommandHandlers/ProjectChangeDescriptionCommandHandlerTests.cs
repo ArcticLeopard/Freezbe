@@ -2,6 +2,7 @@
 using Freezbe.Application.Commands;
 using Freezbe.Core.Entities;
 using Freezbe.Core.Repositories;
+using Freezbe.Core.ValueObjects;
 using Moq;
 using Xunit;
 
@@ -22,7 +23,7 @@ public class ProjectChangeDescriptionCommandHandlerTests
         // ASSERT
         var projectId = Guid.NewGuid();
         var newDescription = "New description";
-        var project = new Project(projectId, "Old description", _fakeTimeProvider.GetUtcNow());
+        var project = new Project(projectId, "Old description", _fakeTimeProvider.GetUtcNow(), ProjectStatus.Active);
 
         var projectRepositoryMock = new Mock<IProjectRepository>();
         projectRepositoryMock.Setup(p => p.GetAsync(projectId)).ReturnsAsync(project);

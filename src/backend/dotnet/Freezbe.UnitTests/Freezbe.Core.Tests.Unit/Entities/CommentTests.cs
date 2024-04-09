@@ -16,7 +16,7 @@ public class CommentTests
     }
 
     [Fact]
-    public void Constructor_ValidCommentIdAndDescription_PropertiesInitializedCorrectly()
+    public void Constructor_WithValidAttribues_ShouldPropertiesInitializedCorrectly()
     {
         // ARRANGE
         var commentId = TestUtils.CreateCorrectCommentId();

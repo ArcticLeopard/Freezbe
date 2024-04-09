@@ -16,18 +16,22 @@ public class ProjectTests
     }
 
     [Fact]
-    public void Constructor_ValidProjectIdAndDescription_PropertiesInitializedCorrectly()
+    public void Constructor_WithValidAttribues_ShouldPropertiesInitializedCorrectly()
     {
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();
         var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var projectStatus = (ProjectStatus)ProjectStatus.Active;
 
         // ACT
-        var project = new Project(projectId, description, _fakeTimeProvider.GetUtcNow());
+        var project = new Project(projectId, description, createdAt, projectStatus);
 
         // ASSERT
         project.Id.ShouldBe(projectId);
         project.Description.ShouldBe(description);
+        project.ProjectStatus.ShouldBe(projectStatus);
+        project.ProjectStatus.Value.ShouldBe((string)projectStatus);
         project.Assignments.ShouldBeEmpty();
     }
 
@@ -38,7 +42,8 @@ public class ProjectTests
         var projectId = TestUtils.CreateCorrectProjectId();
         var initialDescription = new Description("Initial description");
         var newDescription = new Description("New description");
-        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var project = new Project(projectId, initialDescription, createdAt, ProjectStatus.Active);
 
         // ACT
         project.ChangeDescription(newDescription);
@@ -53,7 +58,8 @@ public class ProjectTests
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();
         var initialDescription = new Description("Initial description");
-        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var project = new Project(projectId, initialDescription, createdAt, ProjectStatus.Active);
 
         // ACT
         var exception = Record.Exception(() => project.ChangeDescription(null));
@@ -69,7 +75,8 @@ public class ProjectTests
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();
         var initialDescription = new Description("Initial description");
-        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var project = new Project(projectId, initialDescription, createdAt, ProjectStatus.Active);
 
         // ACT
         var exception = Record.Exception(() => project.AddAssignment(null));
@@ -85,12 +92,47 @@ public class ProjectTests
         // ARRANGE
         var projectId = TestUtils.CreateCorrectProjectId();
         var initialDescription = new Description("Initial description");
-        var project = new Project(projectId, initialDescription, _fakeTimeProvider.GetUtcNow());
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var project = new Project(projectId, initialDescription, createdAt, ProjectStatus.Active);
 
         // ACT
-        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active));
+        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description", createdAt, AssignmentStatus.Active));
 
         // ASSERT
         project.Assignments.ShouldNotBeEmpty();
+    }
+
+    [Theory]
+    [InlineData(ProjectStatus.Active)]
+    public void Abandon_ShouldChangeProjectStatusToAbandon(string startedState)
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectProjectId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var assignment = new Project(assignmentId, description, createdAt, startedState);
+        // ACT
+
+        assignment.Abandon();
+
+        // ASSERT
+        assignment.ProjectStatus.Value.ShouldBe(ProjectStatus.Abandon);
+    }
+
+    [Theory]
+    [InlineData(ProjectStatus.Abandon)]
+    public void Restore_ShouldChangeProjectStatusToActive(string startedState)
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectProjectId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var assignment = new Project(assignmentId, description, createdAt, startedState);
+        // ACT
+
+        assignment.Restore();
+
+        // ASSERT
+        assignment.ProjectStatus.Value.ShouldBe(ProjectStatus.Active);
     }
 }
