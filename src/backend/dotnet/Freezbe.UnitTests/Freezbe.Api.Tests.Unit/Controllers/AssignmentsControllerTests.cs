@@ -54,4 +54,23 @@ public class AssignmentsControllerTests
 
         commandHandlerMock.Verify(ch => ch.Send(It.IsAny<AssignmentCreateCommand>(), It.IsAny<CancellationToken>()), Times.Once);
     }
+
+    [Fact]
+    public async Task Delete_ValidRequest_ReturnsNoContent()
+    {
+        // ASSERT
+        var commandHandlerMock = new Mock<IMediator>();
+
+        var controller = new AssignmentsController(commandHandlerMock.Object);
+        var request = new AssignmentDeleteRequest(Guid.NewGuid());
+
+        // ACT
+        var result = await controller.Delete(request) as NoContentResult;
+
+        // ASSERT
+        Assert.NotNull(result);
+        Assert.Equal(204, result.StatusCode);
+
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<AssignmentHardDeleteCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
 }

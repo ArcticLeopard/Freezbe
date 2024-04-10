@@ -33,4 +33,12 @@ public class SpacesController : ControllerBase
         await _mediator.Send(command);
         return NoContent();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(SpaceDeleteRequest request)
+    {
+        var command = new SpaceHardDeleteCommand(request.SpaceId);
+        await _mediator.Send(command);
+        return NoContent();
+    }
 }

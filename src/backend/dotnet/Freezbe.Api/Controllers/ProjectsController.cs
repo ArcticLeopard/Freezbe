@@ -33,4 +33,12 @@ public class ProjectsController : ControllerBase
         await _mediator.Send(command);
         return NoContent();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(ProjectDeleteRequest request)
+    {
+        var command = new ProjectHardDeleteCommand(request.ProjectId);
+        await _mediator.Send(command);
+        return NoContent();
+    }
 }
