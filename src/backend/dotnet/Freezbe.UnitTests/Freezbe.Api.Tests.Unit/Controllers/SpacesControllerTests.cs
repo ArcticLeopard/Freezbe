@@ -37,21 +37,21 @@ public class SpacesControllerTests
     }
 
     [Fact]
-    public async Task Post_ValidRequest_ReturnsNoContent()
+    public async Task Delete_ValidRequest_ReturnsNoContent()
     {
         // ASSERT
         var commandHandlerMock = new Mock<IMediator>();
 
         var controller = new SpacesController(commandHandlerMock.Object);
-        var request = new SpaceCreateRequest("Test Description");
+        var request = new SpaceDeleteRequest(Guid.NewGuid());
 
         // ACT
-        var result = await controller.Post(request) as NoContentResult;
+        var result = await controller.Delete(request) as NoContentResult;
 
         // ASSERT
         Assert.NotNull(result);
         Assert.Equal(204, result.StatusCode);
 
-        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<SpaceCreateCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<SpaceHardDeleteCommand>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

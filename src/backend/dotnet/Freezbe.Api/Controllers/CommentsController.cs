@@ -33,4 +33,12 @@ public class CommentsController : ControllerBase
         await _mediator.Send(command);
         return NoContent();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(CommentDeleteRequest request)
+    {
+        var command = new CommentHardDeleteCommand(request.CommentId);
+        await _mediator.Send(command);
+        return NoContent();
+    }
 }

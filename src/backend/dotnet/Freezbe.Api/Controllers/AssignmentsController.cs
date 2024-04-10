@@ -33,4 +33,12 @@ public class AssignmentsController : ControllerBase
         await _mediator.Send(command);
         return NoContent();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(AssignmentDeleteRequest request)
+    {
+        var command = new AssignmentHardDeleteCommand(request.AssignmentId);
+        await _mediator.Send(command);
+        return NoContent();
+    }
 }
