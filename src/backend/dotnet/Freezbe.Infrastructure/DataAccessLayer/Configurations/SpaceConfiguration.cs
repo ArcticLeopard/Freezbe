@@ -10,6 +10,9 @@ internal sealed class SpaceConfiguration : IEntityTypeConfiguration<Space>
     public void Configure(EntityTypeBuilder<Space> builder)
     {
         builder.HasKey(p => p.Id);
+        builder.HasMany(p=>p.Projects)
+               .WithOne(p=>p.Space)
+               .OnDelete(DeleteBehavior.Cascade);
         builder.Property(p => p.Id).HasConversion(p => p.Value, p => new SpaceId(p));
         builder.Property(p => p.Description).IsRequired().HasConversion(p => p.Value, p => new Description(p));
         builder.Property(p => p.CreatedAt).IsRequired();
