@@ -18,26 +18,26 @@ public class CommentsController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<CommentDto>>> Get([FromHeader] Guid spaceId)
+    [HttpGet("{commentId}")]
+    public async Task<ActionResult<CommentDto>> Get(Guid commentId)
     {
-        var command = new GetCommentsForAssignmentQuery(spaceId);
+        var command = new GetCommentQuery(commentId);
         var result = await _mediator.Send(command);
         return Ok(result);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromHeader] Guid assignmentId, CommentCreateRequest request)
+    public async Task<IActionResult> Post(CreateCommentRequest request)
     {
-        var command = new CommentCreateCommand(Guid.NewGuid(), request.Description, assignmentId);
+        var command = new CreateCommentCommand(Guid.NewGuid(), request.Description, request.AssignmentId);
         await _mediator.Send(command);
         return NoContent();
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(CommentDeleteRequest request)
+    public async Task<IActionResult> Delete(DeleteCommentRequest request)
     {
-        var command = new CommentHardDeleteCommand(request.CommentId);
+        var command = new DeleteCommentCommand(request.CommentId);
         await _mediator.Send(command);
         return NoContent();
     }
