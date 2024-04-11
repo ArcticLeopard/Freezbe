@@ -18,22 +18,18 @@ public class CommentsControllerTests
         // ASSERT
         var commandHandlerMock = new Mock<IMediator>();
         commandHandlerMock
-        .Setup(m => m.Send(It.IsAny<GetCommentsForAssignmentQuery>(), It.IsAny<CancellationToken>()))
-        .ReturnsAsync(new List<CommentDto>()
-        {
-            new (Guid.NewGuid(), "Description"),
-            new (Guid.NewGuid(), "Description")
-        });
+        .Setup(m => m.Send(It.IsAny<GetCommentQuery>(), It.IsAny<CancellationToken>()))
+        .ReturnsAsync(new CommentDto(Guid.NewGuid(), "Description"));
 
         var controller = new CommentsController(commandHandlerMock.Object);
 
         // ACT
-        var result = TestUtils.GetValueFromController(await controller.Get(Guid.NewGuid()));
+        var result = await controller.Get(Guid.NewGuid());
 
         // ASSERT
-        Assert.Equal(2, result.Count());
+        Assert.NotNull(result);
 
-        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<GetCommentsForAssignmentQuery>(), It.IsAny<CancellationToken>()), Times.Once);
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<GetCommentQuery>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -43,16 +39,16 @@ public class CommentsControllerTests
         var commandHandlerMock = new Mock<IMediator>();
 
         var controller = new CommentsController(commandHandlerMock.Object);
-        var request = new CommentCreateRequest("Test Description");
+        var request = new CreateCommentRequest("Test Description", Guid.NewGuid());
 
         // ACT
-        var result = await controller.Post(Guid.NewGuid(), request) as NoContentResult;
+        var result = await controller.Post(request) as NoContentResult;
 
         // ASSERT
         Assert.NotNull(result);
         Assert.Equal(204, result.StatusCode);
 
-        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<CommentCreateCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<CreateCommentCommand>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]
@@ -62,7 +58,7 @@ public class CommentsControllerTests
         var commandHandlerMock = new Mock<IMediator>();
 
         var controller = new CommentsController(commandHandlerMock.Object);
-        var request = new CommentDeleteRequest(Guid.NewGuid());
+        var request = new DeleteCommentRequest(Guid.NewGuid());
 
         // ACT
         var result = await controller.Delete(request) as NoContentResult;
@@ -71,6 +67,6 @@ public class CommentsControllerTests
         Assert.NotNull(result);
         Assert.Equal(204, result.StatusCode);
 
-        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<CommentHardDeleteCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<DeleteCommentCommand>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

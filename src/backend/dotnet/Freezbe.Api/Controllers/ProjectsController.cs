@@ -18,26 +18,34 @@ public class ProjectsController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProjectDto>>> Get([FromHeader] Guid spaceId)
+    [HttpGet("{projectId}")]
+    public async Task<ActionResult<ProjectDto>> Get(Guid projectId)
     {
-        var command = new GetProjectsForSpaceQuery(spaceId);
+        var command = new GetProjectQuery(projectId);
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+
+    [HttpGet("{projectId}/Assignments")]
+    public async Task<ActionResult<IEnumerable<AssignmentDto>>> GetAssignments(Guid projectId)
+    {
+        var command = new GetAssignmentsFromProjectQuery(projectId);
         var result = await _mediator.Send(command);
         return Ok(result);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromHeader] Guid spaceId, ProjectCreateRequest request)
+    public async Task<IActionResult> Post(CreateProjectRequest request)
     {
-        var command = new ProjectCreateCommand(Guid.NewGuid(), request.Description, spaceId);
+        var command = new CreateProjectCommand(Guid.NewGuid(), request.Description, request.SpaceId);
         await _mediator.Send(command);
         return NoContent();
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(ProjectDeleteRequest request)
+    public async Task<IActionResult> Delete(DeleteProjectRequest request)
     {
-        var command = new ProjectHardDeleteCommand(request.ProjectId);
+        var command = new DeleteProjectCommand(request.ProjectId);
         await _mediator.Send(command);
         return NoContent();
     }

@@ -18,26 +18,34 @@ public class AssignmentsController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<AssignmentDto>>> Get([FromHeader] Guid projectId)
+    [HttpGet("{assignmentId}")]
+    public async Task<ActionResult<AssignmentDto>> Get(Guid assignmentId)
     {
-        var command = new GetAssignmentsForProjectQuery(projectId);
+        var command = new GetAssignmentQuery(assignmentId);
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+
+    [HttpGet("{assignmentId}/Comments")]
+    public async Task<ActionResult<IEnumerable<CommentDto>>> GetComments(Guid assignmentId)
+    {
+        var command = new GetCommentsFromAssignmentQuery(assignmentId);
         var result = await _mediator.Send(command);
         return Ok(result);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromHeader] Guid projectId, AssignmentCreateRequest request)
+    public async Task<IActionResult> Post(CreateAssignmentRequest request)
     {
-        var command = new AssignmentCreateCommand(Guid.NewGuid(), request.Description, projectId);
+        var command = new CreateAssignmentCommand(Guid.NewGuid(), request.Description, request.ProjectId);
         await _mediator.Send(command);
         return NoContent();
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(AssignmentDeleteRequest request)
+    public async Task<IActionResult> Delete(DeleteAssignmentRequest request)
     {
-        var command = new AssignmentHardDeleteCommand(request.AssignmentId);
+        var command = new DeleteAssignmentCommand(request.AssignmentId);
         await _mediator.Send(command);
         return NoContent();
     }

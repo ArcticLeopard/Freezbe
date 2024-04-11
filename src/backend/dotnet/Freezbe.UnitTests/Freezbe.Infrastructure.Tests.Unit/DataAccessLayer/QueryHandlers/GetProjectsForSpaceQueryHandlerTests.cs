@@ -31,8 +31,8 @@ public class GetProjectsForSpaceQueryHandlerTests
         };
         mockRepository.Setup(p => p.GetAllBySpaceIdAsync(It.IsAny<SpaceId>())).ReturnsAsync(projects);
 
-        var handler = new GetProjectsForSpaceQueryHandler(mockRepository.Object);
-        var query = new GetProjectsForSpaceQuery(Guid.NewGuid());
+        var handler = new GetProjectsFromSpaceQueryHandler(mockRepository.Object);
+        var query = new GetProjectsFromSpaceQuery(Guid.NewGuid());
 
         // ACT
         var result = (await handler.Handle(query, CancellationToken.None)).ToList();
