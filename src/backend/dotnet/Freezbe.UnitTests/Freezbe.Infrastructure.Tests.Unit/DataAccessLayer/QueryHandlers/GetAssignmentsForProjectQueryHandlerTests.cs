@@ -32,7 +32,7 @@ public class GetAssignmentsForProjectQueryHandlerTests
         mockRepository.Setup(p => p.GetAllByProjectIdAsync(It.IsAny<ProjectId>())).ReturnsAsync(assignments);
 
         var handler = new GetAssignmentsForProjectQueryHandler(mockRepository.Object);
-        var query = new GetAssignmentsForProjectQuery(Guid.NewGuid());
+        var query = new GetAssignmentsFromProjectQuery(Guid.NewGuid());
 
         // ACT
         var result = (await handler.Handle(query, CancellationToken.None)).ToList();

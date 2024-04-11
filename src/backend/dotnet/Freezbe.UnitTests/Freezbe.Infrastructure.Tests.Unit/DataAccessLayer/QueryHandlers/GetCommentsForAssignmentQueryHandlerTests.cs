@@ -32,7 +32,7 @@ public class GetCommentsForAssignmentQueryHandlerTests
         mockRepository.Setup(p => p.GetAllByAssignmentIdAsync(It.IsAny<AssignmentId>())).ReturnsAsync(comments);
 
         var handler = new GetCommentsForAssignmentQueryHandler(mockRepository.Object);
-        var query = new GetCommentsForAssignmentQuery(Guid.NewGuid());
+        var query = new GetCommentsFromAssignmentQuery(Guid.NewGuid());
 
         // ACT
         var result = (await handler.Handle(query, CancellationToken.None)).ToList();
