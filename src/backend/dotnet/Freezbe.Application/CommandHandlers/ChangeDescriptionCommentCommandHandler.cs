@@ -1,4 +1,5 @@
 ﻿using Freezbe.Application.Commands;
+using Freezbe.Application.Exceptions;
 using Freezbe.Core.Repositories;
 using MediatR;
 
@@ -16,6 +17,10 @@ public class ChangeDescriptionCommentCommandHandler : IRequestHandler<ChangeDesc
     public async Task Handle(ChangeDescriptionCommentCommand command, CancellationToken cancellationToken)
     {
         var comment = await _commentRepository.GetAsync(command.CommentId);
+        if(comment is null)
+        {
+            throw new CommentNotFoundException(command.CommentId);
+        }
         comment.ChangeDescription(command.Description);
         await _commentRepository.UpdateAsync(comment);
     }

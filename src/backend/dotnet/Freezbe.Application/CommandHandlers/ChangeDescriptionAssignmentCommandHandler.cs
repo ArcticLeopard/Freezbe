@@ -1,4 +1,5 @@
 ﻿using Freezbe.Application.Commands;
+using Freezbe.Application.Exceptions;
 using Freezbe.Core.Repositories;
 using MediatR;
 
@@ -16,6 +17,10 @@ public class ChangeDescriptionAssignmentCommandHandler : IRequestHandler<ChangeD
     public async Task Handle(ChangeDescriptionAssignmentCommand command, CancellationToken cancellationToken)
     {
         var assignment = await _assignmentRepository.GetAsync(command.AssignmentId);
+        if(assignment is null)
+        {
+            throw new AssignmentNotFoundException(command.AssignmentId);
+        }
         assignment.ChangeDescription(command.Description);
         await _assignmentRepository.UpdateAsync(assignment);
     }

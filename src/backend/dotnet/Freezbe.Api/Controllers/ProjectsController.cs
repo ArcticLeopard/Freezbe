@@ -35,17 +35,25 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(CreateProjectRequest request)
+    public async Task<IActionResult> Create(CreateProjectRequest request)
     {
         var command = new CreateProjectCommand(Guid.NewGuid(), request.Description, request.SpaceId);
         await _mediator.Send(command);
         return NoContent();
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(DeleteProjectRequest request)
+    [HttpPatch("{projectId}/Description")]
+    public async Task<IActionResult> ChangeDescription(Guid projectId, ChangeDescriptionProjectRequest request)
     {
-        var command = new DeleteProjectCommand(request.ProjectId);
+        var command = new ChangeDescriptionProjectCommand(projectId, request.Description);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{projectId}")]
+    public async Task<IActionResult> Delete(Guid projectId)
+    {
+        var command = new DeleteProjectCommand(projectId);
         await _mediator.Send(command);
         return NoContent();
     }
