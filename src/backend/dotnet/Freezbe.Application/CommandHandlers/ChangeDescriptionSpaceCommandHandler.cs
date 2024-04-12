@@ -1,4 +1,5 @@
 ﻿using Freezbe.Application.Commands;
+using Freezbe.Application.Exceptions;
 using Freezbe.Core.Repositories;
 using MediatR;
 
@@ -16,6 +17,10 @@ public class ChangeDescriptionSpaceCommandHandler : IRequestHandler<ChangeDescri
     public async Task Handle(ChangeDescriptionSpaceCommand command, CancellationToken cancellationToken)
     {
         var space = await _spaceRepository.GetAsync(command.SpaceId);
+        if(space is null)
+        {
+            throw new SpaceNotFoundException(command.SpaceId);
+        }
         space.ChangeDescription(command.Description);
         await _spaceRepository.UpdateAsync(space);
     }

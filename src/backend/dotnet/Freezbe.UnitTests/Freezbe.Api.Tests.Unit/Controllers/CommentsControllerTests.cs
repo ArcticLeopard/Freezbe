@@ -33,7 +33,7 @@ public class CommentsControllerTests
     }
 
     [Fact]
-    public async Task Post_ValidRequest_ReturnsNoContent()
+    public async Task Create_ValidRequest_ReturnsNoContent()
     {
         // ASSERT
         var commandHandlerMock = new Mock<IMediator>();
@@ -42,7 +42,7 @@ public class CommentsControllerTests
         var request = new CreateCommentRequest("Test Description", Guid.NewGuid());
 
         // ACT
-        var result = await controller.Post(request) as NoContentResult;
+        var result = await controller.Create(request) as NoContentResult;
 
         // ASSERT
         Assert.NotNull(result);
@@ -52,13 +52,32 @@ public class CommentsControllerTests
     }
 
     [Fact]
+    public async Task ChangeDescription_ValidRequest_ReturnsNoContent()
+    {
+        // ASSERT
+        var commandHandlerMock = new Mock<IMediator>();
+
+        var controller = new CommentsController(commandHandlerMock.Object);
+        var request = new ChangeDescriptionCommentRequest("Test Description");
+
+        // ACT
+        var result = await controller.ChangeDescription(Guid.NewGuid(), request) as NoContentResult;
+
+        // ASSERT
+        Assert.NotNull(result);
+        Assert.Equal(204, result.StatusCode);
+
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<ChangeDescriptionCommentCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
     public async Task Delete_ValidRequest_ReturnsNoContent()
     {
         // ASSERT
         var commandHandlerMock = new Mock<IMediator>();
 
         var controller = new CommentsController(commandHandlerMock.Object);
-        var request = new DeleteCommentRequest(Guid.NewGuid());
+        var request = Guid.NewGuid();
 
         // ACT
         var result = await controller.Delete(request) as NoContentResult;

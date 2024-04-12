@@ -27,17 +27,25 @@ public class CommentsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(CreateCommentRequest request)
+    public async Task<IActionResult> Create(CreateCommentRequest request)
     {
         var command = new CreateCommentCommand(Guid.NewGuid(), request.Description, request.AssignmentId);
         await _mediator.Send(command);
         return NoContent();
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(DeleteCommentRequest request)
+    [HttpPatch("{commentId}/Description")]
+    public async Task<IActionResult> ChangeDescription(Guid commentId, ChangeDescriptionCommentRequest request)
     {
-        var command = new DeleteCommentCommand(request.CommentId);
+        var command = new ChangeDescriptionCommentCommand(commentId, request.Description);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{commentId}")]
+    public async Task<IActionResult> Delete(Guid commentId)
+    {
+        var command = new DeleteCommentCommand(commentId);
         await _mediator.Send(command);
         return NoContent();
     }
