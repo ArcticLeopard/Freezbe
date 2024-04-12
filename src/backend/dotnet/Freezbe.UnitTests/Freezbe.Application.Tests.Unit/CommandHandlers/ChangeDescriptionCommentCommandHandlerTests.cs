@@ -1,9 +1,11 @@
 ﻿using Freezbe.Application.CommandHandlers;
 using Freezbe.Application.Commands;
+using Freezbe.Application.Exceptions;
 using Freezbe.Core.Entities;
 using Freezbe.Core.Repositories;
 using Freezbe.Core.ValueObjects;
 using Moq;
+using Shouldly;
 using Xunit;
 
 namespace Freezbe.Application.Tests.Unit.CommandHandlers;
@@ -38,5 +40,24 @@ public class ChangeDescriptionCommentCommandHandlerTests
         // ASSERT
         Assert.Equal(newDescription, comment.Description);
         commentRepositoryMock.Verify(p => p.UpdateAsync(comment), Times.Once);
+    }
+
+    [Fact]
+    public async Task HandleAsync_CommandWithNotExistingsCommentId_ShouldThrowCommentNotFoundException()
+    {
+        // ASSERT
+        var assignmentRepositoryMock = new Mock<ICommentRepository>();
+        var existingsCommentId = new CommentId(Guid.NewGuid());
+        var assignment = new Comment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), CommentStatus.Active);
+        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsCommentId)).ReturnsAsync(assignment);
+        var handler = new ChangeDescriptionCommentCommandHandler(assignmentRepositoryMock.Object);
+        var command = new ChangeDescriptionCommentCommand(Guid.NewGuid(), "Test description");
+
+        //ACT
+        var exception = await Record.ExceptionAsync(() => handler.Handle(command, CancellationToken.None));
+
+        //ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<CommentNotFoundException>();
     }
 }

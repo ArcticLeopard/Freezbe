@@ -26,14 +26,6 @@ public class SpacesController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<SpaceDto>>> GetAll()
-    {
-        var command = new GetSpacesQuery();
-        var result = await _mediator.Send(command);
-        return Ok(result);
-    }
-
     [HttpGet("{spaceId}/Projects")]
     public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProject(Guid spaceId)
     {
@@ -42,18 +34,34 @@ public class SpacesController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<SpaceDto>>> GetAll()
+    {
+        var command = new GetSpacesQuery();
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+
     [HttpPost]
-    public async Task<IActionResult> Post(CreateSpaceRequest request)
+    public async Task<IActionResult> Create(CreateSpaceRequest request)
     {
         var command = new CreateSpaceCommand(Guid.NewGuid(), request.Description);
         await _mediator.Send(command);
         return NoContent();
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(DeleteSpaceRequest request)
+    [HttpPatch("{spaceId}/Description")]
+    public async Task<IActionResult> ChangeDescription(Guid spaceId, ChangeDescriptionSpaceRequest request)
     {
-        var command = new DeleteSpaceCommand(request.SpaceId);
+        var command = new ChangeDescriptionSpaceCommand(spaceId, request.Description);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{spaceId}")]
+    public async Task<IActionResult> Delete(Guid spaceId)
+    {
+        var command = new DeleteSpaceCommand(spaceId);
         await _mediator.Send(command);
         return NoContent();
     }

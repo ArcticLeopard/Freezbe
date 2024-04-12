@@ -1,4 +1,5 @@
 ﻿using Freezbe.Application.Commands;
+using Freezbe.Application.Exceptions;
 using Freezbe.Core.Repositories;
 using MediatR;
 
@@ -16,6 +17,10 @@ public class ChangeDescriptionProjectCommandHandler : IRequestHandler<ChangeDesc
     public async Task Handle(ChangeDescriptionProjectCommand command, CancellationToken cancellationToken)
     {
         var project = await _projectRepository.GetAsync(command.ProjectId);
+        if(project is null)
+        {
+            throw new ProjectNotFoundException(command.ProjectId);
+        }
         project.ChangeDescription(command.Description);
         await _projectRepository.UpdateAsync(project);
     }

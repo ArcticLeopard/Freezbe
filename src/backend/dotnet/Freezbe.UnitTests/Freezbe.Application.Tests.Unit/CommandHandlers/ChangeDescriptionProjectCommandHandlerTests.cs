@@ -1,9 +1,11 @@
 ﻿using Freezbe.Application.CommandHandlers;
 using Freezbe.Application.Commands;
+using Freezbe.Application.Exceptions;
 using Freezbe.Core.Entities;
 using Freezbe.Core.Repositories;
 using Freezbe.Core.ValueObjects;
 using Moq;
+using Shouldly;
 using Xunit;
 
 namespace Freezbe.Application.Tests.Unit.CommandHandlers;
@@ -37,5 +39,24 @@ public class ChangeDescriptionProjectCommandHandlerTests
         // ASSERT
         Assert.Equal(newDescription, project.Description);
         projectRepositoryMock.Verify(p => p.UpdateAsync(project), Times.Once);
+    }
+
+    [Fact]
+    public async Task HandleAsync_CommandWithNotExistingsProjectId_ShouldThrowProjectNotFoundException()
+    {
+        // ASSERT
+        var assignmentRepositoryMock = new Mock<IProjectRepository>();
+        var existingsProjectId = new ProjectId(Guid.NewGuid());
+        var assignment = new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), ProjectStatus.Active);
+        assignmentRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(assignment);
+        var handler = new ChangeDescriptionProjectCommandHandler(assignmentRepositoryMock.Object);
+        var command = new ChangeDescriptionProjectCommand(Guid.NewGuid(), "Test description");
+
+        //ACT
+        var exception = await Record.ExceptionAsync(() => handler.Handle(command, CancellationToken.None));
+
+        //ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<ProjectNotFoundException>();
     }
 }

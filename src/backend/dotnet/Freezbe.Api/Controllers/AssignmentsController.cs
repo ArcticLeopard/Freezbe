@@ -35,17 +35,25 @@ public class AssignmentsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(CreateAssignmentRequest request)
+    public async Task<IActionResult> Create(CreateAssignmentRequest request)
     {
         var command = new CreateAssignmentCommand(Guid.NewGuid(), request.Description, request.ProjectId);
         await _mediator.Send(command);
         return NoContent();
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(DeleteAssignmentRequest request)
+    [HttpPatch("{assignmentId}/Description")]
+    public async Task<IActionResult> ChangeDescription(Guid assignmentId, ChangeDescriptionAssignmentRequest request)
     {
-        var command = new DeleteAssignmentCommand(request.AssignmentId);
+        var command = new ChangeDescriptionAssignmentCommand(assignmentId, request.Description);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{assignmentId}")]
+    public async Task<IActionResult> Delete(Guid assignmentId)
+    {
+        var command = new DeleteAssignmentCommand(assignmentId);
         await _mediator.Send(command);
         return NoContent();
     }
