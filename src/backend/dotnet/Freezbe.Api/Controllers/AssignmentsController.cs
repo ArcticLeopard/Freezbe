@@ -2,6 +2,7 @@
 using Freezbe.Application.Commands;
 using Freezbe.Application.DataTransferObject;
 using Freezbe.Application.Queries;
+using Freezbe.Core.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,6 +47,30 @@ public class AssignmentsController : ControllerBase
     public async Task<IActionResult> ChangeDescription(Guid assignmentId, ChangeDescriptionAssignmentRequest request)
     {
         var command = new ChangeDescriptionAssignmentCommand(assignmentId, request.Description);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{assignmentId}/Status/Abandon")]
+    public async Task<IActionResult> ChangeStatusToAbandon(Guid assignmentId)
+    {
+        var command = new ChangeStatusAssignmentCommand(assignmentId, AssignmentStatus.Abandon);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{assignmentId}/Status/Active")]
+    public async Task<IActionResult> ChangeStatusToActive(Guid assignmentId)
+    {
+        var command = new ChangeStatusAssignmentCommand(assignmentId, AssignmentStatus.Active);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{assignmentId}/Status/Complited")]
+    public async Task<IActionResult> ChangeStatusToComplited(Guid assignmentId)
+    {
+        var command = new ChangeStatusAssignmentCommand(assignmentId, AssignmentStatus.Complited);
         await _mediator.Send(command);
         return NoContent();
     }

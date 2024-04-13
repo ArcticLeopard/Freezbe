@@ -25,6 +25,21 @@ public class Comment
         Description = description ?? throw new InvalidDescriptionException("null");
     }
 
+    public void ChangeStatus(CommentStatus commentStatus)
+    {
+        switch(commentStatus)
+        {
+            case CommentStatus.Abandon:
+                Abandon();
+                break;
+            case CommentStatus.Active:
+                Restore();
+                break;
+            default:
+                throw new InvalidCommentStatusException(commentStatus);
+        }
+    }
+
     public void Abandon() => CommentStatus = CommentStatus.Abandon;
     public void Restore() => CommentStatus = CommentStatus.Active;
 }

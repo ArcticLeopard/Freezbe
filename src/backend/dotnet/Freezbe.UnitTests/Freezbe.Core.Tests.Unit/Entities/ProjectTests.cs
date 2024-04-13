@@ -135,4 +135,60 @@ public class ProjectTests
         // ASSERT
         assignment.ProjectStatus.Value.ShouldBe(ProjectStatus.Active);
     }
+
+    [Fact]
+    public void ChangeStatus_WhenAbandon_ShouldCallAbandon()
+    {
+        // ARRANGE
+        var projectId = TestUtils.CreateCorrectProjectId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = ProjectStatus.Active;
+        var requestedStatus = ProjectStatus.Abandon;
+        var expectedStatus = ProjectStatus.Abandon;
+        var project = new Project(projectId, description, createdAt, startedState);
+
+        // ACT
+        project.ChangeStatus(requestedStatus);
+
+        // ASSERT
+        Assert.Equal(expectedStatus, project.ProjectStatus);
+    }
+
+    [Fact]
+    public void ChangeStatus_WhenActive_ShouldCallRestore()
+    {
+        // ARRANGE
+        var projectId = TestUtils.CreateCorrectProjectId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = ProjectStatus.Abandon;
+        var requestedStatus = ProjectStatus.Active;
+        var expectedStatus = ProjectStatus.Active;
+        var project = new Project(projectId, description, createdAt, startedState);
+
+        // ACT
+        project.ChangeStatus(requestedStatus);
+
+        // ASSERT
+        Assert.Equal(expectedStatus, project.ProjectStatus);
+    }
+
+    [Fact]
+    public void ChangeStatus_WhenInvalidStatus_ThrowsInvalidProjectStatusException()
+    {
+        // ARRANGE
+        var projectId = TestUtils.CreateCorrectProjectId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = ProjectStatus.Abandon;
+        var project = new Project(projectId, description, createdAt, startedState);
+
+        // ACT
+        var exception = Record.Exception(() => project.ChangeStatus("NotExistingStatus"));
+
+        // ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<InvalidProjectStatusException>();
+    }
 }

@@ -23,11 +23,6 @@ public class Project
         ProjectStatus = projectStatus;
     }
 
-    public void ChangeDescription(Description description)
-    {
-        Description = description ?? throw new InvalidDescriptionException("null");
-    }
-
     public void AddAssignment(Assignment assignment)
     {
         if(assignment == null)
@@ -35,6 +30,26 @@ public class Project
             throw new AddedEntityCannotBeNullException();
         }
         _assignments.Add(assignment);
+    }
+
+    public void ChangeDescription(Description description)
+    {
+        Description = description ?? throw new InvalidDescriptionException("null");
+    }
+
+    public void ChangeStatus(ProjectStatus projectStatus)
+    {
+        switch(projectStatus)
+        {
+            case ProjectStatus.Abandon:
+                Abandon();
+                break;
+            case ProjectStatus.Active:
+                Restore();
+                break;
+            default:
+                throw new InvalidProjectStatusException(projectStatus);
+        }
     }
 
     public void Abandon() => ProjectStatus = ProjectStatus.Abandon;
