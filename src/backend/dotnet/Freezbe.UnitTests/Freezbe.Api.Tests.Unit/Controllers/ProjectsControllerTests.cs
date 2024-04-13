@@ -95,6 +95,42 @@ public class ProjectsControllerTests
     }
 
     [Fact]
+    public async Task ChangeStatusToActive_ValidRequest_ReturnsNoContent()
+    {
+        // ASSERT
+        var commandHandlerMock = new Mock<IMediator>();
+
+        var controller = new ProjectsController(commandHandlerMock.Object);
+
+        // ACT
+        var result = await controller.ChangeStatusToActive(Guid.NewGuid()) as NoContentResult;
+
+        // ASSERT
+        Assert.NotNull(result);
+        Assert.Equal(204, result.StatusCode);
+
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<ChangeStatusProjectCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task ChangeStatusToAbandon_ValidRequest_ReturnsNoContent()
+    {
+        // ASSERT
+        var commandHandlerMock = new Mock<IMediator>();
+
+        var controller = new ProjectsController(commandHandlerMock.Object);
+
+        // ACT
+        var result = await controller.ChangeStatusToAbandon(Guid.NewGuid()) as NoContentResult;
+
+        // ASSERT
+        Assert.NotNull(result);
+        Assert.Equal(204, result.StatusCode);
+
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<ChangeStatusProjectCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
     public async Task Delete_ValidRequest_ReturnsNoContent()
     {
         // ASSERT

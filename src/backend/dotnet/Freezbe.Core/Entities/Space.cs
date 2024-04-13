@@ -18,11 +18,6 @@ public class Space
         CreatedAt = createdAt;
     }
 
-    public void ChangeDescription(Description description)
-    {
-        Description = description ?? throw new InvalidDescriptionException("null");
-    }
-
     public void AddProject(Project project)
     {
         if(project == null)
@@ -30,5 +25,10 @@ public class Space
             throw new AddedEntityCannotBeNullException();
         }
         _projects.Add(project);
+    }
+
+    public void ChangeDescription(Description description)
+    {
+        Description = description ?? throw new InvalidDescriptionException("null");
     }
 }

@@ -2,6 +2,7 @@
 using Freezbe.Application.Commands;
 using Freezbe.Application.DataTransferObject;
 using Freezbe.Application.Queries;
+using Freezbe.Core.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,6 +47,22 @@ public class ProjectsController : ControllerBase
     public async Task<IActionResult> ChangeDescription(Guid projectId, ChangeDescriptionProjectRequest request)
     {
         var command = new ChangeDescriptionProjectCommand(projectId, request.Description);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{projectId}/Status/Abandon")]
+    public async Task<IActionResult> ChangeStatusToAbandon(Guid projectId)
+    {
+        var command = new ChangeStatusProjectCommand(projectId, ProjectStatus.Abandon);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{projectId}/Status/Active")]
+    public async Task<IActionResult> ChangeStatusToActive(Guid projectId)
+    {
+        var command = new ChangeStatusProjectCommand(projectId, ProjectStatus.Active);
         await _mediator.Send(command);
         return NoContent();
     }

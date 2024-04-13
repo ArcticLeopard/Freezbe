@@ -121,4 +121,79 @@ public class AssignmentTests
         // ASSERT
         assignment.AssignmentStatus.Value.ShouldBe(AssignmentStatus.Active);
     }
+
+    [Fact]
+    public void ChangeStatus_WhenAbandon_ShouldCallAbandon()
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = AssignmentStatus.Active;
+        var requestedStatus = AssignmentStatus.Abandon;
+        var expectedStatus = AssignmentStatus.Abandon;
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState);
+
+        // ACT
+        assignment.ChangeStatus(requestedStatus);
+
+        // ASSERT
+        Assert.Equal(expectedStatus, assignment.AssignmentStatus);
+    }
+
+    [Fact]
+    public void ChangeStatus_WhenActive_ShouldCallRestore()
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = AssignmentStatus.Abandon;
+        var requestedStatus = AssignmentStatus.Active;
+        var expectedStatus = AssignmentStatus.Active;
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState);
+
+        // ACT
+        assignment.ChangeStatus(requestedStatus);
+
+        // ASSERT
+        Assert.Equal(expectedStatus, assignment.AssignmentStatus);
+    }
+
+    [Fact]
+    public void ChangeStatus_WhenComplited_ShouldCallComplited()
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = AssignmentStatus.Active;
+        var requestedStatus = AssignmentStatus.Complited;
+        var expectedStatus = AssignmentStatus.Complited;
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState);
+
+        // ACT
+        assignment.ChangeStatus(requestedStatus);
+
+        // ASSERT
+        Assert.Equal(expectedStatus, assignment.AssignmentStatus);
+    }
+
+    [Fact]
+    public void ChangeStatus_WhenInvalidStatus_ThrowsInvalidAssignmentStatusException()
+    {
+        // ARRANGE
+        var assignmentId = TestUtils.CreateCorrectAssignmentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = AssignmentStatus.Abandon;
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState);
+
+        // ACT
+        var exception = Record.Exception(() => assignment.ChangeStatus("NotExistingStatus"));
+
+        // ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<InvalidAssignmentStatusException>();
+    }
 }
