@@ -104,4 +104,60 @@ public class CommentTests
         // ASSERT
         assignment.CommentStatus.Value.ShouldBe(CommentStatus.Active);
     }
+
+    [Fact]
+    public void ChangeStatus_WhenAbandon_ShouldCallAbandon()
+    {
+        // ARRANGE
+        var commentId = TestUtils.CreateCorrectCommentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = CommentStatus.Active;
+        var requestedStatus = CommentStatus.Abandon;
+        var expectedStatus = CommentStatus.Abandon;
+        var comment = new Comment(commentId, description, createdAt, startedState);
+
+        // ACT
+        comment.ChangeStatus(requestedStatus);
+
+        // ASSERT
+        Assert.Equal(expectedStatus, comment.CommentStatus);
+    }
+
+    [Fact]
+    public void ChangeStatus_WhenActive_ShouldCallRestore()
+    {
+        // ARRANGE
+        var commentId = TestUtils.CreateCorrectCommentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = CommentStatus.Abandon;
+        var requestedStatus = CommentStatus.Active;
+        var expectedStatus = CommentStatus.Active;
+        var comment = new Comment(commentId, description, createdAt, startedState);
+
+        // ACT
+        comment.ChangeStatus(requestedStatus);
+
+        // ASSERT
+        Assert.Equal(expectedStatus, comment.CommentStatus);
+    }
+
+    [Fact]
+    public void ChangeStatus_WhenInvalidStatus_ThrowsInvalidCommentStatusException()
+    {
+        // ARRANGE
+        var commentId = TestUtils.CreateCorrectCommentId();
+        var description = new Description("Initial description");
+        var createdAt = _fakeTimeProvider.GetUtcNow();
+        var startedState = CommentStatus.Abandon;
+        var comment = new Comment(commentId, description, createdAt, startedState);
+
+        // ACT
+        var exception = Record.Exception(() => comment.ChangeStatus("NotExistingStatus"));
+
+        // ASSERT
+        exception.ShouldNotBeNull();
+        exception.ShouldBeOfType<InvalidCommentStatusException>();
+    }
 }

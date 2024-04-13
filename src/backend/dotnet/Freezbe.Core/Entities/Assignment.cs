@@ -23,11 +23,6 @@ public class Assignment
         AssignmentStatus = assignmentStatus;
     }
 
-    public void ChangeDescription(Description description)
-    {
-        Description = description ?? throw new InvalidDescriptionException("null");
-    }
-
     public void AddComment(Comment comment)
     {
         if(comment == null)
@@ -35,6 +30,29 @@ public class Assignment
             throw new AddedEntityCannotBeNullException();
         }
         _comments.Add(comment);
+    }
+
+    public void ChangeDescription(Description description)
+    {
+        Description = description ?? throw new InvalidDescriptionException("null");
+    }
+
+    public void ChangeStatus(AssignmentStatus assignmentStatus)
+    {
+        switch(assignmentStatus)
+        {
+            case AssignmentStatus.Abandon:
+                Abandon();
+                break;
+            case AssignmentStatus.Active:
+                Restore();
+                break;
+            case AssignmentStatus.Complited:
+                Complited();
+                break;
+            default:
+                throw new InvalidAssignmentStatusException(assignmentStatus);
+        }
     }
 
     public void Abandon() => AssignmentStatus = AssignmentStatus.Abandon;

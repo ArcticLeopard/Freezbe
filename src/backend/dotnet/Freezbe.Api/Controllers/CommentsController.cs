@@ -2,6 +2,7 @@
 using Freezbe.Application.Commands;
 using Freezbe.Application.DataTransferObject;
 using Freezbe.Application.Queries;
+using Freezbe.Core.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,22 @@ public class CommentsController : ControllerBase
     public async Task<IActionResult> ChangeDescription(Guid commentId, ChangeDescriptionCommentRequest request)
     {
         var command = new ChangeDescriptionCommentCommand(commentId, request.Description);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{commentId}/Status/Abandon")]
+    public async Task<IActionResult> ChangeStatusToAbandon(Guid commentId)
+    {
+        var command = new ChangeStatusCommentCommand(commentId, CommentStatus.Abandon);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{commentId}/Status/Active")]
+    public async Task<IActionResult> ChangeStatusToActive(Guid commentId)
+    {
+        var command = new ChangeStatusCommentCommand(commentId, CommentStatus.Active);
         await _mediator.Send(command);
         return NoContent();
     }
