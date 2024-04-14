@@ -1,0 +1,74 @@
+:host
+{
+  font-size: 1.6rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol";
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.application
+{
+  width: 100%;
+  height: 100%;
+}
+
+div
+{
+  border: 1px dotted white;
+}
+
+.flex-container
+{
+  display: flex;
+  height: 100%;
+  max-height: 100%;
+}
+
+.main-content
+{
+  flex: 1;
+}
+
+.taskView
+{
+  flex: 2 0 315px;
+}
+
+.detailView
+{
+  flex: 1 0 315px;
+}
+
+.taskViewMenu, .detailViewMenu
+{
+  height: 5.6rem;
+}
+
+.taskList, .commentList
+{
+  height: 100%;
+  overflow: auto;
+}
+
+.x1
+{
+  display: flex;
+  height: 100%;
+}
+
+.task
+{
+  height: 6.4rem;
+}
+
+@media (min-width: 1340px)
+{
+  .sidebar
+  {
+    width: calc(320px + 80px);
+  }
+}
+

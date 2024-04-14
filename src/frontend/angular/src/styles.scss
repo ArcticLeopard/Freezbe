@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/normalize.css';
+
+$dark-bg: #171717;
+$dark-text: #E3E3E3;
+$light-bg: #FBFCFC;
+$light-text: #000000;
+
+@mixin theme($theme)
+{
+  @if $theme == 'dark'
+  {
+    background: $dark-bg;
+    color: $dark-text;
+    color-scheme: dark;
+  } @else
+  {
+    background: $light-bg;
+    color: $light-text;
+    color-scheme: light;
+  }
+}
+
+html
+{
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body
+{
+  @include theme('dark');
+  display: block;
+}
+
+body, html
+{
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
