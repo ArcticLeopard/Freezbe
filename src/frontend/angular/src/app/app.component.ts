@@ -11,6 +11,7 @@ import {NgForOf} from "@angular/common";
 })
 export class AppComponent {
   title = 'freezbe';
+  environmentIndexes = Array(5).fill(0).map((x, i) => i);
   taskIndexes = Array(20).fill(0).map((x, i) => i);
   commentIndexes = Array(20).fill(0).map((x, i) => i);
 }
