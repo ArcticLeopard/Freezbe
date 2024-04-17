@@ -28,7 +28,7 @@ public class CreateAssignmentCommandHandlerTests
         var project = new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), ProjectStatus.Active);
         projectRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(project);
         var handler = new CreateAssignmentCommandHandler(_fakeTimeProvider, projectRepositoryMock.Object);
-        var command = new CreateAssignmentCommand(Guid.NewGuid(), "Test description", existingsProjectId);
+        var command = new CreateAssignmentCommand(Guid.NewGuid(), "Test description", false, existingsProjectId);
 
         // ACT
         await handler.Handle(command, CancellationToken.None);
@@ -47,7 +47,7 @@ public class CreateAssignmentCommandHandlerTests
         var project = new Project(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), ProjectStatus.Active);
         projectRepositoryMock.Setup(p => p.GetAsync(existingsProjectId)).ReturnsAsync(project);
         var handler = new CreateAssignmentCommandHandler(_fakeTimeProvider, projectRepositoryMock.Object);
-        var command = new CreateAssignmentCommand(Guid.NewGuid(), "Test description", Guid.NewGuid());
+        var command = new CreateAssignmentCommand(Guid.NewGuid(), "Test description", false, Guid.NewGuid());
 
         //ACT
         var exception = await Record.ExceptionAsync(() => handler.Handle(command, CancellationToken.None));

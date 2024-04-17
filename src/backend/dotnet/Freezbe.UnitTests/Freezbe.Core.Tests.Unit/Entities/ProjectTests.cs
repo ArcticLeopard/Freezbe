@@ -96,7 +96,7 @@ public class ProjectTests
         var project = new Project(projectId, initialDescription, createdAt, ProjectStatus.Active);
 
         // ACT
-        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description", createdAt, AssignmentStatus.Active));
+        project.AddAssignment(new Assignment(Guid.NewGuid(),"Description", createdAt, AssignmentStatus.Active, false));
 
         // ASSERT
         project.Assignments.ShouldNotBeEmpty();
