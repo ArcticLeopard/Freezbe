@@ -21,7 +21,7 @@ public class AssignmentRepositoryTests
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var assignmentId = new AssignmentId(Guid.NewGuid());
-        var expectedAssignment = new Assignment(assignmentId, "Test Assignment", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
+        var expectedAssignment = new Assignment(assignmentId, "Test Assignment", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, true);
         dbContext.Assignments.Add(expectedAssignment);
         await dbContext.SaveChangesAsync();
 
@@ -34,6 +34,7 @@ public class AssignmentRepositoryTests
         result.ShouldNotBeNull();
         result.Id.ShouldBe(expectedAssignment.Id);
         result.Description.ShouldBe(expectedAssignment.Description);
+        result.Priority.ShouldBe(expectedAssignment.Priority);
     }
 
     [Theory]
@@ -92,7 +93,7 @@ public class AssignmentRepositoryTests
         await using var dbContext = TestUtils.GetDbContext();
         var repository = new AssignmentRepository(dbContext);
         var assignmentId = new AssignmentId(Guid.NewGuid());
-        var assignmentToAdd = new Assignment(assignmentId, new Description("Test Description 1"), _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
+        var assignmentToAdd = new Assignment(assignmentId, new Description("Test Description 1"), _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
 
         // ACT
         await repository.AddAsync(assignmentToAdd);
@@ -111,7 +112,7 @@ public class AssignmentRepositoryTests
         var assignmentId = new AssignmentId(Guid.NewGuid());
         var initialDescription = new Description("Initial Description");
         var updatedDescription = new Description("Updated Description");
-        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
         dbContext.Assignments.Add(assignment);
         await dbContext.SaveChangesAsync();
 
@@ -133,7 +134,7 @@ public class AssignmentRepositoryTests
         // ARRANGE
         await using var dbContext = TestUtils.GetDbContext();
         var assignmentId = new AssignmentId(Guid.NewGuid());
-        var assignment = new Assignment(assignmentId, new Description("Test Description"), _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
+        var assignment = new Assignment(assignmentId, new Description("Test Description"), _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
         dbContext.Assignments.Add(assignment);
         await dbContext.SaveChangesAsync();
 
@@ -152,7 +153,7 @@ public class AssignmentRepositoryTests
         var result = new List<Assignment>();
         for(int i = 0; i < numberOfAssignments; i++)
         {
-            result.Add(new Assignment(Guid.NewGuid(), $"Test Assignment {i}", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active));
+            result.Add(new Assignment(Guid.NewGuid(), $"Test Assignment {i}", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false));
         }
         return result;
     }

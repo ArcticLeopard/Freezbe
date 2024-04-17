@@ -63,7 +63,7 @@ public class AssignmentsControllerTests
         var commandHandlerMock = new Mock<IMediator>();
 
         var controller = new AssignmentsController(commandHandlerMock.Object);
-        var request = new CreateAssignmentRequest("Test Description", Guid.NewGuid());
+        var request = new CreateAssignmentRequest("Test Description", false, Guid.NewGuid());
 
         // ACT
         var result = await controller.Create(request) as NoContentResult;
@@ -146,6 +146,24 @@ public class AssignmentsControllerTests
         Assert.Equal(204, result.StatusCode);
 
         commandHandlerMock.Verify(ch => ch.Send(It.IsAny<ChangeStatusAssignmentCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task ChangePriority_ValidRequest_ReturnsNoContent()
+    {
+        // ASSERT
+        var commandHandlerMock = new Mock<IMediator>();
+
+        var controller = new AssignmentsController(commandHandlerMock.Object);
+
+        // ACT
+        var result = await controller.ChangePriority(Guid.NewGuid(), false) as NoContentResult;
+
+        // ASSERT
+        Assert.NotNull(result);
+        Assert.Equal(204, result.StatusCode);
+
+        commandHandlerMock.Verify(ch => ch.Send(It.IsAny<ChangePriorityAssignmentCommand>(), It.IsAny<CancellationToken>()), Times.Once);
     }
 
     [Fact]

@@ -2,4 +2,4 @@
 
 namespace Freezbe.Application.Commands;
 
-public sealed record CreateAssignmentCommand(Guid AssignmentId, string Description, Guid ProjectId) : IRequest;
+public sealed record CreateAssignmentCommand(Guid AssignmentId, string Description, bool Priority, Guid ProjectId) : IRequest;

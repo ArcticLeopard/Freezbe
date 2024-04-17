@@ -25,7 +25,7 @@ public class ChangeDescriptionAssignmentCommandHandlerTests
         // ASSERT
         var assignmentId = Guid.NewGuid();
         var newDescription = "New description";
-        var assignment = new Assignment(assignmentId, "Old description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
+        var assignment = new Assignment(assignmentId, "Old description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
 
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         assignmentRepositoryMock.Setup(p => p.GetAsync(assignmentId)).ReturnsAsync(assignment);
@@ -47,7 +47,7 @@ public class ChangeDescriptionAssignmentCommandHandlerTests
         // ASSERT
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         var existingsAssignmentId = new AssignmentId(Guid.NewGuid());
-        var assignment = new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active);
+        var assignment = new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
         assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(assignment);
         var handler = new ChangeDescriptionAssignmentCommandHandler(assignmentRepositoryMock.Object);
         var command = new ChangeDescriptionAssignmentCommand(Guid.NewGuid(), "Test description");
