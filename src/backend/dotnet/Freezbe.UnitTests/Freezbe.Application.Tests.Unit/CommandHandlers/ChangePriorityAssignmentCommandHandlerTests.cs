@@ -10,46 +10,50 @@ using Xunit;
 
 namespace Freezbe.Application.Tests.Unit.CommandHandlers;
 
-public class ChangeStatusAssignmentCommandHandlerTests
+public class ChangePriorityAssignmentCommandHandlerTests
 {
     private readonly TimeProvider _fakeTimeProvider;
 
-    public ChangeStatusAssignmentCommandHandlerTests()
+    public ChangePriorityAssignmentCommandHandlerTests()
     {
         _fakeTimeProvider = TestUtils.FakeTimeProvider();
     }
 
-    [Fact]
-    public async Task HandleAsync_ValidCommand_SuccessfullyChangesDescription()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task HandleAsync_ValidCommand_SuccessfullyChangesPriority(bool priority)
     {
         // ASSERT
         var assignmentId = Guid.NewGuid();
-        var assignment = new Assignment(assignmentId, "Old description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, "Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
 
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         assignmentRepositoryMock.Setup(p => p.GetAsync(assignmentId)).ReturnsAsync(assignment);
 
-        var handler = new ChangeStatusAssignmentCommandHandler(assignmentRepositoryMock.Object);
-        var command = new ChangeStatusAssignmentCommand(assignmentId, AssignmentStatus.Abandon);
+        var handler = new ChangePriorityAssignmentCommandHandler(assignmentRepositoryMock.Object);
+        var command = new ChangePriorityAssignmentCommand(assignmentId, priority);
 
         // ACT
         await handler.Handle(command, CancellationToken.None);
 
         // ASSERT
-        Assert.Equal(AssignmentStatus.Abandon, assignment.AssignmentStatus);
+        Assert.Equal(priority, assignment.Priority);
         assignmentRepositoryMock.Verify(p => p.UpdateAsync(assignment), Times.Once);
     }
 
-    [Fact]
-    public async Task HandleAsync_CommandWithNotExistingsAssignmentId_ShouldThrowAssignmentNotFoundException()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task HandleAsync_CommandWithNotExistingsAssignmentId_ShouldThrowAssignmentNotFoundException(bool priority)
     {
         // ASSERT
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         var existingsAssignmentId = new AssignmentId(Guid.NewGuid());
         var assignment = new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
         assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(assignment);
-        var handler = new ChangeStatusAssignmentCommandHandler(assignmentRepositoryMock.Object);
-        var command = new ChangeStatusAssignmentCommand(Guid.NewGuid(), "Test description");
+        var handler = new ChangePriorityAssignmentCommandHandler(assignmentRepositoryMock.Object);
+        var command = new ChangePriorityAssignmentCommand(Guid.NewGuid(), priority);
 
         //ACT
         var exception = await Record.ExceptionAsync(() => handler.Handle(command, CancellationToken.None));

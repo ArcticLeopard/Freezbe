@@ -25,7 +25,7 @@ public class DeleteAssignmentCommandHandlerTests
         // ASSERT
         var assignmentId = Guid.NewGuid();
         var createdAt = _fakeTimeProvider.GetUtcNow();
-        var assignment = new Assignment(assignmentId, "Description", createdAt, AssignmentStatus.Active);
+        var assignment = new Assignment(assignmentId, "Description", createdAt, AssignmentStatus.Active, false);
         var command = new DeleteAssignmentCommand(assignmentId);
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         assignmentRepositoryMock.Setup(repo => repo.GetAsync(assignmentId)).ReturnsAsync(assignment);

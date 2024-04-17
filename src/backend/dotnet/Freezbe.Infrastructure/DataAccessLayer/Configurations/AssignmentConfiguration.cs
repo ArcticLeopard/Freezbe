@@ -18,5 +18,6 @@ internal sealed class AssignmentConfiguration : IEntityTypeConfiguration<Assignm
         builder.Property(p => p.Description).IsRequired().HasConversion(p => p.Value, p => new Description(p));
         builder.Property(p => p.AssignmentStatus).IsRequired().HasConversion(p => p.Value, p => new AssignmentStatus(p));
         builder.Property(p => p.CreatedAt).IsRequired();
+        builder.Property(p => p.Priority).IsRequired();
     }
 }

@@ -38,7 +38,7 @@ public class AssignmentsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(CreateAssignmentRequest request)
     {
-        var command = new CreateAssignmentCommand(Guid.NewGuid(), request.Description, request.ProjectId);
+        var command = new CreateAssignmentCommand(Guid.NewGuid(), request.Description, request.Priority, request.ProjectId);
         await _mediator.Send(command);
         return NoContent();
     }
@@ -71,6 +71,14 @@ public class AssignmentsController : ControllerBase
     public async Task<IActionResult> ChangeStatusToComplited(Guid assignmentId)
     {
         var command = new ChangeStatusAssignmentCommand(assignmentId, AssignmentStatus.Complited);
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPatch("{assignmentId}/Priority/{priority}")]
+    public async Task<IActionResult> ChangePriority(Guid assignmentId, bool priority)
+    {
+        var command = new ChangePriorityAssignmentCommand(assignmentId, priority);
         await _mediator.Send(command);
         return NoContent();
     }
