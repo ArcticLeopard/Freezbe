@@ -25,9 +25,9 @@ public class GetAssignmentsForProjectQueryHandlerTests
         var createdAt = _fakeTimeProvider.GetUtcNow();
         var assignments = new List<Assignment>
         {
-            new (Guid.NewGuid(), "Assignment 1", createdAt, AssignmentStatus.Abandon, false),
-            new (Guid.NewGuid(), "Assignment 2", createdAt, AssignmentStatus.Active, false),
-            new (Guid.NewGuid(), "Assignment 3", createdAt, AssignmentStatus.Complited, false)
+            new (Guid.NewGuid(), "Assignment 1", createdAt, AssignmentStatus.Abandon, false, null),
+            new (Guid.NewGuid(), "Assignment 2", createdAt, AssignmentStatus.Active, false, null),
+            new (Guid.NewGuid(), "Assignment 3", createdAt, AssignmentStatus.Complited, false, null)
         };
         mockRepository.Setup(p => p.GetAllByProjectIdAsync(It.IsAny<ProjectId>())).ReturnsAsync(assignments);
 

@@ -25,7 +25,7 @@ public class GetAssignmentQueryHandlerTests
         // ARRANGE
         var assignmentId = Guid.NewGuid();
         var createdAt = _fakeTimeProvider.GetUtcNow();
-        var assignment = new Assignment(assignmentId, "Description", createdAt, AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, "Description", createdAt, AssignmentStatus.Active, false, null);
 
         var mockAssignmentRepository = new Mock<IAssignmentRepository>();
         mockAssignmentRepository.Setup(repo => repo.GetAsync(assignmentId)).ReturnsAsync(assignment);
