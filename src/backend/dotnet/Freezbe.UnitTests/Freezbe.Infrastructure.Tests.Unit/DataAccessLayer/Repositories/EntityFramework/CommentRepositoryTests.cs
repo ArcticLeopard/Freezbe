@@ -68,7 +68,7 @@ public class CommentRepositoryTests
         // ARRANGE
         var assignmentId = Guid.NewGuid();
         await using var dbContext = TestUtils.GetDbContext();
-        var assignment = new Assignment(assignmentId, "description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, "description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false, null);
         var expectedComments = CreateComments(numberOfComments);
         expectedComments.ForEach(p=>assignment.AddComment(p));
         dbContext.Assignments.Add(assignment);

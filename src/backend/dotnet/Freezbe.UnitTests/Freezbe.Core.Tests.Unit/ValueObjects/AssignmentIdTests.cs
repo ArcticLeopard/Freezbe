@@ -78,7 +78,7 @@ public class AssignmentIdTests
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
-        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false, null);
 
         // ACT
         var exception = Record.Exception(() => assignment.AddComment(null));
@@ -95,7 +95,7 @@ public class AssignmentIdTests
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
         var createdAt = _fakeTimeProvider.GetUtcNow();
-        var assignment = new Assignment(assignmentId, initialDescription, createdAt, AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, initialDescription, createdAt, AssignmentStatus.Active, false, null);
 
         // ACT
         assignment.AddComment(new Comment(Guid.NewGuid(),"Description", createdAt, CommentStatus.Active));

@@ -25,7 +25,7 @@ public class CreateAssignmentCommandHandler : IRequestHandler<CreateAssignmentCo
         {
             throw new ProjectNotFoundException(command.ProjectId);
         }
-        var assignment = new Assignment(command.AssignmentId, command.Description, _timeProvider.GetUtcNow(), AssignmentStatus.Active, command.Priority);
+        var assignment = new Assignment(command.AssignmentId, command.Description, _timeProvider.GetUtcNow(), AssignmentStatus.Active, command.Priority, null);
         project.AddAssignment(assignment);
         await _projectRepository.UpdateAsync(project);
     }

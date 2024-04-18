@@ -25,7 +25,7 @@ public class AssignmentTests
 
         // ACT
 
-        var assignment = new Assignment(assignmentId, description, createdAt, assignmentStatus, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, assignmentStatus, false, null);
 
         // ASSERT
         assignment.Id.ShouldBe(assignmentId);
@@ -43,7 +43,7 @@ public class AssignmentTests
         var initialDescription = new Description("Initial description");
         var newDescription = new Description("New description");
         var dateTimeOffset = _fakeTimeProvider.GetUtcNow();
-        var assignment = new Assignment(assignmentId, initialDescription, dateTimeOffset, AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, initialDescription, dateTimeOffset, AssignmentStatus.Active, false, null);
 
         // ACT
         assignment.ChangeDescription(newDescription);
@@ -58,7 +58,7 @@ public class AssignmentTests
         // ARRANGE
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var initialDescription = new Description("Initial description");
-        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, initialDescription, _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false, null);
 
         // ACT
         var exception = Record.Exception(() => assignment.ChangeDescription(null));
@@ -77,7 +77,7 @@ public class AssignmentTests
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var description = new Description("Initial description");
         var createdAt = _fakeTimeProvider.GetUtcNow();
-        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false, null);
         // ACT
 
         assignment.Abandon();
@@ -95,7 +95,7 @@ public class AssignmentTests
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var description = new Description("Initial description");
         var createdAt = _fakeTimeProvider.GetUtcNow();
-        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false, null);
         // ACT
 
         assignment.Complited();
@@ -113,7 +113,7 @@ public class AssignmentTests
         var assignmentId = TestUtils.CreateCorrectAssignmentId();
         var description = new Description("Initial description");
         var createdAt = _fakeTimeProvider.GetUtcNow();
-        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false, null);
         // ACT
 
         assignment.Restore();
@@ -132,7 +132,7 @@ public class AssignmentTests
         var startedState = AssignmentStatus.Active;
         var requestedStatus = AssignmentStatus.Abandon;
         var expectedStatus = AssignmentStatus.Abandon;
-        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false, null);
 
         // ACT
         assignment.ChangeStatus(requestedStatus);
@@ -151,7 +151,7 @@ public class AssignmentTests
         var startedState = AssignmentStatus.Abandon;
         var requestedStatus = AssignmentStatus.Active;
         var expectedStatus = AssignmentStatus.Active;
-        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false, null);
 
         // ACT
         assignment.ChangeStatus(requestedStatus);
@@ -170,7 +170,7 @@ public class AssignmentTests
         var startedState = AssignmentStatus.Active;
         var requestedStatus = AssignmentStatus.Complited;
         var expectedStatus = AssignmentStatus.Complited;
-        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false, null);
 
         // ACT
         assignment.ChangeStatus(requestedStatus);
@@ -187,7 +187,7 @@ public class AssignmentTests
         var description = new Description("Initial description");
         var createdAt = _fakeTimeProvider.GetUtcNow();
         var startedState = AssignmentStatus.Abandon;
-        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, startedState, false, null);
 
         // ACT
         var exception = Record.Exception(() => assignment.ChangeStatus("NotExistingStatus"));
@@ -205,7 +205,7 @@ public class AssignmentTests
         var description = new Description("Initial description");
         var createdAt = _fakeTimeProvider.GetUtcNow();
         var expectedValue = true;
-        var assignment = new Assignment(assignmentId, description, createdAt, AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, description, createdAt, AssignmentStatus.Active, false, null);
 
         // ACT
         assignment.IncreasePriority();
@@ -222,7 +222,7 @@ public class AssignmentTests
         var description = new Description("Initial description");
         var createdAt = _fakeTimeProvider.GetUtcNow();
         var expectedValue = false;
-        var assignment = new Assignment(assignmentId, description, createdAt, AssignmentStatus.Active, true);
+        var assignment = new Assignment(assignmentId, description, createdAt, AssignmentStatus.Active, true, null);
 
         // ACT
         assignment.DecreasePriority();
