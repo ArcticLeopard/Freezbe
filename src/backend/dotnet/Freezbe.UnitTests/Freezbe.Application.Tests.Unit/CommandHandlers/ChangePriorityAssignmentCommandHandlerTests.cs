@@ -26,7 +26,7 @@ public class ChangePriorityAssignmentCommandHandlerTests
     {
         // ASSERT
         var assignmentId = Guid.NewGuid();
-        var assignment = new Assignment(assignmentId, "Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
+        var assignment = new Assignment(assignmentId, "Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false, null);
 
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         assignmentRepositoryMock.Setup(p => p.GetAsync(assignmentId)).ReturnsAsync(assignment);
@@ -50,7 +50,7 @@ public class ChangePriorityAssignmentCommandHandlerTests
         // ASSERT
         var assignmentRepositoryMock = new Mock<IAssignmentRepository>();
         var existingsAssignmentId = new AssignmentId(Guid.NewGuid());
-        var assignment = new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false);
+        var assignment = new Assignment(Guid.NewGuid(),"Description", _fakeTimeProvider.GetUtcNow(), AssignmentStatus.Active, false, null);
         assignmentRepositoryMock.Setup(p => p.GetAsync(existingsAssignmentId)).ReturnsAsync(assignment);
         var handler = new ChangePriorityAssignmentCommandHandler(assignmentRepositoryMock.Object);
         var command = new ChangePriorityAssignmentCommand(Guid.NewGuid(), priority);

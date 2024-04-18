@@ -10,19 +10,21 @@ public class Assignment
     public DateTimeOffset CreatedAt { get; }
     public AssignmentStatus AssignmentStatus { get; private set; }
     public bool Priority { get; private set; }
+    public DateTimeOffset? DueDate { get; private set; }
 
     public IEnumerable<Comment> Comments => _comments;
     private readonly HashSet<Comment> _comments = new();
     public ProjectId ProjectId { get; }
     public Project Project { get; }
 
-    public Assignment(AssignmentId id, Description description, DateTimeOffset createdAt, AssignmentStatus assignmentStatus, bool priority)
+    public Assignment(AssignmentId id, Description description, DateTimeOffset createdAt, AssignmentStatus assignmentStatus, bool priority, DateTimeOffset? dueDate)
     {
         Id = id;
         Description = description;
         CreatedAt = createdAt;
         AssignmentStatus = assignmentStatus;
         Priority = priority;
+        DueDate = dueDate;
     }
 
     public void AddComment(Comment comment)
