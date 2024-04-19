@@ -1,10 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/normalize.css';
+@import "global.scss";
 
-$dark-bg: #171717;
-$dark-text: #E3E3E3;
-$light-bg: #FBFCFC;
-$light-text: #000000;
 
 @mixin theme($theme)
 {
@@ -43,6 +40,8 @@ body, html
   position: fixed;
   right: 0;
   top: 0;
+  cursor: default;
+  user-select: none;
 }
 
 *, *:before, *:after {

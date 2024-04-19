@@ -1,0 +1,103 @@
+$light-bg: #FBFCFC;
+$light-text: #000000;
+$dark-bg: #171717;
+$dark-text: #E3E3E3;
+$space-bg: #2b2d30;
+$space-text: hsl(225, 9%, 82%);
+$border-color: rgba(72, 72, 74, 0.5);
+$scroll-color: rgba(43, 45, 48, 0.5);
+$border-style: 0.05rem solid $border-color;
+$btnColor: hsl(216, 5%, 20%);
+$btnColorHover: hsl(216, 5%, 30%);
+
+@mixin paddingLeftRight($padding)
+{
+  padding-left: #{$padding}rem;
+  padding-right: #{$padding}rem;
+}
+
+@mixin maxSpace
+{
+  width: 100%;
+  height: 100%;
+}
+
+@mixin hover($hoverLightness, $hexColor)
+{
+  $hue: hue($hexColor);
+  $saturation: saturation($hexColor);
+  $lightness: lightness($hexColor);
+  $hoverColor: hsl($hue, $saturation, $lightness + $hoverLightness);
+  background-color: $hexColor;
+  transition: background-color 0.3s ease;
+
+  &:hover
+  {
+    background-color: $hoverColor;
+  }
+}
+
+@mixin activeButton($hoverLightness: 0%, $hexColor: #2c2d30)
+{
+  @include hover($hoverLightness, $hexColor);
+  cursor: pointer;
+}
+
+.sectionInfo
+{
+  display: flex;
+  flex: 0 0 auto;
+  height: 5.6rem;
+  align-items: center;
+  border-bottom: $border-style;
+}
+
+.sectionInfoContainer
+{
+  @include paddingLeftRight(2.4);
+  @include maxSpace;
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.sectionInfoTextContainer
+{
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.sectionInfoButtonsContainer
+{
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}
+.sectionInfoButtonsContainer button
+{
+  //tmp
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 0.6rem;
+}
+
+.scrollWrapper
+{
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: $scroll-color transparent;
+}
+
+.scrollSpace
+{
+  margin: 1rem 0rem 0rem 1rem;
+  padding-bottom: 1rem;
+}
+
+
+div
+{
+  //border: 1px dotted white;
+}

@@ -1,0 +1,61 @@
+@import "../../global";
+
+:host
+{
+  //background-color: $space-bg;
+  color: $space-text;
+  border-right: $border-style;
+}
+
+.spaceSidebar
+{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 8rem;
+  padding: 0.6rem 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $scroll-color transparent;
+}
+
+.space
+{
+  align-items: center;
+  justify-content: center;
+}
+
+.spaceContainer
+{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 0.6rem;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.5s ease;
+}
+
+.spaceContainer:hover
+{
+  color: hsl(225, 9%, (82% + 10));
+}
+
+.imageContainer
+{
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 1.2rem;
+  margin: 0.2rem 0;
+  background-color: #ced0d6;
+}
+
+.spaceInfoTextContainer
+{
+  height: 3rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem 0;
+  text-align: center;
+}
