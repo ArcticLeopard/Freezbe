@@ -19,3 +19,5 @@ The main motivations for participating in the contest for me are the following f
  <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/main/docs/readme/images/Developer.png" />
 </p>
 
+## Current UI - Preview (Work in progress)
+![](docs/UI/PreviewCurrentUserInterface.png)
