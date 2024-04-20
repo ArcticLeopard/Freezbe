@@ -1,7 +1,6 @@
-@import "../../global";
+@import "../../sass/global";
 
-:host
-{
+:host {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -9,31 +8,24 @@
   border-left: $border-style;
 }
 
-.detailViewMenu
-{
+.detailViewMenu {
   height: 5.6rem;
 }
 
-.comment
-{
+.comment {
   height: 6.4rem;
   user-select: text;
 }
 
-.options
-{
+.options {
   padding-top: 0.8rem;
-  @include paddingLeftRight(2.4);
+  @extend .pl-2, .pr-2;
   border-bottom: $border-style;
 }
 
-.optionButton
-{
+.optionButton {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 3.6rem;
-  margin-bottom: 0.8rem;
-  @include activeButton(2);
 }
-

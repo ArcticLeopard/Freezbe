@@ -1,0 +1,67 @@
+$range: 9;
+
+@mixin maxSpace
+{
+  width: 100%;
+  height: 100%;
+}
+
+@mixin theme($theme) {
+  @if $theme == 'dark' {
+    background: $dark-bg;
+    color: $dark-text;
+    color-scheme: dark;
+  } @else {
+    background: $light-bg;
+    color: $light-text;
+    color-scheme: light;
+  }
+}
+
+@for $index from 1 through $range {
+  .mt-#{$index} {
+    margin-top: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
+  .mb-#{$index} {
+    margin-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
+  .ml-#{$index} {
+    margin-left: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
+  .mr-#{$index} {
+    margin-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
+  .pt-#{$index} {
+    padding-top: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
+  .pb-#{$index} {
+    padding-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
+  .pl-#{$index} {
+    padding-left: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
+  .pr-#{$index} {
+    padding-right: 0.35rem * $index;
+  }
+}

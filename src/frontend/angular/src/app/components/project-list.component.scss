@@ -1,15 +1,24 @@
-@import "../../global";
+@import "../../sass/global.scss";
 
-:host
-{
+:host {
+  @include maxSpace;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
   border-right: $border-style;
 }
 
-.project
-{
-  height: 6.4rem;
+.project {
+  height: 4rem;
+}
+
+.project > div {
+  display: flex;
+}
+
+.bigBtn {
+  @include maxSpace;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
