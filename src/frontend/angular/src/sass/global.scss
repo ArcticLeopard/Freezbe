@@ -1,0 +1,73 @@
+@import "mixins";
+@import "colors";
+
+$border-style: 0.05rem solid $border-color;
+
+.sectionInfo {
+  display: flex;
+  flex: 0 0 auto;
+  height: 5.6rem;
+  align-items: center;
+  border-bottom: $border-style;
+}
+
+.sectionInfoContainer {
+  @include maxSpace;
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+@for $index from 1 through $range {
+  .sectionInfoContainer-#{$index} {
+    @include maxSpace;
+    @extend .pl-#{$index}, .pr-#{$index};
+    align-items: center;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+}
+
+.sectionInfoTextContainer {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.sectionInfoButtonsContainer {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sectionInfoButtonsContainer button {
+  //tmp
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.scrollWrapper {
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: $scroll-color transparent;
+}
+
+.scrollSpace {
+  margin: 1rem 0rem 0rem 1rem;
+  padding-bottom: 1rem;
+}
+
+.text-details {
+  font-size: 1rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
+div {
+  //border: 1px dotted white;
+}

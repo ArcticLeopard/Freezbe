@@ -1,14 +1,11 @@
-@import "../../global";
+@import "../../sass/global";
 
-:host
-{
-  //background-color: $space-bg;
+:host {
   color: $space-text;
   border-right: $border-style;
 }
 
-.spaceSidebar
-{
+.spaceSidebar {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -19,31 +16,25 @@
   scrollbar-color: $scroll-color transparent;
 }
 
-.space
-{
+.space {
   align-items: center;
   justify-content: center;
 }
 
-.spaceContainer
-{
+.spaceContainer {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 0.6rem;
   position: relative;
-  cursor: pointer;
   transition: color 0.5s ease;
 }
 
-.spaceContainer:hover
-{
+.spaceContainer:hover {
   color: hsl(225, 9%, (82% + 10));
 }
 
-.imageContainer
-{
+.imageContainer {
   width: 3.4rem;
   height: 3.4rem;
   border-radius: 1.2rem;
@@ -51,8 +42,7 @@
   background-color: #ced0d6;
 }
 
-.spaceInfoTextContainer
-{
+.spaceInfoTextContainer {
   height: 3rem;
   font-size: 1.1rem;
   font-weight: 500;

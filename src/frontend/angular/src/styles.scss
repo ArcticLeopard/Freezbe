@@ -1,22 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/normalize.css';
-@import "global.scss";
-
-
-@mixin theme($theme)
-{
-  @if $theme == 'dark'
-  {
-    background: $dark-bg;
-    color: $dark-text;
-    color-scheme: dark;
-  } @else
-  {
-    background: $light-bg;
-    color: $light-text;
-    color-scheme: light;
-  }
-}
+@import "sass/global.scss";
 
 html
 {

@@ -1,39 +1,38 @@
-
 <div class="sectionInfo">
-  <div class="sectionInfoContainer">
+  <div class="sectionInfoContainer-3">
     <div class="sectionInfoTextContainer">
       <span>Section</span>
     </div>
     <div class="sectionInfoButtonsContainer">
-      <button>o</button>
-      <button>o</button>
+      <button class="mr-1">o</button>
+      <button class="ml-1">o</button>
     </div>
   </div>
 </div>
 <div class="sectionInfo">
-  <div class="sectionInfoContainer">
+  <div class="sectionInfoContainer-3">
     <div class="sectionInfoTextContainer">
       <span>Section</span>
     </div>
     <div class="sectionInfoButtonsContainer">
-      <button>o</button>
-      <button>o</button>
+      <button class="mr-1">o</button>
+      <button class="ml-1">o</button>
     </div>
   </div>
 </div>
 <div style="display: flex; flex-wrap: wrap; width: 100%" class="options">
   <div style="display: block; flex-wrap: wrap; width: 50%; padding-right: 0.4rem">
     <div>
-      <div class="optionButton">Test</div>
-      <div class="optionButton">Test</div>
-      <div class="optionButton">Test</div>
+      <div class="mb-2 bg-classic-hl pointer optionButton">Test</div>
+      <div class="mb-2 bg-classic-hl pointer optionButton">Test</div>
+      <div class="mb-2 bg-classic-hl pointer optionButton">Test</div>
     </div>
   </div>
   <div style="display: block; flex-wrap: wrap; width: 50%; padding-left: 0.4rem">
     <div>
-      <div class="optionButton">Test</div>
-      <div class="optionButton">Test</div>
-      <div class="optionButton">Test</div>
+      <div class="mb-2 bg-classic-hl pointer optionButton">Test</div>
+      <div class="mb-2 bg-classic-hl pointer optionButton">Test</div>
+      <div class="mb-2 bg-classic-hl pointer optionButton">Test</div>
     </div>
   </div>
 </div>
@@ -41,8 +40,9 @@
 
 <div class="scrollWrapper">
   <div class="scrollSpace">
-    <div class="comment" *ngFor="let index of commentIndexes; let i = index">
-      Comment...
+<!--    <div class="comment" [ngClass]="'bg-' + color" *ngFor="let color of colors;">-->
+    <div class="comment"  *ngFor="let color of colors;">
+      Color: bg-{{color}}
     </div>
   </div>
 </div>
