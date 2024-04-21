@@ -1,7 +1,7 @@
 <div class="sectionInfo">
   <div class="sectionInfoContainer-3">
     <div class="sectionInfoTextContainer">
-      <span>Space #N</span>
+      <span class="ml-1 pointer">Space 1</span><!--   TODO Rozwijanie menu na klikniecie   -->
     </div>
     <div class="sectionInfoButtonsContainer">
       <button class="mr-1">o</button>
@@ -30,9 +30,9 @@
   </div>
 </div>
 <div class="scrollWrapper">
-  <div class="scrollSpace">
-    <div class="project" *ngFor="let index of projectIndexes; let i = index">
-      <div>Project {{index}}</div>
+  <div class="">
+    <div class="project pointer pr-3 pl-3" *ngFor="let index of projectIndexes; let i = index">
+      <div>Project {{index + 1}}</div>
     </div>
   </div>
 </div>
