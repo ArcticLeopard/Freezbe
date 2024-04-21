@@ -36,13 +36,22 @@
     </div>
   </div>
 </div>
-
-
 <div class="scrollWrapper">
-  <div class="scrollSpace">
-<!--    <div class="comment" [ngClass]="'bg-' + color" *ngFor="let color of colors;">-->
-    <div class="comment"  *ngFor="let color of colors;">
-      Color: bg-{{color}}
+  <div class="scrollSpace mt-2">
+    <!--    <div class="comment" [ngClass]="'bg-' + color" *ngFor="let color of colors;">-->
+    <div *ngFor="let color of colors; let i = index">
+      <div class="commentDetails mb-2">
+        <span class="Author">You</span>
+        <span class="Date">{{i+1}} hr. ago</span>
+        <span class="Rest"></span>
+      </div>
+      <div class="comment mb-6 pa-4 bg-classic">Now my girlfriend wants me to paint the room <span [ngClass]="'bg-' + color">{{color}}</span>...</div>
     </div>
   </div>
+</div>
+<div style="border-top: #171717 solid 0.2rem">
+  <textarea class="commentButton bg-classic pa-4 textCursor" STYLE="resize: none" placeholder="Add your comment..."></textarea>
+  <button type="button" class="commentButton bg-classic-hl pa-1 pointer">
+    <span>Add your comment...</span>
+  </button>
 </div>

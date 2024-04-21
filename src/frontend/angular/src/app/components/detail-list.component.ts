@@ -12,6 +12,7 @@ import {NgClass, NgForOf} from "@angular/common";
   styleUrl: './detail-list.component.scss'
 })
 export class DetailListComponent {
+  //colors: string[] = ['blue','indigo','purple'];
   colors: string[] = ['blue','indigo','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','primary','secondary','success','info','warning','danger','light','dark','classic']
 }
 

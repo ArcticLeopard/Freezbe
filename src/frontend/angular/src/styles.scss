@@ -31,3 +31,8 @@ body, html
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+textarea
+{
+  resize: none;
+}

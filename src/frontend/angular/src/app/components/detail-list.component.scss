@@ -13,13 +13,32 @@
 }
 
 .comment {
-  height: 6.4rem;
   user-select: text;
 }
 
+.commentDetails
+{
+  display: flex;
+  flex-direction: row;
+  span
+  {
+    @extend .pr-3;
+  }
+  .Author
+  {
+    @extend .pl-3;
+  }
+
+  .Date
+  {
+    opacity: 25%;
+  }
+}
+
+
+
 .options {
-  padding-top: 0.8rem;
-  @extend .pl-2, .pr-2;
+  @extend .pl-2, .pr-3, .pt-2;
   border-bottom: $border-style;
 }
 
@@ -27,5 +46,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 3.6rem;
+  height: 2.9rem;
+}
+
+.commentButton
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: none;
+
+  span
+  {
+    font-size: 2rem;
+    font-weight: 300;
+    height: 3.2rem;
+  }
 }
