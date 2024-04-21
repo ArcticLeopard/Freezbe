@@ -43,6 +43,12 @@ $range: 9;
 }
 
 @for $index from 1 through $range {
+  .ma-#{$index} {
+    margin: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
   .pt-#{$index} {
     padding-top: 0.35rem * $index;
   }
@@ -63,5 +69,11 @@ $range: 9;
 @for $index from 1 through $range {
   .pr-#{$index} {
     padding-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 1 through $range {
+  .pa-#{$index} {
+    padding: 0.35rem * $index;
   }
 }

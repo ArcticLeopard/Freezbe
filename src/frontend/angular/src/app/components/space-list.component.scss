@@ -1,8 +1,16 @@
 @import "../../sass/global";
 
 :host {
+  width: 0.7rem;
+  overflow-x: hidden;
+  transition: width 0.5s;
   color: $space-text;
   border-right: $border-style;
+}
+
+:host:hover
+{
+  width: 8rem;
 }
 
 .spaceSidebar {

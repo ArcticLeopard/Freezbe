@@ -55,7 +55,7 @@ $border-style: 0.05rem solid $border-color;
 }
 
 .scrollSpace {
-  margin: 1rem 0rem 0rem 1rem;
+  @extend .ml-2;
   padding-bottom: 1rem;
 }
 
@@ -67,6 +67,10 @@ $border-style: 0.05rem solid $border-color;
   cursor: pointer;
 }
 
+.textCursor
+{
+  cursor: text;
+}
 
 div {
   //border: 1px dotted white;
