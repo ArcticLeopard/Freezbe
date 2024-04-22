@@ -1,25 +1,21 @@
-@import "mixins";
-@import "colors";
+@import "mixins.scss";
+@import "colors.scss";
 
 $border-style: 0.05rem solid $border-color;
+.bt { border-top: $border-style }
+.br { border-right: $border-style }
+.bb { border-bottom: $border-style }
+.bl { border-left: $border-style }
 
 .sectionInfo {
+  @extend .bb;
   display: flex;
   flex: 0 0 auto;
   height: 5.6rem;
-  align-items: center;
-  border-bottom: $border-style;
+   align-items: center;
 }
 
-.sectionInfoContainer {
-  @include maxSpace;
-  align-items: center;
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-}
-
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .sectionInfoContainer-#{$index} {
     @include maxSpace;
     @extend .pl-#{$index}, .pr-#{$index};
@@ -32,7 +28,7 @@ $border-style: 0.05rem solid $border-color;
 
 .sectionInfoTextContainer {
   font-size: 1.8rem;
-  font-weight: 600;
+
 }
 
 .sectionInfoButtonsContainer {
@@ -54,10 +50,7 @@ $border-style: 0.05rem solid $border-color;
   scrollbar-color: $scroll-color transparent;
 }
 
-.scrollSpace {
-  @extend .ml-2;
-  padding-bottom: 1rem;
-}
+
 
 .text-details {
   font-size: 1rem;

@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/normalize.css';
+@import "sass/colors.scss";
+@import "sass/mixins.scss";
 @import "sass/global.scss";
 
 html
@@ -11,7 +13,6 @@ html
 body
 {
   @include theme('dark');
-  display: block;
 }
 
 body, html

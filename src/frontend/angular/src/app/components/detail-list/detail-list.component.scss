@@ -1,0 +1,32 @@
+@import "../../../sass/global";
+
+:host {
+  @extend .bl;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  flex: 1 0 315px;
+}
+
+.comment {
+  user-select: text;
+}
+
+.commentDetails
+{
+  display: flex;
+  flex-direction: row;
+  span
+  {
+    @extend .pr-3;
+  }
+  .Author
+  {
+    @extend .pl-3;
+  }
+
+  .Date
+  {
+    opacity: 25%;
+  }
+}

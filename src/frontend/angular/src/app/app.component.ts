@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {NgForOf} from "@angular/common";
-import {SidebarComponent} from "./components/sidebar.component";
-import {TaskListComponent} from "./components/task-list.component";
-import {DetailListComponent} from "./components/detail-list.component";
+import {SidebarComponent} from "./components/sidebar/sidebar.component";
+import {TaskListComponent} from "./components/task-list/task-list.component";
+import {DetailListComponent} from "./components/detail-list/detail-list.component";
 
 @Component({
   selector: 'app-root',
