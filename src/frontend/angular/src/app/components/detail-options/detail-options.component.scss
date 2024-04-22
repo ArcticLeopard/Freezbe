@@ -1,0 +1,21 @@
+@import "../../../sass/global";
+
+:host {
+  @extend .pl-2, .pr-3, .pt-2, .bb;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.grid {
+  display: block;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4.1rem;
+}

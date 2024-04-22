@@ -1,16 +1,10 @@
-@import "../../sass/global";
+@import "../../../sass/global";
 
 :host {
-  width: 0.7rem;
-  overflow-x: hidden;
-  transition: width 0.5s;
-  color: $space-text;
-  border-right: $border-style;
-}
-
-:host:hover
-{
-  width: 8rem;
+  @extend .br;
+  width: 10rem;
+  //@include hidePanel(0.7rem, 10rem);
+  overflow: hidden;
 }
 
 .spaceSidebar {
@@ -18,8 +12,8 @@
   flex-direction: column;
   height: 100%;
   width: 8rem;
-  padding: 0.6rem 0;
-  overflow-y: auto;
+  padding: 1rem 0;
+  overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: $scroll-color transparent;
 }
@@ -35,11 +29,20 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  transition: color 0.5s ease;
+  transition: all 0.4s ease;
+  .imageContainer
+  {
+    transition: all 0.4s ease;
+  }
 }
 
 .spaceContainer:hover {
   color: hsl(225, 9%, (82% + 10));
+  .imageContainer
+  {
+    box-shadow: 0rem 0rem 0rem .4rem rgba(255, 255, 255, 0.6);
+  }
+
 }
 
 .imageContainer {

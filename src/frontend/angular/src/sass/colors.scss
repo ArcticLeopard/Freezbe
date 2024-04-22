@@ -1,53 +1,32 @@
+@mixin activeColor($currentColor)
+{
+  background-color: $currentColor;
+  &.hd
+  {
+    transition: background-color 0.5s ease;
+    &:hover
+    {
+      background-color: darken($currentColor, 10%);
+    }
+  }
+
+  &.hl
+  {
+    transition: background-color 0.5s ease;
+    &:hover
+    {
+      background-color: lighten($currentColor, 10%);
+    }
+  }
+}
+
 $light-bg: #FBFCFC;
 $light-text: #000000;
 $dark-bg: #171717;
-$dark-text: #E3E3E3;
-$space-text: hsl(225, 9%, 82%);
+$dark-text: hsl(225, 9%, 82%);
 $border-color: rgba(72, 72, 74, 0.5);
 $scroll-color: rgba(43, 45, 48, 0.5);
 
-.bg-red-hd-o-6 {
-  background-color: rgba(220, 53, 69, 0.6);
-  transition: background-color 0.5s ease;
-}
-
-.bg-red-hd-o-6:hover {
-  background-color: rgba(189, 33, 48, 0.6);
-}
-
-.bg-orange-hd-o-6 {
-  background-color: rgba(253, 126, 20, 0.6);
-  transition: background-color 0.5s ease;
-}
-
-.bg-orange-hd-o-6:hover {
-  background-color: rgba(220, 101, 2, 0.6);
-}
-
-.bg-classic {
-  background-color: #2c2d30;
-}
-
-.bg-classic-hl {
-  background-color: #2c2d30;
-  transition: background-color 0.5s ease;
-}
-
-.bg-classic-hl:hover {
-  background-color: #44464b;
-}
-
-.bg-classic-hd {
-  background-color: #2c2d30;
-  transition: background-color 0.5s ease;
-}
-
-.bg-classic-hd:hover {
-  background-color: #141415;
-}
-
-//
-//
 $blue: #007bff;
 $indigo: #6610f2;
 $purple: #6f42c1;
@@ -61,6 +40,7 @@ $cyan: #17a2b8;
 $white: #fff;
 $gray: #6c757d;
 $gray-dark: #343a40;
+
 $primary: #007bff;
 $secondary: #6c757d;
 $success: #28a745;
@@ -70,37 +50,46 @@ $danger: #dc3545;
 $light: #f8f9fa;
 $dark: #343a40;
 $classic: #2c2d30;
+$classicDark: #232426;
 
-$colors: (
-  blue: $blue,
-  indigo: $indigo,
-  purple: $purple,
-  pink: $pink,
-  red: $red,
-  orange: $orange,
-  yellow: $yellow,
-  green: $green,
-  teal: $teal,
-  cyan: $cyan,
-  white: $white,
-  gray: $gray,
-  gray-dark: $gray-dark,
-  primary: $primary,
-  secondary: $secondary,
-  success: $success,
-  info: $info,
-  warning: $warning,
-  danger: $danger,
-  light: $light,
-  dark: $dark,
-  classic: $classic,
-);
+.bg-red-o6{ @include activeColor(rgba($red, 0.6)) }
+.bg-orange-o6{ @include activeColor(rgba($orange, 0.6)) }
+//.bg-classic{ @include activeColor(rgba($classic, 1)) }
+.bg-classic{ @include activeColor(rgba($classic, 0.6)) }
+.bg-classicDark{ @include activeColor(rgba($classicDark, 0.6)) }
+.bg-dark-bg{ @include activeColor(rgba($dark-bg, 0.6)) }
+//.bg-classic{ @include activeColor(rgba($classicDark, 1)) }
 
-@each $name, $color in $colors {
-  .bg-#{""+$name} {
-    background-color: $color;
-  }
-}
+//$colors: (
+//  blue: $blue,
+//  indigo: $indigo,
+//  purple: $purple,
+//  pink: $pink,
+//  red: $red,
+//  orange: $orange,
+//  yellow: $yellow,
+//  green: $green,
+//  teal: $teal,
+//  cyan: $cyan,
+//  white: $white,
+//  gray: $gray,
+//  gray-dark: $gray-dark,
+//  primary: $primary,
+//  secondary: $secondary,
+//  success: $success,
+//  info: $info,
+//  warning: $warning,
+//  danger: $danger,
+//  light: $light,
+//  dark: $dark,
+//  classic: $classic,
+//);
+//
+//@each $name, $color in $colors {
+//  .bg-#{""+$name} {
+//    background-color: $color;
+//  }
+//}
 
 //  @each $name, $color in $colors {
 //    @for $i from 0 through 10 {

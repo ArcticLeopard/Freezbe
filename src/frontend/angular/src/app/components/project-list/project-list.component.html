@@ -1,7 +1,7 @@
 <div class="sectionInfo">
   <div class="sectionInfoContainer-3">
     <div class="sectionInfoTextContainer">
-      <span class="ml-1 pointer">Space 1</span><!--   TODO Rozwijanie menu na klikniecie   -->
+      <span class="ml-1 pointer">Space Name</span><!--   TODO Rozwijanie menu na klikniecie   -->
     </div>
     <div class="sectionInfoButtonsContainer">
       <button class="mr-1">o</button>
@@ -10,8 +10,8 @@
   </div>
 </div>
 <div class="sectionInfo">
-  <div class="sectionInfoContainer">
-    <div class="pl-3 pointer bigBtn bg-red-hd-o-6">
+  <div class="sectionInfoContainer-0">
+    <div class="pl-3 pointer bigBtn bg-red-o6 hd">
       <div>
         Priority
       </div>
@@ -19,7 +19,7 @@
         15
       </div>
     </div>
-    <div class="pl-3 pointer bigBtn bg-orange-hd-o-6">
+    <div class="pl-3 pointer bigBtn bg-orange-o6 hd">
       <div>
         Incoming
       </div>
@@ -31,7 +31,7 @@
 </div>
 <div class="scrollWrapper">
   <div class="">
-    <div class="project pointer pr-3 pl-3" *ngFor="let index of projectIndexes; let i = index">
+    <div class="project pointer pr-3 pl-3 bg-dark-bg hl" *ngFor="let index of projectIndexes; let i = index">
       <div>Project {{index + 1}}</div>
     </div>
   </div>

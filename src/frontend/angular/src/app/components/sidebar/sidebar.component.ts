@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NgForOf} from "@angular/common";
-import {SpaceListComponent} from "./space-list.component";
-import {ProjectListComponent} from "./project-list.component";
+import {SpaceListComponent} from "../space-list/space-list.component";
+import {ProjectListComponent} from "../project-list/project-list.component";
 
 @Component({
   selector: 'app-sidebar',

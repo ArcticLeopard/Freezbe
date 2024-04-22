@@ -2,18 +2,15 @@ import { Component } from '@angular/core';
 import {NgClass, NgForOf} from "@angular/common";
 
 @Component({
-  selector: 'app-detail-list',
+  selector: 'app-comment-list',
   standalone: true,
   imports: [
     NgForOf,
-    NgClass
+    NgClass,
   ],
-  templateUrl: './detail-list.component.html',
-  styleUrl: './detail-list.component.scss'
+  templateUrl: './comment-list.component.html',
+  styleUrl: './comment-list.component.scss'
 })
-export class DetailListComponent {
-  //colors: string[] = ['blue','indigo','purple'];
+export class CommentListComponent {
   colors: string[] = ['blue','indigo','purple','pink','red','orange','yellow','green','teal','cyan','white','gray','gray-dark','primary','secondary','success','info','warning','danger','light','dark','classic']
 }
-
-
