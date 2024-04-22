@@ -18,62 +18,73 @@ $range: 9;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .mt-#{$index} {
     margin-top: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .mb-#{$index} {
     margin-bottom: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .ml-#{$index} {
     margin-left: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .mr-#{$index} {
     margin-right: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .ma-#{$index} {
     margin: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .pt-#{$index} {
     padding-top: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .pb-#{$index} {
     padding-bottom: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .pl-#{$index} {
     padding-left: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .pr-#{$index} {
     padding-right: 0.35rem * $index;
   }
 }
 
-@for $index from 1 through $range {
+@for $index from 0 through $range {
   .pa-#{$index} {
     padding: 0.35rem * $index;
+  }
+}
+
+@mixin hidePanel($from, $to)
+{
+  width: $from;
+  overflow-x: hidden;
+  transition: width 0.5s;
+  &:hover
+  {
+    width: $to;
   }
 }

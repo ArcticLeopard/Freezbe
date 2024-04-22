@@ -1,0 +1,40 @@
+@import "../../../sass/global";
+
+.comment {
+  user-select: text;
+}
+
+.commentDetails
+{
+  display: flex;
+  flex-direction: row;
+  span
+  {
+    @extend .pr-3;
+  }
+  .Author
+  {
+    @extend .pl-3;
+  }
+
+  .Date
+  {
+    opacity: 25%;
+  }
+}
+
+.button
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: none;
+
+  span
+  {
+    font-size: 2rem;
+    font-weight: 300;
+    height: 3.2rem;
+  }
+}

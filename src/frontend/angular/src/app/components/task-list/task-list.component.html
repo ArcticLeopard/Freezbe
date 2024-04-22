@@ -1,7 +1,9 @@
 <div class="sectionInfo">
   <div class="sectionInfoContainer-3">
     <button class="tmpBtn"><</button>
-    <div>Project 1</div>
+    <div class="sectionInfoTextContainer">
+      <span class="ml-1 pointer">Project Name</span>
+    </div>
     <div class="taskCounter">{{taskIndexes.length}} Tasks</div>
     <button class="tmpBtn">></button>
   </div>
@@ -9,7 +11,7 @@
 <div class="scrollWrapper">
   <div>
     <div title="Task Title" class="task" *ngFor="let index of taskIndexes; let i = index">
-      <div class="pr-3 pl-3 bg-classic-hd pointer taskDataGrid">
+      <div class="pr-3 pl-3 bg-classic hd pointer taskDataGrid">
         <div style="height: 3.2rem; padding: 0 0.5rem;">
           <svg width="28" height="28" viewBox="0 0 28 28" style="fill-rule:evenodd;" fill="#ABABAB">
             <path d="M28,3.36c0,-1.854 -1.506,-3.36 -3.36,-3.36l-21.28,0c-1.854,0 -3.36,1.506 -3.36,3.36l0,21.28c0,1.854 1.506,3.36 3.36,3.36l21.28,0c1.854,0 3.36,-1.506 3.36,-3.36l0,-21.28Zm-2,-0l0,21.28c0,0.751 -0.609,1.36 -1.36,1.36l-21.28,0c-0.751,0 -1.36,-0.609 -1.36,-1.36l0,-21.28c0,-0.751 0.609,-1.36 1.36,-1.36l21.28,0c0.751,0 1.36,0.609 1.36,1.36Z"/>
