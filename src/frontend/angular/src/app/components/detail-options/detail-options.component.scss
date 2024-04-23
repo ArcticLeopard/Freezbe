@@ -1,7 +1,7 @@
 @import "../../../sass/global";
 
 :host {
-  @extend .pl-2, .pr-3, .pt-2, .bb;
+  @extend .pa-3, .bb;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -17,5 +17,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 4.1rem;
+  height: 3.5rem;
 }

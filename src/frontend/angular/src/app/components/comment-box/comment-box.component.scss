@@ -1,37 +1,41 @@
 @import "../../../sass/global";
 
-:host
-{
-  border-top: #171717 solid 0.2rem;
-  @extend .mr-5, .ml-2;
+:host {
+  @extend .bt;
+  @extend .pr-5, .pl-2;
 }
 
-.button
-{
+.button {
   display: flex;
   width: 100%;
   justify-content: center;
   border: none;
 
-  span
-  {
+  span {
     font-size: 2rem;
     font-weight: 300;
     height: 3.2rem;
   }
 }
 
-.commentBox
-{
+.commentBox {
   display: flex;
   width: 100%;
   justify-content: center;
-  border: none;
+  //border: none;
+  border: dashed thin rgb(255, 255, 255, 0.3);
   height: 4.7rem;
-  transition: all 0.4s ease;
-  &:hover, &:focus
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &:hover, &:focus {
+    border: solid thin rgb(255, 255, 255, 1);
+  }
+
+  .opened &
   {
-    height: 10.5rem;
-    border: none;
+    height: 14.2rem;
+    cursor: text;
   }
 }
