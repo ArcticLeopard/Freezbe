@@ -60,10 +60,31 @@ $border-style: 0.05rem solid $border-color;
   cursor: pointer;
 }
 
-.textCursor
+.pointerFocus
 {
-  cursor: text;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  &:hover{
+    color: rgb(255, 255, 255, 0.85);
+    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.05);
+  }
+  &:active{
+    color: rgb(255, 255, 255, 1);
+    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.35);
+  }
 }
+
+svg
+{
+  transition: fill 0.3s ease;
+  cursor: pointer;
+}
+
+svg:hover
+{
+  fill: hsl(0, 0%, 82%);
+}
+
 
 div {
   //border: 1px dotted white;
