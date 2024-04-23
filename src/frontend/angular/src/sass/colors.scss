@@ -1,21 +1,43 @@
-@mixin activeColor($currentColor)
-{
+@mixin activeColor($currentColor) {
   background-color: $currentColor;
-  &.hd
-  {
-    transition: background-color 0.5s ease;
-    &:hover
-    {
+  color: inherit;
+  &.hd {
+    transition: all 0.5s ease;
+
+    &:hover, &:focus {
       background-color: darken($currentColor, 10%);
+
+      &.focus {
+        box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 1);
+      }
+    }
+
+    &:active {
+      color: rgba(255, 255, 255, 1);
+      &.focus {
+        transition: all 0.2s ease;
+        box-shadow: inset 0px 0px 2px 2px rgba(255, 255, 255, 1);
+      }
     }
   }
 
-  &.hl
-  {
-    transition: background-color 0.5s ease;
-    &:hover
-    {
+  &.hl {
+    transition: all 0.5s ease;
+
+    &:hover, &:focus {
       background-color: lighten($currentColor, 10%);
+
+      &.focus {
+        box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 1);
+      }
+    }
+
+    &:active {
+      color: rgba(255, 255, 255, 1);
+      &.focus {
+        transition: all 0.2s ease;
+        box-shadow: inset 0px 0px 2px 2px rgba(255, 255, 255, 1);
+      }
     }
   }
 }
@@ -52,12 +74,27 @@ $dark: #343a40;
 $classic: #2c2d30;
 $classicDark: #232426;
 
-.bg-red-o6{ @include activeColor(rgba($red, 0.6)) }
-.bg-orange-o6{ @include activeColor(rgba($orange, 0.6)) }
+.bg-red-o6 {
+  @include activeColor(rgba($red, 0.5))
+}
+
+.bg-orange-o6 {
+  @include activeColor(rgba($orange, 0.5))
+}
+
 //.bg-classic{ @include activeColor(rgba($classic, 1)) }
-.bg-classic{ @include activeColor(rgba($classic, 0.6)) }
-.bg-classicDark{ @include activeColor(rgba($classicDark, 0.6)) }
-.bg-dark-bg{ @include activeColor(rgba($dark-bg, 0.6)) }
+.bg-classic {
+  @include activeColor(rgba($classic, 0.6))
+}
+
+.bg-classicDark {
+  @include activeColor(rgba($classicDark, 0.6))
+}
+
+.bg-dark-bg {
+  @include activeColor(rgba($dark-bg, 0.6))
+}
+
 //.bg-classic{ @include activeColor(rgba($classicDark, 1)) }
 
 //$colors: (
@@ -83,7 +120,7 @@ $classicDark: #232426;
 //  light: $light,
 //  dark: $dark,
 //  classic: $classic,
-//);
+//)
 //
 //@each $name, $color in $colors {
 //  .bg-#{""+$name} {

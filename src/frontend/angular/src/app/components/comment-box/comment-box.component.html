@@ -1,4 +1,10 @@
-<textarea class="commentBox bg-classic pa-4 textCursor" placeholder="Add your comment..."></textarea>
-<button type="button" class="button bg-dark-bg hd pa-1 pointer">
-  <span>Add your comment...</span>
-</button>
+<div [class.opened]="isOpen">
+  <div>
+    <textarea class="bg-classic hl focus pa-4 mt-3 mb-3 pointer commentBox" placeholder="Add your comment..." title="Add Your Comment" (focus)="isOpen = true" [value]="inputValue"></textarea>
+    <div [hidden]="!isOpen">
+      <button type="button" class="bg-dark-bg hd focus pa-1 pointer button">
+        <span>Add your comment...</span>
+      </button>
+    </div>
+  </div>
+</div>

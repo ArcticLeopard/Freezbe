@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, HostListener} from '@angular/core';
 
 @Component({
   selector: 'app-comment-box',
@@ -7,6 +7,21 @@ import { Component } from '@angular/core';
   templateUrl: './comment-box.component.html',
   styleUrl: './comment-box.component.scss'
 })
-export class CommentBoxComponent {
 
+export class CommentBoxComponent {
+  isOpen: boolean = false;
+  inputValue: string = "";
+  constructor(private elementRef: ElementRef) { }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      // Kliknięcie poza komponentem, chowamy element
+      this.isOpen = false;
+    }
+  }
+
+  toggleElement() {
+    this.isOpen = !this.isOpen;
+  }
 }
