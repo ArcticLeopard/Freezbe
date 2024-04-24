@@ -3,9 +3,17 @@
 :host {
   @extend .br;
   width: 10rem;
-  //@include hidePanel(0.7rem, 10rem);
   overflow: hidden;
 }
+//1024px
+@media (max-width: 592px)
+{
+  :host
+  {
+    @include hidePanel(0.7rem, 10rem);
+  }
+}
+
 
 .spaceSidebar {
   display: flex;

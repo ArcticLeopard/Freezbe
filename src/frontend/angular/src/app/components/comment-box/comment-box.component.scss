@@ -4,14 +4,16 @@
   @extend .bt;
 }
 
-.actionButton {
+.commentButton {
   display: flex;
   width: 100%;
   justify-content: center;
-  border: none;
+  border: $border-style;
 
   span {
-    font-size: 2rem;
+    font-size: 1.9rem;
+    line-height: 3.0rem;
+    text-align: center;
     font-weight: 300;
     height: 3.2rem;
   }
