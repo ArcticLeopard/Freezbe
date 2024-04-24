@@ -1,41 +1,33 @@
-<div class="sectionInfo">
-  <div class="sectionInfoContainer-3">
-<!--    <button class="tmpBtn"></button>-->
-    <span class="tmpBtn">
+<div class="infoHeader plusHiddenScroll">
+  <div class="sectionInfoContainer-4">
+    <span class="svgSize">
       <svg width="28" height="28" viewBox="0 0 28 28" style="fill-rule:evenodd;" fill="#ABABAB">
-        <path d="M28,25.5l-2.778,2.5l-15.555,-14l15.555,-14l2.778,2.5l-12.778,11.5l12.778,11.5Z"/><rect x="0" y="0" width="4" height="28"/>
-            <title>Mark Task As Priority</title>
+        <path d="M28,25.5l-2.778,2.5l-15.555,-14l15.555,-14l2.778,2.5l-12.778,11.5l12.778,11.5Z" /><rect x="0" y="0" width="4" height="28" />
+            <title>Collapse sidebar</title>
       </svg>
     </span>
-
     <div class="sectionInfoTextContainer">
       <span class="ml-1 pointerFocus">Project Name</span>
     </div>
-    <div class="taskCounter">{{taskIndexes.length}} Tasks</div>
-    <button class="tmpBtn">></button>
+    <div class="taskCounter">{{ taskIndexes.length }} Tasks</div>
+    <span class="svgSize">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="#ABABAB" style="fill-rule: evenodd;"><path d="M28,3.36c0,-1.854 -1.506,-3.36 -3.36,-3.36l-21.28,0c-1.854,0 -3.36,1.506 -3.36,3.36l0,21.28c0,1.854 1.506,3.36 3.36,3.36l21.28,0c1.854,0 3.36,-1.506 3.36,-3.36l0,-21.28Zm-1.5,1.14c0,-1.655 -1.345,-3 -3,-3l-19,-0c-1.655,-0 -3,1.345 -3,3l-0,19c-0,1.655 1.345,3 3,3l19,0c1.655,0 3,-1.345 3,-3l0,-19Z"/><title>Place Holder</title></svg>
+    </span>
   </div>
 </div>
 <div class="scrollWrapper">
-  <div>
-    <div title="Task Title" class="task" *ngFor="let index of taskIndexes; let i = index">
-      <div class="pr-3 pl-3 bg-classic hd pointer taskDataGrid">
-        <div style="height: 3.2rem; padding: 0 0.5rem;">
-          <svg width="28" height="28" viewBox="0 0 28 28" style="fill-rule:evenodd;" fill="#ABABAB">
-            <path d="M28,3.36c0,-1.854 -1.506,-3.36 -3.36,-3.36l-21.28,0c-1.854,0 -3.36,1.506 -3.36,3.36l0,21.28c0,1.854 1.506,3.36 3.36,3.36l21.28,0c1.854,0 3.36,-1.506 3.36,-3.36l0,-21.28Zm-2,-0l0,21.28c0,0.751 -0.609,1.36 -1.36,1.36l-21.28,0c-0.751,0 -1.36,-0.609 -1.36,-1.36l0,-21.28c0,-0.751 0.609,-1.36 1.36,-1.36l21.28,0c0.751,0 1.36,0.609 1.36,1.36Z"/>
-            <title>Complete Task</title>
-          </svg>
-        </div>
-        <div style="padding: 0 1rem; width: 100%; display: flex; flex-direction: column">
-          <div>Task #{{i+1}}</div>
-          <div class="text-details">Project XYZ</div>
-        </div>
-        <div style="height: 3.2rem; padding: 0 0.5rem;">
-          <svg width="28" height="28" viewBox="0 0 28 28" style="fill-rule:evenodd;" fill="#ABABAB">
-            <path d="M14,0.685l3.305,10.172l10.695,-0l-8.652,6.286l3.304,10.172l-8.652,-6.287l-8.652,6.287l3.304,-10.172l-8.652,-6.286l10.695,-0l3.305,-10.172Z"/>
-            <title>Mark Task As Priority</title>
-          </svg>
-        </div>
+  <div title="Task Title" class="task" *ngFor="let index of taskIndexes; let i = index">
+    <div class="pr-4 pl-4 bg-classic hd pointer taskDataGrid">
+      <span class="svgSize mr-5">
+        <app-task-status></app-task-status>
+      </span>
+      <div style="padding: 0 1rem; width: 100%; display: flex; flex-direction: column">
+        <div>Task #{{ i + 1 }}</div>
+        <div class="text-details">Project XYZ</div>
       </div>
+      <span class="svgSize">
+          <app-task-priority></app-task-priority>
+        </span>
     </div>
   </div>
 </div>

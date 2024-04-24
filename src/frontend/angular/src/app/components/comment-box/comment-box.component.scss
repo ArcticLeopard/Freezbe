@@ -2,10 +2,9 @@
 
 :host {
   @extend .bt;
-  @extend .pr-5, .pl-2;
 }
 
-.button {
+.actionButton {
   display: flex;
   width: 100%;
   justify-content: center;
