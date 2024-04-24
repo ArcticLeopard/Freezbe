@@ -1,10 +1,8 @@
 @import "../../../sass/global";
 
-:host {
-  @extend .pa-3, .bb;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+:host
+{
+  @extend .bb;
 }
 
 .grid {
