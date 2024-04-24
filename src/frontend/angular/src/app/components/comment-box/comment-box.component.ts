@@ -21,7 +21,7 @@ export class CommentBoxComponent {
     }
   }
 
-  toggleElement() {
-    this.isOpen = !this.isOpen;
+  open() {
+    this.isOpen = true;
   }
 }
