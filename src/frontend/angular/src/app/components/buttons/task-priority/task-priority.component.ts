@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-task-priority',
+  selector: 'btn-task-priority',
   standalone: true,
   imports: [],
   templateUrl: './task-priority.component.html',

@@ -44,14 +44,12 @@ $border-style: 0.05rem solid $border-color;
 
 .sectionInfoTextContainer {
   font-size: 1.8rem;
-
 }
 
 .scrollWrapper {
   height: 100%;
   overflow-y: scroll;
   scrollbar-width: thin;
-  scrollbar-color: $scroll-color transparent;
 }
 
 .text-details {
