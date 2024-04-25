@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-task-status',
+  selector: 'btn-task-status',
   standalone: true,
   imports: [],
   templateUrl: './task-status.component.html',

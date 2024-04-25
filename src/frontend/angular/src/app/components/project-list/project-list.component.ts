@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {NgForOf} from "@angular/common";
+import {PlaceholderComponent} from "../buttons/placeholder/placeholder.component";
 
 @Component({
   selector: 'app-project-list',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    PlaceholderComponent
   ],
   templateUrl: './project-list.component.html',
   styleUrl: './project-list.component.scss'

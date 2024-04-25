@@ -1,0 +1,24 @@
+<div class="window" [style.width.rem]="width" [style.height.rem]="height">
+  <div class="windowContainer">
+    <div class="windowHeader">
+      <div class="windowHeaderContainer">
+        <btn-close-window (click)="closeWindow()"></btn-close-window>
+        <div class="windowHeaderTitleContainer">
+          <span class="ml-1 pointerFocus">{{ title }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="windowContent" [class.scrollable]="scrollable" >
+	    <div class="mt-5 ml-2 mr-2 pb-4">
+		    <div *ngFor="let number of numbers; let i = index">
+			    <div class="commentDetails mb-2">
+				    <span class="Author">You</span>
+				    <span class="Date">{{ i + 1 }} hr. ago</span>
+				    <span class="Rest"></span>
+			    </div>
+			    <div class="comment mb-6 ml-3 mr-2 pa-4 bg-classic">Now someone wants to paint the room ... Now someone wants to paint the room ...</div>
+		    </div>
+	    </div>
+    </div>
+  </div>
+</div>
