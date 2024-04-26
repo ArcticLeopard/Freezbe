@@ -1,10 +1,13 @@
-<div class="ml-3 mt-3 mb-3 plusHiddenScroll">
+<div class="ml-3 my-3 plusHiddenScroll">
   <div class="container">
     <div class="pr-1 grid">
-      <div class="bg-classic hd focus detailButton pointer" title="Change Project">Project</div>
+      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="showProjectWindow($event, projectWindowRef)">Project</button>
     </div>
     <div class="pl-1 grid">
-      <div class="bg-classic hd focus detailButton pointer" title="Change Due Date">Due Date</div>
+      <button class="bg-classic hd focus detailButton pointer" title="Change Due Date">Due Date</button>
     </div>
   </div>
 </div>
+<window title="Project" [hidden]="ProjectWindowIsHidden" width="30" height="50" #projectWindowRef>
+
+</window>
