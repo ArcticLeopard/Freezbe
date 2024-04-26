@@ -1,8 +1,8 @@
 <div class="pl-3 plusHiddenScroll" [class.opened]="isOpen">
   <div>
-    <textarea class="bg-classic hl focus pa-4 mt-3 mb-3 pointer commentBox" placeholder="Add your comment..." title="Add Your Comment" (focus)="open()" [value]="inputValue"></textarea>
+    <textarea class="bg-classic hl focus p-4 my-3 pointer commentBox" placeholder="Add your comment..." title="Add Your Comment" (focus)="open()" [value]="inputValue"></textarea>
     <div [hidden]="!isOpen">
-      <button type="button" class="bg-dark-bg hd focus pa-2 mt-3 mb-3 pointer commentButton">
+      <button type="button" class="bg-dark-bg hd focus p-2 my-3 pointer commentButton">
         <span>Add your comment...</span>
       </button>
     </div>

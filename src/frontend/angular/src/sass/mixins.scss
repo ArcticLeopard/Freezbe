@@ -43,7 +43,21 @@ $range: 9;
 }
 
 @for $index from 0 through $range {
-  .ma-#{$index} {
+  .mx-#{$index} {
+    margin-left: 0.35rem * $index;
+    margin-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .my-#{$index} {
+    margin-top: 0.35rem * $index;
+    margin-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .m-#{$index} {
     margin: 0.35rem * $index;
   }
 }
@@ -73,7 +87,21 @@ $range: 9;
 }
 
 @for $index from 0 through $range {
-  .pa-#{$index} {
+  .px-#{$index} {
+    padding-left: 0.35rem * $index;
+    padding-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .py-#{$index} {
+    padding-top: 0.35rem * $index;
+    padding-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .p-#{$index} {
     padding: 0.35rem * $index;
   }
 }
