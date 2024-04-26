@@ -1,8 +1,9 @@
-@import "../../../sass/global";
+@import "../../../../sass/global";
 
 :host
 {
   position: absolute;
+  z-index: 99;
 }
 
 .window
@@ -10,13 +11,13 @@
   font-size: 1.4rem;
   box-shadow: 0 0 2px 1px rgba(0,0,0,0.5),0 4px 50px rgba(0,0,0,0.6);
   background-color: $classic;
-  opacity: 0.99;
+  opacity: 0.98;
   border: 0.05rem solid rgba(255,255,255,0.3);
-  transition: all 0.2s ease;
+  transition: all .2s ease;
   &:hover {
-    background-color: lighten($classic,1);;
-    opacity: 1;
+    background-color: lighten($classic,1%);;
     border: 0.05rem solid rgba(255,255,255,1);
+    outline: 0.05rem solid rgba(255,255,255,0.2);
     box-shadow: 0 0 2px 1px rgba(0,0,0,1),0 4px 50px rgba(0,0,0,1);
   }
   border-radius: 1.4rem;
@@ -46,7 +47,7 @@
 
 .windowHeaderContainer {
   @include maxSpace;
-  @extend .pl-4, .pr-4;
+  @extend .px-4;
   align-items: center;
   display: flex;
   flex: 1;
@@ -66,4 +67,8 @@
 .windowHeaderTitleContainer
 {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
 }
