@@ -39,9 +39,7 @@
   height: 100%;
   &.scrollable
   {
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
+    @extend .plusHiddenScroll;
   }
 }
 
