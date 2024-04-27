@@ -2,6 +2,7 @@
 @import "colors.scss";
 
 $border-style: 0.05rem solid $border-color;
+.b { border: $border-style }
 .bt { border-top: $border-style }
 .br { border-right: $border-style }
 .bb { border-bottom: $border-style }

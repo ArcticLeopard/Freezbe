@@ -26,9 +26,9 @@
   //border: none;
   border: dashed thin rgb(255, 255, 255, 0.3);
   height: 4.7rem;
-  overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
+
+  //Scroll
+  @extend .plusHiddenScroll;
 
   &:hover, &:focus {
     border: solid thin rgb(255, 255, 255, 1);

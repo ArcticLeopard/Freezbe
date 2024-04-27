@@ -1,0 +1,56 @@
+@import "../../../../sass/global";
+:host
+{
+  font-size: 1.4rem;
+}
+.content
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 0.5rem;
+
+  //Width Height Space
+  @include maxSpace;
+  //Padding
+  @extend .pt-2, .px-2;
+
+}
+
+input
+{
+  width: 100%;
+  height: 3.2rem;
+  font-size: inherit;
+
+  //Background
+  @extend .bg-classicDark, .hd;
+  //Padding
+  @extend .py-2, .pl-5, .pr-2;
+  //Border
+  @extend .b;
+  //Cursor
+  @extend .pointer;
+}
+
+.scroll {
+  border-radius: 0.5rem;
+  //Scroll
+  @extend .plusHiddenScroll;
+}
+
+.project
+{
+  //Padding
+  @extend .px-2, .py-3;
+  //Margin
+  @extend .mb-1, .ml-3;
+  //Cursor
+  @extend .pointer;
+
+  &:hover
+  {
+    //Background
+    @extend .bg-classic, .hd;
+  }
+}
