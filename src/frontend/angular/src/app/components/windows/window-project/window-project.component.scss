@@ -8,13 +8,13 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border-radius: 0.5rem;
 
   //Width Height Space
   @include maxSpace;
   //Padding
-  @extend .pt-2, .px-2;
-
+  @extend .pt-2, .px-2, .pb-2;
+  //Border
+  border-radius: 0.5rem;
 }
 
 input
@@ -33,18 +33,24 @@ input
   @extend .pointer;
 }
 
-.scroll {
+.projectList
+{
+  height: 100%;
+  //Background
+  @extend .bg-classicDark;
+  //Margin
+  @extend .mt-4;
+  //Border
   border-radius: 0.5rem;
+  @extend .b;
   //Scroll
-  @extend .plusHiddenScroll;
+  @extend .whiteScroll;
 }
 
 .project
 {
   //Padding
-  @extend .px-2, .py-3;
-  //Margin
-  @extend .mb-1, .ml-3;
+  @extend .px-5, .py-3;
   //Cursor
   @extend .pointer;
 

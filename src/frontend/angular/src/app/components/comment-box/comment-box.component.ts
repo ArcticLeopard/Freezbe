@@ -16,7 +16,6 @@ export class CommentBoxComponent {
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
-      // Kliknięcie poza komponentem, chowamy element
       this.isOpen = false;
     }
   }
