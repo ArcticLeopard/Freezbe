@@ -1,13 +1,13 @@
-<div class="ml-3 my-3 plusHiddenScroll">
+<div class="ml-3 my-3 transparentScroll">
   <div class="container">
     <div class="pr-1 grid">
-      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="showProjectWindow($event, projectWindowRef)">Project</button>
+      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="projectWindowRef.showWindow($event)">Project</button>
     </div>
     <div class="pl-1 grid">
       <button class="bg-classic hd focus detailButton pointer" title="Change Due Date">Due Date</button>
     </div>
   </div>
 </div>
-<window title="Project" [hidden]="ProjectWindowIsHidden" [style.top.px]="111" [style.left.px]="1315.5" width="30" height="50" #projectWindowRef>
+<window title="Project" #projectWindowRef scrollable>
   <window-project></window-project>
 </window>
