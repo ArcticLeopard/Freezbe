@@ -25,7 +25,32 @@ $border-style: 0.05rem solid $border-color;
   align-items: center;
 }
 
-.plusHiddenScroll
+.normalScroll
+{
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.sidebarScroll
+{
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: $scroll-color transparent;
+}
+
+.whiteScroll
+{
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255, 255, 255, 0.1) transparent;
+}
+
+.hiddenScroll
+{
+  overflow-y: hidden;
+}
+
+.transparentScroll
 {
   overflow-y: scroll;
   scrollbar-width: thin;

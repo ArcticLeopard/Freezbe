@@ -28,7 +28,7 @@
   height: 4.7rem;
 
   //Scroll
-  @extend .plusHiddenScroll;
+  @extend .transparentScroll;
 
   &:hover, &:focus {
     border: solid thin rgb(255, 255, 255, 1);
