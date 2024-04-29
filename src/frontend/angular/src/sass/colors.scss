@@ -75,11 +75,15 @@ $classic: #2c2d30;
 $classicDark: #232426;
 
 .bg-red-o6 {
-  @include activeColor(rgba($red, 0.5))
+  @include activeColor(rgba($red, 0.6))
 }
 
 .bg-orange-o6 {
-  @include activeColor(rgba($orange, 0.5))
+  @include activeColor(rgba($orange, 0.6))
+}
+
+.text-orange {
+  color: $orange;
 }
 
 //.bg-classic{ @include activeColor(rgba($classic, 1)) }
