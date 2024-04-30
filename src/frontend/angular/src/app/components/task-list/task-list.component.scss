@@ -20,12 +20,3 @@
 }
 
 
-.taskDataGrid
-{
-  @include maxSpace;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  //border: 0.1rem solid rgba(171, 171, 171,0.3);
-  //border-radius: 0.5rem;
-}
