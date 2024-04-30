@@ -7,30 +7,8 @@
   </div>
 </div>
 <div class="infoHeader">
-  <div class="sectionInfoContainer-0 ">
-    <div class="pl-3 pointer bigBtn bg-red-o6 hd focus">
-      <div>
-        Priority
-      </div>
-      <div class="text-details">
-        15
-      </div>
-    </div>
-    <div class="pl-3 pointer bigBtn bg-orange-o6 hd focus">
-      <div>
-        Incoming
-      </div>
-      <div class="text-details">
-        2
-      </div>
-    </div>
-  </div>
+  <app-big-button text="Priority" number="15" activeColor="bg-red-o6"></app-big-button>
+  <app-big-button text="Incoming" number="2" activeColor="bg-orange-o6"></app-big-button>
 </div>
-<div class="scrollWrapper">
-  <div class="">
-    <div class="project pointer px-3 bg-dark-bg hl" *ngFor="let index of projectIndexes; let i = index">
-      <div>Project {{ index + 1 }}</div>
-    </div>
-  </div>
-</div>
+<app-active-projects></app-active-projects>
 

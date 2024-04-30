@@ -5,26 +5,5 @@
   @extend .br;
   display: flex;
   flex-direction: column;
-
   min-width: 17.7rem;
-}
-
-.project {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 4rem;
-}
-
-
-.project > div {
-  display: flex;
-}
-
-.bigBtn {
-  @include maxSpace;
-  font-weight: 500;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }

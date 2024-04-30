@@ -1,6 +1,7 @@
 @import "mixins.scss";
 @import "colors.scss";
 
+$normal-font-size: 1.6rem;
 $border-style: 0.05rem solid $border-color;
 .b { border: $border-style }
 .bt { border-top: $border-style }
@@ -10,18 +11,17 @@ $border-style: 0.05rem solid $border-color;
 
 .container
 {
+  @include maxSpace;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  height: 100%;
 }
 
 .infoHeader {
   @extend .bb;
   width: 100%;
+  height: 5.6rem;
   display: flex;
   flex: 0 0 auto;
-  height: 5.6rem;
   align-items: center;
 }
 
@@ -69,7 +69,7 @@ $border-style: 0.05rem solid $border-color;
 }
 
 .sectionInfoTextContainer {
-  font-size: 1.8rem;
+  font-size: $normal-font-size + 0.2;
 }
 
 .scrollWrapper {
@@ -79,7 +79,7 @@ $border-style: 0.05rem solid $border-color;
 }
 
 .text-details {
-  font-size: 1.2rem;
+  font-size: $normal-font-size - 0.4;
 }
 
 .pointer {
@@ -110,11 +110,25 @@ svg
 {
   transition: fill 0.3s ease;
   cursor: pointer;
+  fill-rule:evenodd;
 }
 
 svg:hover
 {
   fill: hsl(0, 0%, 82%);
+}
+
+.text-w6
+{
+  font-weight: 600;
+}
+
+.text-no-wrap
+{
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 div {

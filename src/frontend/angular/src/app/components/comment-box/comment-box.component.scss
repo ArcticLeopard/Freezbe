@@ -11,7 +11,7 @@
   border: $border-style;
 
   span {
-    font-size: 1.9rem;
+    font-size: $normal-font-size + 0.3;
     line-height: 3.0rem;
     text-align: center;
     font-weight: 300;

@@ -62,8 +62,7 @@
 
 .spaceInfoTextContainer {
   height: 3rem;
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: $normal-font-size - 0.5;
   padding: 0.2rem 0.6rem 0;
   text-align: center;
 }
