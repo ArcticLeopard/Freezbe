@@ -1,0 +1,31 @@
+<div class="px-4 bg-classic hd pointer taskDataGrid">
+      <span class="mr-5">
+        <btn-task-status></btn-task-status>
+      </span>
+  <div class="pl-4" style="width: 100%; display: flex; flex-direction: column">
+    <div>{{ task.name }}</div>
+    <div class="pt-2" style="width: 100%; display: flex; flex-direction: row; align-items: baseline; ">
+      <div class="text-details pr-6" title="Project" *ngIf="task.project !== null">
+        <span style="min-width: 10px; min-height: 10px; opacity: 1;"><svg width="10" height="10" viewBox="0 0 32 32"  fill="#ABABAB"><path d="M30,25l-14,7l-14,-7l0,-18l14,-7l14,7l0,18Zm-12,-10l0,11.997l8,-3.996l0,-12.001l-8,4Zm-12,7.989l8,3.996l0,-11.985l-8,-4l0,11.989Zm10.012,-18.979l7.988,3.99l-7.988,3.99l-7.989,-3.99l7.989,-3.99Z"/></svg></span>
+        <span class="pl-2">{{ task.project }}</span>
+      </div>
+      <div class="text-details pr-6" title="Comments" *ngIf="task?.comments?.length > 0">
+        <span style="min-width: 10px; min-height: 10px; opacity: 1;"><svg width="10" height="10" viewBox="0 0 32 32"  fill="#ABABAB"><path d="M32,12.8c0,-7.065 -7.169,-12.8 -16,-12.8c-8.831,0 -16,5.735 -16,12.8c0,3.11 1.415,6.114 3.982,8.45l-3.982,10.75l10.873,-7.075c1.651,0.447 3.383,0.675 5.127,0.675c8.831,-0 16,-5.735 16,-12.8Zm-12.779,-1.983c-0,-0.711 -0.577,-1.288 -1.288,-1.288l-3.866,0c-0.711,0 -1.288,0.577 -1.288,1.288l0,3.866c0,0.711 0.577,1.288 1.288,1.288l3.866,-0c0.711,-0 1.288,-0.577 1.288,-1.288l-0,-3.866Zm-9.663,0c0,-0.711 -0.577,-1.288 -1.288,-1.288l-3.865,0c-0.711,0 -1.289,0.577 -1.289,1.288l0,3.866c0,0.711 0.578,1.288 1.289,1.288l3.865,-0c0.711,-0 1.288,-0.577 1.288,-1.288l0,-3.866Zm19.326,0c-0,-0.711 -0.578,-1.288 -1.289,-1.288l-3.865,0c-0.711,0 -1.288,0.577 -1.288,1.288l-0,3.866c-0,0.711 0.577,1.288 1.288,1.288l3.865,-0c0.711,-0 1.289,-0.577 1.289,-1.288l-0,-3.866Z" /></svg></span>
+        <span class="pl-2">{{ task?.comments?.length ?? 0 }}</span>
+      </div>
+      <div class="text-details pr-6 text-fire" title="Due Date" *ngIf="task.dueDate !== null">
+        <span style="min-width: 10px; min-height: 10px; opacity: 1;"><svg width="10" height="10" viewBox="0 0 32 32"  fill="#FF5428"><path d="M13.171,32c-4.066,-1.067 -7.226,-4.38 -8.072,-8.53c-0.146,-0.593 -0.224,-1.214 -0.224,-1.852l0,-0.379c0,-0.233 0.018,-0.463 0.052,-0.689c0.47,-5.025 4.065,-11.638 7.66,-15.999c-0.387,2.137 -0.096,3.953 0.557,5.555c2.191,-2.725 3.733,-5.921 2.856,-10.106c5.562,5.057 11.125,14.867 11.125,21.239c-0,5.162 -3.524,9.508 -8.296,10.761c1.335,-0.907 2.212,-2.438 2.212,-4.172c0,-2.887 -2.52,-7.332 -5.041,-9.623c0.397,1.896 -0.301,3.344 -1.294,4.579c-0.296,-0.726 -0.428,-1.549 -0.253,-2.517c-1.629,1.976 -3.257,4.973 -3.471,7.249c-0.015,0.103 -0.023,0.484 -0.023,0.484c-0,0.289 0.035,0.571 0.102,0.839c0.266,1.31 1.042,2.435 2.11,3.161Z"/></svg></span>
+        <span class="pl-2">{{ task.dueDate |  date: 'EEE, MMM d, h:mm a' }}</span>
+      </div>
+      <div class="text-details pr-6 text-fire" title="Occurrence" *ngIf="task.occurrence !== null">
+        <span style="min-width: 10px; min-height: 10px; opacity: 1;"><svg width="10" height="10" viewBox="0 0 32 32"  fill="#FF5428"><path d="M32,8c0,-4.415 -3.585,-8 -8,-8l-16,0c-4.415,0 -8,3.585 -8,8l0,16c0,4.415 3.585,8 8,8l16,0c4.415,0 8,-3.585 8,-8l0,-16Z"/></svg></span>
+        <span class="pl-2">{{ task.occurrence }}</span>
+      </div>
+      <div class="text-details pr-6" title="Remind Me" *ngIf="task.remindMe !== null">
+        <span style="min-width: 10px; min-height: 10px; opacity: 1;"><svg width="10" height="10" viewBox="0 0 32 32"  fill="#ABABAB"><path d="M7.487,3.978c0.303,-1.001 5.922,-3.978 8.513,-3.978c2.591,0 8.21,2.977 8.513,3.978c1.766,5.828 7.487,24.706 7.487,24.706l-9.168,-0c-0.699,1.898 -3.492,3.316 -6.832,3.316c-3.34,-0 -6.133,-1.418 -6.832,-3.316l-9.168,-0c0,-0 5.721,-18.878 7.487,-24.706Z"/></svg></span>
+        <span class="pl-2">{{ task.remindMe |  date: 'EEE, MMM d, h:mm a' }}</span>
+      </div>
+    </div>
+  </div>
+  <btn-task-priority></btn-task-priority>
+</div>

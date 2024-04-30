@@ -1,0 +1,46 @@
+@import "../../../sass/global";
+
+:host {
+  @extend .scrollWrapper;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 4rem;
+}
+
+.header {
+  @extend .section, .px-3, .text-w6;
+}
+
+.header > .icon {
+  min-width: 18px;
+  min-height: 18px;
+}
+
+.header > .text {
+  @extend .pl-1;
+}
+
+
+.project {
+  @extend .section, .px-6, .hl, .bg-dark-bg, .pointer;
+  font-size: $normal-font-size - 0.1;
+}
+
+.project > .icon {
+  min-width: 20px;
+  min-height: 20px;
+}
+
+.project > .text {
+  @extend .pl-4, .py-1;
+  @extend .text-no-wrap;
+}
+
+
+.section > div {
+  display: flex;
+}

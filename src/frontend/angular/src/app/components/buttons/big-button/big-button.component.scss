@@ -1,0 +1,11 @@
+@import "../../../../sass/global";
+
+:host
+{
+  @include maxSpace;
+  @extend .px-3, .pointer, .text-w6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
