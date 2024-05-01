@@ -1,15 +1,13 @@
-<div class="infoHeader transparentScroll">
+<div class="header">
   <div class="sectionInfoContainer-4">
     <btn-close-sidebar></btn-close-sidebar>
-    <div class="sectionInfoTextContainer">
+    <div class="tfsp2">
       <span class="ml-1 pointerFocus">Project Name</span>
     </div>
-    <div class="taskCounter">{{ tasks.length }} Tasks</div>
+    <div class="text-gray">{{ tasks.length }} Tasks</div>
     <btn-placeholder></btn-placeholder>
   </div>
 </div>
-<div class="scrollWrapper">
-  <div [title]="task.name" class="task" *ngFor="let task of tasks; let i = index">
-    <app-task [task]="task"></app-task>
-  </div>
+<div class="list">
+  <task-item *ngFor="let task of tasks" [dataSource]="task"></task-item>
 </div>

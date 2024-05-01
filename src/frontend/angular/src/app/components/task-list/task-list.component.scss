@@ -1,4 +1,4 @@
-@import "../../../sass/global";
+@import "../../../sass/globalFeatures";
 
 :host
 {
@@ -8,15 +8,12 @@
   flex: 2 0 315px;
 }
 
-.taskCounter
+.header
 {
-  opacity: 0.5;
+  @extend .infoHeader, .transparentScroll;
 }
 
-.task
+.list
 {
-  height: 5.5rem;
-  margin-bottom: 0.2rem;
+  @extend .scrollWrapper;
 }
-
-
