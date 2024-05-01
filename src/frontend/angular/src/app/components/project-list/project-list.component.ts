@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {PlaceholderComponent} from "../buttons/placeholder/placeholder.component";
-import {BigButtonComponent} from "../buttons/big-button/big-button.component";
+import {BigComponent} from "../buttons/big/big.component";
 import {ActiveProjectsComponent} from "../active-projects/active-projects.component";
 
 @Component({
@@ -10,7 +10,7 @@ import {ActiveProjectsComponent} from "../active-projects/active-projects.compon
   imports: [
     NgForOf,
     PlaceholderComponent,
-    BigButtonComponent,
+    BigComponent,
     ActiveProjectsComponent
   ],
   templateUrl: './project-list.component.html',

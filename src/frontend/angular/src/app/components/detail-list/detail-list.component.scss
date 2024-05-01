@@ -1,4 +1,4 @@
-@import "../../../sass/global";
+@import "../../../sass/globalFeatures";
 
 :host{
   @extend .bl;
@@ -6,6 +6,11 @@
   height: 100%;
   flex-direction: column;
   flex: 1 0 315px;
+}
+
+.header
+{
+  @extend .pl-3, .pr-4, .infoHeader, .transparentScroll;
 }
 
 .comment {

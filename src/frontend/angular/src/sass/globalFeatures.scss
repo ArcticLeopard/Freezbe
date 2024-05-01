@@ -1,31 +1,42 @@
+/*#region Imports*/
 @import "mixins.scss";
 @import "colors.scss";
+/*#endregion Imports*/
 
-$normal-font-size: 1.6rem;
+/*#region Variables*/
 $border-style: 0.05rem solid $border-color;
+$normal-font-size: 1.6rem;
+/*#endregion Variables*/
+
+/*#region Borders*/
 .b { border: $border-style }
 .bt { border-top: $border-style }
 .br { border-right: $border-style }
 .bb { border-bottom: $border-style }
 .bl { border-left: $border-style }
+/*#endregion Borders*/
 
-.container
+/*#region Text Font Size*/
+.tfs
 {
-  @include maxSpace;
-  display: flex;
-  flex-wrap: wrap;
+  font-size: $normal-font-size;
 }
 
-.infoHeader {
-  @extend .bb;
-  width: 100%;
-  height: 5.6rem;
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
+@for $i from 1 through 9 {
+  .tfsp#{$i} {
+    font-size: $normal-font-size + ($i * 0.1);
+  }
 }
 
-.normalScroll
+@for $i from 1 through 9 {
+  .tfsm#{$i} {
+    font-size: $normal-font-size - ($i * 0.1);
+  }
+}
+/*#endregion Text Font Size*/
+
+/*#region Scrolls*/
+.basicScroll
 {
   overflow-y: scroll;
   scrollbar-width: thin;
@@ -33,15 +44,13 @@ $border-style: 0.05rem solid $border-color;
 
 .sidebarScroll
 {
-  overflow-y: scroll;
-  scrollbar-width: thin;
+  @extend .basicScroll;
   scrollbar-color: $scroll-color transparent;
 }
 
 .whiteScroll
 {
-  overflow-y: scroll;
-  scrollbar-width: thin;
+  @extend .basicScroll;
   scrollbar-color: rgb(255, 255, 255, 0.1) transparent;
 }
 
@@ -52,15 +61,15 @@ $border-style: 0.05rem solid $border-color;
 
 .transparentScroll
 {
-  overflow-y: scroll;
-  scrollbar-width: thin;
+  @extend .basicScroll;
   scrollbar-color: transparent transparent;
 }
+/*#endregion Scrolls*/
 
 @for $index from 0 through $range {
   .sectionInfoContainer-#{$index} {
     @include maxSpace;
-    @extend .pl-#{$index}, .pr-#{$index};
+    @extend .px-#{$index};
     align-items: center;
     display: flex;
     flex: 1;
@@ -68,18 +77,9 @@ $border-style: 0.05rem solid $border-color;
   }
 }
 
-.sectionInfoTextContainer {
-  font-size: $normal-font-size + 0.2;
-}
-
 .scrollWrapper {
   height: 100%;
-  overflow-y: scroll;
-  scrollbar-width: thin;
-}
-
-.text-details {
-  font-size: $normal-font-size - 0.4;
+  @extend .basicScroll;
 }
 
 .pointer {
@@ -104,6 +104,14 @@ $border-style: 0.05rem solid $border-color;
 {
   width: 2.8rem;
   height: 2.8rem;
+}
+
+.infoHeader {
+  @extend .bb;
+  width: 100%;
+  height: 5.6rem;
+  display: flex;
+  flex: 0 0 auto;
 }
 
 svg

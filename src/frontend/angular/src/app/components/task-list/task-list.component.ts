@@ -5,7 +5,7 @@ import {TaskStatusComponent} from "../buttons/task-status/task-status.component"
 import {TaskPriorityComponent} from "../buttons/task-priority/task-priority.component";
 import {CloseSidebarComponent} from "../buttons/close-sidebar/close-sidebar.component";
 import {PlaceholderComponent} from "../buttons/placeholder/placeholder.component";
-import {TaskComponent} from "../task/task.component";
+import {TaskItemComponent} from "../task-item/task-item.component";
 
 @Component({
   selector: 'app-task-list',
@@ -19,7 +19,7 @@ import {TaskComponent} from "../task/task.component";
     PlaceholderComponent,
     DatePipe,
     NgIf,
-    TaskComponent
+    TaskItemComponent
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'

@@ -4,7 +4,7 @@ import {TaskPriorityComponent} from "../buttons/task-priority/task-priority.comp
 import {TaskStatusComponent} from "../buttons/task-status/task-status.component";
 
 @Component({
-  selector: 'app-task',
+  selector: 'task-item',
   standalone: true,
     imports: [
         DatePipe,
@@ -12,10 +12,10 @@ import {TaskStatusComponent} from "../buttons/task-status/task-status.component"
         TaskPriorityComponent,
         TaskStatusComponent
     ],
-  templateUrl: './task.component.html',
-  styleUrl: './task.component.scss'
+  templateUrl: './task-item.component.html',
+  styleUrl: './task-item.component.scss'
 })
-export class TaskComponent {
-  @Input()
+export class TaskItemComponent {
+  @Input("dataSource")
   task : any;
 }

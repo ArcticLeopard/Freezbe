@@ -1,13 +1,13 @@
 import {Component, HostBinding, Input, numberAttribute} from '@angular/core';
 
 @Component({
-  selector: 'app-big-button',
+  selector: 'btn-big',
   standalone: true,
   imports: [],
-  templateUrl: './big-button.component.html',
-  styleUrl: './big-button.component.scss'
+  templateUrl: './big.component.html',
+  styleUrl: './big.component.scss'
 })
-export class BigButtonComponent {
+export class BigComponent {
   @Input()
   text: string = "Title"
 

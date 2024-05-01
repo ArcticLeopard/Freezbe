@@ -1,4 +1,4 @@
-@import "../../../sass/global";
+@import "../../../sass/globalFeatures";
 
 :host {
   @extend .scrollWrapper;
@@ -26,8 +26,7 @@
 
 
 .project {
-  @extend .section, .px-6, .hl, .bg-dark-bg, .pointer;
-  font-size: $normal-font-size - 0.1;
+  @extend .section, .px-6, .hl, .bg-dark-bg, .pointer, .tfsm1;
 }
 
 .project > .icon {

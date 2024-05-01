@@ -1,4 +1,4 @@
-@import "../../../../sass/global";
+@import "../../../../sass/globalFeatures";
 
 :host
 {
@@ -8,7 +8,7 @@
 
 .window
 {
-  font-size: $normal-font-size - 0.2;
+  @extend .tfsm2;
   box-shadow: 0 0 2px 1px rgba(0,0,0,0.5),0 4px 50px rgba(0,0,0,0.6);
   background-color: $classic;
   opacity: 0.98;
