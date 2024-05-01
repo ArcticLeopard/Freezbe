@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BigButtonComponent } from './big-button.component';
+import { TaskItemComponent } from './task-item.component';
 
-describe('BigButtonComponent', () => {
-  let component: BigButtonComponent;
-  let fixture: ComponentFixture<BigButtonComponent>;
+describe('TaskItemComponent', () => {
+  let component: TaskItemComponent;
+  let fixture: ComponentFixture<TaskItemComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BigButtonComponent]
+      imports: [TaskItemComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(BigButtonComponent);
+
+    fixture = TestBed.createComponent(TaskItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

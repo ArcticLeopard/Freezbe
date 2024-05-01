@@ -1,18 +1,17 @@
-@import "../../../../sass/global";
-:host
-{
-  font-size: $normal-font-size - 0.2;
-}
+@import "../../../../sass/globalFeatures";
 .content
 {
+  //Display Flex With Options
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 
-  //Width Height Space
+  //Width Height
   @include maxSpace;
+
   //Padding
   @extend .pt-2, .px-2, .pb-2;
+
   //Border
   border-radius: 0.5rem;
 }

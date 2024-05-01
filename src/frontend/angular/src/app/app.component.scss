@@ -1,8 +1,8 @@
-@import "../sass/global.scss";
+@import "../sass/globalFeatures";
 :host
 {
   @include maxSpace;
-  font-size: $normal-font-size;
+  @extend .tfs;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
   "Segoe UI Symbol";

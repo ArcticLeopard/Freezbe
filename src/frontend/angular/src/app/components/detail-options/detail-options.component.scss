@@ -1,8 +1,15 @@
-@import "../../../sass/global";
+@import "../../../sass/globalFeatures";
 
 :host
 {
   @extend .bb;
+}
+
+.container
+{
+  @include maxSpace;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .grid {

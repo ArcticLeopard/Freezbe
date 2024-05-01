@@ -1,4 +1,4 @@
-@import "../../../sass/global";
+@import "../../../sass/globalFeatures";
 
 :host {
   @extend .br;
@@ -61,8 +61,8 @@
 }
 
 .spaceInfoTextContainer {
+  @extend .tfsm5;
   height: 3rem;
-  font-size: $normal-font-size - 0.5;
   padding: 0.2rem 0.6rem 0;
   text-align: center;
 }

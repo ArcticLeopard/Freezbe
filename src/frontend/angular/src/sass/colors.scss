@@ -91,6 +91,10 @@ $classicDark: #232426;
   color: $fire;
 }
 
+.text-gray {
+  color: $gray;
+}
+
 //.bg-classic{ @include activeColor(rgba($classic, 1)) }
 .bg-classic {
   @include activeColor(rgba($classic, 0.6))
