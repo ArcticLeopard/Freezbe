@@ -1,28 +1,26 @@
 @import "../../../sass/globalFeatures";
 
-:host
-{
+:host {
+  //Border
   @extend .bb;
 }
 
-.container
-{
-  @include maxSpace;
-  display: flex;
-  flex-wrap: wrap;
-}
+.container {
+  //Width or/and Height
+  @extend .wh100;
 
-.grid {
-  display: block;
+  //Display
+  @extend .row;
+
   flex-wrap: wrap;
-  width: 50%;
 }
 
 .detailButton {
-  display: flex;
-  align-items: center;
-  width: 100%;
+  //Border
+  @extend .b;
+
+  //Width or/and Height
+  @extend .w100;
+
   height: 3.4rem;
-  justify-content: center;
-  border: $border-style;
 }

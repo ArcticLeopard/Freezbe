@@ -1,10 +1,15 @@
 @import "../../../sass/globalFeatures";
 
 :host{
+  //Display
+  @extend .column;
+
+  //Border
   @extend .bl;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
+
+  //Width or/and Height
+  @extend .h100;
+
   flex: 1 0 315px;
 }
 

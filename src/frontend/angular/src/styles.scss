@@ -12,7 +12,9 @@ html
 
 body
 {
-  @include theme('dark');
+  background: $gray-dark;
+  color: $gray-light;
+  color-scheme: dark;
 }
 
 body, html

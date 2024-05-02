@@ -1,11 +1,16 @@
 @import "../../../../sass/globalFeatures";
 
-:host
-{
-  @include maxSpace;
-  @extend .px-3, .pointer, .text-w6;
-  display: flex;
-  flex-direction: column;
+:host {
+  //Width or/and Height
+  @extend .wh100;
+
+  //Display
+  @extend .column;
+
+  //Padding
+  @extend .px-3;
+
+  //Others
+  @extend .pointer, .text-w6;
   justify-content: center;
 }
-

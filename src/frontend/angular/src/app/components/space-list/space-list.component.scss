@@ -16,13 +16,18 @@
 
 
 .spaceSidebar {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 8rem;
-  padding: 1rem 0;
+  //Display
+  @extend .column;
+
   //Scroll
   @extend .sidebarScroll;
+
+  //Padding
+  @extend .py-3;
+
+  //Width or/and Height
+  @extend .h100;
+  width: 8rem;
 }
 
 .space {

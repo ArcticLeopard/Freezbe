@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-active-projects',
   standalone: true,
-    imports: [
-        NgForOf
-    ],
+  imports: [
+    NgForOf,
+    NgIf
+  ],
   templateUrl: './active-projects.component.html',
   styleUrl: './active-projects.component.scss'
 })
 export class ActiveProjectsComponent {
+  open : boolean = true;
   projects = [
     {
       name: 'Self-teaching Piano Playing',

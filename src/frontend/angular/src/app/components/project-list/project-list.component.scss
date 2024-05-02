@@ -1,7 +1,9 @@
 @import "../../../sass/globalFeatures";
 
 :host {
-  @include maxSpace;
+  //Width or/and Height
+  @extend .wh100;
+
   @extend .br;
   display: flex;
   flex-direction: column;
@@ -12,3 +14,15 @@
 {
   @extend .infoHeader;
 }
+
+.redButton {
+  color: $red;
+  @include activeColor(rgba($red, 0.1), darken($red,5%));
+}
+
+.orangeButton {
+  color: $orange;
+  @include activeColor(rgba($orange, 0.1), darken($orange,5%));
+}
+
+
