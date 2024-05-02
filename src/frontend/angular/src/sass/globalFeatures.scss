@@ -6,69 +6,175 @@
 /*#region Variables*/
 $border-style: 0.05rem solid $border-color;
 $normal-font-size: 1.6rem;
+$range: 9;
 /*#endregion Variables*/
 
 /*#region Borders*/
-.b { border: $border-style }
-.bt { border-top: $border-style }
-.br { border-right: $border-style }
-.bb { border-bottom: $border-style }
-.bl { border-left: $border-style }
+.b {
+  border: $border-style
+}
+
+.bt {
+  border-top: $border-style
+}
+
+.br {
+  border-right: $border-style
+}
+
+.bb {
+  border-bottom: $border-style
+}
+
+.bl {
+  border-left: $border-style
+}
+
 /*#endregion Borders*/
 
 /*#region Text Font Size*/
-.tfs
-{
+.tfs {
   font-size: $normal-font-size;
 }
 
-@for $i from 1 through 9 {
+@for $i from 1 through $range {
   .tfsp#{$i} {
     font-size: $normal-font-size + ($i * 0.1);
   }
 }
 
-@for $i from 1 through 9 {
+@for $i from 1 through $range {
   .tfsm#{$i} {
     font-size: $normal-font-size - ($i * 0.1);
   }
 }
+
 /*#endregion Text Font Size*/
 
 /*#region Scrolls*/
-.basicScroll
-{
+.basicScroll {
   overflow-y: scroll;
   scrollbar-width: thin;
 }
 
-.sidebarScroll
-{
+.sidebarScroll {
   @extend .basicScroll;
   scrollbar-color: $scroll-color transparent;
 }
 
-.whiteScroll
-{
+.whiteScroll {
   @extend .basicScroll;
   scrollbar-color: rgb(255, 255, 255, 0.1) transparent;
 }
 
-.hiddenScroll
-{
+.hiddenScroll {
   overflow-y: hidden;
 }
 
-.transparentScroll
-{
+.transparentScroll {
   @extend .basicScroll;
   scrollbar-color: transparent transparent;
 }
+
 /*#endregion Scrolls*/
+
+/*#region Margins*/
+@for $index from 0 through $range {
+  .mt-#{$index} {
+    margin-top: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .mb-#{$index} {
+    margin-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .ml-#{$index} {
+    margin-left: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .mr-#{$index} {
+    margin-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .mx-#{$index} {
+    margin-left: 0.35rem * $index;
+    margin-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .my-#{$index} {
+    margin-top: 0.35rem * $index;
+    margin-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .m-#{$index} {
+    margin: 0.35rem * $index;
+  }
+}
+
+/*#endregion Margins*/
+
+/*#region Paddings*/
+@for $index from 0 through $range {
+  .pt-#{$index} {
+    padding-top: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .pb-#{$index} {
+    padding-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .pl-#{$index} {
+    padding-left: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .pr-#{$index} {
+    padding-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .px-#{$index} {
+    padding-left: 0.35rem * $index;
+    padding-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .py-#{$index} {
+    padding-top: 0.35rem * $index;
+    padding-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .p-#{$index} {
+    padding: 0.35rem * $index;
+  }
+}
+
+/*#endregion Paddings*/
 
 @for $index from 0 through $range {
   .sectionInfoContainer-#{$index} {
-    @include maxSpace;
+    @extend .wh100;
     @extend .px-#{$index};
     align-items: center;
     display: flex;
@@ -78,65 +184,89 @@ $normal-font-size: 1.6rem;
 }
 
 .scrollWrapper {
-  height: 100%;
-  @extend .basicScroll;
+  @extend .basicScroll, .h100;
 }
 
 .pointer {
   cursor: pointer;
 }
 
-.pointerFocus
-{
+.pointerFocus {
   cursor: pointer;
   transition: all 0.4s ease;
-  &:hover{
+
+  &:hover {
     color: rgb(255, 255, 255, 0.85);
     text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.05);
   }
-  &:active{
+
+  &:active {
     color: rgb(255, 255, 255, 1);
     text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.35);
   }
 }
 
-.svgSize
-{
+.svgSize {
   width: 2.8rem;
   height: 2.8rem;
 }
 
 .infoHeader {
-  @extend .bb;
-  width: 100%;
+  @extend .bb, .w100;
   height: 5.6rem;
   display: flex;
   flex: 0 0 auto;
 }
 
-svg
-{
+svg {
   transition: fill 0.3s ease;
   cursor: pointer;
-  fill-rule:evenodd;
+  fill-rule: evenodd;
 }
 
-svg:hover
-{
+svg:hover {
   fill: hsl(0, 0%, 82%);
 }
 
-.text-w6
-{
+.text-w3 {
+  font-weight: 300;
+}
+
+.text-w6 {
   font-weight: 600;
 }
 
-.text-no-wrap
-{
+.text-no-wrap {
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.wh100 {
+  @extend .w100, .h100;
 }
 
 div {

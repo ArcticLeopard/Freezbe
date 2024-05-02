@@ -2,9 +2,12 @@
 
 :host
 {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  //Display
+  @extend .column;
+
+  //Width or/and Height
+  @extend .h100;
+
   flex: 2 0 315px;
 }
 

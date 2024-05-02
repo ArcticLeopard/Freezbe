@@ -1,15 +1,21 @@
 @import "../sass/globalFeatures";
-:host
-{
-  @include maxSpace;
+
+:host {
+  //Width or/and Height
+  @extend .wh100;
+
+  //Text Font Size
   @extend .tfs;
+
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
   "Segoe UI Symbol";
 }
 
-.application
-{
-  @include maxSpace;
-  display: flex;
+.application {
+  //Width or/and Height
+  @extend .wh100;
+
+  //Display
+  @extend .row;
 }
