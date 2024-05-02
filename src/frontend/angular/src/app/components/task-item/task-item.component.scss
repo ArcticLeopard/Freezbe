@@ -1,29 +1,51 @@
 @import "../../../sass/globalFeatures";
 
-:host
-{
+:host {
   height: 5.5rem;
   display: flex;
   margin-bottom: 0.2rem;
 }
 
-.container
-{
-  @extend .px-4, .bg-classic, .hd, .pointer, .taskDataGrid;
-}
+.task-container {
+  //Width or/and Height
+  @extend .wh100;
 
-.taskDataGrid
-{
-  @include maxSpace;
-  display: flex;
-  justify-content: space-between;
+  @extend .px-4, .bg-classic, .hd, .pointer, .row;
   align-items: center;
   //border: 0.1rem solid rgba(171, 171, 171,0.3);
   //border-radius: 0.5rem;
 }
 
-.task
-{
-  height: 5.5rem;
-  margin-bottom: 0.2rem;
+.task {
+  @extend .mx-5, .w100;
 }
+
+.task-name {
+  @extend .row, .pb-1, .pointerFocus;
+}
+
+.task-details {
+  @extend .row, .pt-1;
+}
+
+.detail {
+  @extend .tfsm4, .pr-6;
+
+  .text-detail {
+    @extend .pl-2;
+    @extend .text-gray, .pointerFocus;
+  }
+
+  .icon-detail {
+    @extend .text-gray;
+  }
+
+  &.delay {
+    .text-detail, .icon-detail {
+      @extend .text-fire;
+    }
+  }
+}
+
+
+

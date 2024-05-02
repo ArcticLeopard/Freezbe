@@ -1,6 +1,6 @@
-@mixin activeColor($currentColor) {
+@mixin activeColor($currentColor, $borderColor: rgba(255, 255, 255, 1)) {
   background-color: $currentColor;
-  color: inherit;
+
   &.hd {
     transition: all 0.5s ease;
 
@@ -8,15 +8,15 @@
       background-color: darken($currentColor, 10%);
 
       &.focus {
-        box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 1);
+        box-shadow: inset 0px 0px 1px 1px $borderColor;
       }
     }
 
     &:active {
-      color: rgba(255, 255, 255, 1);
+      color: $borderColor;
       &.focus {
         transition: all 0.2s ease;
-        box-shadow: inset 0px 0px 2px 2px rgba(255, 255, 255, 1);
+        box-shadow: inset 0px 0px 2px 2px $borderColor;
       }
     }
   }
@@ -28,24 +28,20 @@
       background-color: lighten($currentColor, 10%);
 
       &.focus {
-        box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 1);
+        box-shadow: inset 0px 0px 1px 1px $borderColor;
       }
     }
 
     &:active {
-      color: rgba(255, 255, 255, 1);
+      color: $borderColor;
       &.focus {
         transition: all 0.2s ease;
-        box-shadow: inset 0px 0px 2px 2px rgba(255, 255, 255, 1);
+        box-shadow: inset 0px 0px 2px 2px $borderColor;
       }
     }
   }
 }
 
-$light-bg: #FBFCFC;
-$light-text: #000000;
-$dark-bg: #171717;
-$dark-text: hsl(225, 9%, 82%);
 $border-color: rgba(72, 72, 74, 0.5);
 $scroll-color: rgba(43, 45, 48, 0.5);
 
@@ -61,8 +57,9 @@ $green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
 $white: #fff;
+$gray-light: #cdcfd5;
 $gray: #6c757d;
-$gray-dark: #343a40;
+$gray-dark: #171717;
 
 $primary: #007bff;
 $secondary: #6c757d;
@@ -75,25 +72,22 @@ $dark: #343a40;
 $classic: #2c2d30;
 $classicDark: #232426;
 
-.bg-red-o6 {
-  @include activeColor(rgba($red, 0.6))
-}
+$textColors: (orange: $orange, fire: $fire, gray: $gray, gray-light:$gray-light);
 
-.bg-orange-o6 {
-  @include activeColor(rgba($orange, 0.6))
+@each $name, $color in $textColors {
+  .text-#{""+$name}
+  {
+    color: $color;
+    fill: $color;
+  }
 }
-
-.text-orange {
-  color: $orange;
-}
-
-.text-fire {
-  color: $fire;
-}
-
-.text-gray {
-  color: $gray;
-}
+  //    @for $i from 0 through 10 {
+  //      $opacity: $i / 10;
+  //      .bg-#{$name}-o-#{$i} {
+  //        background-color: rgba(red($color), green($color), blue($color), $opacity);
+  //      }
+  //    }
+  //  }
 
 //.bg-classic{ @include activeColor(rgba($classic, 1)) }
 .bg-classic {
@@ -105,7 +99,7 @@ $classicDark: #232426;
 }
 
 .bg-dark-bg {
-  @include activeColor(rgba($dark-bg, 0.6))
+  @include activeColor(rgba($gray-dark, 0.6))
 }
 
 //.bg-classic{ @include activeColor(rgba($classicDark, 1)) }
