@@ -8,7 +8,7 @@
   //Width or/and Height
   @extend .h100;
 
-  flex: 2 0 315px;
+  flex: 2 0 31.5rem;
 }
 
 .header
@@ -19,4 +19,5 @@
 .list
 {
   @extend .scrollWrapper;
+  overflow-x: hidden;
 }

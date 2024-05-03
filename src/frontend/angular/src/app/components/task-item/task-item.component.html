@@ -1,7 +1,11 @@
 <div class="task-container" [title]="task.name">
   <btn-task-status></btn-task-status>
   <div class="task">
-    <div class="task-name">{{ task.name }}</div>
+    <div class="task-header">
+      <div class="task-name">
+        {{ task.name }}
+      </div>
+    </div>
     <div class="task-details">
       <div class="detail" title="Project" *ngIf="task.project !== null">
         <span class="icon-detail"><svg width="10" height="10" viewBox="0 0 32 32"><path d="M30,25l-14,7l-14,-7l0,-18l14,-7l14,7l0,18Zm-12,-10l0,11.997l8,-3.996l0,-12.001l-8,4Zm-12,7.989l8,3.996l0,-11.985l-8,-4l0,11.989Zm10.012,-18.979l7.988,3.99l-7.988,3.99l-7.989,-3.99l7.989,-3.99Z" /></svg></span>
@@ -23,6 +27,7 @@
         <span class="icon-detail"><svg width="10" height="10" viewBox="0 0 32 32"><path d="M7.487,3.978c0.303,-1.001 5.922,-3.978 8.513,-3.978c2.591,0 8.21,2.977 8.513,3.978c1.766,5.828 7.487,24.706 7.487,24.706l-9.168,-0c-0.699,1.898 -3.492,3.316 -6.832,3.316c-3.34,-0 -6.133,-1.418 -6.832,-3.316l-9.168,-0c0,-0 5.721,-18.878 7.487,-24.706Z" /></svg></span>
         <span class="text-detail">{{ task.remindMe |  date: 'EEE, MMM d, h:mm a' }}</span>
       </div>
+      <div class="shadow"></div>
     </div>
   </div>
   <btn-task-priority></btn-task-priority>

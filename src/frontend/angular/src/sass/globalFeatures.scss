@@ -55,6 +55,7 @@ $range: 9;
 .basicScroll {
   overflow-y: scroll;
   scrollbar-width: thin;
+  scrollbar-color: $scroll-color transparent;
 }
 
 .sidebarScroll {
