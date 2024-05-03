@@ -12,12 +12,12 @@
 }
 
 .header {
-  @extend .section, .px-3, .text-w6;
+  @extend .section, .px-3, .text-w6, .pointer, .my-1;
 }
 
 .header > .icon {
-  min-width: 18px;
-  min-height: 18px;
+  min-width: 1.8rem;
+  min-height: 1.8rem;
 }
 
 .header > .text {
@@ -27,11 +27,21 @@
 
 .project {
   @extend .section, .px-6, .hl, .bg-dark-bg, .pointer, .tfsm1;
+
+  svg
+  {
+    transition: all 1.2s ease;
+  }
+
+  &:hover svg
+  {
+    rotate: 360deg;
+  }
 }
 
 .project > .icon {
-  min-width: 20px;
-  min-height: 20px;
+  min-width: 2rem;
+  min-height: 2rem;
 }
 
 .project > .text {
