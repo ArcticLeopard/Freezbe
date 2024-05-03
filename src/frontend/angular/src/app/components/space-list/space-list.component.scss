@@ -4,6 +4,7 @@
   @extend .br;
   width: 10rem;
   overflow: hidden;
+  @include hidePanel(0.7rem, 10rem);
 }
 //1024px
 @media (max-width: 592px)
