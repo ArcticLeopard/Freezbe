@@ -1,3 +1,5 @@
+@import "../../../../sass/globalFeatures";
+
 :host
 {
   z-index: 5;
@@ -8,6 +10,7 @@ svg
   transition: all 1.2s ease;
   &:hover
   {
+    fill: $white;
     rotate: 360deg;
   }
 }

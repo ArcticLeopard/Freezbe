@@ -4,30 +4,42 @@
 /*#endregion Imports*/
 
 /*#region Variables*/
-$border-style: 0.05rem solid $border-color;
 $normal-font-size: 1.6rem;
 $range: 9;
+$bs-sot: 0.05rem solid;
+$bs-dot: 0.05rem dotted;
+$bs-dat: 0.05rem dashed;
 /*#endregion Variables*/
 
 /*#region Borders*/
 .b {
-  border: $border-style
+  border: $bs-sot $border-color;
 }
 
 .bt {
-  border-top: $border-style
+  border-top: $bs-sot $border-color;
 }
 
 .br {
-  border-right: $border-style
+  border-right: $bs-sot $border-color;
 }
 
 .bb {
-  border-bottom: $border-style
+  border-bottom: $bs-sot $border-color;
 }
 
 .bl {
-  border-left: $border-style
+  border-left: $bs-sot $border-color;
+}
+
+.bx {
+  border-top: $bs-sot $border-color;
+  border-bottom: $bs-sot $border-color;
+}
+
+.by {
+  border-left: $bs-sot $border-color;
+  border-right: $bs-sot $border-color;
 }
 
 /*#endregion Borders*/
@@ -55,7 +67,6 @@ $range: 9;
 .basicScroll {
   overflow-y: scroll;
   scrollbar-width: thin;
-  scrollbar-color: $scroll-color transparent;
 }
 
 .sidebarScroll {
@@ -173,19 +184,16 @@ $range: 9;
 
 /*#endregion Paddings*/
 
-@for $index from 0 through $range {
-  .sectionInfoContainer-#{$index} {
-    @extend .wh100;
-    @extend .px-#{$index};
-    align-items: center;
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-  }
+.sectionInfoContainer {
+  @extend .wh100;
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .scrollWrapper {
-  @extend .basicScroll, .h100;
+  @extend .sidebarScroll, .h100;
 }
 
 .pointer {
@@ -225,9 +233,9 @@ svg {
   fill-rule: evenodd;
 }
 
-svg:hover {
-  fill: hsl(0, 0%, 82%);
-}
+//svg:hover {
+//  fill: hsl(0, 0%, 82%);
+//}
 
 .text-w3 {
   font-weight: 300;
