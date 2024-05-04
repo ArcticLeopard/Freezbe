@@ -8,3 +8,16 @@
     width: $to;
   }
 }
+
+@mixin shadow($color)
+{
+  .shadow {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(red($color), green($color), blue($color), 0) 0%, rgba(red($color), green($color), blue($color), 1) 50%);
+    bottom: 0;
+    right: 0;
+    top: 0;
+    width: 10rem;
+    z-index: 1;
+  }
+}

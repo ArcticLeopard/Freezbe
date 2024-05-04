@@ -1,4 +1,6 @@
-path
+@import "../../../../sass/globalFeatures";
+
+svg:hover
 {
-  transition: all 0.15s ease;
+  fill: $white;
 }
