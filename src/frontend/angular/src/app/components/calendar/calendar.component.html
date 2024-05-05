@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>MO</th>
+    <th>TU</th>
+    <th>WE</th>
+    <th>TH</th>
+    <th>FR</th>
+    <th>SA</th>
+    <th>SU</th>
+  </tr>
+  <tr *ngFor="let week of daysArray; let i = index">
+    <td *ngFor="let j of [0, 1, 2, 3, 4, 5, 6]">
+      {{ daysArray[7 * i + j] }}
+    </td>
+  </tr>
+</table>
