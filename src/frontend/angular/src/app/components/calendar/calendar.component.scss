@@ -1,0 +1,15 @@
+@import "../../../sass/globalFeatures";
+
+table {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+th {
+  color: $gray;
+}
+
+td {
+  color: $gray-light;
+}
