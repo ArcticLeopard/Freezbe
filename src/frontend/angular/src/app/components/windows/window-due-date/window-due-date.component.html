@@ -1,0 +1,32 @@
+<div class="window" [style.width.rem]="width" [style.height.rem]="height">
+	<div class="windowContainer">
+		<div class="windowHeader">
+			<div class="windowHeaderContainer">
+				<div class="windowHeaderTitleContainer">
+          <div class="sectionInfoContainer text-w6 ">
+							<span class="px-4">
+								{{ month | month }} {{ year }}
+							</span>
+            <span>
+								<svg (click)="calendarRef.previous()" width="12" height="12" viewBox="0 0 12 12"  fill="#ABABAB">
+                  <path d="M3.497,5.196c-0.305,0.152 -0.497,0.464 -0.497,0.804c0,0.341 0.192,0.652 0.497,0.804l4.203,2.101c0.278,0.139 0.609,0.124 0.874,-0.039c0.265,-0.164 0.426,-0.453 0.426,-0.765l0,-4.202c0,-0.312 -0.161,-0.601 -0.426,-0.765c-0.265,-0.163 -0.596,-0.178 -0.874,-0.039l-4.203,2.101Z"/>
+                  <title>Go to previous month</title>
+                </svg>
+                <svg (click)="calendarRef.today()" class="mx-3" width="12" height="12" viewBox="0 0 12 12" fill="#ABABAB">
+                  <path d="M5.196,8.503c0.152,0.305 0.464,0.497 0.804,0.497c0.341,0 0.652,-0.192 0.804,-0.497l2.101,-4.203c0.139,-0.278 0.124,-0.609 -0.039,-0.874c-0.164,-0.265 -0.453,-0.426 -0.765,-0.426l-4.202,0c-0.312,0 -0.601,0.161 -0.765,0.426c-0.163,0.265 -0.178,0.596 -0.039,0.874l2.101,4.203Z"/>
+                  <title>Go to today</title>
+                </svg>
+                <svg (click)="calendarRef.next()" width="12" height="12" viewBox="0 0 12 12"  fill="#ABABAB">
+                  <path d="M8.503,6.804c0.305,-0.152 0.497,-0.464 0.497,-0.804c0,-0.341 -0.192,-0.652 -0.497,-0.804l-4.203,-2.101c-0.278,-0.139 -0.609,-0.124 -0.874,0.039c-0.265,0.164 -0.426,0.453 -0.426,0.765l0,4.202c0,0.312 0.161,0.601 0.426,0.765c0.265,0.163 0.596,0.178 0.874,0.039l4.203,-2.101Z"/>
+                  <title>Go to next month</title>
+                </svg>
+              </span>
+          </div>
+				</div>
+			</div>
+		</div>
+		<div class="windowContent" [class.scrollable]="scrollable">
+			<calendar [(year)]="year" [(month)]="month" [(day)]="day"></calendar>
+		</div>
+	</div>
+</div>

@@ -1,15 +1,40 @@
 @import "../../../sass/globalFeatures";
+@import "../windows/window/window.component";
+:host {
+  @extend .wh100;
+}
 
-table {
-  width: 100%;
-  height: 100%;
+.table {
+  @extend .wh100, .column;
   text-align: center;
 }
 
-th {
+.tr
+{
+  @extend .row;
+}
+
+.th, .td
+{
+  @extend .wh100, .py-3;
+}
+
+.th {
   color: $gray;
 }
 
-td {
-  color: $gray-light;
+.td[day=true] {
+  @extend .pointer;
+
+  &:hover {
+    color: $white;
+    outline: $bs-sot white;
+    @extend .text-w9;
+    background: black;
+  }
+}
+
+.td[today=true] {
+  color: $fire;
+  @extend .text-w9;
 }

@@ -1,4 +1,5 @@
 @import "../../../../sass/globalFeatures";
+@import "../window/window.component";
 
 .content {
   //Display Flex With Options
@@ -10,7 +11,7 @@
   @extend .wh100;
 
   //Padding
-  @extend .pt-2, .px-2, .pb-2;
+  @extend .pt-4, .px-2, .pb-2;
 
   //Border
   border-radius: 0.5rem;
@@ -58,6 +59,6 @@ input {
 
   &:hover {
     //Background
-    @extend .bg-classic, .hd;
+    @extend .bg-classicDark, .hd;
   }
 }

@@ -1,6 +1,20 @@
-<div class="content">
-  <input type="search" placeholder="Search">
-  <div class="projectList">
-    <div class="project" *ngFor="let project of projects">{{ project }}</div>
+<div class="window" [style.width.rem]="width" [style.height.rem]="height">
+  <div class="windowContainer">
+    <div class="windowHeader">
+      <div class="windowHeaderContainer">
+        <!--        <btn-close-window></btn-close-window>-->
+        <div class="windowHeaderTitleContainer">
+          <span class="pointerFocus">{{ name }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="windowContent scrollable">
+      <div class="content">
+        <input type="search" placeholder="Search">
+        <div class="projectList">
+          <div class="project" *ngFor="let project of projects">{{ project }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
