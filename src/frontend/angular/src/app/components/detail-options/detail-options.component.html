@@ -1,17 +1,12 @@
 <div class="ml-3 my-3 transparentScroll">
   <div class="container">
     <div class="pr-1 w50">
-      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="projectWindowRef.showWindow($event)">Project</button>
+      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="ProjectChangeVisibility($event)">Project</button>
     </div>
     <div class="pl-1 w50">
-      <button class="bg-classic hd focus detailButton pointer" title="Change Due Date">Due Date</button>
+      <button class="bg-classic hd focus detailButton pointer" title="Change Due Date" (click)="DueDateChangeVisibility($event)">Due Date</button>
     </div>
   </div>
 </div>
-<window title="Project" #projectWindowRef scrollable>
-  <window-project></window-project>
-</window>
-
-<window title="Calendar" #projectWindowRef scrollable [hidden]="false">
-  <app-calendar year="2024" month="5"></app-calendar>
-</window>
+<window-project name="Project"></window-project>
+<window-due-date name="Calendar"></window-due-date>

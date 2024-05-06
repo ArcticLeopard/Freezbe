@@ -245,6 +245,10 @@ svg {
   font-weight: 600;
 }
 
+.text-w9 {
+  font-weight: 900;
+}
+
 .text-no-wrap {
   word-wrap: normal;
   overflow: hidden;
@@ -260,6 +264,12 @@ svg {
 .column {
   display: flex;
   flex-direction: column;
+}
+
+.center
+{
+  justify-content: center;
+  align-items: center;
 }
 
 .w50 {

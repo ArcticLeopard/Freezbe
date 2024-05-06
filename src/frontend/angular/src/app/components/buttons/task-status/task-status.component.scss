@@ -1,6 +1,27 @@
 @import "../../../../sass/globalFeatures";
 
-svg:hover
+svg:hover path.visible
 {
-  fill: $white;
+  fill: rgba(255,255,255,1);
+}
+
+svg:hover path.invisible
+{
+  fill: rgba(255,255,255,0.1);
+}
+
+path
+{
+  transition: all 0.3s ease;
+}
+
+path.invisible
+{
+
+  fill: $iconTransparent;
+}
+
+path.visible
+{
+  fill: $success
 }

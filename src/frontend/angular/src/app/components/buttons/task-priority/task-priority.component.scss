@@ -5,12 +5,16 @@
   z-index: 5;
 }
 
+svg:hover
+{
+  fill: $white;
+}
+
 svg
 {
-  transition: all 1.2s ease;
-  &:hover
+  transition: all 0.6s ease;
+  &.active
   {
-    fill: $white;
     rotate: 360deg;
   }
 }
