@@ -1,52 +1,34 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {NgForOf} from "@angular/common";
-import {MonthPipe} from "../../Pipes/Month/month.pipe";
 
 @Component({
   selector: 'calendar',
   standalone: true,
   imports: [
-    NgForOf,
-    MonthPipe
+    NgForOf
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
 })
 
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnChanges {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.setCalendarMatrix();
+  }
+
   public calendarMatrix: (number | null)[][];
 
   @Input()
   year: number;
-  @Output()
-  yearChange: EventEmitter<number> = new EventEmitter();
 
   @Input()
   month: number;
-  @Output()
-  monthChange: EventEmitter<number> = new EventEmitter();
 
-  @Input()
-  day: number;
-  @Output()
-  dayChange: EventEmitter<number> = new EventEmitter();
-
-  ngOnInit(): void {
-    this.today();
+  public setCalendarMatrix(): void {
+    this.calendarMatrix = this.recalculateCalendarMatrix(this.year, this.month);
   }
 
-  setCurrentTime(): void {
-    let currentDate = new Date();
-    this.year = currentDate.getFullYear();
-    this.month = currentDate.getMonth() + 1;
-    this.day = currentDate.getDate();
-  }
-
-  private setCalendarMatrix(): void {
-    this.calendarMatrix = this.RecalculateCalendarMatrix(this.year, this.month);
-  }
-
-  private RecalculateCalendarMatrix(year: number, month: number): (number | null)[][] {
+  private recalculateCalendarMatrix(year: number, month: number): (number | null)[][] {
     const firstDayOfMonth: Date = new Date(year, month - 1, 1);
     const lastDayOfMonth: Date = new Date(year, month, 0);
     let firstDayOfWeek: number = firstDayOfMonth.getDay();
@@ -71,37 +53,5 @@ export class CalendarComponent implements OnInit {
       if (dayCounter > daysInMonth) break;
     }
     return matrix;
-  }
-
-  public previous(): void {
-    this.month--;
-    if (this.month < 1) {
-      this.month = 12;
-      this.year--;
-    }
-    this.setCalendarMatrix();
-    this.Emit();
-  }
-
-  public today(): void {
-    this.setCurrentTime();
-    this.setCalendarMatrix();
-    this.Emit();
-  }
-
-  public next(): void {
-    this.month++;
-    if (this.month > 12) {
-      this.month = 1;
-      this.year++;
-    }
-    this.setCalendarMatrix();
-    this.Emit();
-  }
-
-  private Emit(): void {
-    this.yearChange.emit(this.year);
-    this.monthChange.emit(this.month);
-    this.dayChange.emit(this.day);
   }
 }

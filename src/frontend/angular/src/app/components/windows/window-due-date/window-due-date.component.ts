@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MonthPipe} from "../../../Pipes/Month/month.pipe";
-import {NgForOf} from "@angular/common";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MonthPipe} from "../../../pipes/Month/month.pipe";
+import {NgForOf, NgIf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {WindowComponent} from "../window/window.component";
+import {DueDateModel} from "./due-date-model";
 
 @Component({
   selector: 'window-due-date',
@@ -10,20 +11,19 @@ import {WindowComponent} from "../window/window.component";
   imports: [
     MonthPipe,
     NgForOf,
-    CalendarComponent
+    CalendarComponent,
+    NgIf
   ],
   templateUrl: './window-due-date.component.html',
   styleUrl: './window-due-date.component.scss'
 })
-export class WindowDueDateComponent extends WindowComponent implements AfterViewInit {
-  ngAfterViewInit(): void {
-    this.height = 30.1;
+export class WindowDueDateComponent extends WindowComponent implements OnInit {
+  ngOnInit(): void {
+    this.dueDate = new DueDateModel();
   }
-
-  year: number;
-  month: number;
-  day: number;
 
   @ViewChild(CalendarComponent)
   calendarRef: CalendarComponent;
+
+  dueDate: DueDateModel;
 }
