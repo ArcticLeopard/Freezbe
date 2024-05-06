@@ -21,8 +21,8 @@ import {CloseWindowComponent} from "../../buttons/close-window/close-window.comp
 })
 export class WindowComponent {
 
-  @Input() title: string = "Title";
-  @Input({transform: numberAttribute}) width: number = 30;
+  @Input() name: string = "Title";
+  @Input({transform: numberAttribute}) width: number = 29;
   @Input({transform: numberAttribute}) height: number = 50;
   @Input({transform: booleanAttribute}) @HostBinding('hidden') hidden: boolean;
 
@@ -30,7 +30,7 @@ export class WindowComponent {
   @Input() @HostBinding("style.top") top: string;
   @Input() @HostBinding("style.left") left: string;
   private clickOutsideIsActive: boolean;
-  private target : HTMLElement | null;
+  private target: HTMLElement | null;
 
   constructor(private elementRef: ElementRef) {
     this.hidden = true;
@@ -43,26 +43,13 @@ export class WindowComponent {
 
   public showWindow(event: MouseEvent): void {
     this.target = event.target as HTMLElement;
-    this.designateWindowPositions();
+    this.designateWidth();
+    this.designatePositions();
     this.changeWindowVisibility();
   }
 
-  private designateWindowPositions(): void {
-    if(this.target!==null)
-    {
-      this.top = (this.target.offsetTop + this.target.offsetHeight) + 10 + "px";
-      this.left = (this.target.offsetLeft + (this.target.offsetWidth / 2)) - ((this.width * 10) / 2) + "px";
-    }
-
-  }
-
-  private changeWindowVisibility(): void {
-    this.hidden = !this.hidden;
-    this.clickOutsideIsActive = false;
-  }
-
   @HostListener('document:click', ['$event'])
-  onClickOutside(event: Event) {
+  onClickOutside(event: Event): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       if (this.clickOutsideIsActive) {
         this.hidden = true;
@@ -72,7 +59,32 @@ export class WindowComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.designateWindowPositions();
+  onResize(): void {
+    this.designateWidth();
+    this.designatePositions();
+  }
+
+  private changeWindowVisibility(): void {
+    this.hidden = !this.hidden;
+    this.clickOutsideIsActive = false;
+  }
+
+  private designatePositions(): void {
+    if (this.target !== null) {
+      this.top = (this.target.offsetTop + this.target.offsetHeight) + 10 + "px";
+      this.left = (this.target.offsetLeft + (this.target.offsetWidth / 2)) - ((this.width * 10) / 2) + "px";
+      if ((parseInt(this.left) + (this.width * 10)) > window.innerWidth) {
+        this.left = window.innerWidth - (this.width * 10) + "px";
+      }
+    }
+
+  }
+
+  private designateWidth(): void {
+    if (this.target !== null) {
+      this.width = (this.target?.offsetWidth / 10);
+      if (this.width < 22)
+        this.width = 22;
+    }
   }
 }
