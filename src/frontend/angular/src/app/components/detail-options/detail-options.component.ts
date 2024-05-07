@@ -19,12 +19,4 @@ import {WindowDueDateComponent} from "../windows/window-due-date/window-due-date
 export class DetailOptionsComponent {
   @ViewChild(WindowProjectComponent) public windowProjectRef: WindowProjectComponent;
   @ViewChild(WindowDueDateComponent) public windowDueDateRef: WindowDueDateComponent;
-
-  ProjectChangeVisibility(mouseEvent: MouseEvent) {
-    this.windowProjectRef.showWindow(mouseEvent);
-  }
-
-  DueDateChangeVisibility(mouseEvent: MouseEvent) {
-    this.windowDueDateRef.showWindow(mouseEvent);
-  }
 }
