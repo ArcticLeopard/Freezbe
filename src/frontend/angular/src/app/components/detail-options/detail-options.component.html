@@ -1,12 +1,12 @@
 <div class="ml-3 my-3 transparentScroll">
   <div class="container">
     <div class="pr-1 w50">
-      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="ProjectChangeVisibility($event)">Project</button>
+      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="windowProjectRef.show($event)">Project</button>
     </div>
     <div class="pl-1 w50">
-      <button class="bg-classic hd focus detailButton pointer" title="Change Due Date" (click)="DueDateChangeVisibility($event)">Due Date</button>
+      <button class="bg-classic hd focus detailButton pointer" title="Change Due Date" (click)="windowDueDateRef.show($event)">Due Date</button>
     </div>
   </div>
 </div>
-<window-project name="Project"></window-project>
-<window-due-date name="Calendar"></window-due-date>
+<window-project name="Project" width="29" height="50"></window-project>
+<window-due-date name="Calendar" width="29" height="30.1"></window-due-date>

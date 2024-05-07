@@ -1,7 +1,8 @@
 import {
   booleanAttribute,
   Component,
-  ElementRef, HostBinding,
+  ElementRef,
+  HostBinding,
   HostListener,
   Input,
   numberAttribute
@@ -22,8 +23,10 @@ import {CloseWindowComponent} from "../../buttons/close-window/close-window.comp
 export class WindowComponent {
 
   @Input() name: string = "Title";
-  @Input({transform: numberAttribute}) width: number = 29;
-  @Input({transform: numberAttribute}) height: number = 50;
+  @Input({transform: numberAttribute}) minWidth: number = 22;
+  @Input({transform: numberAttribute}) width: number;
+  @Input({transform: numberAttribute}) minHeight: number = 50;
+  @Input({transform: numberAttribute}) height: number;
   @Input({transform: booleanAttribute}) @HostBinding('hidden') hidden: boolean;
 
   @Input({transform: booleanAttribute}) scrollable: boolean;
@@ -41,11 +44,11 @@ export class WindowComponent {
     this.target = null;
   }
 
-  public showWindow(event: MouseEvent): void {
+  public show(event: MouseEvent): void {
     this.target = event.target as HTMLElement;
-    this.designateWidth();
-    this.designatePositions();
-    this.changeWindowVisibility();
+    this.setWidth();
+    this.setPositions();
+    this.toggleVisibility();
   }
 
   @HostListener('document:click', ['$event'])
@@ -60,16 +63,16 @@ export class WindowComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
-    this.designateWidth();
-    this.designatePositions();
+    this.setWidth();
+    this.setPositions();
   }
 
-  private changeWindowVisibility(): void {
+  private toggleVisibility(): void {
     this.hidden = !this.hidden;
     this.clickOutsideIsActive = false;
   }
 
-  private designatePositions(): void {
+  private setPositions(): void {
     if (this.target !== null) {
       this.top = (this.target.offsetTop + this.target.offsetHeight) + 10 + "px";
       this.left = (this.target.offsetLeft + (this.target.offsetWidth / 2)) - ((this.width * 10) / 2) + "px";
@@ -77,14 +80,18 @@ export class WindowComponent {
         this.left = window.innerWidth - (this.width * 10) + "px";
       }
     }
-
   }
 
-  private designateWidth(): void {
+  private setWidth(): void {
     if (this.target !== null) {
       this.width = (this.target?.offsetWidth / 10);
-      if (this.width < 22)
-        this.width = 22;
+      if (this.width < this.minWidth)
+        this.width = this.minWidth;
     }
+  }
+
+  private setHeight(): void {
+    //let element = this.elementRef.nativeElement;
+    //console.log(element);
   }
 }
