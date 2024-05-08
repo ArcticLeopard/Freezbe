@@ -24,17 +24,14 @@
   @extend .pl-1;
 }
 
-
 .project {
-  @extend .section, .px-6, .hl, .bg-dark-bg, .pointer, .tfsm1;
+  @extend .section, .px-6, .hl, .bg-gray-dark, .pointer, .tfs-m-1;
 
-  svg
-  {
-    transition: all 1.2s ease;
+  svg {
+    @extend .tr-ae-12;
   }
 
-  &:hover svg
-  {
+  &:hover svg {
     rotate: 360deg;
   }
 }
@@ -47,9 +44,4 @@
 .project > .text {
   @extend .pl-4, .py-1;
   @extend .text-no-wrap;
-}
-
-
-.section > div {
-  display: flex;
 }

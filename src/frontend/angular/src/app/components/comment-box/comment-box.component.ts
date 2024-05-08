@@ -1,4 +1,8 @@
-import {Component, ElementRef, HostListener} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener
+} from '@angular/core';
 
 @Component({
   selector: 'app-comment-box',
@@ -11,7 +15,9 @@ import {Component, ElementRef, HostListener} from '@angular/core';
 export class CommentBoxComponent {
   isOpen: boolean = false;
   inputValue: string = "";
-  constructor(private elementRef: ElementRef) { }
+
+  constructor(private elementRef: ElementRef) {
+  }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {

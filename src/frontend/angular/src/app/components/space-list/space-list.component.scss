@@ -4,17 +4,15 @@
   @extend .br;
   width: 10rem;
   overflow: hidden;
-  @include hidePanel(0.7rem, 10rem);
-}
-//1024px
-@media (max-width: 592px)
-{
-  :host
-  {
-    @include hidePanel(0.7rem, 10rem);
-  }
+  //@include hidePanel(0.7rem, 10rem);
 }
 
+//1024px
+@media (max-width: 592px) {
+  :host {
+    //@include hidePanel(0.7rem, 10rem);
+  }
+}
 
 .spaceSidebar {
   //Display
@@ -31,44 +29,36 @@
   width: 8rem;
 }
 
-.space {
-  align-items: center;
-  justify-content: center;
-}
-
 .spaceContainer {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  transition: all 0.4s ease;
-  .imageContainer
-  {
-    transition: all 0.4s ease;
+  @extend .column, .center;
+  @extend .tr-ae-03;
+
+  .imageContainer {
+    @extend .tr-ae-04;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 1.2rem;
+    margin: 0.2rem 0;
+
+    img {
+      border-radius: inherit;
+    }
+  }
+
+  .spaceInfoTextContainer {
+    @extend .tfs-m-5;
+    height: 3rem;
+    padding: 0.2rem 0.6rem 0;
+    text-align: center;
+  }
+
+  &:hover {
+    color: hsl(225, 9%, (82% + 10));
+
+    .imageContainer {
+      box-shadow: 0rem 0rem 0rem .4rem $white-60;
+    }
   }
 }
 
-.spaceContainer:hover {
-  color: hsl(225, 9%, (82% + 10));
-  .imageContainer
-  {
-    box-shadow: 0rem 0rem 0rem .4rem rgba(255, 255, 255, 0.6);
-  }
 
-}
-
-.imageContainer {
-  width: 3.4rem;
-  height: 3.4rem;
-  border-radius: 1.2rem;
-  margin: 0.2rem 0;
-  background-color: #ced0d6;
-}
-
-.spaceInfoTextContainer {
-  @extend .tfsm5;
-  height: 3rem;
-  padding: 0.2rem 0.6rem 0;
-  text-align: center;
-}

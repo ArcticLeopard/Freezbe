@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {CommentBoxComponent} from "../comment-box/comment-box.component";
 import {TaskStatusComponent} from "../buttons/task-status/task-status.component";
@@ -8,6 +8,7 @@ import {PlaceholderComponent} from "../buttons/placeholder/placeholder.component
 import {TaskItemComponent} from "../task-item/task-item.component";
 import {SearchComponent} from "../buttons/search/search.component";
 import {AppendComponent} from "../buttons/append/append.component";
+import {DataSource, TaskType} from "../../dataSource";
 
 @Component({
   selector: 'app-task-list',
@@ -28,33 +29,18 @@ import {AppendComponent} from "../buttons/append/append.component";
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent {
-  tasks: any = [
-    {
-      name: 'Paint a room',
-      project: 'Paint a house',
-      comments: [
-        {
-          author: 'You',
-          content: 'Now someone wants to paint the room blue...',
-          createdAt: Date.now()
-        },
-        {
-          author: 'You',
-          content: 'Now someone wants to paint the room indigo...',
-          createdAt: Date.now()
-        }
-      ],
-      dueDate: Date.now(),
-      occurrence: null,
-      remindMe: Date.now()
-    },
-    {
-      name: 'Other task',
-      project: 'Other project',
-      dueDate: Date.now(),
-      occurrence: 2,
-      remindMe: Date.now()
-    }
-  ]
+export class TaskListComponent implements AfterViewInit {
+  @Output('closeSidebar')
+  onCloseSidebar: EventEmitter<void> = new EventEmitter();
+
+  tasks: TaskType[] = DataSource.taskCollection;
+
+  ngAfterViewInit(): void {
+    this.CloseSidebarBtnRef.onCloseSidebar.subscribe(
+      () => this.onCloseSidebar.emit()
+    );
+  }
+
+  @ViewChild(CloseSidebarComponent)
+  CloseSidebarBtnRef: CloseSidebarComponent;
 }

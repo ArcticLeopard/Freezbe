@@ -1,5 +1,13 @@
 @import "../../../../sass/globalFeatures";
-svg:hover
-{
+
+:host {
+  &.isClose svg {
+    rotate: 180deg;
+  }
+}
+
+svg:hover {
   fill: $white;
 }
+
+
