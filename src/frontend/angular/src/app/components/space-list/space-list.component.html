@@ -1,11 +1,13 @@
 <div class="spaceSidebar">
   <div class="spaceList">
-    <div class="space" *ngFor="let index of spaceIndexes; let i = index">
+    <div *ngFor="let space of spaces">
       <div class="pb-1 pointer spaceContainer">
-        <div class="imageContainer">
-<!--          <img src="https://i.pravatar.cc/34" style="border-radius: inherit;">-->
+        <div class="imageContainer" [style.background]="space.color ?? defaultColor">
+          <img *ngIf="space.imageUrl" [src]="space.imageUrl" alt>
         </div>
-        <span class="spaceInfoTextContainer pointer text-w6">Space {{ i+1 }}</span>
+        <span class="spaceInfoTextContainer pointer text-w6">
+          {{ space.name }}
+        </span>
       </div>
     </div>
   </div>

@@ -1,18 +1,17 @@
 @import "../../../sass/globalFeatures";
 
 :host {
-  @include shadow($classicDark);
+  @extend .bg-classic-dark, .shadow-classic-dark;
+  @extend .tr-ae-04;
   height: 5.3rem;
   display: flex;
   margin: 0.2rem 0 0.2rem 0.2rem;
-  transition: background-color 0.2s ease;
-  &:hover
-  {
-    background: lighten($gray-dark,4%);
+
+  &:hover {
+    background: lighten($dark, 4%);
   }
 
-  &.active
-  {
+  &.active {
     @include shadow($classic);
     background: $classic;
   }
@@ -22,7 +21,7 @@
   //Width or/and Height
   @extend .wh100;
 
-  @extend .px-4, .bg-classic, .pointer, .row, .bb;
+  @extend .px-4, .pointer, .row, .bb;
   align-items: center;
   //border: 0.1rem solid rgba(171, 171, 171,0.3);
   //border-radius: 0.5rem;
@@ -46,7 +45,7 @@
 }
 
 .detail {
-  @extend .tfsm4, .pr-6;
+  @extend .tfs-m-4, .pr-6;
   flex-shrink: 0;
 
   .text-detail {

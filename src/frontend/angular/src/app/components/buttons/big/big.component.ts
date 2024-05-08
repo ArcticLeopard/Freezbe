@@ -9,14 +9,8 @@ import {Component, HostBinding, Input, numberAttribute} from '@angular/core';
 })
 export class BigComponent {
   @Input()
-  text: string = "Title"
+  text: string = "Title";
 
   @Input({transform: numberAttribute})
   number: number = 0;
-
-  @HostBinding("class")
-  @HostBinding("class.hd")
-  @HostBinding("class.focus")
-  @Input()
-  activeColor: string = ""
 }

@@ -1,10 +1,12 @@
 <div class="mt-5 mx-2 pb-4">
-<div *ngFor="let color of colors; let i = index">
-  <div class="commentDetails mb-2">
-    <span class="Author">You</span>
-    <span class="Date">{{i+1}} hr. ago</span>
-    <span class="Rest"></span>
+  <div *ngFor="let comment of comments; let i = index">
+    <div class="commentDetails mb-2">
+      <span class="Author">{{ comment.author }}</span>
+      <span class="Date">{{ comment.createdAt | date: 'EEE, MMM d, h:mm a' }}</span>
+      <span class="Rest"></span>
+    </div>
+    <div class="comment mb-6 ml-3 mr-2 p-4 bg-classic">
+      {{ comment.content }}
+    </div>
   </div>
-  <div class="comment mb-6 ml-3 mr-2 p-4 bg-classic">Now someone wants to paint the room <span [ngClass]="'bg-' + color">{{color}}</span>...</div>
-</div>
 </div>

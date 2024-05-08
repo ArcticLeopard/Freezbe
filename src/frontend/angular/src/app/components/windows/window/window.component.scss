@@ -6,17 +6,17 @@
 }
 
 .window {
-  @extend .tfsm2;
+  @extend .tfs-m-2;
+  @extend .tr-ae-02;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5), 0 4px 50px rgba(0, 0, 0, 0.6);
-  background-color: $gray-dark;
+  background-color: $dark;
   opacity: 0.98;
-  border: 0.05rem solid rgba(255, 255, 255, 0.3);
-  transition: all .2s ease;
+  border: 0.05rem solid $white-30;
 
   &:hover {
-    background-color: darken($gray-dark, 1%);;
-    border: 0.05rem solid rgba(255, 255, 255, 1);
-    outline: 0.05rem solid rgba(255, 255, 255, 0.2);
+    background-color: darken($dark, 1%);
+    border: 0.05rem solid $white;
+    outline: 0.05rem solid $white-20;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 1), 0 4px 50px rgba(0, 0, 0, 1);
   }
 

@@ -1,69 +1,34 @@
-@mixin activeColor($currentColor, $borderColor: rgba(255, 255, 255, 1)) {
-  background-color: $currentColor;
+@import "mixins.scss";
 
-  &.hd {
-    transition: all 0.5s ease;
-
-    &:hover, &:focus {
-      background-color: darken($currentColor, 10%);
-
-      &.focus {
-        box-shadow: inset 0px 0px 1px 1px $borderColor;
-      }
-    }
-
-    &:active {
-      color: $borderColor;
-
-      &.focus {
-        transition: all 0.2s ease;
-        box-shadow: inset 0px 0px 2px 2px $borderColor;
-      }
-    }
-  }
-
-  &.hl {
-    transition: all 0.5s ease;
-
-    &:hover, &:focus {
-      background-color: lighten($currentColor, 10%);
-
-      &.focus {
-        box-shadow: inset 0px 0px 1px 1px $borderColor;
-      }
-    }
-
-    &:active {
-      color: $borderColor;
-
-      &.focus {
-        transition: all 0.2s ease;
-        box-shadow: inset 0px 0px 2px 2px $borderColor;
-      }
-    }
-  }
-}
-
-//$border-color: rgba(72, 72, 74, 0.5);
-$border-color: #2F2F30;
-$scroll-color: rgba(43, 45, 48, 0.5);
+$black: rgba(0, 0, 0, 1);
+$white-00: rgba(255, 255, 255, 0.00);
+$white-05: rgba(255, 255, 255, 0.05);
+$white-10: rgba(255, 255, 255, 0.1);
+$white-20: rgba(255, 255, 255, 0.2);
+$white-30: rgba(255, 255, 255, 0.3);
+$white-35: rgba(255, 255, 255, 0.35);
+$white-60: rgba(255, 255, 255, 0.60);
+$white-85: rgba(255, 255, 255, 0.85);
+$white: rgba(255, 255, 255, 1);
+$red: #dc3545;
+$fire: #ff5428;
+$orange: #fd7e14;
+$gray-light: #cdcfd5;
+$gray: #6c757d;
+$dark: #171717;
+$green: #28a745;
+$classicScroll: rgba(43, 45, 48, 0.5);
+$classicBorder: rgba(47, 47, 48, 1);
+$classic: #2C2D30;
+$classicDark: #232426;
 
 $blue: #007bff;
 $indigo: #6610f2;
 $purple: #6f42c1;
 $pink: #e83e8c;
-$red: #dc3545;
-$orange: #fd7e14;
-$fire: #ff5428;
 $yellow: #ffc107;
-$green: #28a745;
 $teal: #20c997;
 $cyan: #17a2b8;
-$white: #fff;
-$gray-light: #cdcfd5;
-$gray: #6c757d;
-$gray-dark: #171717;
-
 $primary: #007bff;
 $secondary: #6c757d;
 $success: #28a745;
@@ -71,16 +36,8 @@ $info: #17a2b8;
 $warning: #ffc107;
 $danger: #dc3545;
 $light: #f8f9fa;
-$dark: #343a40;
-$classic: #2c2d30;
-$classicDark: #232426;
-$iconTransparent: rgb(171, 171, 171, 0);
-$iconTransparentHover: rgb(171, 171, 171, 0.1);
-$iconClassic: rgb(171, 171, 171, 1);
-$iconClassicHover: rgb(255, 255, 255, 1);
 
-$textColors: (orange: $orange, fire: $fire, gray: $gray, gray-light:$gray-light);
-
+$textColors: (fire: $fire, gray: $gray);
 @each $name, $color in $textColors {
   .text-#{""+$name} {
     color: $color;
@@ -88,114 +45,13 @@ $textColors: (orange: $orange, fire: $fire, gray: $gray, gray-light:$gray-light)
   }
 }
 
-//    @for $i from 0 through 10 {
-//      $opacity: $i / 10;
-//      .bg-#{$name}-o-#{$i} {
-//        background-color: rgba(red($color), green($color), blue($color), $opacity);
-//      }
-//    }
-//  }
-
-//.bg-classic{ @include activeColor(rgba($classic, 1)) }
-.bg-classic {
-  @include activeColor(rgba($classic, 0.6))
+$bgColors: (classic: $classic, classic-dark: $classicDark, gray-dark: $dark);
+@each $name, $color in $bgColors {
+  .bg-#{""+$name} {
+    @include activeColor(rgba($color, 0.6));
+  }
 }
 
-.bg-classicDark {
-  @include activeColor(rgba($classicDark, 0.6))
+.shadow-classic-dark {
+  @include shadow($classicDark);
 }
-
-.bg-dark-bg {
-  @include activeColor(rgba($gray-dark, 0.6))
-}
-
-//.bg-classic{ @include activeColor(rgba($classicDark, 1)) }
-
-//$colors: (
-//  blue: $blue,
-//  indigo: $indigo,
-//  purple: $purple,
-//  pink: $pink,
-//  red: $red,
-//  orange: $orange,
-//  yellow: $yellow,
-//  green: $green,
-//  teal: $teal,
-//  cyan: $cyan,
-//  white: $white,
-//  gray: $gray,
-//  gray-dark: $gray-dark,
-//  primary: $primary,
-//  secondary: $secondary,
-//  success: $success,
-//  info: $info,
-//  warning: $warning,
-//  danger: $danger,
-//  light: $light,
-//  dark: $dark,
-//  classic: $classic,
-//)
-//
-//@each $name, $color in $colors {
-//  .bg-#{""+$name} {
-//    background-color: $color;
-//  }
-//}
-
-//  @each $name, $color in $colors {
-//    @for $i from 0 through 10 {
-//      $opacity: $i / 10;
-//      .bg-#{$name}-o-#{$i} {
-//        background-color: rgba(red($color), green($color), blue($color), $opacity);
-//      }
-//    }
-//  }
-//
-//  .bg-#{""+$name}-hd {
-//    background-color: $color;
-//    transition: background-color 0.5s ease;
-//
-//    &:hover {
-//      background-color: darken($color, 10%);
-//    }
-//  }
-//
-//  @each $name, $color in $colors {
-//    @for $i from 0 through 10 {
-//      $opacity: $i / 10;
-//      .bg-#{$name}-hd-o-#{$i} {
-//        $currentColor: rgba(red($color), green($color), blue($color), $opacity);
-//        background-color: $currentColor;
-//        transition: background-color 0.5s ease;
-//
-//        &:hover {
-//          background-color: darken($currentColor, 10%);
-//        }
-//      }
-//    }
-//  }
-//
-//  .bg-#{""+$name}-hl {
-//    background-color: $color;
-//    transition: background-color 0.5s ease;
-//
-//    &:hover {
-//      background-color: lighten($color, 10%);
-//    }
-//  }
-//
-//  @each $name, $color in $colors {
-//    @for $i from 0 through 10 {
-//      $opacity: $i / 10;
-//      .bg-#{$name}-hl-o-#{$i} {
-//        $currentColor: rgba(red($color), green($color), blue($color), $opacity);
-//        background-color: $currentColor;
-//        transition: background-color 0.5s ease;
-//
-//        &:hover {
-//          background-color: lighten($currentColor, 10%);
-//        }
-//      }
-//    }
-//  }
-//}

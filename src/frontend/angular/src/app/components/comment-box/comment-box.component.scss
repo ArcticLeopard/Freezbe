@@ -6,7 +6,7 @@
 
 .commentButton {
   //Display
-  @extend .row;
+  @extend .row, .center;
 
   //Border
   @extend .b;
@@ -14,10 +14,8 @@
   //Width or/and Height
   @extend .w100;
 
-  justify-content: center;
-
   span {
-    @extend .tfsp3, .text-w3;
+    @extend .tfs-p-3, .text-w3;
 
     line-height: 3.0rem;
     text-align: center;
@@ -35,16 +33,14 @@
   //Scroll
   @extend .transparentScroll;
 
-  justify-content: center;
-  border: dashed thin rgb(255, 255, 255, 0.3);
+  border: dashed thin $white-30;
   height: 4.7rem;
-  
+
   &:hover, &:focus {
-    border: solid thin rgb(255, 255, 255, 1);
+    border: solid thin $white;
   }
 
-  .opened &
-  {
+  .opened & {
     height: 14.2rem;
     cursor: text;
   }

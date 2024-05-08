@@ -4,29 +4,30 @@
 @import "sass/mixins.scss";
 @import "sass/globalFeatures";
 
-html
-{
+html {
   font-size: 62.5%;
   box-sizing: border-box;
 }
 
-body
-{
-  background: $gray-dark;
-  color: $gray-light;
+body {
+  background: $dark;
   color-scheme: dark;
+  color: $gray-light;
+
+  button {
+    color: $gray-light;
+  }
 }
 
-body, html
-{
+body, html {
+  top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
   margin: 0;
-  overflow: hidden;
   padding: 0;
   position: fixed;
-  right: 0;
-  top: 0;
+  overflow: hidden;
   cursor: default;
   user-select: none;
 }
@@ -35,7 +36,6 @@ body, html
   box-sizing: inherit;
 }
 
-textarea
-{
+textarea {
   resize: none;
 }
