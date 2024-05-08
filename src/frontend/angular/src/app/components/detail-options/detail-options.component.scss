@@ -1,4 +1,4 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 
 :host {
   //Border
@@ -7,7 +7,7 @@
 
 .container {
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   //Display
   @extend .row;

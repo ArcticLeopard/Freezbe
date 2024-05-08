@@ -1,8 +1,13 @@
-import {Component} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Output, ViewChild
+} from '@angular/core';
 import {DetailOptionsComponent} from "../detail-options/detail-options.component";
 import {CommentListComponent} from "../comment-list/comment-list.component";
 import {CommentBoxComponent} from "../comment-box/comment-box.component";
-import {CloseStaskDetailsComponent} from "../buttons/close-task-details/close-stask-details.component";
+import {CloseTaskDetailsComponent} from "../buttons/close-task-details/close-task-details.component";
 import {PlaceholderComponent} from "../buttons/placeholder/placeholder.component";
 
 @Component({
@@ -12,11 +17,23 @@ import {PlaceholderComponent} from "../buttons/placeholder/placeholder.component
     DetailOptionsComponent,
     CommentListComponent,
     CommentBoxComponent,
-    CloseStaskDetailsComponent,
+    CloseTaskDetailsComponent,
     PlaceholderComponent
   ],
   templateUrl: './detail-list.component.html',
   styleUrl: './detail-list.component.scss'
 })
-export class DetailListComponent {
+
+export class DetailListComponent implements AfterViewInit {
+  @Output('closeDetails')
+  onCloseDetails: EventEmitter<void> = new EventEmitter();
+
+  @ViewChild(CloseTaskDetailsComponent)
+  CloseTaskDetailsBtnRef: CloseTaskDetailsComponent;
+
+  ngAfterViewInit(): void {
+    this.CloseTaskDetailsBtnRef.onCloseDetails.subscribe(
+      () => this.onCloseDetails.emit()
+    );
+  }
 }

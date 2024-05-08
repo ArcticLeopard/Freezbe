@@ -1,5 +1,3 @@
-<div class="application">
-  <app-sidebar></app-sidebar>
-  <app-task-list></app-task-list>
-  <app-detail-list></app-detail-list>
-</div>
+<app-sidebar></app-sidebar>
+<app-task-list></app-task-list>
+<app-detail-list *ngIf="detailsIsOpen"></app-detail-list>

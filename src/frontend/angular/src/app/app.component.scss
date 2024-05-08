@@ -1,21 +1,12 @@
-@import "../sass/globalFeatures";
+@import "../imports";
 
 :host {
   //Width or/and Height
-  @extend .wh100;
-
-  //Text Font Size
-  @extend .tfs;
-
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-  Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-  "Segoe UI Symbol";
-}
-
-.application {
-  //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   //Display
   @extend .row;
+
+  //Text Font Size
+  @extend .tfs;
 }

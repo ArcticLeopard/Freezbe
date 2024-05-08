@@ -1,0 +1,33 @@
+$ae: all ease;
+
+.tr-ae-12 {
+  transition: $ae 1.2s;
+}
+
+.tr-ae-06 {
+  transition: $ae .6s;
+}
+
+.tr-ae-05 {
+  transition: $ae .5s;
+}
+
+.tr-ae-04 {
+  transition: $ae .4s;
+}
+
+.tr-ae-03 {
+  transition: $ae .3s;
+}
+
+.tr-ae-02 {
+  transition: $ae .3s;
+}
+
+.tr-w-05 {
+  transition: width 0.5s;
+}
+
+.tr-fe-03 {
+  transition: fill 0.3s ease;
+}

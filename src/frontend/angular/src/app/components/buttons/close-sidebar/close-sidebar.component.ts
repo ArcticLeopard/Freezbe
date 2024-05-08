@@ -13,6 +13,7 @@ import {
   templateUrl: './close-sidebar.component.html',
   styleUrl: './close-sidebar.component.scss'
 })
+
 export class CloseSidebarComponent {
   @HostBinding('class.isClose')
   isClose: boolean = false;

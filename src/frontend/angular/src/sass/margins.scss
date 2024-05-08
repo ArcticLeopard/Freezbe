@@ -1,0 +1,48 @@
+@import "variables.scss";
+
+/*#region Margins*/
+@for $index from 0 through $range {
+  .mt-#{$index} {
+    margin-top: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .mb-#{$index} {
+    margin-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .ml-#{$index} {
+    margin-left: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .mr-#{$index} {
+    margin-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .mx-#{$index} {
+    margin-left: 0.35rem * $index;
+    margin-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .my-#{$index} {
+    margin-top: 0.35rem * $index;
+    margin-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .m-#{$index} {
+    margin: 0.35rem * $index;
+  }
+}
+
+/*#endregion Margins*/

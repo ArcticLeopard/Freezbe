@@ -1,4 +1,4 @@
-@import "../../../../sass/globalFeatures";
+@import "../../../../imports";
 @import "../window/window.component";
 
 .content {
@@ -8,7 +8,7 @@
   justify-content: flex-start;
 
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   //Padding
   @extend .pt-4, .px-2, .pb-2;
