@@ -19,7 +19,7 @@
 
 input {
   //Background
-  @extend .bg-classicDark, .hd;
+  @extend .bg-classic-dark, .hd;
 
   //Padding
   @extend .py-2, .pl-5, .pr-2;
@@ -37,7 +37,7 @@ input {
 
 .projectList {
   //Background
-  @extend .bg-classicDark;
+  @extend .bg-classic-dark;
 
   //Margin
   @extend .mt-4;
@@ -59,6 +59,6 @@ input {
 
   &:hover {
     //Background
-    @extend .bg-classicDark, .hd;
+    @extend .bg-classic-dark, .hd;
   }
 }

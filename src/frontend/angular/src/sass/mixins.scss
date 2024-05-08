@@ -1,16 +1,59 @@
-@mixin hidePanel($from, $to)
-{
+@mixin activeColor($currentColor, $borderColor: $white) {
+  background-color: $currentColor;
+
+  &.hd {
+    @extend .tr-ae-05;
+
+    &:hover, &:focus {
+      background-color: darken($currentColor, 10%);
+
+      &.focus {
+        box-shadow: inset 0 0 1px 1px $borderColor;
+      }
+    }
+
+    &:active {
+      color: $borderColor;
+
+      &.focus {
+        @extend .tr-ae-02;
+        box-shadow: inset 0 0 2px 2px $borderColor;
+      }
+    }
+  }
+
+  &.hl {
+    @extend .tr-ae-05;
+
+    &:hover, &:focus {
+      background-color: lighten($currentColor, 10%);
+
+      &.focus {
+        box-shadow: inset 0 0 1px 1px $borderColor;
+      }
+    }
+
+    &:active {
+      color: $borderColor;
+
+      &.focus {
+        @extend .tr-ae-02;
+        box-shadow: inset 0 0 2px 2px $borderColor;
+      }
+    }
+  }
+}
+
+@mixin hidePanel($from, $to) {
+  @extend .tr-w-05;
   width: $from;
   overflow-x: hidden;
-  transition: width 0.5s;
-  &:hover
-  {
+  &:hover {
     width: $to;
   }
 }
 
-@mixin shadow($color)
-{
+@mixin shadow($color) {
   .shadow {
     position: absolute;
     background: linear-gradient(90deg, rgba(red($color), green($color), blue($color), 0) 0%, rgba(red($color), green($color), blue($color), 1) 50%);

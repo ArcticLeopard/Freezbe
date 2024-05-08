@@ -13,33 +13,33 @@ $bs-dat: 0.05rem dashed;
 
 /*#region Borders*/
 .b {
-  border: $bs-sot $border-color;
+  border: $bs-sot $classicBorder;
 }
 
 .bt {
-  border-top: $bs-sot $border-color;
+  border-top: $bs-sot $classicBorder;
 }
 
 .br {
-  border-right: $bs-sot $border-color;
+  border-right: $bs-sot $classicBorder;
 }
 
 .bb {
-  border-bottom: $bs-sot $border-color;
+  border-bottom: $bs-sot $classicBorder;
 }
 
 .bl {
-  border-left: $bs-sot $border-color;
+  border-left: $bs-sot $classicBorder;
 }
 
 .bx {
-  border-top: $bs-sot $border-color;
-  border-bottom: $bs-sot $border-color;
+  border-top: $bs-sot $classicBorder;
+  border-bottom: $bs-sot $classicBorder;
 }
 
 .by {
-  border-left: $bs-sot $border-color;
-  border-right: $bs-sot $border-color;
+  border-left: $bs-sot $classicBorder;
+  border-right: $bs-sot $classicBorder;
 }
 
 /*#endregion Borders*/
@@ -50,13 +50,13 @@ $bs-dat: 0.05rem dashed;
 }
 
 @for $i from 1 through $range {
-  .tfsp#{$i} {
+  .tfs-p-#{$i} {
     font-size: $normal-font-size + ($i * 0.1);
   }
 }
 
 @for $i from 1 through $range {
-  .tfsm#{$i} {
+  .tfs-m-#{$i} {
     font-size: $normal-font-size - ($i * 0.1);
   }
 }
@@ -71,12 +71,12 @@ $bs-dat: 0.05rem dashed;
 
 .sidebarScroll {
   @extend .basicScroll;
-  scrollbar-color: $scroll-color transparent;
+  scrollbar-color: $classicScroll transparent;
 }
 
 .whiteScroll {
   @extend .basicScroll;
-  scrollbar-color: rgb(255, 255, 255, 0.1) transparent;
+  scrollbar-color: $white-10 transparent;
 }
 
 .hiddenScroll {
@@ -201,17 +201,17 @@ $bs-dat: 0.05rem dashed;
 }
 
 .pointerFocus {
+  @extend .tr-ae-04;
   cursor: pointer;
-  transition: all 0.4s ease;
 
   &:hover {
-    color: rgb(255, 255, 255, 0.85);
-    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.05);
+    color: $white-85;
+    text-shadow: 0 0 3px $white-05;
   }
 
   &:active {
-    color: rgb(255, 255, 255, 1);
-    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.35);
+    color: $white;
+    text-shadow: 0 0 3px $white-35;
   }
 }
 
@@ -228,14 +228,10 @@ $bs-dat: 0.05rem dashed;
 }
 
 svg {
-  transition: fill 0.3s ease;
+  @extend .tr-fe-03;
   cursor: pointer;
   fill-rule: evenodd;
 }
-
-//svg:hover {
-//  fill: hsl(0, 0%, 82%);
-//}
 
 .text-w3 {
   font-weight: 300;
@@ -266,8 +262,7 @@ svg {
   flex-direction: column;
 }
 
-.center
-{
+.center {
   justify-content: center;
   align-items: center;
 }
@@ -291,3 +286,38 @@ svg {
 div {
   //border: 1px dotted white;
 }
+
+$ae: all ease;
+
+.tr-ae-12 {
+  transition: $ae 1.2s;
+}
+
+.tr-ae-06 {
+  transition: $ae .6s;
+}
+
+.tr-ae-05 {
+  transition: $ae .5s;
+}
+
+.tr-ae-04 {
+  transition: $ae .4s;
+}
+
+.tr-ae-03 {
+  transition: $ae .3s;
+}
+
+.tr-ae-02 {
+  transition: $ae .3s;
+}
+
+.tr-w-05 {
+  transition: width 0.5s;
+}
+
+.tr-fe-03 {
+  transition: fill 0.3s ease;
+}
+
