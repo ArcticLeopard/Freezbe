@@ -1,19 +1,23 @@
-@import "../../../../sass/globalFeatures";
+@import "../../../../imports";
 
 svg:hover path.visible {
   fill: $white;
 }
 
-svg:active path.visible {
-  fill: $white-60;
+svg:hover {
+  &:active path.visible {
+    fill: $white-60;
+  }
 }
 
 svg:hover path.invisible {
   fill: $white-10;
 }
 
-svg:active path.invisible {
-  fill: $white-60;
+svg:hover {
+  &:active path.invisible {
+    fill: $white-60;
+  }
 }
 
 path {

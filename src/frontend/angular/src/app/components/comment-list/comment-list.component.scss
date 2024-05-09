@@ -1,24 +1,26 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
+
+:host {
+  @extend .sidebarScroll, .h100;
+}
 
 .comment {
   user-select: text;
 }
 
-.commentDetails
-{
+.commentDetails {
   display: flex;
   flex-direction: row;
-  span
-  {
+
+  span {
     @extend .pr-3;
   }
-  .Author
-  {
+
+  .Author {
     @extend .pl-3;
   }
 
-  .Date
-  {
+  .Date {
     opacity: 25%;
   }
 }

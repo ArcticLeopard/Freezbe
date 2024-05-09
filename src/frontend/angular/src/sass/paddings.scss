@@ -1,0 +1,48 @@
+@import "variables.scss";
+
+/*#region Paddings*/
+@for $index from 0 through $range {
+  .pt-#{$index} {
+    padding-top: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .pb-#{$index} {
+    padding-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .pl-#{$index} {
+    padding-left: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .pr-#{$index} {
+    padding-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .px-#{$index} {
+    padding-left: 0.35rem * $index;
+    padding-right: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .py-#{$index} {
+    padding-top: 0.35rem * $index;
+    padding-bottom: 0.35rem * $index;
+  }
+}
+
+@for $index from 0 through $range {
+  .p-#{$index} {
+    padding: 0.35rem * $index;
+  }
+}
+
+/*#endregion Paddings*/

@@ -1,4 +1,4 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 
 :host {
   @extend .br;
@@ -29,25 +29,28 @@
   width: 8rem;
 }
 
-.spaceContainer {
+.space {
   @extend .column, .center;
   @extend .tr-ae-03;
 
-  .imageContainer {
+  .iconContainer {
     @extend .tr-ae-04;
+    @extend .row, .center;
+    @extend .tfw-6;
+    color: $black;
     width: 3.4rem;
     height: 3.4rem;
-    border-radius: 1.2rem;
     margin: 0.2rem 0;
+    border-radius: 1.2rem;
 
     img {
       border-radius: inherit;
     }
   }
 
-  .spaceInfoTextContainer {
+  .textContainer {
     @extend .tfs-m-5;
-    height: 3rem;
+    height: 2.8rem;
     padding: 0.2rem 0.6rem 0;
     text-align: center;
   }
@@ -55,8 +58,8 @@
   &:hover {
     color: hsl(225, 9%, (82% + 10));
 
-    .imageContainer {
-      box-shadow: 0rem 0rem 0rem .4rem $white-60;
+    .iconContainer {
+      box-shadow: 0 0 0 .4rem $white-60;
     }
   }
 }

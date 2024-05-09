@@ -1,12 +1,12 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 @import "../windows/window/window.component";
 
 :host {
-  @extend .wh100;
+  @extend .s100;
 }
 
 .table {
-  @extend .wh100, .column;
+  @extend .s100, .column;
   text-align: center;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .th, .td {
-  @extend .wh100, .py-3;
+  @extend .s100, .py-3;
 }
 
 .th {
@@ -26,7 +26,7 @@
   @extend .pointer;
 
   &:hover {
-    @extend .text-w9;
+    @extend .tfw-9;
     color: $white;
     background: $black;
     outline: $bs-sot $white;
@@ -35,5 +35,5 @@
 
 .td[today=true] {
   color: $fire;
-  @extend .text-w9;
+  @extend .tfw-9;
 }

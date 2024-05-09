@@ -1,5 +1,3 @@
-@import "mixins.scss";
-
 $black: rgba(0, 0, 0, 1);
 $white-00: rgba(255, 255, 255, 0.00);
 $white-05: rgba(255, 255, 255, 0.05);
@@ -36,22 +34,3 @@ $info: #17a2b8;
 $warning: #ffc107;
 $danger: #dc3545;
 $light: #f8f9fa;
-
-$textColors: (fire: $fire, gray: $gray);
-@each $name, $color in $textColors {
-  .text-#{""+$name} {
-    color: $color;
-    fill: $color;
-  }
-}
-
-$bgColors: (classic: $classic, classic-dark: $classicDark, gray-dark: $dark);
-@each $name, $color in $bgColors {
-  .bg-#{""+$name} {
-    @include activeColor(rgba($color, 0.6));
-  }
-}
-
-.shadow-classic-dark {
-  @include shadow($classicDark);
-}

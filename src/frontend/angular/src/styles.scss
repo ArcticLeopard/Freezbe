@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/normalize.css';
-@import "sass/colors.scss";
-@import "sass/mixins.scss";
-@import "sass/globalFeatures";
+@import "imports.scss";
 
 html {
   font-size: 62.5%;
@@ -13,6 +11,9 @@ body {
   background: $dark;
   color-scheme: dark;
   color: $gray-light;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol";
 
   button {
     color: $gray-light;
@@ -38,4 +39,14 @@ body, html {
 
 textarea {
   resize: none;
+}
+
+svg {
+  @extend .tr-fe-03;
+  cursor: pointer;
+  fill-rule: evenodd;
+}
+
+div {
+  //border: 1px dotted white;
 }

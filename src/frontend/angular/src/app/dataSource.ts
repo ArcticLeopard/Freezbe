@@ -136,7 +136,7 @@ export class DataSource {
       author: 'You',
       createdAt: Date.now(),
       content: 'Now someone wants to paint the room blue...'
-    }
+    },
   ];
 
   static spaceCollection: SpaceType[] = [

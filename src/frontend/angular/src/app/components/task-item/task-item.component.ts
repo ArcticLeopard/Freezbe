@@ -6,18 +6,18 @@ import {TaskStatusComponent} from "../buttons/task-status/task-status.component"
 @Component({
   selector: 'task-item',
   standalone: true,
-    imports: [
-        DatePipe,
-        NgIf,
-        TaskPriorityComponent,
-        TaskStatusComponent
-    ],
+  imports: [
+    DatePipe,
+    NgIf,
+    TaskPriorityComponent,
+    TaskStatusComponent
+  ],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss'
 })
 export class TaskItemComponent {
   @Input("dataSource")
-  task : any;
+  task: any;
   @HostBinding("class.active")
   active: boolean = false;
 }
