@@ -1,5 +1,15 @@
-import {AfterViewInit, Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {
+  DatePipe,
+  NgForOf,
+  NgIf
+} from "@angular/common";
 import {CommentBoxComponent} from "../comment-box/comment-box.component";
 import {TaskStatusComponent} from "../buttons/task-status/task-status.component";
 import {TaskPriorityComponent} from "../buttons/task-priority/task-priority.component";
@@ -29,18 +39,19 @@ import {DataSource, TaskType} from "../../dataSource";
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
+
 export class TaskListComponent implements AfterViewInit {
+  tasks: TaskType[] = DataSource.taskCollection;
+
   @Output('closeSidebar')
   onCloseSidebar: EventEmitter<void> = new EventEmitter();
 
-  tasks: TaskType[] = DataSource.taskCollection;
+  @ViewChild(CloseSidebarComponent)
+  CloseSidebarBtnRef: CloseSidebarComponent;
 
   ngAfterViewInit(): void {
     this.CloseSidebarBtnRef.onCloseSidebar.subscribe(
       () => this.onCloseSidebar.emit()
     );
   }
-
-  @ViewChild(CloseSidebarComponent)
-  CloseSidebarBtnRef: CloseSidebarComponent;
 }

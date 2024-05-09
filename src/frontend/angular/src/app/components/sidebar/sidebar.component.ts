@@ -15,6 +15,7 @@ import {ProjectListComponent} from "../project-list/project-list.component";
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
+
 export class SidebarComponent {
   isOpen: boolean = true;
 

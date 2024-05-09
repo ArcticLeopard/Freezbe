@@ -1,0 +1,27 @@
+@import "colors.scss";
+/*#region Scrolls*/
+.basicScroll {
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.sidebarScroll {
+  @extend .basicScroll;
+  scrollbar-color: $classicScroll transparent;
+}
+
+.whiteScroll {
+  @extend .basicScroll;
+  scrollbar-color: $white-10 transparent;
+}
+
+.hiddenScroll {
+  overflow-y: hidden;
+}
+
+.transparentScroll {
+  @extend .basicScroll;
+  scrollbar-color: transparent transparent;
+}
+
+/*#endregion Scrolls*/

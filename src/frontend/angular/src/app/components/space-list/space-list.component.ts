@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {DataSource, SpaceType} from "../../dataSource";
 
 @Component({
@@ -7,7 +7,8 @@ import {DataSource, SpaceType} from "../../dataSource";
   standalone: true,
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    SlicePipe
   ],
   templateUrl: './space-list.component.html',
   styleUrl: './space-list.component.scss'

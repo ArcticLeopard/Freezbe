@@ -1,0 +1,14 @@
+.sectionInfoContainer {
+  @extend .s100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.infoHeader {
+  @extend .bb, .w100;
+  display: flex;
+  flex: 0 0 auto;
+  height: 5.6rem;
+}

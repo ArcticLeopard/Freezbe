@@ -1,0 +1,41 @@
+@import "variables.scss";
+
+/*#region Text Font Size*/
+.tfs {
+  font-size: $normal-font-size;
+}
+
+@for $i from 1 through $range {
+  .tfs-p-#{$i} {
+    font-size: $normal-font-size + ($i * 0.1);
+  }
+}
+
+@for $i from 1 through $range {
+  .tfs-m-#{$i} {
+    font-size: $normal-font-size - ($i * 0.1);
+  }
+}
+
+/*#endregion Text Font Size*/
+
+$weights: 3, 6, 9;
+@each $weight in $weights {
+  .tfw-#{""+$weight} {
+    font-weight: ($weight * 100);
+  }
+}
+
+.tf-no-wrap {
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tf-pre-wrap {
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+}

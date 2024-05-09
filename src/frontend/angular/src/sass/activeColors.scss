@@ -1,0 +1,21 @@
+@import "colors.scss";
+@import "mixins.scss";
+
+$textColors: (fire: $fire, gray: $gray);
+@each $name, $color in $textColors {
+  .text-#{""+$name} {
+    color: $color;
+    fill: $color;
+  }
+}
+
+$bgColors: (classic: $classic, classic-dark: $classicDark, gray-dark: $dark);
+@each $name, $color in $bgColors {
+  .bg-#{""+$name} {
+    @include activeColor(rgba($color, 0.6));
+  }
+}
+
+.shadow-classic-dark {
+  @include shadow($classicDark);
+}

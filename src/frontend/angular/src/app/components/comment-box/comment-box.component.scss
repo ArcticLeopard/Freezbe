@@ -1,4 +1,4 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 
 :host {
   @extend .bt;
@@ -15,7 +15,7 @@
   @extend .w100;
 
   span {
-    @extend .tfs-p-3, .text-w3;
+    @extend .tfs-p-3, .tfw-3;
 
     line-height: 3.0rem;
     text-align: center;

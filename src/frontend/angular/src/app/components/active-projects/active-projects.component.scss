@@ -1,7 +1,7 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 
 :host {
-  @extend .scrollWrapper;
+  @extend .sidebarScroll, .h100;
 }
 
 .section {
@@ -12,7 +12,7 @@
 }
 
 .header {
-  @extend .section, .px-3, .text-w6, .pointer, .my-1;
+  @extend .section, .px-3, .tfw-6, .pointer, .my-1;
 }
 
 .header > .icon {
@@ -43,5 +43,5 @@
 
 .project > .text {
   @extend .pl-4, .py-1;
-  @extend .text-no-wrap;
+  @extend .tf-no-wrap;
 }

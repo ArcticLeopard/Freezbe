@@ -1,8 +1,8 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 
 :host {
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   @extend .br;
   display: flex;
@@ -10,19 +10,18 @@
   min-width: 17.7rem;
 }
 
-.header
-{
+.header {
   @extend .infoHeader;
 }
 
 .redButton {
   color: $red;
-  @include activeColor(rgba($red, 0.1), darken($red,5%));
+  @include activeColor(rgba($red, 0.1), darken($red, 5%));
 }
 
 .orangeButton {
   color: $orange;
-  @include activeColor(rgba($orange, 0.1), darken($orange,5%));
+  @include activeColor(rgba($orange, 0.1), darken($orange, 5%));
 }
 
 

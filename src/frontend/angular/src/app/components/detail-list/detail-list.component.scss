@@ -1,6 +1,6 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 
-:host{
+:host {
   //Display
   @extend .column;
 
@@ -13,8 +13,7 @@
   flex: 1 0 31.5rem;
 }
 
-.header
-{
+.header {
   @extend .pl-3, .pr-4, .infoHeader, .transparentScroll;
 }
 
@@ -22,21 +21,19 @@
   user-select: text;
 }
 
-.commentDetails
-{
+.commentDetails {
   display: flex;
   flex-direction: row;
-  span
-  {
+
+  span {
     @extend .pr-3;
   }
-  .Author
-  {
+
+  .Author {
     @extend .pl-3;
   }
 
-  .Date
-  {
+  .Date {
     opacity: 25%;
   }
 }

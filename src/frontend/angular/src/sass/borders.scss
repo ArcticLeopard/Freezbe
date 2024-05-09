@@ -1,0 +1,38 @@
+@import "colors.scss";
+
+$bs-sot: 0.05rem solid;
+$bs-dot: 0.05rem dotted;
+$bs-dat: 0.05rem dashed;
+
+/*#region Borders*/
+.b {
+  border: $bs-sot $classicBorder;
+}
+
+.bt {
+  border-top: $bs-sot $classicBorder;
+}
+
+.br {
+  border-right: $bs-sot $classicBorder;
+}
+
+.bb {
+  border-bottom: $bs-sot $classicBorder;
+}
+
+.bl {
+  border-left: $bs-sot $classicBorder;
+}
+
+.bx {
+  border-top: $bs-sot $classicBorder;
+  border-bottom: $bs-sot $classicBorder;
+}
+
+.by {
+  border-left: $bs-sot $classicBorder;
+  border-right: $bs-sot $classicBorder;
+}
+
+/*#endregion Borders*/

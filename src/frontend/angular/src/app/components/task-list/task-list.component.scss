@@ -1,7 +1,6 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 
-:host
-{
+:host {
   //Display
   @extend .column;
 
@@ -11,13 +10,11 @@
   flex: 2 0 31.5rem;
 }
 
-.header
-{
+.header {
   @extend .infoHeader, .transparentScroll;
 }
 
-.list
-{
-  @extend .scrollWrapper;
+.list {
+  @extend .sidebarScroll, .h100;
   overflow-x: hidden;
 }

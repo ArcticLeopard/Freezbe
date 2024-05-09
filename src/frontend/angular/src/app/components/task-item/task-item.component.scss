@@ -1,4 +1,4 @@
-@import "../../../sass/globalFeatures";
+@import "../../../imports";
 
 :host {
   @extend .bg-classic-dark, .shadow-classic-dark;
@@ -19,7 +19,7 @@
 
 .task-container {
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   @extend .px-4, .pointer, .row, .bb;
   align-items: center;

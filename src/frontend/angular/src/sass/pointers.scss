@@ -1,0 +1,20 @@
+@import "colors.scss";
+
+.pointer {
+  cursor: pointer;
+}
+
+.pointerFocus {
+  @extend .tr-ae-04;
+  cursor: pointer;
+
+  &:hover {
+    color: $white-85;
+    text-shadow: 0 0 3px $white-05;
+  }
+
+  &:active {
+    color: $white;
+    text-shadow: 0 0 3px $white-35;
+  }
+}

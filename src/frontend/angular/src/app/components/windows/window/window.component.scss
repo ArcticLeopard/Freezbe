@@ -1,4 +1,4 @@
-@import "../../../../sass/globalFeatures";
+@import "../../../../imports";
 
 :host {
   position: absolute;
@@ -28,14 +28,14 @@
   @extend .column;
 
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   overflow: hidden;
 }
 
 .windowContent {
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   &.scrollable {
     @extend .hiddenScroll;
@@ -47,7 +47,7 @@
   @extend .row;
 
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   //Padding
   @extend .px-4;
@@ -78,9 +78,9 @@
   @extend .row;
 
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
-  @extend .text-w6;
+  @extend .tfw-6;
 
   @extend .center;
 }

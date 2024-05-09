@@ -1,8 +1,8 @@
-@import "../../../../sass/globalFeatures";
+@import "../../../../imports";
 
 :host {
   //Width or/and Height
-  @extend .wh100;
+  @extend .s100;
 
   //Display
   @extend .column;
@@ -11,6 +11,6 @@
   @extend .px-3;
 
   //Others
-  @extend .pointer, .text-w6;
+  @extend .pointer, .tfw-6;
   justify-content: center;
 }
