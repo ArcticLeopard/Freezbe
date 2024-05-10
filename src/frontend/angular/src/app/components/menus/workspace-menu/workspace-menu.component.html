@@ -1,0 +1,11 @@
+<div class="workspaceMenuCollection">
+  <div *ngFor="let workspace of workspaces" [title]="'Workspace: '+workspace.name" class="workspaceMenuElement">
+    <div [style.background]="workspace.color ?? defaultColor" class="workspaceMenuElementIcon">
+      <img *ngIf="workspace.imageUrl" [src]="workspace.imageUrl" alt>
+      <span *ngIf="!workspace.imageUrl">{{ workspace.name | slice:0:2 }}</span>
+    </div>
+    <span class="workspaceMenuElementText">
+          {{ workspace.name }}
+      </span>
+  </div>
+</div>

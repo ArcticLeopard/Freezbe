@@ -5,7 +5,8 @@ import {
   HostBinding,
   HostListener,
   Input,
-  numberAttribute
+  numberAttribute,
+  Renderer2
 } from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {CloseWindowComponent} from "../../buttons/close-window/close-window.component";
@@ -27,7 +28,9 @@ export class WindowComponent {
   @Input({transform: numberAttribute}) width: number;
   @Input({transform: numberAttribute}) minHeight: number = 50;
   @Input({transform: numberAttribute}) height: number;
-  @Input({transform: booleanAttribute}) @HostBinding('hidden') hidden: boolean;
+  @Input({transform: booleanAttribute})
+  @HostBinding('hidden')
+  hidden: boolean;
 
   @Input({transform: booleanAttribute}) scrollable: boolean;
   @Input() @HostBinding("style.top") top: string;
@@ -35,7 +38,7 @@ export class WindowComponent {
   private clickOutsideIsActive: boolean;
   private target: HTMLElement | null;
 
-  constructor(private elementRef: ElementRef) {
+  constructor(protected elementRef: ElementRef, protected renderer: Renderer2) {
     this.hidden = true;
     this.clickOutsideIsActive = !this.hidden;
     this.scrollable = false;

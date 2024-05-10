@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, ViewChild} from '@angular/core';
 import {MonthPipe} from "../../../Pipes/month/month.pipe";
 import {NgForOf, NgIf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
@@ -26,4 +26,20 @@ export class WindowDueDateComponent extends WindowComponent implements OnInit {
   calendarRef: CalendarComponent;
 
   dueDate: DueDateModel;
+
+  public wheelMonthChanger(wheelEvent: WheelEvent) {
+    if (wheelEvent.deltaY < 0) {
+      this.dueDate.previous();
+    } else if (wheelEvent.deltaY > 0) {
+      this.dueDate.next();
+    }
+  }
+
+  public wheelYearChanger(wheelEvent: WheelEvent) {
+    if (wheelEvent.deltaY < 0) {
+      this.dueDate.year--;
+    } else if (wheelEvent.deltaY > 0) {
+      this.dueDate.year++;
+    }
+  }
 }

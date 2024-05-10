@@ -20,13 +20,13 @@ import {GlobalInitialSettings} from "../../../common/globalInitialSettings";
   styleUrl: './project-menu.component.scss'
 })
 export class ProjectMenuComponent {
-  spaceMenuIsVisible: boolean = GlobalInitialSettings.spaceMenuVisibily;
+  workspaceMenuIsVisible: boolean = GlobalInitialSettings.workspaceMenuInvisibility;
 
-  @Output('changeVisibilitySpaceMenu')
-  onChangeVisibilitySpaceMenu: EventEmitter<void> = new EventEmitter();
+  @Output('changeVisibilityWorkspaceMenu')
+  onChangeVisibilityWorkspaceMenu: EventEmitter<void> = new EventEmitter();
 
-  ChangeVisibilitySpaceMenu(): void {
-    this.onChangeVisibilitySpaceMenu.emit();
-    this.spaceMenuIsVisible = !this.spaceMenuIsVisible;
+  changeVisibilityWorkspaceMenu(): void {
+    this.onChangeVisibilityWorkspaceMenu.emit();
+    this.workspaceMenuIsVisible = !this.workspaceMenuIsVisible;
   }
 }

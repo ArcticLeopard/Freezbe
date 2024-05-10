@@ -1,3 +1,4 @@
 export class GlobalInitialSettings {
-  static readonly spaceMenuVisibily: boolean = false;
+  static readonly workspaceMenuInvisibility: boolean = false;
+  static readonly workspaceMenuCloseAnimated: boolean = false;
 }

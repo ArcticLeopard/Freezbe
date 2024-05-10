@@ -10,10 +10,10 @@
   //Width or/and Height
   @extend .s100;
 
-  //Padding
+  //Paddings
   @extend .pt-4, .px-2, .pb-2;
 
-  //Border
+  //Borders
   border-radius: 0.5rem;
 }
 
@@ -21,10 +21,10 @@ input {
   //Background
   @extend .bg-classic-dark, .hd;
 
-  //Padding
+  //Paddings
   @extend .py-2, .pl-5, .pr-2;
 
-  //Border
+  //Borders
   @extend .b;
 
   //Cursor
@@ -39,19 +39,19 @@ input {
   //Background
   @extend .bg-classic-dark;
 
-  //Margin
+  //Margins
   @extend .mt-4;
 
-  //Border
+  //Borders
   border-radius: 0.5rem;
   @extend .b;
 
-  //Scroll
+  //Scrolls
   @extend .whiteScroll;
 }
 
 .project {
-  //Padding
+  //Paddings
   @extend .px-5, .py-3;
 
   //Cursor

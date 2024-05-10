@@ -8,7 +8,7 @@
   //Display
   @extend .row, .center;
 
-  //Border
+  //Borders
   @extend .b;
 
   //Width or/and Height
@@ -18,7 +18,6 @@
     @extend .tfs-p-3, .tfw-3;
 
     line-height: 3.0rem;
-    text-align: center;
     height: 3.2rem;
   }
 }
@@ -30,7 +29,7 @@
   //Width or/and Height
   @extend .w100;
 
-  //Scroll
+  //Scrolls
   @extend .transparentScroll;
 
   border: dashed thin $white-30;
