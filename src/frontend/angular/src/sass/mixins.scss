@@ -46,15 +46,6 @@
   }
 }
 
-@mixin hidePanel($from, $to) {
-  @extend .tr-w-05;
-  width: $from;
-  overflow-x: hidden;
-  &:hover {
-    width: $to;
-  }
-}
-
 @mixin shadow($color) {
   .shadow {
     position: absolute;

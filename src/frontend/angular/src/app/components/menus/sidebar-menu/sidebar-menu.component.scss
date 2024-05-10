@@ -1,0 +1,17 @@
+@import "../../../../imports";
+
+:host {
+  display: flex;
+
+  &.isHide {
+    @extend .tr-w-08;
+    width: 0;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1340px) {
+  :host {
+    width: 40rem;
+  }
+}

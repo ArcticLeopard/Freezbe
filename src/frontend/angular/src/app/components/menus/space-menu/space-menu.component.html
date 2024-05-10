@@ -1,5 +1,5 @@
 <div class="spaceSidebar">
-  <div class="spaceList">
+  <div>
     <div *ngFor="let space of spaces" [title]="space.name" class="pb-1 pointer space">
       <div class="iconContainer" [style.background]="space.color ?? defaultColor">
         <img *ngIf="space.imageUrl" [src]="space.imageUrl" alt>

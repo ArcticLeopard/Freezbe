@@ -8,14 +8,14 @@ import {
   NgForOf,
   NgIf
 } from "@angular/common";
-import {SidebarComponent} from "./components/sidebar/sidebar.component";
-import {TaskListComponent} from "./components/task-list/task-list.component";
-import {DetailListComponent} from "./components/detail-list/detail-list.component";
+import {SidebarMenuComponent} from "./components/menus/sidebar-menu/sidebar-menu.component";
+import {TaskMenuComponent} from "./components/menus/task-menu/task-menu.component";
+import {DetailMenuComponent} from "./components/menus/detail-menu/detail-menu.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgForOf, SidebarComponent, TaskListComponent, DetailListComponent, NgIf],
+  imports: [RouterOutlet, NgForOf, SidebarMenuComponent, TaskMenuComponent, DetailMenuComponent, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -23,23 +23,23 @@ import {DetailListComponent} from "./components/detail-list/detail-list.componen
 export class AppComponent implements AfterViewInit {
   detailsIsOpen: boolean = true;
 
-  @ViewChild(SidebarComponent)
-  public sidebarComponentRef: SidebarComponent;
+  @ViewChild(SidebarMenuComponent)
+  public sidebarMenuComponentRef: SidebarMenuComponent;
 
-  @ViewChild(TaskListComponent)
-  public taskListComponentRef: TaskListComponent;
+  @ViewChild(TaskMenuComponent)
+  public taskMenuComponentRef: TaskMenuComponent;
 
-  @ViewChild(DetailListComponent)
-  public detailListComponentRef: DetailListComponent;
+  @ViewChild(DetailMenuComponent)
+  public detailMenuComponentRef: DetailMenuComponent;
 
   ngAfterViewInit(): void {
-    this.taskListComponentRef.onCloseSidebar.subscribe(
+    this.taskMenuComponentRef.onChangeVisibilitySidebarMenu.subscribe(
       () => {
-        this.sidebarComponentRef.changeVisibility();
+        this.sidebarMenuComponentRef.changeVisibility();
       }
     );
 
-    this.detailListComponentRef.onCloseDetails.subscribe(
+    this.detailMenuComponentRef.onCloseDetails.subscribe(
       () => {
         this.detailsIsOpen = false;
       }
