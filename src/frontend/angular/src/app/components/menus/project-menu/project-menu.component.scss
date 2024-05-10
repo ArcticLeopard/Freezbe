@@ -14,8 +14,8 @@
   @extend .infoHeader;
 }
 
-.spaceName {
-  @extend .ml-1, .pointerFocus;
+.workspaceName {
+  @extend .ml-1, .pointerFocus, .text-nowrap;
 }
 
 .redButton {

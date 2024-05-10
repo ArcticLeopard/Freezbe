@@ -4,8 +4,9 @@
       <div class="windowHeaderContainer">
         <div class="windowHeaderTitleContainer">
           <div class="sectionInfoContainer tfw-6 ">
-							<span class="px-4">
-								{{ dueDate.month | month }} {{ dueDate.year }}
+							<span>
+                <span (wheel)="wheelYearChanger($event)" class="mr-2 scroller">{{ dueDate.year }}</span>
+								<span (wheel)="wheelMonthChanger($event)" class="mm-2 scroller">{{ dueDate.month | month }}</span>
 							</span>
             <span>
 								<svg (click)="dueDate.previous()" width="12" height="12" viewBox="0 0 12 12" fill="#ABABAB">

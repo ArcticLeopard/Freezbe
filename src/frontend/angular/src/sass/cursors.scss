@@ -4,6 +4,10 @@
   cursor: pointer;
 }
 
+.scroller {
+  cursor: n-resize;
+}
+
 .pointerFocus {
   @extend .tr-ae-04;
   cursor: pointer;

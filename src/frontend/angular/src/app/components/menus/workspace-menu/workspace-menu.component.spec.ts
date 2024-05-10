@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {SpaceMenuComponent} from './space-menu.component';
+import {WorkspaceMenuComponent} from './workspace-menu.component';
 
-describe('SpaceMenuComponent', () => {
-  let component: SpaceMenuComponent;
-  let fixture: ComponentFixture<SpaceMenuComponent>;
+describe('WorkspaceMenuComponent', () => {
+  let component: WorkspaceMenuComponent;
+  let fixture: ComponentFixture<WorkspaceMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SpaceMenuComponent]
+      imports: [WorkspaceMenuComponent]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(SpaceMenuComponent);
+    fixture = TestBed.createComponent(WorkspaceMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
