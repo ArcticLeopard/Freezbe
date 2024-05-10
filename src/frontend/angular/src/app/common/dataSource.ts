@@ -142,11 +142,11 @@ export class DataSource {
   static spaceCollection: SpaceType[] = [
     {
       name: 'Personal Space',
-      color: '#007bff',
-      imageUrl: 'https://i.pravatar.cc/34'
+      color: '#6610f2',
+      // imageUrl: 'https://i.pravatar.cc/34'
     },
     {
-      name: 'Personal Space',
+      name: 'Business Space',
       color: '#007bff'
     },
     {

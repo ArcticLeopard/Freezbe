@@ -1,7 +1,7 @@
 @import "../../../../imports";
 
 :host {
-  &.isClose svg {
+  &.isHide svg {
     rotate: 180deg;
   }
 }

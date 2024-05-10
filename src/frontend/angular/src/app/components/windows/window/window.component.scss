@@ -25,6 +25,7 @@
 
 .windowContainer {
   //Dislay
+  position: relative;
   @extend .column;
 
   //Width or/and Height

@@ -6,7 +6,7 @@ import {
 import {
   DataSource,
   ProjectType
-} from "../../dataSource";
+} from "../../common/dataSource";
 
 @Component({
   selector: 'app-active-projects',

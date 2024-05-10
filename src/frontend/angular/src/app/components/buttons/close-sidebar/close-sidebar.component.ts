@@ -15,15 +15,15 @@ import {
 })
 
 export class CloseSidebarComponent {
-  @HostBinding('class.isClose')
-  isClose: boolean = false;
+  @HostBinding('class.isHide')
+  isHide: boolean = false;
 
   @Output('closeSidebar')
-  onCloseSidebar: EventEmitter<void> = new EventEmitter();
+  onChangeVisibilitySidebarMenu: EventEmitter<void> = new EventEmitter();
 
   @HostListener('click')
-  CloseSidebar(): void {
-    this.onCloseSidebar.emit();
-    this.isClose = !this.isClose;
+  ChangeVisibilitySidebarMenu(): void {
+    this.onChangeVisibilitySidebarMenu.emit();
+    this.isHide = !this.isHide;
   }
 }
