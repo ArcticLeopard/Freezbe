@@ -3,10 +3,14 @@
 :host {
   display: flex;
 
-  &.isHide {
+  &.isHideAnimated {
     @extend .tr-w-08;
     width: 0;
     overflow: hidden;
+  }
+
+  &.isHide {
+    display: none;
   }
 }
 

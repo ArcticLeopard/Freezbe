@@ -43,5 +43,5 @@
 
 .project > .text {
   @extend .pl-4, .py-1;
-  @extend .tf-no-wrap;
+  @extend .text-nowrap;
 }

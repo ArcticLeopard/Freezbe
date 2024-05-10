@@ -1,4 +1,4 @@
-<div class="header" (click)="isOpen = !isOpen">
+<div class="header" (click)="isOpen = !isOpen" [title]="isOpen?'Collapse section':'Expand section'">
   <span class="icon">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="#ABABAB">
       <path *ngIf="isOpen" d="M8.196,14.503c0.152,0.305 0.464,0.497 0.804,0.497c0.341,-0 0.652,-0.192 0.804,-0.497l2.101,-4.203c0.139,-0.278 0.124,-0.609 -0.039,-0.874c-0.164,-0.265 -0.453,-0.426 -0.765,-0.426l-4.202,0c-0.312,0 -0.601,0.161 -0.765,0.426c-0.163,0.265 -0.178,0.596 -0.039,0.874l2.101,4.203Z" />
@@ -7,12 +7,12 @@
       <title *ngIf="!isOpen">Expand section</title>
     </svg>
   </span>
-  <span class="text" [title]="isOpen?'Collapse section':'Expand section'">
+  <span class="text">
     Active projects
   </span>
 </div>
 <ng-template [ngIf]="isOpen">
-  <div class="project" [title]="project.name" *ngFor="let project of projects; let i = index">
+  <div class="project" [title]="'Project: '+project.name" *ngFor="let project of projects; let i = index">
     <span class="icon">
       <svg width="20" height="20" viewBox="0 0 32 32" [attr.fill]="project.color">
         <path d="M30,25l-14,7l-14,-7l0,-18l14,-7l14,7l0,18Zm-12,-10l0,11.997l8,-3.996l0,-12.001l-8,4Zm-12,7.989l8,3.996l0,-11.985l-8,-4l0,11.989Zm10.012,-18.979l7.988,3.99l-7.988,3.99l-7.989,-3.99l7.989,-3.99Z" />

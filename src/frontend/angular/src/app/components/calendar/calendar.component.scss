@@ -22,18 +22,20 @@
   color: $gray;
 }
 
-.td[day=true] {
-  @extend .pointer;
+.td {
+  &.isDay {
+    @extend .pointer;
 
-  &:hover {
-    @extend .tfw-9;
-    color: $white;
-    background: $black;
-    outline: $bs-sot $white;
+    &:hover {
+      @extend .tfw-9;
+      color: $white;
+      background: $black;
+      outline: $bs-sot $white;
+    }
   }
-}
 
-.td[today=true] {
-  color: $fire;
-  @extend .tfw-9;
+  &.isToday {
+    color: $fire;
+    @extend .tfw-9;
+  }
 }

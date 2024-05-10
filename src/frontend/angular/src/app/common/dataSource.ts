@@ -11,7 +11,7 @@ export type TaskType = {
 
 export type ProjectType = { color: string; name: string };
 
-export type SpaceType = { color?: string; imageUrl?: string; name: string };
+export type WorkspaceType = { color?: string; imageUrl?: string; name: string };
 
 export class DataSource {
   static taskCollection: TaskType[] = [
@@ -139,18 +139,18 @@ export class DataSource {
     },
   ];
 
-  static spaceCollection: SpaceType[] = [
+  static workspaceCollection: WorkspaceType[] = [
     {
-      name: 'Personal Space',
+      name: 'Personal Workspace',
       color: '#6610f2',
       // imageUrl: 'https://i.pravatar.cc/34'
     },
     {
-      name: 'Business Space',
+      name: 'Business Workspace',
       color: '#007bff'
     },
     {
-      name: 'Freezbe Space'
+      name: 'Freezbe Workspace'
     },
   ];
 

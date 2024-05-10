@@ -9,8 +9,10 @@
     <div class="th" title="Sunday">SU</div>
   </div>
   <div *ngFor="let week of calendarMatrix; let i = index" class="tr">
-    <div *ngFor="let column of [0, 1, 2, 3, 4, 5, 6]" class="td" [attr.day]="week[column]!==null">
-      {{ week[column] }}
+    <div *ngFor="let dayOfWeek of [0, 1, 2, 3, 4, 5, 6]" class="td" [class.isDay]="week[dayOfWeek].isDay" [class.isToday]="week[dayOfWeek].isToday">
+      <ng-template [ngIf]="week[dayOfWeek].isDay">
+        {{ week[dayOfWeek].day }}
+      </ng-template>
     </div>
   </div>
 </div>

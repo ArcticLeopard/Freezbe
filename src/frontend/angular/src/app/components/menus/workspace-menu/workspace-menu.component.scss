@@ -1,8 +1,12 @@
 @import "../../../../imports";
 
 :host {
-  @extend .br;
+  //Transitions
   @extend .tr-w-05;
+
+  //Borders
+  @extend .br;
+
   width: 10rem;
   overflow: hidden;
 
@@ -15,29 +19,45 @@
   }
 }
 
-.spaceSidebar {
-  //Display
+.workspaceMenuCollection {
+  //Flex
   @extend .column;
 
-  //Scroll
+  //Scrolls
   @extend .sidebarScroll;
 
-  //Padding
+  //Paddings
   @extend .py-3;
 
-  //Width or/and Height
+  //Spaces
   @extend .h100;
+
   width: 8rem;
 }
 
-.space {
+.workspaceMenuElement {
+  //Flex
   @extend .column, .center;
+
+  //Transitions
   @extend .tr-ae-03;
 
-  .iconContainer {
-    @extend .tr-ae-04;
+  //Paddings
+  @extend .pb-1;
+
+  //Cursors
+  @extend .pointer;
+
+  .workspaceMenuElementIcon {
+    //Flex
     @extend .row, .center;
+
+    //Transitions
+    @extend .tr-ae-04;
+
+    //Text
     @extend .tfw-6;
+
     color: $black;
     width: 3.4rem;
     height: 3.4rem;
@@ -49,17 +69,21 @@
     }
   }
 
-  .textContainer {
-    @extend .tfs-m-5;
+  .workspaceMenuElementText {
+    //Text
+    @extend .tfs-m-5, .tfw-6, .text-prewrap, .text-center;
+
+    //Cursors
+    @extend .pointer;
+
     height: 2.8rem;
     padding: 0.2rem 0.6rem 0;
-    text-align: center;
   }
 
   &:hover {
     color: hsl(225, 9%, (82% + 10));
 
-    .iconContainer {
+    .workspaceMenuElementIcon {
       box-shadow: 0 0 0 .4rem $white-60;
     }
   }

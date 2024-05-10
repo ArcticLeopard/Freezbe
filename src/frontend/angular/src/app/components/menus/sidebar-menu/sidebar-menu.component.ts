@@ -1,14 +1,15 @@
 import {AfterViewInit, Component, HostBinding, ViewChild} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {SpaceMenuComponent} from "../space-menu/space-menu.component";
+import {WorkspaceMenuComponent} from "../workspace-menu/workspace-menu.component";
 import {ProjectMenuComponent} from "../project-menu/project-menu.component";
+import {GlobalInitialSettings} from "../../../common/globalInitialSettings";
 
 @Component({
   selector: 'menu-sidebar',
   standalone: true,
   imports: [
     NgForOf,
-    SpaceMenuComponent,
+    WorkspaceMenuComponent,
     ProjectMenuComponent,
     NgIf
   ],
@@ -18,18 +19,18 @@ import {ProjectMenuComponent} from "../project-menu/project-menu.component";
 
 export class SidebarMenuComponent implements AfterViewInit {
   ngAfterViewInit(): void {
-    this.projectMenuComponentRef.onChangeVisibilitySpaceMenu.subscribe(() => {
-      this.spaceMenuComponentRef.changeVisibility();
+    this.projectMenuComponentRef.onChangeVisibilityWorkspaceMenu.subscribe(() => {
+      this.workspaceMenuComponentRef.changeVisibility();
     });
   }
 
   @ViewChild(ProjectMenuComponent)
   projectMenuComponentRef: ProjectMenuComponent;
 
-  @ViewChild(SpaceMenuComponent)
-  spaceMenuComponentRef: SpaceMenuComponent;
+  @ViewChild(WorkspaceMenuComponent)
+  workspaceMenuComponentRef: WorkspaceMenuComponent;
 
-  @HostBinding("class.isHide")
+  @HostBinding(GlobalInitialSettings.workspaceMenuCloseAnimated ? "class.isHideAnimated" : "class.isHide")
   isHide: boolean = false;
 
   changeVisibility(): void {

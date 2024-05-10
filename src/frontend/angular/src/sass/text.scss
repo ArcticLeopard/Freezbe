@@ -26,16 +26,20 @@ $weights: 3, 6, 9;
   }
 }
 
-.tf-no-wrap {
+.text-nowrap {
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.tf-pre-wrap {
+.text-prewrap {
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: pre-wrap;
+}
+
+.text-center {
+  text-align: center;
 }
