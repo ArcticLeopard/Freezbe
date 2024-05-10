@@ -1,4 +1,4 @@
-@import "../../../imports";
+@import "../../../../imports";
 
 :host {
   //Width or/and Height
@@ -12,6 +12,10 @@
 
 .header {
   @extend .infoHeader;
+}
+
+.spaceName {
+  @extend .ml-1, .pointerFocus;
 }
 
 .redButton {
