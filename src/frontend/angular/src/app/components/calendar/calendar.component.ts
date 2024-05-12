@@ -1,17 +1,19 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, QueryList, ViewChildren} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe, UpperCasePipe} from "@angular/common";
-import {calendarElementType, CalendarElementComponent} from "../calendar-element/calendar-element.component";
+import {CalendarDayComponent} from "../calendar-day/calendar-day.component";
 import {DataSource} from "../../common/dataSource";
+import {CalendarDayType} from "../../common/types";
+import {DateOnly} from "../../common/dto";
 
 @Component({
   selector: 'calendar',
   standalone: true,
-  imports: [NgForOf, NgIf, CalendarElementComponent, SlicePipe, UpperCasePipe],
+  imports: [NgForOf, NgIf, CalendarDayComponent, SlicePipe, UpperCasePipe],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
 })
 export class CalendarComponent implements OnChanges, AfterViewInit {
-  public calendarMatrix: calendarElementType[][];
+  public calendarMatrix: CalendarDayType[][];
   days: string[] = DataSource.daysCollection;
   @Input()
   year: number;
@@ -19,37 +21,33 @@ export class CalendarComponent implements OnChanges, AfterViewInit {
   @Input()
   month: number;
 
-  @Output('daySelected')
-  onDaySelected: EventEmitter<any> = new EventEmitter();
+  @Output('dateSelected')
+  onDateSelected: EventEmitter<DateOnly> = new EventEmitter();
 
-  @ViewChildren(CalendarElementComponent)
-  calendarElementComponents: QueryList<CalendarElementComponent> = new QueryList<CalendarElementComponent>();
+  @ViewChildren(CalendarDayComponent)
+  CalendarDayComponents: QueryList<CalendarDayComponent> = new QueryList<CalendarDayComponent>();
 
   ngOnChanges(): void {
     this.setCalendarMatrix();
   }
 
   ngAfterViewInit(): void {
-    this.calendarElementComponents.changes;
+    this.CalendarDayComponents.changes;
   }
 
   public setCalendarMatrix(): void {
     this.calendarMatrix = this.recalculateCalendarMatrix(this.year, this.month);
   }
 
-  public daySelected(mouseEvent: MouseEvent) {
-    this.onDaySelected.emit();
-  }
-
-  private recalculateCalendarMatrix(year: number, month: number): calendarElementType[][] {
+  private recalculateCalendarMatrix(year: number, month: number): CalendarDayType[][] {
     const firstDayOfMonth: Date = new Date(year, month - 1, 1);
     const lastDayOfMonth: Date = new Date(year, month, 0);
     let firstDayOfWeek: number = firstDayOfMonth.getDay();
     firstDayOfWeek = (firstDayOfWeek === 0) ? 7 : firstDayOfWeek;
 
     const daysInMonth: number = lastDayOfMonth.getDate();
-    const matrix: calendarElementType[][] = [];
-    let row: calendarElementType[] = [];
+    const matrix: CalendarDayType[][] = [];
+    let row: CalendarDayType[] = [];
     let dayCounter: number = 1;
     let currentDate = new Date();
     let currentMonthIsOpen = this.year == currentDate.getFullYear() && this.month == currentDate.getMonth() + 1;
@@ -59,19 +57,19 @@ export class CalendarComponent implements OnChanges, AfterViewInit {
       row = [];
       for (let j: number = 1; j <= 7; j++) {
         if ((i === 0 && j < firstDayOfWeek) || dayCounter > daysInMonth) {
-          let calendarElement: calendarElementType = {
+          let calendarDay: CalendarDayType = {
             day: 0,
             isDay: false,
             isToday: false
           };
-          row.push(calendarElement);
+          row.push(calendarDay);
         } else {
-          let calendarElement: calendarElementType = {
+          let calendarDay: CalendarDayType = {
             day: dayCounter,
             isDay: true,
             isToday: currentMonthIsOpen && currentDay == dayCounter
           };
-          row.push(calendarElement);
+          row.push(calendarDay);
           dayCounter++;
         }
       }
@@ -80,4 +78,10 @@ export class CalendarComponent implements OnChanges, AfterViewInit {
     }
     return matrix;
   }
+
+  dateSelected(selectedDay: CalendarDayType) {
+    this.onDateSelected.emit(new DateOnly(this.year, this.month, selectedDay.day));
+  }
 }
+
+

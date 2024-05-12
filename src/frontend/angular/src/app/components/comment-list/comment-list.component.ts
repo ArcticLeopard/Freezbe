@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {DatePipe, NgClass, NgForOf} from "@angular/common";
-import {CommentType, DataSource} from "../../common/dataSource";
+import {DataSource} from "../../common/dataSource";
+import {CommentType} from "../../common/types";
 
 @Component({
   selector: 'app-comment-list',

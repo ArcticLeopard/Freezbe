@@ -8,8 +8,9 @@ import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.compon
 import {TaskItemComponent} from "../../task-item/task-item.component";
 import {SearchComponent} from "../../buttons/search/search.component";
 import {AppendComponent} from "../../buttons/append/append.component";
-import {DataSource, TaskType} from "../../../common/dataSource";
+import {DataSource} from "../../../common/dataSource";
 import {Subscription} from "rxjs";
+import {TaskType} from '../../../common/types';
 
 @Component({
   selector: 'menu-task',
