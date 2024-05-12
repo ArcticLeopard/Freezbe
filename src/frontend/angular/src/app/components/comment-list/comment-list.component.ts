@@ -5,11 +5,7 @@ import {CommentType, DataSource} from "../../common/dataSource";
 @Component({
   selector: 'app-comment-list',
   standalone: true,
-  imports: [
-    NgForOf,
-    NgClass,
-    DatePipe,
-  ],
+  imports: [NgForOf, NgClass, DatePipe,],
   templateUrl: './comment-list.component.html',
   styleUrl: './comment-list.component.scss'
 })

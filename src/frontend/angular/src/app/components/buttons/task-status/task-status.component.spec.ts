@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TaskStatusComponent } from './task-status.component';
+import {TaskStatusComponent} from './task-status.component';
 
 describe('TaskStatusComponent', () => {
   let component: TaskStatusComponent;
@@ -10,8 +10,8 @@ describe('TaskStatusComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TaskStatusComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TaskStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

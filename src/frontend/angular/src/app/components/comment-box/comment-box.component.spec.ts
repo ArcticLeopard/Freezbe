@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CommentBoxComponent } from './comment-box.component';
+import {CommentBoxComponent} from './comment-box.component';
 
 describe('CommentBoxComponent', () => {
   let component: CommentBoxComponent;
@@ -10,8 +10,8 @@ describe('CommentBoxComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CommentBoxComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(CommentBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

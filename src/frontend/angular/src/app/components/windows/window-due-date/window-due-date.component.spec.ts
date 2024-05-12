@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { WindowDueDateComponent } from './window-due-date.component';
+import {WindowDueDateComponent} from './window-due-date.component';
 
 describe('WindowDueDateComponent', () => {
   let component: WindowDueDateComponent;
@@ -10,8 +10,8 @@ describe('WindowDueDateComponent', () => {
     await TestBed.configureTestingModule({
       imports: [WindowDueDateComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(WindowDueDateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

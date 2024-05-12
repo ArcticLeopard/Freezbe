@@ -1,0 +1,24 @@
+@import "../../../imports";
+
+:host {
+  @extend .s100, .py-3;
+
+  &.isDay {
+    @extend .pointer;
+
+    &:hover {
+      @extend .tfw-9;
+      //color: $white;
+      //background: $black;
+      outline: $bs-sot $white;
+      border-radius: 0.35rem;
+    }
+  }
+
+  &.isToday {
+    color: $fire;
+    @extend .tfw-9;
+  }
+}
+
+

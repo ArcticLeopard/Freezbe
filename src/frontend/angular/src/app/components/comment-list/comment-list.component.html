@@ -1,5 +1,5 @@
 <div class="mt-5 mx-2 pb-4">
-  <div *ngFor="let comment of comments; let i = index">
+  <div *ngFor="let comment of comments">
     <div class="commentDetails mb-2">
       <span class="Author">{{ comment.author }}</span>
       <span class="Date" [title]="comment.createdAt | date:'MM/dd/yyyy, hh:mm:ss a'">{{ comment.createdAt | date: 'EEE, MMM d, h:mm a' }}</span>

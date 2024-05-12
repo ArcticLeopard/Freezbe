@@ -1,5 +1,5 @@
-import {Component, OnInit, Output, ViewChild} from '@angular/core';
-import {MonthPipe} from "../../../Pipes/month/month.pipe";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MonthPipe} from "../../../pipes/month/month.pipe";
 import {NgForOf, NgIf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {WindowComponent} from "../window/window.component";
@@ -8,12 +8,7 @@ import {DueDateModel} from "./due-date-model";
 @Component({
   selector: 'window-due-date',
   standalone: true,
-  imports: [
-    MonthPipe,
-    NgForOf,
-    CalendarComponent,
-    NgIf
-  ],
+  imports: [MonthPipe, NgForOf, CalendarComponent, NgIf],
   templateUrl: './window-due-date.component.html',
   styleUrl: './window-due-date.component.scss'
 })

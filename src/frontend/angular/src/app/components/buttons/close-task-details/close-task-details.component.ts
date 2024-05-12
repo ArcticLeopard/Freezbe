@@ -7,7 +7,6 @@ import {
 @Component({
   selector: 'btn-close-task-details',
   standalone: true,
-  imports: [],
   templateUrl: './close-task-details.component.html',
   styleUrl: './close-task-details.component.scss'
 })

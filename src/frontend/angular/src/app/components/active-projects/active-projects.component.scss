@@ -21,7 +21,7 @@
 }
 
 .header > .text {
-  @extend .pl-1;
+  @extend .pl-1, .text-nowrap;
 }
 
 .project {
