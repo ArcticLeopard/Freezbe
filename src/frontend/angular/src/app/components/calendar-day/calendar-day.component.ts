@@ -1,21 +1,20 @@
 import {Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output} from '@angular/core';
 import {NgIf} from "@angular/common";
-
-export type calendarElementType = { day: number, isToday: boolean, isDay: boolean };
+import {CalendarDayType} from "../../common/types";
 
 @Component({
-  selector: 'calendar-element',
+  selector: 'calendar-day',
   standalone: true,
   imports: [NgIf],
-  templateUrl: './calendar-element.component.html',
-  styleUrl: './calendar-element.component.scss'
+  templateUrl: './calendar-day.component.html',
+  styleUrl: './calendar-day.component.scss'
 })
-export class CalendarElementComponent implements OnInit {
+export class CalendarDayComponent implements OnInit {
   @Input('currentElement')
-  currentElement: calendarElementType;
+  currentElement: CalendarDayType;
 
   @Output('selected')
-  onSelected: EventEmitter<number> = new EventEmitter();
+  onSelected: EventEmitter<CalendarDayType> = new EventEmitter();
 
   @HostBinding('class.isDay')
   isDay: boolean;
@@ -31,7 +30,7 @@ export class CalendarElementComponent implements OnInit {
   @HostListener('click')
   public selected() {
     if (this.currentElement.isDay) {
-      this.onSelected.emit(this.currentElement.day);
+      this.onSelected.emit(this.currentElement);
     }
   }
 }

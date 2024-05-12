@@ -3,7 +3,7 @@ import {MonthPipe} from "../../../pipes/month/month.pipe";
 import {NgForOf, NgIf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {WindowComponent} from "../window/window.component";
-import {DueDateModel} from "./due-date-model";
+import {CalendarChangeStrategy} from "../../../common/types";
 
 @Component({
   selector: 'window-due-date',
@@ -12,29 +12,68 @@ import {DueDateModel} from "./due-date-model";
   templateUrl: './window-due-date.component.html',
   styleUrl: './window-due-date.component.scss'
 })
+
 export class WindowDueDateComponent extends WindowComponent implements OnInit {
-  ngOnInit(): void {
-    this.dueDate = new DueDateModel();
-  }
+  protected readonly CalendarChangeStrategy = CalendarChangeStrategy;
+  model: WindowDueDateModel;
 
   @ViewChild(CalendarComponent)
   calendarRef: CalendarComponent;
 
-  dueDate: DueDateModel;
+  ngOnInit(): void {
+    this.model = new WindowDueDateModel();
+  }
 
-  public wheelMonthChanger(wheelEvent: WheelEvent) {
+  public wheelChanger(wheelEvent: WheelEvent, changeStrategy: CalendarChangeStrategy) {
     if (wheelEvent.deltaY < 0) {
-      this.dueDate.previous();
+      this.model.previous(changeStrategy);
     } else if (wheelEvent.deltaY > 0) {
-      this.dueDate.next();
+      this.model.next(changeStrategy);
+    }
+  }
+}
+
+export class WindowDueDateModel {
+  constructor() {
+    this.setCurrentTime();
+  }
+
+  year: number;
+  month: number;
+  day: number;
+
+  setCurrentTime(): void {
+    let currentDate = new Date();
+    this.year = currentDate.getFullYear();
+    this.month = currentDate.getMonth() + 1;
+    this.day = currentDate.getDate();
+  }
+
+  public today(): void {
+    this.setCurrentTime();
+  }
+
+  public previous(changeStrategy: CalendarChangeStrategy = CalendarChangeStrategy.monthChangeStrategy): void {
+    if (changeStrategy == CalendarChangeStrategy.monthChangeStrategy) {
+      this.month--;
+      if (this.month < 1) {
+        this.month = 12;
+        this.year--;
+      }
+    } else {
+      this.year--;
     }
   }
 
-  public wheelYearChanger(wheelEvent: WheelEvent) {
-    if (wheelEvent.deltaY < 0) {
-      this.dueDate.year--;
-    } else if (wheelEvent.deltaY > 0) {
-      this.dueDate.year++;
+  public next(changeStrategy: CalendarChangeStrategy = CalendarChangeStrategy.monthChangeStrategy): void {
+    if (changeStrategy == CalendarChangeStrategy.monthChangeStrategy) {
+      this.month++;
+      if (this.month > 12) {
+        this.month = 1;
+        this.year++;
+      }
+    } else {
+      this.year++;
     }
   }
 }
