@@ -1,18 +1,10 @@
-<div class="table">
-  <div class="tr">
-    <div class="th" title="Monday">MO</div>
-    <div class="th" title="Tuesday">TU</div>
-    <div class="th" title="Wednesday">WE</div>
-    <div class="th" title="Thursday">TH</div>
-    <div class="th" title="Friday">FR</div>
-    <div class="th" title="Saturday">SA</div>
-    <div class="th" title="Sunday">SU</div>
-  </div>
-  <div *ngFor="let week of calendarMatrix; let i = index" class="tr">
-    <div *ngFor="let dayOfWeek of [0, 1, 2, 3, 4, 5, 6]" class="td" [class.isDay]="week[dayOfWeek].isDay" [class.isToday]="week[dayOfWeek].isToday">
-      <ng-template [ngIf]="week[dayOfWeek].isDay">
-        {{ week[dayOfWeek].day }}
-      </ng-template>
-    </div>
-  </div>
+<div class="row">
+  <ng-container *ngFor="let day of days; let i = index">
+    <div class="header" [title]="day">{{ day|slice:0:2 | uppercase }}</div>
+  </ng-container>
+</div>
+<div *ngFor="let week of calendarMatrix" class="row">
+  <ng-container *ngFor="let day of [0, 1, 2, 3, 4, 5, 6]">
+    <calendar-element [currentElement]="week[day]"></calendar-element>
+  </ng-container>
 </div>

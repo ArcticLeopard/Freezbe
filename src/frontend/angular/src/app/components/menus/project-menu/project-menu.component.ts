@@ -1,27 +1,21 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.component";
 import {BigComponent} from "../../buttons/big/big.component";
 import {ActiveProjectsComponent} from "../../active-projects/active-projects.component";
 import {SearchComponent} from "../../buttons/search/search.component";
-import {GlobalInitialSettings} from "../../../common/globalInitialSettings";
+import {GlobalSettings} from "../../../common/globalSettings";
 
 @Component({
   selector: 'menu-project',
   standalone: true,
-  imports: [
-    NgForOf,
-    PlaceholderComponent,
-    BigComponent,
-    ActiveProjectsComponent,
-    SearchComponent
-  ],
+  imports: [NgForOf, PlaceholderComponent, BigComponent, ActiveProjectsComponent, SearchComponent],
   templateUrl: './project-menu.component.html',
   styleUrl: './project-menu.component.scss'
 })
 export class ProjectMenuComponent {
-  workspaceMenuIsVisible: boolean = GlobalInitialSettings.workspaceMenuInvisibility;
-
+  workspaceName: string = 'Workspace Name';
+  workspaceMenuIsVisible: boolean = GlobalSettings.hideWorkspaceMenuOnStartup;
   @Output('changeVisibilityWorkspaceMenu')
   onChangeVisibilityWorkspaceMenu: EventEmitter<void> = new EventEmitter();
 

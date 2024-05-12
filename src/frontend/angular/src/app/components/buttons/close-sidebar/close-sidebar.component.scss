@@ -1,6 +1,10 @@
 @import "../../../../imports";
 
 :host {
+  &.iconAnimated svg {
+    @extend .tr-ae-03;
+  }
+
   &.isHide svg {
     rotate: 180deg;
   }

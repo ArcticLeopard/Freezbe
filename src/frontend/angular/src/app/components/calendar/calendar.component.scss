@@ -2,40 +2,20 @@
 @import "../windows/window/window.component";
 
 :host {
-  @extend .s100;
-}
-
-.table {
   @extend .s100, .column;
   text-align: center;
 }
 
-.tr {
+.row {
   @extend .row;
 }
 
-.th, .td {
+.header {
   @extend .s100, .py-3;
 }
 
-.th {
+.header {
   color: $gray;
 }
 
-.td {
-  &.isDay {
-    @extend .pointer;
 
-    &:hover {
-      @extend .tfw-9;
-      color: $white;
-      background: $black;
-      outline: $bs-sot $white;
-    }
-  }
-
-  &.isToday {
-    color: $fire;
-    @extend .tfw-9;
-  }
-}

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CloseWindowComponent } from './close-window.component';
+import {CloseWindowComponent} from './close-window.component';
 
 describe('CloseWindowComponent', () => {
   let component: CloseWindowComponent;
@@ -10,8 +10,8 @@ describe('CloseWindowComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CloseWindowComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(CloseWindowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

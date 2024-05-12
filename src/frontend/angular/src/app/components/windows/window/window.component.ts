@@ -1,23 +1,11 @@
-import {
-  booleanAttribute,
-  Component,
-  ElementRef,
-  HostBinding,
-  HostListener,
-  Input,
-  numberAttribute,
-  Renderer2
-} from '@angular/core';
+import {booleanAttribute, Component, ElementRef, HostBinding, HostListener, Input, numberAttribute, Renderer2} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {CloseWindowComponent} from "../../buttons/close-window/close-window.component";
 
 @Component({
   selector: 'window',
   standalone: true,
-  imports: [
-    NgForOf,
-    CloseWindowComponent
-  ],
+  imports: [NgForOf, CloseWindowComponent],
   templateUrl: './window.component.html',
   styleUrl: './window.component.scss',
 })

@@ -1,9 +1,6 @@
 <div class="header">
-  <div class="ml-3 sectionInfoContainer px-0 transparentScroll">
-    <div class="tfs-p-2">
-      <span (click)="changeVisibilityWorkspaceMenu()" class="workspaceName" [title]="workspaceMenuIsVisible?'Collapse workspace menu':'Expand workspace menu'">Workspace Name</span>
-    </div>
-    <btn-search></btn-search>
+  <div class="ml-3 sectionInfoContainer px-0 transparentScroll tfs-p-2">
+    <span (click)="changeVisibilityWorkspaceMenu()" class="workspaceName" [title]="workspaceMenuIsVisible?'Collapse workspace menu':'Expand workspace menu'">{{ workspaceName }}</span>
   </div>
 </div>
 <div class="header">

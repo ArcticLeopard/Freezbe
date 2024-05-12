@@ -7,12 +7,7 @@ import {WindowDueDateComponent} from "../windows/window-due-date/window-due-date
 @Component({
   selector: 'app-detail-options',
   standalone: true,
-  imports: [
-    WindowComponent,
-    WindowProjectComponent,
-    CalendarComponent,
-    WindowDueDateComponent
-  ],
+  imports: [WindowComponent, WindowProjectComponent, CalendarComponent, WindowDueDateComponent],
   templateUrl: './detail-options.component.html',
   styleUrl: './detail-options.component.scss'
 })

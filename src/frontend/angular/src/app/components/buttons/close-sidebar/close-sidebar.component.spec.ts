@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CloseSidebarComponent } from './close-sidebar.component';
+import {CloseSidebarComponent} from './close-sidebar.component';
 
 describe('CloseSidebarComponent', () => {
   let component: CloseSidebarComponent;
@@ -10,8 +10,8 @@ describe('CloseSidebarComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CloseSidebarComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(CloseSidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

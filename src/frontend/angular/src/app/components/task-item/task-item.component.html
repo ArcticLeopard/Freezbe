@@ -1,4 +1,4 @@
-<div (click)="active = !active" class="task-container" [title]="'Task: '+task.name">
+<div (click)="toggle($event)" class="task-container" [title]="'Task: '+task.name">
   <btn-task-status></btn-task-status>
   <div class="task">
     <div class="task-header">

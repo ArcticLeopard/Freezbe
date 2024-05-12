@@ -1,12 +1,14 @@
 @import "../../../../imports";
 
 :host {
+  @extend .tr-w-08;
+  width: 40rem;
   display: flex;
+  overflow: visible;
 
   &.isHideAnimated {
-    @extend .tr-w-08;
     width: 0;
-    overflow: hidden;
+    //overflow: hidden;
   }
 
   &.isHide {
@@ -14,8 +16,4 @@
   }
 }
 
-@media (min-width: 1340px) {
-  :host {
-    width: 40rem;
-  }
-}
+
