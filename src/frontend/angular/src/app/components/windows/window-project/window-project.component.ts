@@ -5,10 +5,7 @@ import {WindowComponent} from "../window/window.component";
 @Component({
   selector: 'window-project',
   standalone: true,
-  imports: [
-    NgForOf,
-    NgIf
-  ],
+  imports: [NgForOf, NgIf],
   templateUrl: './window-project.component.html',
   styleUrl: './window-project.component.scss'
 })

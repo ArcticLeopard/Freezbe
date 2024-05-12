@@ -3,7 +3,6 @@ import {Component, HostBinding, Input, numberAttribute} from '@angular/core';
 @Component({
   selector: 'btn-big',
   standalone: true,
-  imports: [],
   templateUrl: './big.component.html',
   styleUrl: './big.component.scss'
 })

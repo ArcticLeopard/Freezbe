@@ -7,7 +7,7 @@
   @extend .br;
   display: flex;
   flex-direction: column;
-  min-width: 17.7rem;
+  overflow: hidden;
 }
 
 .header {

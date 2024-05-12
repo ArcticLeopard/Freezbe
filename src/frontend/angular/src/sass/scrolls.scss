@@ -1,6 +1,7 @@
 @import "colors.scss";
 /*#region Scrolls*/
 .basicScroll {
+  overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: thin;
 }

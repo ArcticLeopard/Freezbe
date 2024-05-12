@@ -1,15 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  HostBinding,
-  HostListener,
-  Output
-} from '@angular/core';
+import {Component, EventEmitter, HostBinding, HostListener, Output} from '@angular/core';
+import {GlobalSettings} from "../../../common/globalSettings";
 
 @Component({
   selector: 'btn-close-sidebar',
   standalone: true,
-  imports: [],
   templateUrl: './close-sidebar.component.html',
   styleUrl: './close-sidebar.component.scss'
 })
@@ -17,6 +11,9 @@ import {
 export class CloseSidebarComponent {
   @HostBinding('class.isHide')
   isHide: boolean = false;
+
+  @HostBinding(GlobalSettings.sidebarMenuIconAnimationEnabled ? "class.iconAnimated" : "")
+  iconAnimated: boolean = true;
 
   @Output('closeSidebar')
   onChangeVisibilitySidebarMenu: EventEmitter<void> = new EventEmitter();
