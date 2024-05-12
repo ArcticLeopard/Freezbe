@@ -1,7 +1,8 @@
 import {Component, HostBinding} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
-import {DataSource, WorkspaceType} from "../../../common/dataSource";
+import {DataSource} from "../../../common/dataSource";
 import {GlobalSettings} from "../../../common/globalSettings";
+import {WorkspaceType} from "../../../common/types";
 
 @Component({
   selector: 'menu-workspace',

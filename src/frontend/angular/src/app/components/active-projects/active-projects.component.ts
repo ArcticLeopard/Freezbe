@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {DataSource, ProjectType} from "../../common/dataSource";
+import {DataSource} from "../../common/dataSource";
+import {ProjectType} from "../../common/types";
 
 @Component({
   selector: 'app-active-projects',
