@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnDestroy, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostBinding, HostListener, OnDestroy, Output, ViewChild} from '@angular/core';
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
 import {TaskStatusComponent} from "../../buttons/task-status/task-status.component";
@@ -41,5 +41,18 @@ export class TaskMenuComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.closeSidebarBtnSubscription && this.closeSidebarBtnSubscription.unsubscribe();
+  }
+
+  //TODO DO DRY
+  @HostBinding("class.areaActive") areaActive: boolean = false;
+
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.areaActive = true;
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.areaActive = false;
   }
 }

@@ -17,11 +17,12 @@ $workspaceMenuElementSize: (10 * $distance);
   @extend .sidebarScroll;
 
   //Paddings
-  @extend .py-3;
+  @extend .py-2;
 
   //Spaces
   @extend .h100;
 
+  @extend .panelArea;
   width: $widthWorkSpace;
 
   &.isHide {
@@ -29,6 +30,16 @@ $workspaceMenuElementSize: (10 * $distance);
 
     &:hover {
       width: $widthWorkSpace;
+    }
+  }
+
+  &:hover {
+    svg {
+      fill: $white;
+    }
+
+    .workspaceMenuElementIcon {
+      box-shadow: 0 0 0 .2rem $white-05;
     }
   }
 }
@@ -48,7 +59,7 @@ $workspaceMenuElementSize: (10 * $distance);
 
   .workspaceMenuElementIcon {
     //Flex
-    @extend .row, .center;
+    @extend .row, .center, .b;
 
     //Transitions
     @extend .tr-ae-04;
@@ -82,9 +93,11 @@ $workspaceMenuElementSize: (10 * $distance);
     color: hsl(225, 9%, (82% + 10));
 
     .workspaceMenuElementIcon {
-      box-shadow: 0 0 0 .4rem $white-60;
+      box-shadow: 0 0 0 .3rem $white-30;
+
+      &:hover {
+        box-shadow: 0 0 0 .4rem $white-60
+      }
     }
   }
 }
-
-
