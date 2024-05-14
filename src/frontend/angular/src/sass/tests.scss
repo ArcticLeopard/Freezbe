@@ -1,0 +1,19 @@
+.small {
+  @extend .tr-ae-05;
+  scale: 0;
+  height: 0;
+}
+
+@mixin normal($height) {
+  @extend .tr-ae-05;
+  scale: 1;
+  height: $height;
+}
+
+.panelArea {
+  border-bottom: $classicBorder solid 0.1rem;
+}
+
+.areaActive {
+  border-bottom: $white-60 solid 0.1rem;
+}

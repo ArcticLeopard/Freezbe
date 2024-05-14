@@ -5,6 +5,9 @@
   @extend .s100;
 
   @extend .br;
+
+  @extend .panelArea;
+
   display: flex;
   flex-direction: column;
   overflow: hidden;

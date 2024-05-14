@@ -1,4 +1,4 @@
-import {Component, HostBinding} from '@angular/core';
+import {Component, HostBinding, HostListener} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {DataSource} from "../../../common/dataSource";
 import {GlobalSettings} from "../../../common/globalSettings";
@@ -19,5 +19,18 @@ export class WorkspaceMenuComponent {
 
   changeVisibility() {
     this.isHide = !this.isHide;
+  }
+
+  //TODO DO DRY
+  @HostBinding("class.areaActive") areaActive: boolean = false;
+
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.areaActive = true;
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.areaActive = false;
   }
 }

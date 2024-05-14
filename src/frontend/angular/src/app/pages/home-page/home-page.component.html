@@ -1,0 +1,6 @@
+<h1>Examples</h1>
+<h2>
+  <div *ngFor="let workspace of workspaceCollection">
+    <a [routerLink]="['/workspaces', workspace.id, 'priority']">Workspace: {{ workspace.name }}</a>
+  </div>
+</h2>
