@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, HostListener, Output} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.component";
 import {BigComponent} from "../../buttons/big/big.component";
@@ -22,5 +22,18 @@ export class ProjectMenuComponent {
   changeVisibilityWorkspaceMenu(): void {
     this.onChangeVisibilityWorkspaceMenu.emit();
     this.workspaceMenuIsVisible = !this.workspaceMenuIsVisible;
+  }
+
+  //TODO DO DRY
+  @HostBinding("class.areaActive") areaActive: boolean = false;
+
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.areaActive = true;
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.areaActive = false;
   }
 }

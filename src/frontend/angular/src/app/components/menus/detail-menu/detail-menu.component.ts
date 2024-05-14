@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, OnDestroy, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, HostBinding, HostListener, OnDestroy, Output, ViewChild} from '@angular/core';
 import {DetailOptionsComponent} from "../../detail-options/detail-options.component";
 import {CommentListComponent} from "../../comment-list/comment-list.component";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
@@ -32,5 +32,18 @@ export class DetailMenuComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.closeTaskDetailsBtnSubscription && this.closeTaskDetailsBtnSubscription.unsubscribe();
+  }
+
+  //TODO DO DRY
+  @HostBinding("class.areaActive") areaActive: boolean = false;
+
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.areaActive = true;
+  }
+
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.areaActive = false;
   }
 }
