@@ -1,5 +1,7 @@
-import {Component, EventEmitter, HostBinding, HostListener, Output} from '@angular/core';
+import {Component, EventEmitter, HostBinding, HostListener, OnDestroy, Output} from '@angular/core';
 import {GlobalSettings} from "../../../common/globalSettings";
+import {StateService} from "../../../services/state/state.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'btn-close-sidebar',
@@ -8,19 +10,27 @@ import {GlobalSettings} from "../../../common/globalSettings";
   styleUrl: './close-sidebar.component.scss'
 })
 
-export class CloseSidebarComponent {
+export class CloseSidebarComponent implements OnDestroy {
+  constructor(public state: StateService) {
+    this.subscription = this.state.subject.subscribe(p => {
+      this.isHide = p.sidebarOpen.Value;
+    });
+  }
+
+  private subscription: Subscription;
+
   @HostBinding('class.isHide')
-  isHide: boolean = false;
+  isHide: boolean = !this.state.sidebarOpen;
 
   @HostBinding(GlobalSettings.sidebarMenuIconAnimationEnabled ? "class.iconAnimated" : "")
   iconAnimated: boolean = true;
 
-  @Output('closeSidebar')
-  onChangeVisibilitySidebarMenu: EventEmitter<void> = new EventEmitter();
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   @HostListener('click')
   ChangeVisibilitySidebarMenu(): void {
-    this.onChangeVisibilitySidebarMenu.emit();
-    this.isHide = !this.isHide;
+    this.state.sidebarOpen.Toggle();
   }
 }

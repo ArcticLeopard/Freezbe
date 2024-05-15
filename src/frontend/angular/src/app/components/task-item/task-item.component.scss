@@ -8,12 +8,11 @@
   margin: 0.2rem 0 0.2rem 0.2rem;
 
   &:hover {
-    background: lighten($dark, 4%);
+    background: darken($dark, 2%);
   }
 
   &.active {
-    @include shadow($classic);
-    background: $classic;
+    background: darken($dark, 2%);
   }
 }
 
