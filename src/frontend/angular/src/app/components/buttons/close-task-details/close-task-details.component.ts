@@ -1,21 +1,19 @@
-import {
-  Component,
-  EventEmitter, HostListener,
-  Output
-} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
+import {RoutingService} from "../../../services/routing/routing.service";
 
 @Component({
   selector: 'btn-close-task-details',
   standalone: true,
   templateUrl: './close-task-details.component.html',
-  styleUrl: './close-task-details.component.scss'
+  styleUrl: './close-task-details.component.scss',
+  providers: [RoutingService]
 })
 export class CloseTaskDetailsComponent {
-  @Output('closeDetails')
-  onCloseDetails: EventEmitter<void> = new EventEmitter();
+  constructor(private routing: RoutingService) {
+  }
 
   @HostListener('click')
   CloseSidebar(): void {
-    this.onCloseDetails.emit();
+    this.routing.GoToTasks();
   }
 }

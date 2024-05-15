@@ -1,11 +1,11 @@
 <div class="header">
   <div class="ml-3 sectionInfoContainer px-0 transparentScroll tfs-p-2">
-    <span (click)="changeVisibilityWorkspaceMenu()" class="workspaceName" [title]="workspaceMenuIsVisible?'Collapse workspace menu':'Expand workspace menu'">{{ workspaceName }}</span>
+    <span (click)="state.workspaceOpen.Toggle()" class="workspaceName" [title]="state.workspaceOpen.Value?'Collapse workspace menu':'Expand workspace menu'">{{ currentWorkspace?.name }}</span>
   </div>
 </div>
 <div class="header">
-  <btn-big class="redButton hd focus" number="15" text="Priority"></btn-big>
-  <btn-big class="orangeButton hd focus" number="2" text="Incoming"></btn-big>
+  <btn-big class="redButton hd focus" number="15" text="Priority" (click)="routing.GoToPriority()"></btn-big>
+  <btn-big class="orangeButton hd focus" number="2" text="Incoming" (click)="routing.GoToIncoming()"></btn-big>
 </div>
 <app-active-projects></app-active-projects>
 

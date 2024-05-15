@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, HostBinding, OnDestroy, ViewChild} from '@angular/core';
+import {Component, HostBinding, OnDestroy} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {WorkspaceMenuComponent} from "../workspace-menu/workspace-menu.component";
 import {ProjectMenuComponent} from "../project-menu/project-menu.component";
 import {GlobalSettings} from "../../../common/globalSettings";
+import {StateService} from "../../../services/state/state.service";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -13,32 +14,19 @@ import {Subscription} from "rxjs";
   styleUrl: './sidebar-menu.component.scss'
 })
 
-export class SidebarMenuComponent implements AfterViewInit, OnDestroy {
-  private projectMenuComponentSubscription: Subscription;
-  @ViewChild(ProjectMenuComponent)
-  projectMenuComponentRef: ProjectMenuComponent;
+export class SidebarMenuComponent implements OnDestroy {
+  constructor(public state: StateService) {
+    this.subscription = state.subject.subscribe(p => {
+      this.isHide = p.sidebarOpen.Value;
+    });
+  }
 
-  @ViewChild(WorkspaceMenuComponent)
-  workspaceMenuComponentRef: WorkspaceMenuComponent;
+  private subscription: Subscription;
 
   @HostBinding(GlobalSettings.sidebarMenuAnimationEnabled ? "class.isHideAnimated" : "class.isHide")
-  isHide: boolean = false;
-
-  ngAfterViewInit(): void {
-    if (this.projectMenuComponentRef) {
-      this.projectMenuComponentSubscription = this.projectMenuComponentRef.onChangeVisibilityWorkspaceMenu.subscribe(() => {
-        this.workspaceMenuComponentRef.changeVisibility();
-      });
-    } else {
-      this.projectMenuComponentSubscription && this.projectMenuComponentSubscription.unsubscribe();
-    }
-  }
+  isHide: boolean = this.state.sidebarOpen.Value;
 
   ngOnDestroy(): void {
-    this.projectMenuComponentSubscription && this.projectMenuComponentSubscription.unsubscribe();
-  }
-
-  changeVisibility(): void {
-    this.isHide = !this.isHide;
+    this.subscription.unsubscribe();
   }
 }

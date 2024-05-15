@@ -146,13 +146,13 @@ export class DataSource {
   static monthsCollection: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 }
 
-export type WorkspacePreviewType = { id: string, name: string; color: string, projects: ProjectPreviewType[] };
+export type WorkspacePreviewType = { id: string, name: string; color: string, imageUrl?: string, projects: ProjectPreviewType[] };
 export type ProjectPreviewType = { id: string; color: string; name: string, tasks: TaskPreviewType[] };
 export type TaskPreviewType = {
   id: string;
   description: string;
   dueDate?: number;
-  comments: (CommentPreviewType)[];
+  comments?: (CommentPreviewType)[];
 };
 export type CommentPreviewType = { id: string; content: string; author: string; createdAt: number };
 
@@ -171,6 +171,7 @@ export class Preview {
             {
               id: '1',
               description: 'Get access to a piano or keyboard.',
+              dueDate: Date.now(),
               comments: []
             },
             {
@@ -216,122 +217,122 @@ export class Preview {
           ]
         },
         {
-          id: '1',
+          id: '2',
           name: 'Mastering English',
           color: '#6610f2',
           tasks: []
         },
         {
-          id: '2',
+          id: '3',
           name: 'Mastering German',
           color: '#6f42c1',
           tasks: []
         },
         {
-          id: '3',
+          id: '4',
           name: 'Mastering French',
           color: '#e83e8c',
           tasks: []
         },
         {
-          id: '4',
+          id: '5',
           name: 'Writing a Novel',
           color: '#dc3545',
           tasks: []
         },
         {
-          id: '5',
+          id: '6',
           name: 'Travel Around the World',
           color: '#fd7e14',
           tasks: []
         },
         {
-          id: '6',
+          id: '7',
           name: 'Starting Own Business',
           color: '#ffc107',
           tasks: []
         },
         {
-          id: '7',
+          id: '8',
           name: 'Getting a Doctorate',
           color: '#28a745',
           tasks: []
         },
         {
-          id: '8',
+          id: '9',
           name: 'Marathon Training',
           color: '#20c997',
           tasks: []
         },
         {
-          id: '9',
+          id: '10',
           name: 'Learning to Cook',
           color: '#17a2b8',
           tasks: []
         },
 
         {
-          id: '10',
+          id: '11',
           name: 'Build House Yourself',
           color: '#007bff',
           tasks: []
         },
         {
-          id: '11',
+          id: '12',
           name: 'Complete Photography Course',
           color: '#6610f2',
           tasks: []
         },
         {
-          id: '12',
+          id: '13',
           name: 'Charity Project',
           color: '#6f42c1',
           tasks: []
         },
         {
-          id: '13',
+          id: '14',
           name: 'Mastering Meditation',
           color: '#e83e8c',
           tasks: []
         },
         {
-          id: '14',
+          id: '15',
           name: 'Creating Original Documentary',
           color: '#dc3545',
           tasks: []
         },
         {
-          id: '15',
+          id: '16',
           name: 'Public Speaking Skills Training',
           color: '#fd7e14',
           tasks: []
         },
         {
-          id: '16',
+          id: '17',
           name: 'Conquering Stock Market',
           color: '#ffc107',
           tasks: []
         },
         {
-          id: '17',
+          id: '18',
           name: 'Making Own Beer',
           color: '#28a745',
           tasks: []
         },
         {
-          id: '18',
+          id: '19',
           name: 'Learning Breakdance',
           color: '#20c997',
           tasks: []
         },
         {
-          id: '19',
+          id: '20',
           name: 'Cultivating Hydroponic Vegetables',
           color: '#17a2b8',
           tasks: []
         },
         {
-          id: '20',
+          id: '21',
           name: 'Own Fashion Show',
           color: '#007bff',
           tasks: []

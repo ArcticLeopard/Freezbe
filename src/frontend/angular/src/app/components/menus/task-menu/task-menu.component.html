@@ -4,12 +4,12 @@
     <div class="tfs-p-2">
       <span class="ml-1 pointerFocus">Project Name</span>
     </div>
-    <div class="text-gray">{{ tasks.length }} Tasks</div>
+    <div class="text-gray">{{ tasks?.length ?? 0 }} Tasks</div>
     <div>
       <btn-append></btn-append>
     </div>
   </div>
 </div>
 <div class="list">
-  <task-item *ngFor="let task of tasks" [dataSource]="task"></task-item>
+  <task-item *ngFor="let task of tasks" [class.active]="state.activeTask.Value==task.id" [dataSource]="task"></task-item>
 </div>

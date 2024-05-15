@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, HostBinding, HostListener, OnDestroy, Output, ViewChild} from '@angular/core';
+import {Component, HostBinding, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
 import {TaskStatusComponent} from "../../buttons/task-status/task-status.component";
@@ -8,9 +8,11 @@ import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.compon
 import {TaskItemComponent} from "../../task-item/task-item.component";
 import {SearchComponent} from "../../buttons/search/search.component";
 import {AppendComponent} from "../../buttons/append/append.component";
-import {DataSource} from "../../../common/dataSource";
-import {Subscription} from "rxjs";
-import {TaskType} from '../../../common/types';
+import {TaskPreviewType} from "../../../common/dataSource";
+import {DataSourceService} from "../../../services/dataSource/data-source.service";
+import {NavigationEnd, Router} from "@angular/router";
+import {filter, Subscription} from "rxjs";
+import {StateService} from "../../../services/state/state.service";
 
 @Component({
   selector: 'menu-task',
@@ -18,33 +20,32 @@ import {TaskType} from '../../../common/types';
   imports: [NgForOf, CommentBoxComponent, TaskStatusComponent, TaskPriorityComponent, CloseSidebarComponent, PlaceholderComponent, DatePipe, NgIf,
     TaskItemComponent, SearchComponent, AppendComponent],
   templateUrl: './task-menu.component.html',
-  styleUrl: './task-menu.component.scss'
+  styleUrl: './task-menu.component.scss',
+  providers: [DataSourceService]
 })
 
-export class TaskMenuComponent implements AfterViewInit, OnDestroy {
-  private closeSidebarBtnSubscription: Subscription;
-  tasks: TaskType[] = DataSource.taskCollection;
+export class TaskMenuComponent implements OnInit, OnDestroy {
+  constructor(public dataSource: DataSourceService, public state: StateService, private router: Router) {
+  }
 
-  @Output('closeSidebar')
-  onChangeVisibilitySidebarMenu: EventEmitter<void> = new EventEmitter();
-
-  @ViewChild(CloseSidebarComponent)
-  CloseSidebarBtnRef: CloseSidebarComponent;
-
-  ngAfterViewInit(): void {
-    if (this.CloseSidebarBtnRef) {
-      this.closeSidebarBtnSubscription = this.CloseSidebarBtnRef.onChangeVisibilitySidebarMenu.subscribe(() => this.onChangeVisibilitySidebarMenu.emit());
-    } else {
-      this.closeSidebarBtnSubscription && this.closeSidebarBtnSubscription.unsubscribe();
-    }
+  ngOnInit(): void {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.tasks = this.dataSource.getTasks();
+    });
   }
 
   ngOnDestroy(): void {
-    this.closeSidebarBtnSubscription && this.closeSidebarBtnSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
+  tasks: TaskPreviewType[] | undefined = this.dataSource.getTasks();
+  private subscription: Subscription;
+
   //TODO DO DRY
-  @HostBinding("class.areaActive") areaActive: boolean = false;
+  @HostBinding("class.areaActive")
+  areaActive: boolean = false;
 
   @HostListener('mouseenter')
   onMouseEnter() {
