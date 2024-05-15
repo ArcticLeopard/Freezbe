@@ -1,8 +1,9 @@
-import {Component, HostBinding, HostListener} from '@angular/core';
+import {Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
-import {DataSource} from "../../../common/dataSource";
-import {GlobalSettings} from "../../../common/globalSettings";
-import {WorkspaceType} from "../../../common/types";
+import {Preview, WorkspacePreviewType} from "../../../common/dataSource";
+import {StateService} from "../../../services/state/state.service";
+import {Subscription} from "rxjs";
+import {RoutingService} from "../../../services/routing/routing.service";
 
 @Component({
   selector: 'menu-workspace',
@@ -11,18 +12,28 @@ import {WorkspaceType} from "../../../common/types";
   templateUrl: './workspace-menu.component.html',
   styleUrl: './workspace-menu.component.scss'
 })
-export class WorkspaceMenuComponent {
-  @HostBinding('class.isHide')
-  isHide: boolean = GlobalSettings.hideWorkspaceMenuOnStartup;
-  defaultColor: string = '#ced0d6';
-  workspaces: WorkspaceType[] = DataSource.workspaceCollection;
-
-  changeVisibility() {
-    this.isHide = !this.isHide;
+export class WorkspaceMenuComponent implements OnDestroy {
+  constructor(public state: StateService, public routing: RoutingService) {
+    this.subscription = this.state.subject.subscribe(p => {
+      this.isHide = this.state.workspaceOpen.Value;
+    });
   }
 
+  private subscription: Subscription;
+
+  public defaultColor: string = '#ced0d6';
+  //public workspaces: WorkspacePreviewType[] = DataSource.workspaceCollection;
+  public workspaces: WorkspacePreviewType[] = Preview.workspaceCollection;
+  @HostBinding('class.isHide')
+  isHide: boolean = this.state.workspaceOpen.Value;
+
   //TODO DO DRY
-  @HostBinding("class.areaActive") areaActive: boolean = false;
+  @HostBinding("class.areaActive")
+  areaActive: boolean = false;
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   @HostListener('mouseenter')
   onMouseEnter() {

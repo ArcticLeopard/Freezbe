@@ -15,3 +15,7 @@ export const commentId = "commentId";
 export const comments = "comments";
 
 export const view = "view";
+export const priority = "priority";
+export const incoming = "incoming";
+export const singleTasks = "single_tasks";
+export const calendar = "calendar";

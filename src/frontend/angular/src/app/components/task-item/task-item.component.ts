@@ -3,6 +3,7 @@ import {DatePipe, NgIf} from "@angular/common";
 import {TaskPriorityComponent} from "../buttons/task-priority/task-priority.component";
 import {TaskStatusComponent} from "../buttons/task-status/task-status.component";
 import {RoutingService} from "../../services/routing/routing.service";
+import {StateService} from "../../services/state/state.service";
 
 @Component({
   selector: 'task-item',
@@ -13,18 +14,17 @@ import {RoutingService} from "../../services/routing/routing.service";
   providers: [RoutingService]
 })
 export class TaskItemComponent {
+  constructor(public state: StateService, private routing: RoutingService) {
+  }
+
   @Input("dataSource")
   task: any;
+
   @HostBinding("class.active")
   active: boolean = false;
 
-  constructor(private routing: RoutingService) {
-  }
-
   toggle(mouseEvent: MouseEvent): void {
-    this.active = !this.active;
-    this.routing.redirectToTask('1');
-
+    this.routing.GoToTask(this.task.id);
     mouseEvent.stopPropagation();
   }
 }
