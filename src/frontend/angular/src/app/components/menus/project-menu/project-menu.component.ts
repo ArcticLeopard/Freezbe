@@ -5,9 +5,9 @@ import {BigComponent} from "../../buttons/big/big.component";
 import {ActiveProjectsComponent} from "../../active-projects/active-projects.component";
 import {SearchComponent} from "../../buttons/search/search.component";
 import {StateService} from "../../../services/state/state.service";
-import {RoutingService} from "../../../services/routing/routing.service";
-import {WorkspacePreviewType} from "../../../common/dataSource";
-import {DataSourceService} from "../../../services/dataSource/data-source.service";
+import {AppNavigatorService} from "../../../services/app-navigator/app-navigator.service";
+import {WorkspaceType} from "../../../common/types";
+import {DataSourceService} from "../../../services/data-source/data-source.service";
 
 @Component({
   selector: 'menu-project',
@@ -15,14 +15,14 @@ import {DataSourceService} from "../../../services/dataSource/data-source.servic
   imports: [NgForOf, PlaceholderComponent, BigComponent, ActiveProjectsComponent, SearchComponent],
   templateUrl: './project-menu.component.html',
   styleUrl: './project-menu.component.scss',
-  providers: [DataSourceService, RoutingService]
+  providers: [DataSourceService, AppNavigatorService]
 })
 export class ProjectMenuComponent {
-  constructor(public state: StateService, public routing: RoutingService, public dataSource: DataSourceService) {
+  constructor(public state: StateService, public appNavigator: AppNavigatorService, public dataSource: DataSourceService) {
     this.currentWorkspace = dataSource.getWorkspace();
   }
 
-  public currentWorkspace: WorkspacePreviewType | undefined;
+  public currentWorkspace?: WorkspaceType;
 
   //TODO DO DRY
   @HostBinding("class.areaActive")

@@ -17,5 +17,6 @@ $bgColors: (classic: $classic, classic-dark: $classicDark, gray-dark: $dark);
 }
 
 .shadow-classic-dark {
-  @include shadow($classicDark);
+  //@include shadow($classicDark);
+  @include shadow(lighten($dark, 2%));
 }

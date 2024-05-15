@@ -1,15 +1,12 @@
-export type CommentType = { createdAt: number; author: string; content: string };
-export type ProjectType = { color: string; name: string };
-export type WorkspaceType = { color?: string; imageUrl?: string; name: string };
+export type WorkspaceType = { id: string, name: string; color?: string, imageUrl?: string, projects: ProjectType[] };
+export type ProjectType = { id: string; color: string; name: string, tasks: TaskType[] };
 export type TaskType = {
-  comments?: (CommentType)[];
-  dueDate: number;
+  id: string;
   name: string;
-  project: string;
-  occurrence: number | null;
-  remindMe: number
+  dueDate?: number;
+  comments?: (CommentType)[];
 };
-
+export type CommentType = { id: string; content: string; author: string; createdAt: number };
 export type CalendarDayType = { day: number, isToday: boolean, isDay: boolean };
 
 export enum CalendarChangeStrategy {

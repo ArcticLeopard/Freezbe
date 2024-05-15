@@ -2,8 +2,8 @@ import {Component, HostBinding, Input} from '@angular/core';
 import {DatePipe, NgIf} from "@angular/common";
 import {TaskPriorityComponent} from "../buttons/task-priority/task-priority.component";
 import {TaskStatusComponent} from "../buttons/task-status/task-status.component";
-import {RoutingService} from "../../services/routing/routing.service";
-import {StateService} from "../../services/state/state.service";
+import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
+import {TaskType} from "../../common/types";
 
 @Component({
   selector: 'task-item',
@@ -11,20 +11,20 @@ import {StateService} from "../../services/state/state.service";
   imports: [DatePipe, NgIf, TaskPriorityComponent, TaskStatusComponent],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss',
-  providers: [RoutingService]
+  providers: [AppNavigatorService]
 })
 export class TaskItemComponent {
-  constructor(public state: StateService, private routing: RoutingService) {
+  constructor(private appNavigator: AppNavigatorService) {
   }
 
   @Input("dataSource")
-  task: any;
+  task: TaskType;
 
   @HostBinding("class.active")
   active: boolean = false;
 
   toggle(mouseEvent: MouseEvent): void {
-    this.routing.GoToTask(this.task.id);
+    this.appNavigator.GoToTask(this.task.id);
     mouseEvent.stopPropagation();
   }
 }
