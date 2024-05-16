@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {Preview, WorkspacePreviewType} from "../../common/dataSource";
+import {DataSource} from "../../common/dataSource";
+import {WorkspaceType} from "../../common/types";
 import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 
@@ -14,9 +15,9 @@ import {RouterLink} from "@angular/router";
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
-  public workspaceCollection: WorkspacePreviewType[];
+  public workspaceCollection: WorkspaceType[];
 
   constructor() {
-    this.workspaceCollection = Preview.workspaceCollection;
+    this.workspaceCollection = DataSource.workspaceCollection;
   }
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostBinding, HostListener, OnDestroy, Output} from '@angular/core';
+import {Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
 import {GlobalSettings} from "../../../common/globalSettings";
 import {StateService} from "../../../services/state/state.service";
 import {Subscription} from "rxjs";

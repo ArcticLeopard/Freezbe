@@ -8,8 +8,8 @@ import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.compon
 import {TaskItemComponent} from "../../task-item/task-item.component";
 import {SearchComponent} from "../../buttons/search/search.component";
 import {AppendComponent} from "../../buttons/append/append.component";
-import {TaskPreviewType} from "../../../common/dataSource";
-import {DataSourceService} from "../../../services/dataSource/data-source.service";
+import {ProjectType, TaskType} from "../../../common/types";
+import {DataSourceService} from "../../../services/data-source/data-source.service";
 import {NavigationEnd, Router} from "@angular/router";
 import {filter, Subscription} from "rxjs";
 import {StateService} from "../../../services/state/state.service";
@@ -28,20 +28,9 @@ export class TaskMenuComponent implements OnInit, OnDestroy {
   constructor(public dataSource: DataSourceService, public state: StateService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    this.subscription = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.tasks = this.dataSource.getTasks();
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  tasks: TaskPreviewType[] | undefined = this.dataSource.getTasks();
   private subscription: Subscription;
+  public project?: ProjectType = this.dataSource.getProject();
+  public tasks?: TaskType[] = this.dataSource.getTasks();
 
   //TODO DO DRY
   @HostBinding("class.areaActive")
@@ -55,5 +44,18 @@ export class TaskMenuComponent implements OnInit, OnDestroy {
   @HostListener('mouseleave')
   onMouseLeave() {
     this.areaActive = false;
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.tasks = this.dataSource.getTasks();
+      this.project = this.dataSource.getProject();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

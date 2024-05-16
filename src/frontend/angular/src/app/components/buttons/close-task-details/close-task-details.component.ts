@@ -1,19 +1,19 @@
 import {Component, HostListener} from '@angular/core';
-import {RoutingService} from "../../../services/routing/routing.service";
+import {AppNavigatorService} from "../../../services/app-navigator/app-navigator.service";
 
 @Component({
   selector: 'btn-close-task-details',
   standalone: true,
   templateUrl: './close-task-details.component.html',
   styleUrl: './close-task-details.component.scss',
-  providers: [RoutingService]
+  providers: [AppNavigatorService]
 })
 export class CloseTaskDetailsComponent {
-  constructor(private routing: RoutingService) {
+  constructor(private appNavigator: AppNavigatorService) {
   }
 
   @HostListener('click')
   CloseSidebar(): void {
-    this.routing.GoToTasks();
+    this.appNavigator.GoToTask();
   }
 }

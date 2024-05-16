@@ -1,5 +1,5 @@
-<div *ngFor="let workspace of workspaces" [title]="'Workspace: '+workspace.name" class="workspaceMenuElement" (click)="routing.GoToWorkspace(workspace.id)">
-  <div [style.background]="workspace.color ?? defaultColor" class="workspaceMenuElementIcon">
+<div *ngFor="let workspace of workspaces" [title]="'Workspace: '+workspace.name" class="workspaceMenuElement" (click)="appNavigator.GoToWorkspace(workspace.id)">
+  <div [style.background]="workspace.color ?? GlobalSettings.defaultWorkspaceBackgroundColor" class="workspaceMenuElementIcon">
     <img *ngIf="workspace.imageUrl" [src]="workspace.imageUrl" alt>
     <span *ngIf="!workspace.imageUrl">{{ workspace.name | slice:0:2 }}</span>
   </div>

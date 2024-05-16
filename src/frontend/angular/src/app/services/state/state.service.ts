@@ -61,7 +61,7 @@ export class State<T> {
   }
 
   loadFromLocalStorage(key: string): T {
-    let input: string | null = localStorage.getItem(key);
+    let input = localStorage.getItem(key);
     if (input !== null) {
       return JSON.parse(input);
     }
