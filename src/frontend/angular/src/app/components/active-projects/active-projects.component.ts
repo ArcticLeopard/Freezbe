@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {ProjectPreviewType} from "../../common/dataSource";
+import {ProjectType} from "../../common/types";
 import {StateService} from "../../services/state/state.service";
 import {Subscription} from "rxjs";
-import {RoutingService} from "../../services/routing/routing.service";
-import {DataSourceService} from "../../services/dataSource/data-source.service";
+import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
+import {DataSourceService} from "../../services/data-source/data-source.service";
 
 @Component({
   selector: 'app-active-projects',
@@ -14,15 +14,15 @@ import {DataSourceService} from "../../services/dataSource/data-source.service";
   styleUrl: './active-projects.component.scss'
 })
 export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
-  constructor(public state: StateService, private hostRef: ElementRef, public routing: RoutingService, dataSource: DataSourceService) {
+  constructor(public state: StateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef, dataSource: DataSourceService) {
     this.projects = dataSource.getProjects();
   }
 
   private subscription: Subscription;
-  public projects: ProjectPreviewType[] | undefined;
+  public projects?: ProjectType[];
 
   ngAfterViewInit(): void {
-    this.subscription = this.state.subject.subscribe(p => {
+    this.subscription = this.state.subject.subscribe(() => {
       this.hostRef.nativeElement.scrollTop = this.state.scrollPosition.Value;
     });
   }

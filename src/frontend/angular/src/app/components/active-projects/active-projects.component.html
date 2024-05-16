@@ -12,7 +12,7 @@
   </span>
 </div>
 <ng-template [ngIf]="this.state.activeProjectOpen.Value">
-  <div *ngFor="let project of projects" [title]="'Project: '+project.name" class="project" (click)="routing.GoToProject(project.id)">
+  <div *ngFor="let project of projects" [title]="'Project: '+project.name" class="project" (click)="appNavigator.GoToProject(project.id)">
     <span class="icon">
       <svg width="20" height="20" viewBox="0 0 32 32" [attr.fill]="project.color">
         <path d="M30,25l-14,7l-14,-7l0,-18l14,-7l14,7l0,18Zm-12,-10l0,11.997l8,-3.996l0,-12.001l-8,4Zm-12,7.989l8,3.996l0,-11.985l-8,-4l0,11.989Zm10.012,-18.979l7.988,3.99l-7.988,3.99l-7.989,-3.99l7.989,-3.99Z" />
@@ -21,3 +21,13 @@
     <span class="text">{{ project.name }}</span>
   </div>
 </ng-template>
+<div class="header" (click)="this.state.activeProjectOpen.Toggle()" title="Create new project">
+  <span class="icon">
+    <svg width="14" height="14" viewBox="0 0 28 28" fill="#ABABAB">
+      <path d="M12.214,12.214l-7.214,0c-0.552,0 -1,0.448 -1,1l0,1.572c0,0.552 0.448,1 1,1l7.214,-0l0,7.214c0,0.552 0.448,1 1,1l1.572,-0c0.552,-0 1,-0.448 1,-1l-0,-7.214l7.214,-0c0.552,-0 1,-0.448 1,-1l0,-1.572c0,-0.552 -0.448,-1 -1,-1l-7.214,0l-0,-7.214c-0,-0.552 -0.448,-1 -1,-1l-1.572,-0c-0.552,-0 -1,0.448 -1,1l0,7.214Z" />
+    </svg>
+  </span>
+  <span class="text">
+    Create new project
+  </span>
+</div>

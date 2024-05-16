@@ -1,17 +1,33 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {WindowComponent} from "../window/window.component";
+import {DataSourceService} from "../../../services/data-source/data-source.service";
+import {ProjectType} from "../../../common/types";
 
 @Component({
   selector: 'window-project',
   standalone: true,
   imports: [NgForOf, NgIf],
   templateUrl: './window-project.component.html',
-  styleUrl: './window-project.component.scss'
+  styleUrl: './window-project.component.scss',
+  providers: [DataSourceService]
 })
 
 export class WindowProjectComponent extends WindowComponent {
-  projects: string[] = ['Project 1', 'Project 2', 'Project 3', 'Project 4', 'Project 5', 'Project 6', 'Project 7', 'Project 8', 'Project 9', 'Project 10', 'Project 11', 'Project 12', 'Project 13', 'Project 14'];
+  protected override elementRef: ElementRef;
+
+  protected override renderer: Renderer2;
+
+  constructor(elementRef: ElementRef, renderer: Renderer2, private dataSource: DataSourceService) {
+
+    super(elementRef, renderer);
+    this.renderer = renderer;
+    this.elementRef = elementRef;
+    this.projects = dataSource.getProjects();
+
+  }
+
+  projects?: ProjectType[];
 
   @ViewChild('search')
   input: ElementRef;
