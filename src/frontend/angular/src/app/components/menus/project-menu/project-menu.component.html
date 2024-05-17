@@ -1,6 +1,6 @@
 <div class="header">
   <div class="ml-3 sectionInfoContainer px-0 transparentScroll tfs-p-2">
-    <span (click)="state.workspaceOpen.Toggle()" class="workspaceName" [title]="state.workspaceOpen.Value?'Collapse workspace menu':'Expand workspace menu'">{{ currentWorkspace?.name }}</span>
+    <span (click)="state.workspaceOpen.Toggle()" class="workspaceName" [title]="state.workspaceOpen.Value?'Collapse workspace menu':'Expand workspace menu'">{{ state.workspace.Value?.name }}</span>
   </div>
 </div>
 <div class="header">

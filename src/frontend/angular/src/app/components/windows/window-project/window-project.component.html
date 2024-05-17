@@ -2,7 +2,6 @@
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">
-        <!--        <btn-close-window></btn-close-window>-->
         <div class="windowHeaderTitleContainer">
           <span class="pointerFocus">{{ name }}</span>
         </div>
@@ -12,7 +11,7 @@
       <div class="content">
         <input type="search" placeholder="Search" #search>
         <div class="projectList">
-          <div class="project" *ngFor="let project of projects">{{ project.name }}</div>
+          <div class="project" *ngFor="let project of state.projects.Value">{{ project.name }}</div>
         </div>
       </div>
     </div>

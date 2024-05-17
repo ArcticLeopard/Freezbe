@@ -6,23 +6,17 @@ import {ActiveProjectsComponent} from "../../active-projects/active-projects.com
 import {SearchComponent} from "../../buttons/search/search.component";
 import {StateService} from "../../../services/state/state.service";
 import {AppNavigatorService} from "../../../services/app-navigator/app-navigator.service";
-import {WorkspaceType} from "../../../common/types";
-import {DataSourceService} from "../../../services/data-source/data-source.service";
 
 @Component({
   selector: 'menu-project',
   standalone: true,
   imports: [NgForOf, PlaceholderComponent, BigComponent, ActiveProjectsComponent, SearchComponent],
   templateUrl: './project-menu.component.html',
-  styleUrl: './project-menu.component.scss',
-  providers: [DataSourceService, AppNavigatorService]
+  styleUrl: './project-menu.component.scss'
 })
 export class ProjectMenuComponent {
-  constructor(public state: StateService, public appNavigator: AppNavigatorService, public dataSource: DataSourceService) {
-    this.currentWorkspace = dataSource.getWorkspace();
+  constructor(public state: StateService, public appNavigator: AppNavigatorService) {
   }
-
-  public currentWorkspace?: WorkspaceType;
 
   //TODO DO DRY
   @HostBinding("class.areaActive")

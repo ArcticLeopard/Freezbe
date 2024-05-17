@@ -1,15 +1,15 @@
 <div class="header">
   <div class="sectionInfoContainer px-4">
-    <btn-close-sidebar></btn-close-sidebar>
+    <btn-close-sidebar class="pr-2"></btn-close-sidebar>
     <div class="tfs-p-2">
-      <span class="ml-1 pointerFocus">{{ project?.name }}</span>
+      <span class="ml-1 pointerFocus">{{ this.state.project.Value?.name }}</span>
     </div>
-    <div class="text-gray">{{ tasks?.length ?? 0 }} Tasks</div>
+    <div class="text-gray">{{ this.state.tasks.Value?.length ?? 0 }} Tasks</div>
     <div>
-      <btn-append></btn-append>
+      <btn-append class="pl-2"></btn-append>
     </div>
   </div>
 </div>
 <div class="list">
-  <task-item *ngFor="let task of tasks" [class.active]="state.activeTask.Value==task.id" [dataSource]="task"></task-item>
+  <task-item *ngFor="let task of this.state.tasks.Value" class="bg-classic-dark hd" [class.active]="task == state.task.Value" [dataSource]="task"></task-item>
 </div>
