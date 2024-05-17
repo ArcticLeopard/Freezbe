@@ -1,10 +1,8 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {ProjectType} from "../../common/types";
 import {StateService} from "../../services/state/state.service";
 import {Subscription} from "rxjs";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
-import {DataSourceService} from "../../services/data-source/data-source.service";
 
 @Component({
   selector: 'app-active-projects',
@@ -14,12 +12,10 @@ import {DataSourceService} from "../../services/data-source/data-source.service"
   styleUrl: './active-projects.component.scss'
 })
 export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
-  constructor(public state: StateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef, dataSource: DataSourceService) {
-    this.projects = dataSource.getProjects();
+  constructor(public state: StateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef) {
   }
 
   private subscription: Subscription;
-  public projects?: ProjectType[];
 
   ngAfterViewInit(): void {
     this.subscription = this.state.subject.subscribe(() => {
