@@ -1,16 +1,14 @@
 import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {WindowComponent} from "../window/window.component";
-import {DataSourceService} from "../../../services/data-source/data-source.service";
-import {ProjectType} from "../../../common/types";
+import {StateService} from "../../../services/state/state.service";
 
 @Component({
   selector: 'window-project',
   standalone: true,
   imports: [NgForOf, NgIf],
   templateUrl: './window-project.component.html',
-  styleUrl: './window-project.component.scss',
-  providers: [DataSourceService]
+  styleUrl: './window-project.component.scss'
 })
 
 export class WindowProjectComponent extends WindowComponent {
@@ -18,16 +16,11 @@ export class WindowProjectComponent extends WindowComponent {
 
   protected override renderer: Renderer2;
 
-  constructor(elementRef: ElementRef, renderer: Renderer2, private dataSource: DataSourceService) {
-
+  constructor(elementRef: ElementRef, renderer: Renderer2, public state: StateService) {
     super(elementRef, renderer);
     this.renderer = renderer;
     this.elementRef = elementRef;
-    this.projects = dataSource.getProjects();
-
   }
-
-  projects?: ProjectType[];
 
   @ViewChild('search')
   input: ElementRef;

@@ -52,7 +52,7 @@ $workspaceMenuElementSize: (10 * $distance);
   @extend .tr-ae-03;
 
   //Paddings
-  @extend .pb-1, .pl-1;
+  @extend .py-1, .pl-1;
 
   //Cursors
   @extend .pointer;
@@ -99,5 +99,12 @@ $workspaceMenuElementSize: (10 * $distance);
         box-shadow: 0 0 0 .4rem $white-60
       }
     }
+  }
+
+  border-left: solid 0.2rem $dark;
+
+  &.active {
+    color: $white;
+    border-left: solid 0.2rem $white;
   }
 }

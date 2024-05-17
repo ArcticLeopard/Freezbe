@@ -1,23 +1,11 @@
 @import "../../../imports";
 
 :host {
-  @extend .bg-classic-dark, .shadow-classic-dark;
+  @extend .shadow-classic-dark;
   @extend .tr-ae-04;
   height: 5.3rem;
   display: flex;
   margin: 0.2rem 0 0.2rem 0.2rem;
-
-  &:hover {
-    background: $dark;
-  }
-
-  &.active {
-    background: darken($dark, 2%);
-  }
-
-  &:hover.active {
-    background: darken($dark, 3%);
-  }
 }
 
 .task-container {
@@ -26,8 +14,6 @@
 
   @extend .px-4, .pointer, .row, .bb;
   align-items: center;
-  //border: 0.1rem solid rgba(171, 171, 171,0.3);
-  //border-radius: 0.5rem;
   position: relative;
 }
 

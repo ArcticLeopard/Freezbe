@@ -1,12 +1,12 @@
 <div class="ml-3 my-3 transparentScroll">
   <div class="container">
-    <div class="pr-1 w50">
-      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="windowProjectRef.show($event)">Project</button>
+    <div class="pr-1 w50 tfs-m-2">
+      <button class="bg-classic hd focus detailButton pointer" title="Change Project" (click)="windowProjectRef.show($event)"> {{ (state.project.Value?.name ?? 'Project') }}</button>
     </div>
-    <div class="pl-1 w50">
-      <button class="bg-classic hd focus detailButton pointer" title="Change Due Date" (click)="windowDueDateRef.show($event)">Due Date</button>
+    <div class="pl-1 w50 tfs-m-2">
+      <button class="bg-classic hd focus detailButton pointer" title="Change Due Date" (click)="windowDueDateRef.show($event)">{{ (state.task.Value?.dueDate | date: 'EEE, MMM d, h:mm a') ?? 'Due Date' }}</button>
     </div>
   </div>
 </div>
-<window-project name="Project" width="29" height="40" minWidth="28" heightResizing></window-project>
+<window-project name="Project" width="29" height="40" minWidth="28" minHeight="18" heightResizing></window-project>
 <window-due-date name="Calendar" width="29" height="31.5" minHeight="31.5"></window-due-date>

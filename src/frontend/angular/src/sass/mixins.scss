@@ -22,6 +22,10 @@
         box-shadow: inset 0 0 2px 2px $borderColor;
       }
     }
+
+    &.active {
+      background-color: darken($currentColor, 20%);
+    }
   }
 
   &.hl {
@@ -42,6 +46,10 @@
         @extend .tr-ae-02;
         box-shadow: inset 0 0 2px 2px $borderColor;
       }
+    }
+
+    &.active {
+      background-color: lighten($currentColor, 20%);
     }
   }
 }

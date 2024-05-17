@@ -10,8 +10,7 @@ import {TaskType} from "../../common/types";
   standalone: true,
   imports: [DatePipe, NgIf, TaskPriorityComponent, TaskStatusComponent],
   templateUrl: './task-item.component.html',
-  styleUrl: './task-item.component.scss',
-  providers: [AppNavigatorService]
+  styleUrl: './task-item.component.scss'
 })
 export class TaskItemComponent {
   constructor(private appNavigator: AppNavigatorService) {
