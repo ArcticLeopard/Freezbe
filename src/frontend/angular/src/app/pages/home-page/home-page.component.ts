@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {DataSource} from "../../common/dataSource";
 import {WorkspaceType} from "../../common/types";
 import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {DataSourceService} from "../../services/data-source/data-source.service";
 
 @Component({
   selector: 'home-page',
@@ -17,7 +17,7 @@ import {RouterLink} from "@angular/router";
 export class HomePageComponent {
   public workspaceCollection: WorkspaceType[];
 
-  constructor() {
-    this.workspaceCollection = DataSource.workspaceCollection;
+  constructor(dataSourceService: DataSourceService) {
+    this.workspaceCollection = dataSourceService.getWorkspaces();
   }
 }

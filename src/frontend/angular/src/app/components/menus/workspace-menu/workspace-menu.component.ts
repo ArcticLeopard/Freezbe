@@ -14,8 +14,11 @@ import {GlobalSettings} from "../../../common/globalSettings";
 })
 export class WorkspaceMenuComponent implements OnDestroy {
   constructor(public state: StateService, public appNavigator: AppNavigatorService) {
-    this.subscription = this.state.subject.subscribe(p => {
-      this.isHide = p.workspaceOpen.Value;
+    this.subscription = this.state.subject.subscribe(state => {
+      this.isHide = state.workspaceOpen.Value;
+      if (state.sidebarOpen.Value) {
+        this.isHide = state.sidebarOpen.Value;
+      }
     });
   }
 
