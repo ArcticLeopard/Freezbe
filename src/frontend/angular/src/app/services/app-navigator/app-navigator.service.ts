@@ -1,80 +1,50 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {incoming, priority, projects, tasks, workspaces} from "../../common/consts";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, UrlSegment} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-import {DataSourceDirectService} from "../data-source-direct/data-source-direct.service";
+import {DataSourceService} from "../data-source/data-source.service";
 import {StateService} from "../state/state.service";
+import {Subscription} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
-export class AppNavigatorService {
-  constructor(public route: ActivatedRoute, public router: Router, private titleService: Title, private dataSource: DataSourceDirectService, stateService: StateService) {
-    this.route.url.subscribe((p) => {
-      this.invokeCounter++;
-      console.log("AppNavigatorService: Update Counter: " + this.invokeCounter);
-      stateService.currentWorkspaceId.Value = p[1]?.path;
-      stateService.currentViewName.Value = p[2]?.path;
-      if (stateService.currentViewName.Value == projects) {
-        stateService.currentProjectId.Value = p[3]?.path;
-        stateService.currentTaskId.Value = p[5]?.path;
-      } else {
-        stateService.currentProjectId.Value = null;
-        stateService.currentTaskId.Value = null;
-      }
-    });
-
-    stateService.subject.subscribe(p => {
-      this.currentWorkspaceId = p.currentWorkspaceId.Value;
-      this.currentViewName = p.currentViewName.Value;
-      this.currentTaskId = p.currentTaskId.Value;
-      this.currentProjectId = p.currentProjectId.Value;
-
-      stateService.taskDetailsOpen.ValueWithoutPropagation = !!p.currentTaskId.Value;
-      //TODO
-      stateService.workspace.ValueWithoutPropagation = dataSource.getWorkspace(p.currentWorkspaceId.Value);
-      stateService.projects.ValueWithoutPropagation = dataSource.getProjects(p.currentWorkspaceId.Value);
-
-      stateService.tasks.ValueWithoutPropagation = undefined;
-      stateService.project.ValueWithoutPropagation = undefined;
-      stateService.task.ValueWithoutPropagation = undefined;
-      stateService.comments.ValueWithoutPropagation = undefined;
-
-      if (p.currentProjectId.Value) {
-        stateService.tasks.ValueWithoutPropagation = dataSource.getTasks(p.currentWorkspaceId.Value, p.currentProjectId.Value);
-        stateService.project.ValueWithoutPropagation = dataSource.getProject(p.currentWorkspaceId.Value, p.currentProjectId.Value);
-        if (p.currentTaskId.Value) {
-          stateService.task.ValueWithoutPropagation = dataSource.getTask(p.currentWorkspaceId.Value, p.currentProjectId.Value, p.currentTaskId.Value);
-          stateService.comments.ValueWithoutPropagation = dataSource.getComments(p.currentWorkspaceId.Value, p.currentProjectId.Value, p.currentTaskId.Value);
-        }
-      }
-    });
+export class AppNavigatorService implements OnDestroy {
+  constructor(public route: ActivatedRoute, public router: Router, private titleService: Title, private dataSourceService: DataSourceService, private state: StateService) {
+    this.routeSubscription = this.route.url.subscribe(p => this.handleRouteChange(p));
+    this.stateSubscription = this.state.subject.subscribe(p => this.handleStateChange(p));
   }
 
-  public currentWorkspaceId: string;
+  private routeSubscription: Subscription;
+  private stateSubscription: Subscription;
   public currentViewName: string;
+  public currentWorkspaceId: string;
   public currentProjectId: string | null;
   public currentTaskId: string | null;
-  invokeCounter: number = 0;
 
-  GoToPriority() {
+  ngOnDestroy(): void {
+    this.routeSubscription.unsubscribe();
+    this.stateSubscription.unsubscribe();
+  }
+
+  public GoToPriority(): void {
     this.router.navigate([workspaces, this.currentWorkspaceId, priority]).then();
   }
 
-  GoToIncoming() {
+  public GoToIncoming(): void {
     this.router.navigate([workspaces, this.currentWorkspaceId, incoming]).then();
   }
 
-  GoToWorkspace(workspaceId: string) {
+  public GoToWorkspace(workspaceId: string): void {
     this.router.navigate([workspaces, workspaceId, priority]).then();
   }
 
-  GoToProject(projectId: string) {
+  public GoToProject(projectId: string): void {
     this.router.navigate([workspaces, this.currentWorkspaceId, projects, projectId]).then();
     this.SetTitleForProject(projectId);
   }
 
-  GoToTask(taskId: string = ''): void {
+  public GoToTask(taskId: string = ''): void {
     if (this.currentViewName) {
       if (this.currentViewName !== projects)
         if (this.currentTaskId) {
@@ -95,18 +65,50 @@ export class AppNavigatorService {
     }
   }
 
-  private SetTitleForWorkspace(workspaceId: string | null) {
-    let title = this.dataSource.getWorkspace(workspaceId ?? '')?.name;
+  private SetTitleForProject(projectId: string | null): void {
+    let title = this.dataSourceService.getProject(this.currentWorkspaceId ?? '', projectId ?? '')?.name;
     this.titleService.setTitle(`${title} - Freezbe` ?? 'Freezbe');
   }
 
-  private SetTitleForProject(projectId: string | null) {
-    let title = this.dataSource.getProject(this.currentWorkspaceId ?? '', projectId ?? '')?.name;
+  private SetTitleForTask(taskId: string | null): void {
+    let title = this.dataSourceService.getTask(this.currentWorkspaceId ?? '', this.currentProjectId ?? '', taskId ?? '')?.name;
     this.titleService.setTitle(`${title} - Freezbe` ?? 'Freezbe');
   }
 
-  private SetTitleForTask(taskId: string | null) {
-    let title = this.dataSource.getTask(this.currentWorkspaceId ?? '', this.currentProjectId ?? '', taskId ?? '')?.name;
-    this.titleService.setTitle(`${title} - Freezbe` ?? 'Freezbe');
+  private handleRouteChange(urlSegments: UrlSegment[]): void {
+    this.state.currentWorkspaceId.Value = urlSegments[1]?.path;
+    this.state.currentViewName.Value = urlSegments[2]?.path;
+    if (this.state.currentViewName.Value == projects) {
+      this.state.currentProjectId.Value = urlSegments[3]?.path;
+      this.state.currentTaskId.Value = urlSegments[5]?.path;
+    } else {
+      this.state.currentProjectId.Value = null;
+      this.state.currentTaskId.Value = null;
+    }
+  }
+
+  private handleStateChange(state: StateService): void {
+    this.currentWorkspaceId = state.currentWorkspaceId.Value;
+    this.currentViewName = state.currentViewName.Value;
+    this.currentTaskId = state.currentTaskId.Value;
+    this.currentProjectId = state.currentProjectId.Value;
+
+    this.state.taskDetailsOpen.ValueWithoutPropagation = !!state.currentTaskId.Value;
+    this.state.workspace.ValueWithoutPropagation = this.dataSourceService.getWorkspace(state.currentWorkspaceId.Value);
+    this.state.projects.ValueWithoutPropagation = this.dataSourceService.getProjects(state.currentWorkspaceId.Value);
+
+    this.state.tasks.ValueWithoutPropagation = undefined;
+    this.state.project.ValueWithoutPropagation = undefined;
+    this.state.task.ValueWithoutPropagation = undefined;
+    this.state.comments.ValueWithoutPropagation = undefined;
+
+    if (state.currentProjectId.Value) {
+      this.state.tasks.ValueWithoutPropagation = this.dataSourceService.getTasks(state.currentWorkspaceId.Value, state.currentProjectId.Value);
+      this.state.project.ValueWithoutPropagation = this.dataSourceService.getProject(state.currentWorkspaceId.Value, state.currentProjectId.Value);
+      if (state.currentTaskId.Value) {
+        this.state.task.ValueWithoutPropagation = this.dataSourceService.getTask(state.currentWorkspaceId.Value, state.currentProjectId.Value, state.currentTaskId.Value);
+        this.state.comments.ValueWithoutPropagation = this.dataSourceService.getComments(state.currentWorkspaceId.Value, state.currentProjectId.Value, state.currentTaskId.Value);
+      }
+    }
   }
 }

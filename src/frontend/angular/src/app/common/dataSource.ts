@@ -1,7 +1,7 @@
 import {WorkspaceType} from "./types";
 
 export class DataSource {
-  static workspaceCollection: WorkspaceType[] = [
+  static template: WorkspaceType[] = [
     {
       id: '1',
       name: 'Personal Workspace',
