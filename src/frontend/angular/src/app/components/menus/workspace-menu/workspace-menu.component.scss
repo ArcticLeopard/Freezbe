@@ -28,8 +28,18 @@ $workspaceMenuElementSize: (10 * $distance);
   &.isHide {
     width: $distance;
 
+    .workspaceMenuElement {
+      @extend .inactiveWorkspace;
+    }
+
     &:hover {
       width: $widthWorkSpace;
+
+      .workspaceMenuElement {
+        &.activeWorkspace {
+          @extend .activeWorkspace;
+        }
+      }
     }
   }
 
@@ -70,7 +80,7 @@ $workspaceMenuElementSize: (10 * $distance);
     color: $black;
     width: $workspaceMenuElementSize;
     height: $workspaceMenuElementSize;
-    margin: 0.2rem 0;
+    margin: 0.4rem 0;
     border-radius: 1.2rem;
 
     img {
@@ -101,10 +111,17 @@ $workspaceMenuElementSize: (10 * $distance);
     }
   }
 
-  border-left: solid 0.2rem $dark;
+  @extend .inactiveWorkspace;
 
   &.active {
-    color: $white;
-    border-left: solid 0.2rem $white;
+    @extend .activeWorkspace;
   }
+}
+
+.activeWorkspace {
+  border-left: solid $distance $white;
+}
+
+.inactiveWorkspace {
+  border-left: solid $distance $dark;
 }

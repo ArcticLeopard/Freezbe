@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {GlobalSettings} from "../../common/globalSettings";
 import {CommentType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
-import {DataSource} from "../../common/dataSource";
+import {DataSourceService} from "../data-source/data-source.service";
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class StateService {
   public tasks: State<TaskType[] | undefined>;
   public comments: State<CommentType[] | undefined>;
 
-  constructor() {
+  constructor(dataSourceService: DataSourceService) {
     let counter = 0;
     this.subject = new BehaviorSubject<StateService>(this);
     this.subject.subscribe(() => {
@@ -48,7 +48,7 @@ export class StateService {
     this.currentTaskId = new State<string | null>(this.subject, this, null);
 
     this.workspace = new State<WorkspaceType | undefined>(this.subject, this, undefined);
-    this.workspaces = new State<WorkspaceType[]>(this.subject, this, DataSource.workspaceCollection);
+    this.workspaces = new State<WorkspaceType[]>(this.subject, this, dataSourceService.getWorkspaces());
     this.project = new State<ProjectType | undefined>(this.subject, this, undefined);
     this.projects = new State<ProjectType[] | undefined>(this.subject, this, undefined);
     this.task = new State<TaskType | undefined>(this.subject, this, undefined);
