@@ -4,7 +4,7 @@ import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.compon
 import {BigComponent} from "../../buttons/big/big.component";
 import {ActiveProjectsComponent} from "../../active-projects/active-projects.component";
 import {SearchComponent} from "../../buttons/search/search.component";
-import {StateService} from "../../../services/state/state.service";
+import {ViewStateService} from "../../../services/state/view-state.service";
 import {AppNavigatorService} from "../../../services/app-navigator/app-navigator.service";
 
 @Component({
@@ -15,7 +15,7 @@ import {AppNavigatorService} from "../../../services/app-navigator/app-navigator
   styleUrl: './project-menu.component.scss'
 })
 export class ProjectMenuComponent {
-  constructor(public state: StateService, public appNavigator: AppNavigatorService) {
+  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService) {
   }
 
   //TODO DO DRY

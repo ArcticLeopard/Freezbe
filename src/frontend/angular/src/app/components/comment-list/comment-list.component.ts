@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {DatePipe, NgClass, NgForOf} from "@angular/common";
-import {StateService} from "../../services/state/state.service";
+import {ViewStateService} from "../../services/state/view-state.service";
 
 @Component({
   selector: 'app-comment-list',
@@ -11,6 +11,6 @@ import {StateService} from "../../services/state/state.service";
 })
 export class CommentListComponent {
 
-  constructor(public state: StateService) {
+  constructor(public viewState: ViewStateService) {
   }
 }

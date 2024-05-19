@@ -2,14 +2,16 @@
   <div class="sectionInfoContainer px-4">
     <btn-close-sidebar class="pr-2"></btn-close-sidebar>
     <div class="tfs-p-2">
-      <span class="ml-1 pointerFocus">{{ this.state.project.Value?.name }}</span>
+      <span class="ml-1 pointerFocus">{{ this.viewState.project.Value?.name }}</span>
     </div>
-    <div class="text-gray">{{ this.state.tasks.Value?.length ?? 0 }} Tasks</div>
+    <div class="text-gray">{{ this.viewState.tasks.length }} Tasks</div>
     <div>
       <btn-append class="pl-2"></btn-append>
     </div>
   </div>
 </div>
 <div class="list">
-  <task-item *ngFor="let task of this.state.tasks.Value" class="bg-classic-dark hd" [class.active]="task == state.task.Value" [dataSource]="task"></task-item>
+  <ng-container *ngFor="let task of this.viewState.tasks">
+    <task-item class="bg-classic-dark hd" [class.active]="task == viewState.task.Value" [model]="task" (modelChange)="viewState.refreshView()"></task-item>
+  </ng-container>
 </div>

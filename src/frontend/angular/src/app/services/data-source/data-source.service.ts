@@ -1,12 +1,20 @@
 import {Injectable} from '@angular/core';
 import {CommentType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
-import {DataSource} from "../../common/dataSource";
+import {LocalStorageService} from "../local-storage/local-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataSourceService {
-  private source: WorkspaceType[] = DataSource?.template;
+  private readonly source: WorkspaceType[] = [];
+
+  constructor(private locaStorageService: LocalStorageService) {
+    this.source = locaStorageService.storage;
+  }
+
+  public setWorkspaces() {
+    this.locaStorageService.saveOnLocalStorage(this.getWorkspaces());
+  }
 
   public getWorkspaces() {
     return this.source;
@@ -26,6 +34,28 @@ export class DataSourceService {
 
   public getTasks(workspaceId: string, projectId: string): TaskType[] | undefined {
     return this.getProject(workspaceId, projectId)?.tasks;
+  }
+
+  getPriorityTasks(workspaceId: string): TaskType[] {
+    const workspace = this.source.find(ws => ws.id === workspaceId);
+    if (!workspace) {
+      return [];
+    }
+
+    return workspace.projects.flatMap(project =>
+      project.tasks.filter(task => task.priority)
+    );
+  }
+
+  getIncomingTasks(workspaceId: string): TaskType[] {
+    const workspace = this.source.find(ws => ws.id === workspaceId);
+    if (!workspace) {
+      return [];
+    }
+
+    return workspace.projects.flatMap(project =>
+      project.tasks.filter(task => task.incoming)
+    );
   }
 
   public getTask(workspaceId: string, projectId: string, taskId: string): TaskType | undefined {
