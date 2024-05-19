@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {StateService} from "../../services/state/state.service";
+import {ViewStateService} from "../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
 
@@ -12,7 +12,7 @@ import {AppNavigatorService} from "../../services/app-navigator/app-navigator.se
   styleUrl: './active-projects.component.scss'
 })
 export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
-  constructor(public state: StateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef) {
+  constructor(public state: ViewStateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef) {
   }
 
   private subscription: Subscription;

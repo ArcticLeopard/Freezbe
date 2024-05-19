@@ -15,6 +15,8 @@ export class DataSource {
             {
               id: '1',
               name: 'Get access to a piano or keyboard.',
+              priority: true,
+              incoming: true,
               dueDate: Date.now(),
               comments: [
                 {
@@ -46,41 +48,57 @@ export class DataSource {
             {
               id: '2',
               name: 'Learn basic music terminology and principles.',
+              priority: false,
+              incoming: false,
               comments: []
             },
             {
               id: '3',
               name: 'Familiarize yourself with basic notes and their values.',
+              priority: false,
+              incoming: false,
               comments: []
             },
             {
               id: '4',
               name: 'Master basic chords and scales.',
+              priority: false,
+              incoming: false,
               comments: []
             },
             {
               id: '5',
               name: 'Practice regularly for a set amount of time each day.',
+              priority: false,
+              incoming: false,
               comments: []
             },
             {
               id: '6',
               name: 'Find learning materials online or in books.',
+              priority: false,
+              incoming: false,
               comments: []
             },
             {
               id: '7',
               name: 'Familiarize yourself with music notation.',
+              priority: false,
+              incoming: false,
               comments: []
             },
             {
               id: '8',
               name: 'Experiment with different musical styles and genres.',
+              priority: false,
+              incoming: false,
               comments: []
             },
             {
               id: '9',
               name: 'Watch performances by other pianists and learn from them.',
+              priority: false,
+              incoming: false,
               comments: []
             },
           ]
@@ -93,51 +111,71 @@ export class DataSource {
             {
               id: '1',
               name: "Complete 10 vocabulary exercises from an English learning app",
+              priority: false,
+              incoming: true,
               dueDate: 1711518000000
             },
             {
               id: '2',
               name: "Watch and summarize a TED Talk in English",
+              priority: false,
+              incoming: true,
               dueDate: 1711417600000
             },
             {
               id: '3',
               name: "Read one chapter of an English novel and write a brief summary",
+              priority: false,
+              incoming: true,
               dueDate: 1711316600000
             },
             {
               id: '4',
               name: "Listen to an English podcast and take notes on the main points discussed",
+              priority: false,
+              incoming: true,
               dueDate: 1711215600000
             },
             {
               id: '5',
               name: "Practice speaking by recording yourself discussing a topic in English for 5 minutes",
+              priority: false,
+              incoming: true,
               dueDate: 1711114600000
             },
             {
               id: '6',
               name: "Write a short essay (200 words) on a topic of your choice in English",
+              priority: false,
+              incoming: true,
               dueDate: 1711013600000
             },
             {
               id: '7',
               name: "Complete 5 grammar exercises from an English grammar workbook",
+              priority: false,
+              incoming: true,
               dueDate: 1710912600000
             },
             {
               id: '8',
               name: "Watch an English movie or TV show without subtitles and write down unfamiliar words to look up later",
+              priority: false,
+              incoming: true,
               dueDate: 1710802600000
             },
             {
               id: '9',
               name: "Participate in an English language exchange conversation for at least 30 minutes",
+              priority: false,
+              incoming: true,
               dueDate: 1710612600000
             },
             {
               id: '10',
               name: "Write a diary entry in English discussing your day and any challenges or successes you had with the language",
+              priority: false,
+              incoming: true,
               dueDate: 1710009600000
             }
           ]

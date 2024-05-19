@@ -52,3 +52,17 @@
     }
   }
 }
+
+svg:hover {
+  fill: $white;
+}
+
+svg {
+  @extend .tr-ae-06;
+  z-index: 5;
+
+  &.priority {
+    rotate: 360deg;
+  }
+}
+
