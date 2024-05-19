@@ -1,8 +1,9 @@
 <div class="pl-3 transparentScroll" [class.opened]="isOpen">
   <div>
-    <textarea class="bg-classic hl focus p-4 my-3 pointer commentBox" placeholder="Add your comment..." title="Add your comment" (focus)="open()" [value]="inputValue"></textarea>
+    <textarea #textAreaRef (focus)="isOpen = true" (keydown)="onKeyDown($event)" [value]="inputValue" class="bg-classic hl focus p-4 my-3 pointer commentBox" placeholder="Add your comment..." title="Add your comment">
+    </textarea>
     <div [hidden]="!isOpen">
-      <button type="button" class="bg-gray-dark hd focus p-2 my-3 pointer commentButton">
+      <button type="button" class="bg-gray-dark hd focus p-2 my-3 pointer commentButton" (click)="addComment()">
         <span class="text-center">Add your comment...</span>
       </button>
     </div>

@@ -12,14 +12,14 @@ import {AppNavigatorService} from "../../services/app-navigator/app-navigator.se
   styleUrl: './active-projects.component.scss'
 })
 export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
-  constructor(public state: ViewStateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef) {
+  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef) {
   }
 
   private subscription: Subscription;
 
   ngAfterViewInit(): void {
-    this.subscription = this.state.subject.subscribe(() => {
-      this.hostRef.nativeElement.scrollTop = this.state.scrollPosition.Value;
+    this.subscription = this.viewState.subject.subscribe(() => {
+      this.hostRef.nativeElement.scrollTop = this.viewState.scrollPosition.Value;
     });
   }
 
@@ -29,6 +29,6 @@ export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
 
   @HostListener('scroll', ['$event'])
   saveScrollPosition(event: any): void {
-    this.state.scrollPosition.Value = event.target.scrollTop;
+    this.viewState.scrollPosition.Value = event.target.scrollTop;
   }
 }

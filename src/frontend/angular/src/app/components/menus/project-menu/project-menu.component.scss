@@ -24,11 +24,13 @@
 .redButton {
   color: $red;
   @include activeColor(rgba($red, 0.1), darken($red, 5%));
+  @include activeBigButton(darken($red, 5%))
 }
 
 .orangeButton {
   color: $orange;
   @include activeColor(rgba($orange, 0.1), darken($orange, 5%));
+  @include activeBigButton(darken($orange, 5%))
 }
 
 
