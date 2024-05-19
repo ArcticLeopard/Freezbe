@@ -3,7 +3,7 @@ import {WindowComponent} from "../windows/window/window.component";
 import {WindowProjectComponent} from "../windows/window-project/window-project.component";
 import {CalendarComponent} from "../calendar/calendar.component";
 import {WindowDueDateComponent} from "../windows/window-due-date/window-due-date.component";
-import {StateService} from "../../services/state/state.service";
+import {ViewStateService} from "../../services/state/view-state.service";
 import {DatePipe} from "@angular/common";
 
 @Component({
@@ -14,7 +14,7 @@ import {DatePipe} from "@angular/common";
   styleUrl: './detail-options.component.scss'
 })
 export class DetailOptionsComponent {
-  constructor(public state: StateService) {
+  constructor(public viewState: ViewStateService) {
   }
 
   @ViewChild(WindowProjectComponent) public windowProjectRef: WindowProjectComponent;

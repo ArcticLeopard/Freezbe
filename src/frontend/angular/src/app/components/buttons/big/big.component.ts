@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, numberAttribute} from '@angular/core';
+import {Component, Input, numberAttribute} from '@angular/core';
 
 @Component({
   selector: 'btn-big',

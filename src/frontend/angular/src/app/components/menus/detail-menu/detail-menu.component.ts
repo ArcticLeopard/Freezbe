@@ -4,7 +4,7 @@ import {CommentListComponent} from "../../comment-list/comment-list.component";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
 import {CloseTaskDetailsComponent} from "../../buttons/close-task-details/close-task-details.component";
 import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.component";
-import {StateService} from "../../../services/state/state.service";
+import {ViewStateService} from "../../../services/state/view-state.service";
 
 @Component({
   selector: 'menu-detail',
@@ -15,7 +15,7 @@ import {StateService} from "../../../services/state/state.service";
 })
 
 export class DetailMenuComponent {
-  constructor(public state: StateService) {
+  constructor(public viewState: ViewStateService) {
   }
 
   //TODO DO DRY

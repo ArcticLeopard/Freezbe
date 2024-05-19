@@ -3,7 +3,7 @@ import {DetailMenuComponent} from "../../components/menus/detail-menu/detail-men
 import {NgIf} from "@angular/common";
 import {SidebarMenuComponent} from "../../components/menus/sidebar-menu/sidebar-menu.component";
 import {TaskMenuComponent} from "../../components/menus/task-menu/task-menu.component";
-import {StateService} from "../../services/state/state.service";
+import {ViewStateService} from "../../services/state/view-state.service";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
 
 @Component({
@@ -20,6 +20,6 @@ import {AppNavigatorService} from "../../services/app-navigator/app-navigator.se
   providers: [AppNavigatorService]
 })
 export class AppPageComponent {
-  constructor(public state: StateService) {
+  constructor(public state: ViewStateService) {
   }
 }

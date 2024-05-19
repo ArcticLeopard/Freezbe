@@ -3,6 +3,8 @@ export type ProjectType = { id: string; color: string; name: string, tasks: Task
 export type TaskType = {
   id: string;
   name: string;
+  priority: boolean;
+  incoming: boolean;
   dueDate?: number;
   comments?: (CommentType)[];
 };

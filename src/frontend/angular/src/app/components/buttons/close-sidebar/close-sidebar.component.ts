@@ -1,6 +1,6 @@
 import {Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
 import {GlobalSettings} from "../../../common/globalSettings";
-import {StateService} from "../../../services/state/state.service";
+import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -11,7 +11,7 @@ import {Subscription} from "rxjs";
 })
 
 export class CloseSidebarComponent implements OnDestroy {
-  constructor(public state: StateService) {
+  constructor(public state: ViewStateService) {
     this.subscription = this.state.subject.subscribe(p => {
       this.isHide = p.sidebarOpen.Value;
     });

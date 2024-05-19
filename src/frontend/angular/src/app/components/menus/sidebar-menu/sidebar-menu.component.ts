@@ -3,7 +3,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {WorkspaceMenuComponent} from "../workspace-menu/workspace-menu.component";
 import {ProjectMenuComponent} from "../project-menu/project-menu.component";
 import {GlobalSettings} from "../../../common/globalSettings";
-import {StateService} from "../../../services/state/state.service";
+import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -15,8 +15,8 @@ import {Subscription} from "rxjs";
 })
 
 export class SidebarMenuComponent implements OnDestroy {
-  constructor(public state: StateService) {
-    this.subscription = state.subject.subscribe(p => {
+  constructor(public viewState: ViewStateService) {
+    this.subscription = viewState.subject.subscribe(p => {
       this.isHide = p.sidebarOpen.Value;
     });
   }
@@ -24,7 +24,7 @@ export class SidebarMenuComponent implements OnDestroy {
   private subscription: Subscription;
 
   @HostBinding(GlobalSettings.sidebarMenuAnimationEnabled ? "class.isHideAnimated" : "class.isHide")
-  isHide: boolean = this.state.sidebarOpen.Value;
+  isHide: boolean = this.viewState.sidebarOpen.Value;
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

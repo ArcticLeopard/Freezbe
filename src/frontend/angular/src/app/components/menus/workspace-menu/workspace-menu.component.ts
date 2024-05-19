@@ -1,6 +1,6 @@
 import {Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
-import {StateService} from "../../../services/state/state.service";
+import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 import {AppNavigatorService} from "../../../services/app-navigator/app-navigator.service";
 import {GlobalSettings} from "../../../common/globalSettings";
@@ -13,8 +13,8 @@ import {GlobalSettings} from "../../../common/globalSettings";
   styleUrl: './workspace-menu.component.scss',
 })
 export class WorkspaceMenuComponent implements OnDestroy {
-  constructor(public state: StateService, public appNavigator: AppNavigatorService) {
-    this.subscription = this.state.subject.subscribe(state => {
+  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService) {
+    this.subscription = this.viewState.subject.subscribe(state => {
       this.isHide = state.workspaceOpen.Value;
       if (state.sidebarOpen.Value) {
         this.isHide = state.sidebarOpen.Value;
@@ -26,7 +26,7 @@ export class WorkspaceMenuComponent implements OnDestroy {
   protected readonly GlobalSettings = GlobalSettings;
 
   @HostBinding('class.isHide')
-  isHide: boolean = this.state.workspaceOpen.Value;
+  isHide: boolean = this.viewState.workspaceOpen.Value;
 
   //TODO DO DRY
 
