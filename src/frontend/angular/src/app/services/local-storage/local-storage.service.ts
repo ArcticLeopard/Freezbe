@@ -8,17 +8,20 @@ export class LocalStorageService {
   storage: WorkspaceType[] = [];
 
   constructor() {
-    this.loadFromLocalStorage();
+    //this.storage = DataSource.template;
+    //this.saveStateOnLocalStorage(this.storage);
+    this.storage = this.loadStateFromLocalStorage();
   }
 
-  public saveOnLocalStorage(currentState: WorkspaceType[]): void {
+  public saveStateOnLocalStorage(currentState: WorkspaceType[]): void {
     localStorage.setItem('memory', JSON.stringify(currentState));
   }
 
-  private loadFromLocalStorage(): void {
+  private loadStateFromLocalStorage(): WorkspaceType[] {
     let input = localStorage.getItem('memory');
     if (input !== null) {
-      this.storage = JSON.parse(input);
+      return <WorkspaceType[]>JSON.parse(input);
     }
+    return this.storage;
   }
 }

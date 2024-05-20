@@ -1,13 +1,14 @@
-import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {Component, HostBinding, Input} from '@angular/core';
 import {DatePipe, NgIf} from "@angular/common";
 import {TaskStatusComponent} from "../buttons/task-status/task-status.component";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
 import {TaskType} from "../../common/types";
+import {TaskPriorityComponent} from "../buttons/task-priority/task-priority.component";
 
 @Component({
   selector: 'task-item',
   standalone: true,
-  imports: [DatePipe, NgIf, TaskStatusComponent],
+  imports: [DatePipe, NgIf, TaskStatusComponent, TaskPriorityComponent],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss'
 })
@@ -15,13 +16,8 @@ export class TaskItemComponent {
   constructor(private appNavigator: AppNavigatorService) {
   }
 
-  protected readonly Date = Date;
-
   @Input()
   model: TaskType;
-
-  @Output()
-  modelChange = new EventEmitter<TaskType>();
 
   @HostBinding("class.active")
   active: boolean = false;
@@ -31,9 +27,10 @@ export class TaskItemComponent {
     mouseEvent.stopPropagation();
   }
 
-  togglePriority(mouseEvent: MouseEvent): void {
-    this.model.priority = !this.model.priority;
-    mouseEvent.stopPropagation();
-    this.modelChange.emit(this.model);
+  taskIsDelayed(): boolean {
+    if (!this.model.completed)
+      if (this.model.dueDate)
+        return this.model.dueDate <= Date.now();
+    return false;
   }
 }

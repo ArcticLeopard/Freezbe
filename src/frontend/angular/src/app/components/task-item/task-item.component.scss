@@ -53,16 +53,10 @@
   }
 }
 
-svg:hover {
-  fill: $white;
-}
+.completed {
+  @extend .text-gray;
 
-svg {
-  @extend .tr-ae-06;
-  z-index: 5;
-
-  &.priority {
-    rotate: 360deg;
+  .task-name {
+    text-decoration: line-through;
   }
 }
-

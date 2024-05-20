@@ -13,7 +13,7 @@ export class DataSourceService {
   }
 
   public setWorkspaces() {
-    this.locaStorageService.saveOnLocalStorage(this.getWorkspaces());
+    this.locaStorageService.saveStateOnLocalStorage(this.getWorkspaces());
   }
 
   public getWorkspaces() {
@@ -33,7 +33,13 @@ export class DataSourceService {
   }
 
   public getTasks(workspaceId: string, projectId: string): TaskType[] | undefined {
-    return this.getProject(workspaceId, projectId)?.tasks;
+    return this.getProject(workspaceId, projectId)?.tasks.sort(this.sortTasksByCompleted);
+  }
+
+  private sortTasksByCompleted(first: TaskType, second: TaskType): number {
+    if (first.completed === second.completed) return 0;
+    if (first.completed) return 1;
+    return -1;
   }
 
   getPriorityTasks(workspaceId: string): TaskType[] {
@@ -43,7 +49,7 @@ export class DataSourceService {
     }
 
     return workspace.projects.flatMap(project =>
-      project.tasks.filter(task => task.priority)
+      project.tasks.filter(task => task.priority).filter(task => !task.completed)
     );
   }
 
@@ -54,15 +60,21 @@ export class DataSourceService {
     }
 
     return workspace.projects.flatMap(project =>
-      project.tasks.filter(task => task.incoming)
+      project.tasks.filter(task => task.incoming).filter(task => !task.completed)
     );
   }
 
-  public getTask(workspaceId: string, projectId: string, taskId: string): TaskType | undefined {
-    return this.getTasks(workspaceId, projectId)?.find(p => p.id == taskId);
+  public getTask(workspaceId: string, taskId: string): TaskType | undefined {
+    const workspace = this.source.find(ws => ws.id === workspaceId);
+    if (workspace) {
+      return workspace.projects
+        .flatMap(project => project.tasks)
+        .find(task => task.id == taskId);
+    }
+    return undefined;
   }
 
-  public getComments(workspaceId: string, projectId: string, taskId: string): CommentType[] | undefined {
-    return this.getTask(workspaceId, projectId, taskId)?.comments;
+  public getComments(workspaceId: string, taskId: string): CommentType[] | undefined {
+    return this.getTask(workspaceId, taskId)?.comments;
   }
 }

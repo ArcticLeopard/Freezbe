@@ -6,7 +6,6 @@ import {DataSourceService} from "../data-source/data-source.service";
 import {BooleanState} from './booleanState';
 import {State} from "./state";
 import {ArrayState} from "./arrayState";
-import {LocalStorageService} from "../local-storage/local-storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +20,7 @@ export class ViewStateService {
   public scrollPosition: State<number>;
   public currentWorkspaceId: State<string>;
 
+  public currentViewType: State<string>;
   public currentViewName: State<string>;
   public currentProjectId: State<string | null>;
   public currentTaskId: State<string | null>;
@@ -50,6 +50,7 @@ export class ViewStateService {
     this.scrollPosition = new State<number>(this.subject, this, 0, true, 'scrollPosition');
 
     this.currentWorkspaceId = new State<string>(this.subject, this, '');
+    this.currentViewType = new State<string>(this.subject, this, '');
     this.currentViewName = new State<string>(this.subject, this, '');
     this.currentProjectId = new State<string | null>(this.subject, this, null);
     this.currentTaskId = new State<string | null>(this.subject, this, null);

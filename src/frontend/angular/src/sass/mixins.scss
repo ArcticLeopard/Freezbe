@@ -54,6 +54,13 @@
   }
 }
 
+@mixin activeBigButton($borderColor) {
+  &.active {
+    @extend .tr-ae-02;
+    box-shadow: inset 0 0 1px 1px $borderColor;
+  }
+}
+
 @mixin shadow($color) {
   .shadow {
     position: absolute;

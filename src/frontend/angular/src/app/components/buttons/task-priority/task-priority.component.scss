@@ -1,0 +1,17 @@
+@import "../../../../imports";
+
+:host {
+  z-index: 5;
+}
+
+svg:hover {
+  fill: $white;
+}
+
+svg {
+  @extend .tr-ae-06;
+
+  &.priority {
+    rotate: 360deg;
+  }
+}
