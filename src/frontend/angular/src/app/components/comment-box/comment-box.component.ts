@@ -1,4 +1,5 @@
-import {Component, ElementRef, HostListener} from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import {ActionService} from "../../services/action/action.service";
 
 @Component({
   selector: 'app-comment-box',
@@ -11,7 +12,7 @@ export class CommentBoxComponent {
   isOpen: boolean = false;
   inputValue: string = "";
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, private actionService: ActionService) {
   }
 
   @HostListener('document:click', ['$event'])
@@ -21,7 +22,20 @@ export class CommentBoxComponent {
     }
   }
 
-  open() {
-    this.isOpen = true;
+  @ViewChild("textAreaRef")
+  textAreaRef: ElementRef;
+
+  addComment() {
+    let textArea = this.textAreaRef.nativeElement;
+    if (textArea.value) {
+      this.actionService.addComment(textArea.value);
+    }
+    textArea.value = '';
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'Enter') {
+      this.addComment();
+    }
   }
 }

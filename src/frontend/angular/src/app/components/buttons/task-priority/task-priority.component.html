@@ -1,0 +1,6 @@
+<svg (click)="togglePriority($event)" [class.priority]="model.priority" width="28" height="28" viewBox="0 0 28 28" fill="#ABABAB">
+  <path d="M14,0.685l3.305,10.172l10.695,0l-8.652,6.286l3.304,10.172l-8.652,-6.287l-8.652,6.287l3.304,-10.172l-8.652,-6.286l10.695,0l3.305,-10.172Zm0,4l2.361,7.266l7.639,-0l-6.18,4.49l2.36,7.265l-6.18,-4.49l-6.18,4.49l2.36,-7.265l-6.18,-4.49l7.639,-0l2.361,-7.266Z" />
+  <path *ngIf="model.priority" d="M14,0.685l3.305,10.172l10.695,-0l-8.652,6.286l3.304,10.172l-8.652,-6.287l-8.652,6.287l3.304,-10.172l-8.652,-6.286l10.695,-0l3.305,-10.172Z" />
+  <title *ngIf="!model.priority">Mark Task As Priority</title>
+  <title *ngIf="model.priority">Remove Task From Priority</title>
+</svg>

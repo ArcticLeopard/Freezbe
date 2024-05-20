@@ -6,6 +6,8 @@ import {ActiveProjectsComponent} from "../../active-projects/active-projects.com
 import {SearchComponent} from "../../buttons/search/search.component";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {AppNavigatorService} from "../../../services/app-navigator/app-navigator.service";
+import {incoming, priority, projects} from "../../../common/consts";
+import {ActionService} from "../../../services/action/action.service";
 
 @Component({
   selector: 'menu-project',
@@ -15,7 +17,7 @@ import {AppNavigatorService} from "../../../services/app-navigator/app-navigator
   styleUrl: './project-menu.component.scss'
 })
 export class ProjectMenuComponent {
-  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService) {
+  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private actionService: ActionService) {
   }
 
   //TODO DO DRY
@@ -31,4 +33,14 @@ export class ProjectMenuComponent {
   onMouseLeave() {
     this.areaActive = false;
   }
+
+  @HostListener('window:keydown', ['$event'])
+  changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
+    if (this.viewState.currentViewType.Value == projects && this.areaActive) {
+      this.actionService.changeElementPosition(this.viewState.projects.Value, this.viewState.currentProjectId.Value, event);
+    }
+  }
+
+  protected readonly priority = priority;
+  protected readonly incoming = incoming;
 }

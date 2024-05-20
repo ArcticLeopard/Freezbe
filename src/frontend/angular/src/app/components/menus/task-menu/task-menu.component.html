@@ -2,7 +2,7 @@
   <div class="sectionInfoContainer px-4">
     <btn-close-sidebar class="pr-2"></btn-close-sidebar>
     <div class="tfs-p-2">
-      <span class="ml-1 pointerFocus">{{ this.viewState.project.Value?.name }}</span>
+      <span class="ml-1 pointerFocus">{{ viewState.currentViewName.Value | titlecase }}</span>
     </div>
     <div class="text-gray">{{ this.viewState.tasks.length }} Tasks</div>
     <div>
@@ -12,6 +12,6 @@
 </div>
 <div class="list">
   <ng-container *ngFor="let task of this.viewState.tasks">
-    <task-item class="bg-classic-dark hd" [class.active]="task == viewState.task.Value" [model]="task" (modelChange)="viewState.refreshView()"></task-item>
+    <task-item [class.active]="task == viewState.task.Value" [model]="task" class="bg-classic-dark hd"></task-item>
   </ng-container>
 </div>

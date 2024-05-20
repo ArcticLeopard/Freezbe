@@ -5,6 +5,7 @@ export type TaskType = {
   name: string;
   priority: boolean;
   incoming: boolean;
+  completed: boolean;
   dueDate?: number;
   comments?: (CommentType)[];
 };
@@ -15,3 +16,6 @@ export enum CalendarChangeStrategy {
   monthChangeStrategy,
   yearChangeStrategy
 }
+
+export type AnyCollection = any[] | undefined | null;
+export type AnyString = string | undefined | null;
