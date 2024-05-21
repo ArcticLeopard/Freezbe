@@ -44,7 +44,11 @@ export class AppNavigatorService implements OnDestroy {
     this.SetTitleForProject(projectId);
   }
 
-  public GoToTask(taskId: string = ''): void {
+  public GoToTask(taskId: string): void {
+    if (taskId != this.currentTaskId) {
+      this.GoToTaskDetails(taskId);
+      return;
+    }
     if (this.currentViewType) {
       if (this.currentViewType !== projects)
         if (this.currentTaskId) {
@@ -65,6 +69,53 @@ export class AppNavigatorService implements OnDestroy {
     }
   }
 
+  public GoToTasks() {
+    if (this.currentViewType) {
+      if (this.currentViewType !== projects) {
+        this.router.navigate([workspaces, this.currentWorkspaceId, this.currentViewType]).then();
+        //TODO Dopisac zmiane tytułów zmiana tytułu nie działa w Priority oraz Incoming
+      } else {
+        this.router.navigate([workspaces, this.currentWorkspaceId, this.currentViewType, this.currentProjectId]).then();
+        this.SetTitleForProject(this.currentProjectId);
+      }
+    }
+  }
+
+  public GoToTaskDetails(taskId: string): void {
+    if (this.currentViewType) {
+      if (this.currentViewType !== projects) {
+        this.router.navigate([workspaces, this.currentWorkspaceId, this.currentViewType, tasks, taskId]).then();
+        //TODO Dopisac zmiane tytułów zmiana tytułu nie działa w Priority oraz Incoming
+      } else {
+        this.router.navigate([workspaces, this.currentWorkspaceId, this.currentViewType, this.currentProjectId, tasks, taskId]).then();
+        this.SetTitleForTask(taskId);
+      }
+    }
+  }
+
+  public ContextGoTo() {
+    if (this.viewState.contextId.Value)
+      this.GoToByContext(this.viewState.context, this.viewState.contextId.Value);
+  }
+
+  private GoToByContext(context: string, contextId: string): void {
+    this.router.navigate([workspaces, this.currentWorkspaceId, priority]).then();
+    switch (context) {
+      case 'workspaces':
+        this.GoToWorkspace(contextId);
+        return;
+      case 'projects':
+        this.GoToProject(contextId);
+        return;
+      case 'tasks':
+        this.GoToTaskDetails(contextId);
+        return;
+      case 'details':
+        this.GoToTaskDetails(contextId);
+        return;
+    }
+  }
+
   private SetTitleForProject(projectId: string | null): void {
     let title = this.dataSourceService.getProject(this.currentWorkspaceId ?? '', projectId ?? '')?.name;
     this.titleService.setTitle(`${title} - Freezbe` ?? 'Freezbe');
@@ -78,6 +129,8 @@ export class AppNavigatorService implements OnDestroy {
   private handleRouteChange(urlSegments: UrlSegment[]): void {
     this.viewState.currentWorkspaceId.Value = urlSegments[1]?.path;
     this.viewState.currentViewType.Value = urlSegments[2]?.path;
+    this.viewState.currentProjectId.Value = null;
+    this.viewState.currentTaskId.Value = null;
     if (this.viewState.currentViewType.Value == projects) {
       this.viewState.currentProjectId.Value = urlSegments[3]?.path;
       this.viewState.currentTaskId.Value = urlSegments[5]?.path;
@@ -91,8 +144,6 @@ export class AppNavigatorService implements OnDestroy {
       this.viewState.currentTaskId.Value = urlSegments[4]?.path;
       return;
     }
-    this.viewState.currentProjectId.Value = null;
-    this.viewState.currentTaskId.Value = null;
   }
 
   private handleStateChange(viewState: ViewStateService): void {

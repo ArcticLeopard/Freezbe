@@ -4,7 +4,8 @@ import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 import {AppNavigatorService} from "../../../services/app-navigator/app-navigator.service";
 import {GlobalSettings} from "../../../common/globalSettings";
-import {ActionService} from "../../../services/action/action.service";
+import {InteractionService} from "../../../services/interaction/interaction.service";
+import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 
 @Component({
   selector: 'menu-workspace',
@@ -14,7 +15,7 @@ import {ActionService} from "../../../services/action/action.service";
   styleUrl: './workspace-menu.component.scss',
 })
 export class WorkspaceMenuComponent implements OnDestroy {
-  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private actionService: ActionService) {
+  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
     this.subscription = this.viewState.subject.subscribe(state => {
       this.isHide = state.workspaceOpen.Value;
       if (state.sidebarOpen.Value) {
@@ -29,25 +30,10 @@ export class WorkspaceMenuComponent implements OnDestroy {
   @HostBinding('class.isHide')
   isHide: boolean = this.viewState.workspaceOpen.Value;
 
-  //TODO DO DRY
-
-  @HostBinding("class.areaActive")
-  areaActive: boolean = false;
-
-  @HostListener('mouseenter')
-  onMouseEnter() {
-    this.areaActive = true;
-  }
-
-  @HostListener('mouseleave')
-  onMouseLeave() {
-    this.areaActive = false;
-  }
-
   @HostListener('window:keydown', ['$event'])
   changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
-    if (this.areaActive) {
-      this.actionService.changeElementPosition(this.viewState.workspaces.Value, this.viewState.currentWorkspaceId.Value, event);
+    if (this.activeArea.isFocused) {
+      this.interactionService.onChangePosition(this.viewState.workspaces.Value, this.viewState.currentWorkspaceId.Value, event);
     }
   }
 

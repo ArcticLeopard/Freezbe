@@ -16,7 +16,7 @@ export class WindowProjectComponent extends WindowComponent {
 
   protected override renderer: Renderer2;
 
-  constructor(elementRef: ElementRef, renderer: Renderer2, public state: ViewStateService) {
+  constructor(elementRef: ElementRef, renderer: Renderer2, public viewState: ViewStateService) {
     super(elementRef, renderer);
     this.renderer = renderer;
     this.elementRef = elementRef;
