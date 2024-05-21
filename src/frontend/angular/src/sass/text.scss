@@ -17,7 +17,13 @@
   }
 }
 
-/*#endregion Text Font Size*/
+@mixin tfs-p($i) {
+  font-size: $normal-font-size + ($i * 0.1);
+}
+
+@mixin tfs-m($i) {
+  font-size: $normal-font-size - ($i * 0.1);
+}
 
 $weights: 3, 6, 9;
 @each $weight in $weights {
@@ -37,6 +43,11 @@ $weights: 3, 6, 9;
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre-wrap;
+}
+
+.text-break {
+  word-wrap: break-word;
   white-space: pre-wrap;
 }
 

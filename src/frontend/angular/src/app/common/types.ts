@@ -17,5 +17,7 @@ export enum CalendarChangeStrategy {
   yearChangeStrategy
 }
 
-export type AnyCollection = any[] | undefined | null;
-export type AnyString = string | undefined | null;
+export type AnyCollectionType = any[] | undefined | null;
+export type AnyStringType = string | undefined | null;
+export type ActiveAreaType = 'workspaces' | 'projects' | 'tasks' | 'details';
+export type KeyboardKeyType = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'Enter' | 'Escape';

@@ -13,6 +13,6 @@ export class CloseTaskDetailsComponent {
 
   @HostListener('click')
   CloseSidebar(): void {
-    this.appNavigator.GoToTask();
+    this.appNavigator.GoToTasks();
   }
 }

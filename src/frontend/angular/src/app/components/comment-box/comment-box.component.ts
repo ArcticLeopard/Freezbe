@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
-import {ActionService} from "../../services/action/action.service";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-comment-box',
@@ -12,7 +12,7 @@ export class CommentBoxComponent {
   isOpen: boolean = false;
   inputValue: string = "";
 
-  constructor(private elementRef: ElementRef, private actionService: ActionService) {
+  constructor(private elementRef: ElementRef, private interactionService: InteractionService) {
   }
 
   @HostListener('document:click', ['$event'])
@@ -28,7 +28,7 @@ export class CommentBoxComponent {
   addComment() {
     let textArea = this.textAreaRef.nativeElement;
     if (textArea.value) {
-      this.actionService.addComment(textArea.value);
+      this.interactionService.addComment(textArea.value);
     }
     textArea.value = '';
   }

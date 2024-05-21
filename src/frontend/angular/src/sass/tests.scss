@@ -16,6 +16,12 @@
   border-bottom: $classicBorder solid 0.1rem;
 }
 
-.areaActive {
+.activeArea {
   border-bottom: $white-60 solid 0.1rem;
+}
+
+.resizer {
+  @media (max-width: 715px) {
+    display: none;
+  }
 }

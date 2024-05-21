@@ -38,3 +38,7 @@
     opacity: 25%;
   }
 }
+
+.task-name {
+  @extend .pointerFocus, .tfs-p-2;
+}
