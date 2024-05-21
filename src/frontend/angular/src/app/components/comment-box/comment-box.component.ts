@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Output, ViewChild} from '@angular/core';
 import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
@@ -9,6 +9,9 @@ import {InteractionService} from "../../services/interaction/interaction.service
 })
 
 export class CommentBoxComponent {
+  @Output('open')
+  onOpen: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   isOpen: boolean = false;
   inputValue: string = "";
 
@@ -27,13 +30,14 @@ export class CommentBoxComponent {
 
   addComment() {
     let textArea = this.textAreaRef.nativeElement;
-    if (textArea.value) {
+    if (textArea.value.trim()) {
       this.interactionService.addComment(textArea.value);
+      this.onOpen.emit(this.isOpen);
+      textArea.value = '';
     }
-    textArea.value = '';
   }
 
-  onKeyDown(event: KeyboardEvent) {
+  keyDownDetector(event: KeyboardEvent) {
     if (event.ctrlKey && event.key === 'Enter') {
       this.addComment();
     }

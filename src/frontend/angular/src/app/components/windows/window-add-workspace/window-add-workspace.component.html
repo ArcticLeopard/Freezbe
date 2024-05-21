@@ -1,0 +1,34 @@
+<div (click)="close()" class="background"></div>
+<div (click)="close()" [style.width.rem]="width" class="logotype">
+  <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/main/docs/readme/images/Freezbe_logo.svg" alt="Logotype">
+</div>
+<div class="window" [style.width.rem]="width">
+  <div class="windowContainer">
+    <div class="windowHeader">
+      <div class="windowHeaderContainer">
+        <div class="windowHeaderTitleContainer">
+          <span class="pointerFocus">{{ name }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="windowContent scrollable">
+      <div class="content pt-4 px-9 tfs-1 text-center mb-2">
+        <div class="text-break pb-6">
+          Just like your life is divided into areas.<br>
+          This way you can divide projects into workspaces.<br>
+          This will help you stay organized.<br>
+          <span title="The limit is your browser's Local Storage limit.">Workspaces are unlimited.</span><br>
+          You can create a workspace.<br>
+        </div>
+        <btn-big class="orangeButton hd focus p-4" text="Create a New Workspace" numberDisabled></btn-big>
+      </div>
+    </div>
+    <div class="windowFooter">
+      <div class="windowFooterContainer">
+        <div class="windowFooterTitleContainer">
+          <span class="pointerFocus"><a href="https://github.com/ArcticLeopard/Freezbe" target="_blank">Freezbe is Free & Open Source</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

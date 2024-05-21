@@ -6,6 +6,7 @@ import {DataSourceService} from "../data-source/data-source.service";
 import {BooleanState} from './booleanState';
 import {State} from "./state";
 import {ArrayState} from "./arrayState";
+import {WindowAddWorkspaceComponent} from "../../components/windows/window-add-workspace/window-add-workspace.component";
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,8 @@ export class ViewStateService {
   public comments: State<CommentType[] | undefined>;
   public priorityTasks: ArrayState<TaskType>;
   public incomingTasks: ArrayState<TaskType>;
-  context: ActiveAreaType;//TODO Pomyslec czy to ma tu byc
+  public windowAddWorkspace: State<WindowAddWorkspaceComponent | undefined>;
+  context: ActiveAreaType;
 
   constructor(private dataSourceService: DataSourceService) {
     let counter = 0;
@@ -67,6 +69,7 @@ export class ViewStateService {
     this.comments = new State<CommentType[] | undefined>(this.subject, this, undefined);
     this.priorityTasks = new ArrayState<TaskType>(this.subject, this, []);
     this.incomingTasks = new ArrayState<TaskType>(this.subject, this, []);
+    this.windowAddWorkspace = new State<WindowAddWorkspaceComponent | undefined>(this.subject, this, undefined);
   }
 
   refreshView() {

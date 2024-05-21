@@ -3,6 +3,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {ViewStateService} from "../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-active-projects',
@@ -12,7 +13,7 @@ import {AppNavigatorService} from "../../services/app-navigator/app-navigator.se
   styleUrl: './active-projects.component.scss'
 })
 export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
-  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef) {
+  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef, public interactionService: InteractionService) {
   }
 
   private subscription: Subscription;

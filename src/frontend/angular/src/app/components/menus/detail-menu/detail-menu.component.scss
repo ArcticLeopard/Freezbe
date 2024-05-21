@@ -15,7 +15,7 @@
 }
 
 .header {
-  @extend .pl-3, .pr-4, .infoHeader, .transparentScroll;
+  @extend .infoHeader, .transparentScroll;
 }
 
 .comment {
@@ -23,8 +23,7 @@
 }
 
 .commentDetails {
-  display: flex;
-  flex-direction: row;
+  @extend .row;
 
   span {
     @extend .pr-3;

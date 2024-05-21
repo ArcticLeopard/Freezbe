@@ -1,3 +1,13 @@
+<div class="header" (click)="interactionService.addProject()" title="Create new project">
+  <span class="icon">
+    <svg width="14" height="14" viewBox="0 0 28 28" fill="#ABABAB">
+      <path d="M12.214,14.214l-7.214,0c-0.552,0 -1,0.448 -1,1l0,1.572c0,0.552 0.448,1 1,1l7.214,0l0,7.214c0,0.552 0.448,1 1,1l1.572,0c0.552,0 1,-0.448 1,-1l0,-7.214l7.214,0c0.552,0 1,-0.448 1,-1l0,-1.572c0,-0.552 -0.448,-1 -1,-1l-7.214,-0l0,-7.214c0,-0.552 -0.448,-1 -1,-1l-1.572,-0c-0.552,-0 -1,0.448 -1,1l0,7.214Z" />
+    </svg>
+  </span>
+  <span class="text">
+    Create new project
+  </span>
+</div>
 <div class="header" (click)="this.viewState.activeProjectOpen.Toggle()" [title]="this.viewState.activeProjectOpen.Value?'Collapse section':'Expand section'">
   <span class="icon">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="#ABABAB">
@@ -21,13 +31,3 @@
     <span class="text">{{ project.name }}</span>
   </div>
 </ng-template>
-<div class="header" (click)="this.viewState.activeProjectOpen.Toggle()" title="Create new project">
-  <span class="icon">
-    <svg width="14" height="14" viewBox="0 0 28 28" fill="#ABABAB">
-      <path d="M12.214,14.214l-7.214,0c-0.552,0 -1,0.448 -1,1l0,1.572c0,0.552 0.448,1 1,1l7.214,0l0,7.214c0,0.552 0.448,1 1,1l1.572,0c0.552,0 1,-0.448 1,-1l0,-7.214l7.214,0c0.552,0 1,-0.448 1,-1l0,-1.572c0,-0.552 -0.448,-1 -1,-1l-7.214,-0l0,-7.214c0,-0.552 -0.448,-1 -1,-1l-1.572,-0c-0.552,-0 -1,0.448 -1,1l0,7.214Z" />
-    </svg>
-  </span>
-  <span class="text">
-    Create new project
-  </span>
-</div>

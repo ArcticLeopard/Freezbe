@@ -117,7 +117,27 @@ export class InteractionService {
     this.viewState.refreshView(); //TODO Refactor
   }
 
+  public deleteComment(commentId: string) {
+    let task = this.viewState.task.Value;
+    let comments = task?.comments;
+    if (comments) {
+      let index = comments.findIndex(p => p.id === commentId);
+      if (index !== -1) {
+        comments.splice(index, 1);
+        this.viewState.refreshView();
+      }
+    }
+  }
+
   private GenerateId(): string {
     return Date.now().toString(36); //Single User / Offline
+  }
+
+  addWorkspace() {
+    this.viewState.windowAddWorkspace.Value?.show();
+  }
+
+  addProject() {
+    this.addWorkspace();//TODO
   }
 }
