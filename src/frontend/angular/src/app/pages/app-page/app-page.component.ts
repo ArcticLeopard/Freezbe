@@ -5,6 +5,9 @@ import {SidebarMenuComponent} from "../../components/menus/sidebar-menu/sidebar-
 import {TaskMenuComponent} from "../../components/menus/task-menu/task-menu.component";
 import {ViewStateService} from "../../services/state/view-state.service";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
+import {ActiveAreaDirective} from "../../directives/active-area/active-area.directive";
+import {WorkspaceMenuComponent} from "../../components/menus/workspace-menu/workspace-menu.component";
+import {ResizerDirective} from "../../directives/resizer/resizer.directive";
 
 @Component({
   selector: 'app-page',
@@ -13,13 +16,16 @@ import {AppNavigatorService} from "../../services/app-navigator/app-navigator.se
     DetailMenuComponent,
     NgIf,
     SidebarMenuComponent,
-    TaskMenuComponent
+    TaskMenuComponent,
+    ActiveAreaDirective,
+    WorkspaceMenuComponent,
+    ResizerDirective
   ],
   templateUrl: './app-page.component.html',
   styleUrl: './app-page.component.scss',
   providers: [AppNavigatorService]
 })
 export class AppPageComponent {
-  constructor(public state: ViewStateService) {
+  constructor(public viewState: ViewStateService) {
   }
 }

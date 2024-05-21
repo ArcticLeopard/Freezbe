@@ -5,11 +5,12 @@ import {ProjectMenuComponent} from "../project-menu/project-menu.component";
 import {GlobalSettings} from "../../../common/globalSettings";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
+import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 
 @Component({
   selector: 'menu-sidebar',
   standalone: true,
-  imports: [NgForOf, WorkspaceMenuComponent, ProjectMenuComponent, NgIf],
+  imports: [NgForOf, WorkspaceMenuComponent, ProjectMenuComponent, NgIf, ActiveAreaDirective],
   templateUrl: './sidebar-menu.component.html',
   styleUrl: './sidebar-menu.component.scss'
 })

@@ -1,4 +1,4 @@
-import {Component, HostBinding, HostListener} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {DatePipe, JsonPipe, NgForOf, NgIf, TitleCasePipe} from "@angular/common";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
 import {TaskStatusComponent} from "../../buttons/task-status/task-status.component";
@@ -10,7 +10,8 @@ import {AppendComponent} from "../../buttons/append/append.component";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {AutoRefreshDirective} from "../../../directives/auto-refresh/auto-refresh.directive";
 import {projects} from "../../../common/consts";
-import {ActionService} from "../../../services/action/action.service";
+import {InteractionService} from "../../../services/interaction/interaction.service";
+import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 
 @Component({
   selector: 'menu-task',
@@ -22,26 +23,15 @@ import {ActionService} from "../../../services/action/action.service";
 })
 
 export class TaskMenuComponent {
-  constructor(public viewState: ViewStateService, private actionService: ActionService) {
-  }
-
-  @HostBinding("class.areaActive")
-  areaActive: boolean = false;
-
-  @HostListener('mouseenter')
-  onMouseEnter() {
-    this.areaActive = true;
-  }
-
-  @HostListener('mouseleave')
-  onMouseLeave() {
-    this.areaActive = false;
+  constructor(public viewState: ViewStateService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
   }
 
   @HostListener('window:keydown', ['$event'])
   public changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
-    if (this.viewState.currentViewType.Value == projects && this.areaActive) {
-      this.actionService.changeElementPosition(this.viewState.tasks.Values, this.viewState.currentTaskId.Value, event);
+    if (this.activeArea.isFocused) {
+      this.interactionService.onEscape(event);
+      let changePositionEnabled = this.viewState.currentViewType.Value == projects;
+      this.interactionService.onChangePosition(this.viewState.tasks.Values, this.viewState.currentTaskId.Value, event, changePositionEnabled);
     }
   }
 }

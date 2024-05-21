@@ -15,7 +15,20 @@ export class ArrayState<TType> {
     this.keyOnLocalStorage = keyOnLocalStorage;
     this._value = value;
     if (useLocalStorageEnable) {
+      this.useLocalStorage();
+    }
+  }
+
+  private useLocalStorage() {
+    try {
       this._value = this.loadFromLocalStorage();
+    } catch (error: unknown) {
+      if (error instanceof SyntaxError) {
+        console.error("JSON parse error:", error.message);
+        this.removeFromLocalStorage();
+      } else {
+        console.error("Unknown error:", error);
+      }
     }
   }
 
@@ -53,6 +66,15 @@ export class ArrayState<TType> {
       return JSON.parse(input);
     }
     return this._value;
+  }
+
+  removeFromLocalStorage(): void {
+    localStorage.removeItem(this.keyOnLocalStorage);
+    console.info(`Removed incorrect record from LocalStorage: ${this.keyOnLocalStorage}`);
+  }
+
+  isInLocalStorage(): boolean {
+    return localStorage.getItem(this.keyOnLocalStorage) != null;
   }
 
   [Symbol.iterator](): Iterator<TType> {

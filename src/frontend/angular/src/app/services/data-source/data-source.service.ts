@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CommentType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
-import {LocalStorageService} from "../local-storage/local-storage.service";
+import {DataStorageService} from "../data-storage/data-storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,12 @@ import {LocalStorageService} from "../local-storage/local-storage.service";
 export class DataSourceService {
   private readonly source: WorkspaceType[] = [];
 
-  constructor(private locaStorageService: LocalStorageService) {
-    this.source = locaStorageService.storage;
+  constructor(private dataStorageService: DataStorageService) {
+    this.source = dataStorageService.storage;
   }
 
   public setWorkspaces() {
-    this.locaStorageService.saveStateOnLocalStorage(this.getWorkspaces());
+    this.dataStorageService.saveStateOnLocalStorage(this.getWorkspaces());
   }
 
   public getWorkspaces() {

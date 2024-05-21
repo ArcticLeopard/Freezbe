@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {GlobalSettings} from "../../common/globalSettings";
-import {CommentType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
+import {ActiveAreaType, CommentType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
 import {DataSourceService} from "../data-source/data-source.service";
 import {BooleanState} from './booleanState';
 import {State} from "./state";
@@ -18,14 +18,15 @@ export class ViewStateService {
   public workspaceOpen: BooleanState;
   public activeProjectOpen: BooleanState;
   public scrollPosition: State<number>;
-  public currentWorkspaceId: State<string>;
-
   public currentViewType: State<string>;
   public currentViewName: State<string>;
+
+  public currentWorkspaceId: State<string>;
   public currentProjectId: State<string | null>;
   public currentTaskId: State<string | null>;
-  public workspace: State<WorkspaceType | undefined>;
+  public contextId: State<string | null>;
 
+  public workspace: State<WorkspaceType | undefined>;
   public workspaces: State<WorkspaceType[]>;
   public project: State<ProjectType | undefined>;
   public projects: State<ProjectType[] | undefined>;
@@ -34,6 +35,7 @@ export class ViewStateService {
   public comments: State<CommentType[] | undefined>;
   public priorityTasks: ArrayState<TaskType>;
   public incomingTasks: ArrayState<TaskType>;
+  context: ActiveAreaType;//TODO Pomyslec czy to ma tu byc
 
   constructor(private dataSourceService: DataSourceService) {
     let counter = 0;
@@ -54,6 +56,7 @@ export class ViewStateService {
     this.currentViewName = new State<string>(this.subject, this, '');
     this.currentProjectId = new State<string | null>(this.subject, this, null);
     this.currentTaskId = new State<string | null>(this.subject, this, null);
+    this.contextId = new State<string | null>(this.subject, this, null);
 
     this.workspace = new State<WorkspaceType | undefined>(this.subject, this, undefined);
     this.workspaces = new State<WorkspaceType[]>(this.subject, this, dataSourceService.getWorkspaces());
