@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header pl-3 pr-4">
   <div class="sectionInfoContainer">
     <btn-close-task-details></btn-close-task-details>
     <div class="px-4">
@@ -9,4 +9,4 @@
 </div>
 <app-detail-options></app-detail-options>
 <app-comment-list></app-comment-list>
-<app-comment-box></app-comment-box>
+<app-comment-box (open)="commentList.scrollToBottom(150)"></app-comment-box>

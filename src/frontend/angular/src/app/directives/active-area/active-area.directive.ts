@@ -15,7 +15,7 @@ export class ActiveAreaDirective {
   public context: ActiveAreaType;
   private contextId: State<string | null>;
 
-  @HostBinding("class.activeArea")
+  @HostBinding('class.activeArea')
   isFocused: boolean = false;
 
   @HostListener('mouseenter')

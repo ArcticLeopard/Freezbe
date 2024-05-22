@@ -1,6 +1,8 @@
-import {AfterViewInit, Component, ElementRef, Renderer2} from '@angular/core';
+import {Component, ElementRef, Renderer2} from '@angular/core';
 import {DatePipe, NgClass, NgForOf} from "@angular/common";
 import {ViewStateService} from "../../services/state/view-state.service";
+import {CommentType} from "../../common/types";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-comment-list',
@@ -9,20 +11,17 @@ import {ViewStateService} from "../../services/state/view-state.service";
   templateUrl: './comment-list.component.html',
   styleUrl: './comment-list.component.scss'
 })
-export class CommentListComponent implements AfterViewInit {
-  constructor(private host: ElementRef, public viewState: ViewStateService, private renderer: Renderer2) {
+export class CommentListComponent {
+  constructor(private host: ElementRef, public viewState: ViewStateService, private renderer: Renderer2, private interactionService: InteractionService) {
   }
 
-  ngAfterViewInit(): void {
-    this.scrollToBottom();
-    this.viewState.subject.subscribe(() => {
-      setTimeout(() => {
-        this.scrollToBottom();
-      });
-    });
+  public scrollToBottom(delay: number = 0): void {
+    setTimeout(() => {
+      this.renderer.setProperty(this.host.nativeElement, 'scrollTop', this.host.nativeElement.scrollHeight);
+    }, delay);
   }
 
-  public scrollToBottom(): void {
-    this.renderer.setProperty(this.host.nativeElement, 'scrollTop', this.host.nativeElement.scrollHeight);
+  delete(comment: CommentType) {
+    this.interactionService.deleteComment(comment.id);
   }
 }

@@ -1,15 +1,23 @@
+<div (click)="close()" class="background"></div>
 <div class="window" [style.width.rem]="width" [style.height.rem]="height">
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">
-<!--        <btn-close-window></btn-close-window>-->
+        <btn-close-window></btn-close-window>
         <div class="windowHeaderTitleContainer">
           <span class="pointerFocus">{{ name }}</span>
         </div>
       </div>
     </div>
     <div class="windowContent" [class.scrollable]="scrollable">
-	    <ng-content></ng-content>
+      <ng-content></ng-content>
+    </div>
+    <div class="windowFooter">
+      <div class="windowFooterContainer">
+        <div class="windowFooterTitleContainer">
+          <span class="pointerFocus"><a href="https://github.com/ArcticLeopard/Freezbe" target="_blank">Freezbe is Free & Open Source</a></span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

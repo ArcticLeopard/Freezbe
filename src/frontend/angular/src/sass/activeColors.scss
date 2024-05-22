@@ -15,7 +15,3 @@ $bgColors: (classic: $classic, classic-dark: $classicDark, gray-dark: $dark);
     @include activeColor(rgba($color, 0.6));
   }
 }
-
-.shadow-classic-dark {
-  @include shadow(darken($classicDark, 2%));
-}

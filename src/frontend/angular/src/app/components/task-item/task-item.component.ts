@@ -19,7 +19,7 @@ export class TaskItemComponent {
   @Input()
   model: TaskType;
 
-  @HostBinding("class.active")
+  @HostBinding('class.active')
   active: boolean = false;
 
   focus(mouseEvent: MouseEvent): void {

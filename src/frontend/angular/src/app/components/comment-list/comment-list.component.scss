@@ -8,9 +8,13 @@
   user-select: text;
 }
 
+pre {
+  @extend .m-0;
+}
+
 .commentDetails {
-  display: flex;
-  flex-direction: row;
+  @extend .row;
+  justify-content: space-between;
 
   span {
     @extend .pr-3;
@@ -20,7 +24,12 @@
     @extend .pl-3;
   }
 
-  .Date {
+  .Date, .Rest {
+    @extend .tr-ae-12;
     opacity: 25%;
+
+    &:hover {
+      opacity: 100%;
+    }
   }
 }

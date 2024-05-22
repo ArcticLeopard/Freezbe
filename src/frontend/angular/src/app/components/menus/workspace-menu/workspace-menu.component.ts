@@ -6,16 +6,17 @@ import {AppNavigatorService} from "../../../services/app-navigator/app-navigator
 import {GlobalSettings} from "../../../common/globalSettings";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
+import {WindowAddWorkspaceComponent} from "../../windows/window-add-workspace/window-add-workspace.component";
 
 @Component({
   selector: 'menu-workspace',
   standalone: true,
-  imports: [NgForOf, NgIf, SlicePipe],
+  imports: [NgForOf, NgIf, SlicePipe, WindowAddWorkspaceComponent],
   templateUrl: './workspace-menu.component.html',
   styleUrl: './workspace-menu.component.scss',
 })
 export class WorkspaceMenuComponent implements OnDestroy {
-  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
+  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, public interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
     this.subscription = this.viewState.subject.subscribe(state => {
       this.isHide = state.workspaceOpen.Value;
       if (state.sidebarOpen.Value) {

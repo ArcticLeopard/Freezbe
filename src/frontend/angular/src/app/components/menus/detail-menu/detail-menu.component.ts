@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostListener, ViewChild} from '@angular/core';
 import {DetailOptionsComponent} from "../../detail-options/detail-options.component";
 import {CommentListComponent} from "../../comment-list/comment-list.component";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
@@ -19,6 +19,9 @@ import {ActiveAreaDirective} from "../../../directives/active-area/active-area.d
 export class DetailMenuComponent {
   constructor(public viewState: ViewStateService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
   }
+
+  @ViewChild(CommentListComponent)
+  commentList: CommentListComponent;
 
   @HostListener('window:keydown', ['$event'])
   public changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
