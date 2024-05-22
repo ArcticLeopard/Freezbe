@@ -1,3 +1,21 @@
+@import "activeColors.scss";
+
+.shadow-classic-dark {
+  @include shadow(darken($classicDark, 2%));
+}
+
+.redButton {
+  color: $red;
+  @include activeColor(rgba($red, 0.1), darken($red, 5%));
+  @include activeBigButton(darken($red, 5%))
+}
+
+.orangeButton {
+  color: $orange;
+  @include activeColor(rgba($orange, 0.1), darken($orange, 5%));
+  @include activeBigButton(darken($orange, 5%))
+}
+
 .sectionInfoContainer {
   @extend .s100;
   display: flex;
@@ -11,4 +29,18 @@
   display: flex;
   flex: 0 0 auto;
   height: 5.6rem;
+}
+
+.panelArea {
+  border-bottom: $classicBorder solid 0.1rem;
+}
+
+.activeArea {
+  border-bottom: $white-60 solid 0.1rem;
+}
+
+.resizer {
+  @media (max-width: 715px) {
+    display: none;
+  }
 }

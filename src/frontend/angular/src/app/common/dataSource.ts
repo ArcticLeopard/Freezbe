@@ -317,7 +317,7 @@ export class DataSource {
     },
     {
       id: 'lt7w16o0',
-      name: 'Freezbe Workspace',
+      name: 'Freezbe',
       color: '#007bff',
       projects: []
     }

@@ -1,5 +1,42 @@
 @import "../../../../imports";
 
+%background-base {
+  @extend .s100;
+  position: absolute;
+  z-index: -2;
+}
+
+:host.inMiddle {
+  @extend .s100;
+  @extend .column, .center;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  .background {
+    @extend %background-base;
+  }
+}
+
+:host.inMiddle[hidden] {
+  display: none;
+}
+
+:host.background {
+  .background {
+    @extend %background-base;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+:host.background-with-blur {
+  .background {
+    @extend %background-base;
+    backdrop-filter: blur(3rem);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
 :host {
   position: absolute;
   z-index: 99;
@@ -9,7 +46,6 @@
   @extend .tfs-m-2;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5), 0 4px 50px rgba(0, 0, 0, 0.6);
   background-color: $dark;
-  opacity: 0.98;
   border: 0.05rem solid $white-30;
 
   &:hover {
@@ -42,7 +78,7 @@
   }
 }
 
-.windowHeaderContainer {
+.windowHeaderContainer, .windowFooterContainer {
   //Display
   @extend .row;
 
@@ -57,7 +93,7 @@
   justify-content: flex-start;
 }
 
-.windowHeader {
+.windowHeader, .windowFooter {
   //Display
   @extend .row;
 
@@ -73,7 +109,7 @@
   align-items: flex-start;
 }
 
-.windowHeaderTitleContainer {
+.windowHeaderTitleContainer, .windowFooterTitleContainer {
   //Display
   @extend .row;
 

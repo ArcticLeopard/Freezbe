@@ -1,0 +1,32 @@
+@import "../../../../imports";
+@import "../window/window.component";
+
+.content {
+  div {
+    line-height: 1.8rem;
+    letter-spacing: 0.1rem;
+  }
+}
+
+.windowHeaderTitleContainer {
+  @extend .tfs-p-4;
+}
+
+.windowHeader {
+  height: 6rem;
+}
+
+.logotype {
+  position: relative;
+  top: 0;
+  z-index: -1;
+
+  img {
+    position: absolute;
+    top: -16.5rem;
+  }
+
+  @media screen and (max-height: 565px) {
+    display: none;
+  }
+}

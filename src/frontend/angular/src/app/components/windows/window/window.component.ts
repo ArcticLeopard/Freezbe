@@ -1,6 +1,7 @@
 import {booleanAttribute, Component, ElementRef, HostBinding, HostListener, Input, numberAttribute, Renderer2} from '@angular/core';
 import {NgForOf} from "@angular/common";
 import {CloseWindowComponent} from "../../buttons/close-window/close-window.component";
+import {BackgroundTypes} from "../../../common/types";
 
 @Component({
   selector: 'window',
@@ -15,36 +16,30 @@ export class WindowComponent {
   @Input({transform: numberAttribute}) width: number;
   @Input({transform: numberAttribute}) minHeight: number = 31.5;
   @Input({transform: numberAttribute}) height: number;
-  @Input({transform: booleanAttribute})
   @HostBinding('hidden')
-  hidden: boolean;
+  isHidden: boolean;
+
+  @Input({transform: booleanAttribute})
+  get open() {
+    return !this.isHidden;
+  }
+
+  set open(value: boolean) {
+    this.isHidden = !value;
+  }
 
   @Input({transform: booleanAttribute}) scrollable: boolean;
   @Input({transform: booleanAttribute}) heightResizing: boolean;
-  @Input() @HostBinding("style.top") top: string;
-  @Input() @HostBinding("style.left") left: string;
-  private clickOutsideIsActive: boolean;
+  @Input() @HostBinding('style.top') top: string;
+  @Input() @HostBinding('style.left') left: string;
   private target: HTMLElement | null;
 
   constructor(protected elementRef: ElementRef, protected renderer: Renderer2) {
-    this.hidden = true;
-    this.clickOutsideIsActive = !this.hidden;
+    this.open = false;
     this.scrollable = false;
     this.top = "0";
     this.left = "0";
     this.target = null;
-  }
-
-  public show(event: MouseEvent): void {
-    this.target = event.target as HTMLElement;
-    this.adjustWindowWidth();
-    this.adjustWindowPosition();
-    this.toggleVisibility();
-    if (this.heightResizing) {
-      setTimeout(() => {
-        this.adjustWindowHeight();
-      });
-    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -56,19 +51,28 @@ export class WindowComponent {
     }
   }
 
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: Event): void {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      if (this.clickOutsideIsActive) {
-        this.hidden = true;
-      }
-      this.clickOutsideIsActive = !this.hidden;
+  public show() {
+    this.open = true;
+  }
+
+  public showUnder(event: MouseEvent): void {
+    this.target = event.target as HTMLElement;
+    this.adjustWindowWidth();
+    this.adjustWindowPosition();
+    this.toggleVisibility();
+    if (this.heightResizing) {
+      setTimeout(() => {
+        this.adjustWindowHeight();
+      });
     }
   }
 
+  close() {
+    this.open = false;
+  }
+
   private toggleVisibility(): void {
-    this.hidden = !this.hidden;
-    this.clickOutsideIsActive = false;
+    this.open = !this.open;
   }
 
   private adjustWindowPosition(): void {
@@ -99,5 +103,22 @@ export class WindowComponent {
       if (newHeight > this.minHeight)
         this.height = newHeight;
     }
+  }
+
+  @HostBinding('class.inMiddle')
+  @Input({transform: booleanAttribute})
+  inMiddle: boolean;
+
+  @Input()
+  backgroundType: BackgroundTypes;
+
+  @HostBinding('class.background')
+  get isBackground() {
+    return this.backgroundType === 'background';
+  }
+
+  @HostBinding('class.background-with-blur')
+  get isBackgroundWithBlur() {
+    return this.backgroundType === 'background-with-blur';
   }
 }

@@ -21,3 +21,4 @@ export type AnyCollectionType = any[] | undefined | null;
 export type AnyStringType = string | undefined | null;
 export type ActiveAreaType = 'workspaces' | 'projects' | 'tasks' | 'details';
 export type KeyboardKeyType = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'Enter' | 'Escape';
+export type BackgroundTypes = 'background' | 'background-with-blur'
