@@ -17,24 +17,6 @@
   border-radius: 0.5rem;
 }
 
-input {
-  //Background
-  @extend .bg-classic-dark, .hd;
-
-  //Paddings
-  @extend .py-2, .pl-5, .pr-2;
-
-  //Borders
-  @extend .b;
-
-  //Cursor
-  @extend .pointer;
-
-  //Width or/and Height
-  @extend .w100;
-  height: 3.2rem;
-}
-
 .projectList {
   //Background
   @extend .bg-classic-dark;

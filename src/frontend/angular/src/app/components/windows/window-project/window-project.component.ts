@@ -1,7 +1,6 @@
-import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {WindowComponent} from "../window/window.component";
-import {ViewStateService} from "../../../services/state/view-state.service";
 
 @Component({
   selector: 'window-project',
@@ -12,16 +11,6 @@ import {ViewStateService} from "../../../services/state/view-state.service";
 })
 
 export class WindowProjectComponent extends WindowComponent {
-  protected override elementRef: ElementRef;
-
-  protected override renderer: Renderer2;
-
-  constructor(elementRef: ElementRef, renderer: Renderer2, public viewState: ViewStateService) {
-    super(elementRef, renderer);
-    this.renderer = renderer;
-    this.elementRef = elementRef;
-  }
-
   @ViewChild('search')
   input: ElementRef;
 
