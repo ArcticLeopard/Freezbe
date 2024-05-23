@@ -1,10 +1,11 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {WindowComponent} from "../windows/window/window.component";
 import {WindowProjectComponent} from "../windows/window-project/window-project.component";
 import {CalendarComponent} from "../calendar/calendar.component";
 import {WindowDueDateComponent} from "../windows/window-due-date/window-due-date.component";
 import {ViewStateService} from "../../services/state/view-state.service";
 import {DatePipe} from "@angular/common";
+import {InteractionService} from "../../services/interaction/interaction.service";
 
 @Component({
   selector: 'app-detail-options',
@@ -14,9 +15,6 @@ import {DatePipe} from "@angular/common";
   styleUrl: './detail-options.component.scss'
 })
 export class DetailOptionsComponent {
-  constructor(public viewState: ViewStateService) {
+  constructor(public viewState: ViewStateService, public interactionService: InteractionService) {
   }
-
-  @ViewChild(WindowProjectComponent) public windowProjectRef: WindowProjectComponent;
-  @ViewChild(WindowDueDateComponent) public windowDueDateRef: WindowDueDateComponent;
 }

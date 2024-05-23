@@ -1,8 +1,5 @@
 @import "../../../../imports";
 
-$widthWorkSpace: 10rem;
-$workspaceMenuElementSize: (10 * $distance);
-
 :host {
   //Transitions
   @extend .tr-w-05;
@@ -23,7 +20,7 @@ $workspaceMenuElementSize: (10 * $distance);
   @extend .h100;
 
   @extend .panelArea;
-  width: $widthWorkSpace;
+  width: 10rem;
 
   &.isHide {
     width: $distance;
@@ -33,7 +30,7 @@ $workspaceMenuElementSize: (10 * $distance);
     }
 
     &:hover {
-      width: $widthWorkSpace;
+      width: 10rem;
 
       .workspaceMenuElement {
         &.activeWorkspace {
@@ -78,8 +75,8 @@ $workspaceMenuElementSize: (10 * $distance);
     @extend .tfw-6;
 
     color: $black;
-    width: $workspaceMenuElementSize;
-    height: $workspaceMenuElementSize;
+    width: (10 * $distance);
+    height: (10 * $distance);
     margin: 0.4rem 0;
     border-radius: 1.2rem;
 

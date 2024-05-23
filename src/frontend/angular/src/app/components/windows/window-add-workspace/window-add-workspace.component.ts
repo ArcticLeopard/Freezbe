@@ -1,23 +1,56 @@
-import {Component, ElementRef, Renderer2} from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {WindowComponent} from "../window/window.component";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {MonthPipe} from "../../../pipes/month/month.pipe";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {BigComponent} from "../../buttons/big/big.component";
-import {ViewStateService} from "../../../services/state/view-state.service";
 
 @Component({
   selector: 'window-add-workspace',
   standalone: true,
-  imports: [CalendarComponent, MonthPipe, NgForOf, BigComponent],
+  imports: [CalendarComponent, MonthPipe, NgForOf, BigComponent, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf],
   templateUrl: './window-add-workspace.component.html',
   styleUrl: './window-add-workspace.component.scss'
 })
 export class WindowAddWorkspaceComponent extends WindowComponent {
+  protected actionDisabled: boolean = true;
+  private readonly names: string[] = ['Add a workspace', 'Set up a Workspace'];
+  private _currentStep: number = 1;
 
-  constructor(elementRef: ElementRef, renderer: Renderer2, public viewState: ViewStateService) {
-    super(elementRef, renderer);
-    this.renderer = renderer;
-    this.elementRef = elementRef;
+  @ViewChild('workspaceNameInput')
+  workspaceNameInput: ElementRef;
+
+  @ViewChild('secondStepButton')
+  secondStepButton: BigComponent;
+
+  @HostListener('document:keyup', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    const inputElement = this.workspaceNameInput?.nativeElement;
+    if (inputElement && event.target === inputElement) {
+      this.actionDisabled = !inputElement.value.trim();
+    }
+  }
+
+  override show() {
+    this.setStepBeforeShow(1);
+    super.show();
+  }
+
+  public get currentStep() {
+    return this._currentStep;
+  }
+
+  public secondStep() {
+    this.setStepBeforeShow(2);
+  }
+
+  private setStepBeforeShow(step: number): void {
+    this._currentStep = step;
+    this.name = this.names[step - 1];
+    setTimeout(() => {
+      if (this.workspaceNameInput != null) {
+        this.renderer.selectRootElement(this.workspaceNameInput.nativeElement).focus();
+      }
+    });
   }
 }

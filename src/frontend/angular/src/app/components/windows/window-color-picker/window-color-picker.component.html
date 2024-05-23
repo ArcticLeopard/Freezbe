@@ -1,0 +1,12 @@
+<div (click)="close()" class="background"></div>
+<div class="window" [style.width.rem]="width" [style.height.rem]="height">
+  <div class="windowContainer">
+    <div class="windowContent scrollable">
+      <div class="center py-2 row">
+        <div *ngFor="let color of colors">
+          <div class="colorPicker m-1" [style.background]="color"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -133,11 +133,23 @@ export class InteractionService {
     return Date.now().toString(36); //Single User / Offline
   }
 
-  addWorkspace() {
+  openAddWorkspaceWindow() {
     this.viewState.windowAddWorkspace.Value?.show();
   }
 
-  addProject() {
-    this.addWorkspace();//TODO
+  openDueDateWindow(event: MouseEvent) {
+    this.viewState.windowDueDate.Value?.showUnder(event);
+  }
+
+  openProjectWindow(event: MouseEvent) {
+    this.viewState.windowProject.Value?.showUnder(event);
+  }
+
+  openColorPickerWindow() {
+    this.viewState.windowColorPicker.Value?.show();
+  }
+
+  openAddProjectWindow() {
+    this.openAddWorkspaceWindow();//TODO
   }
 }

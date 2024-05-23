@@ -33,7 +33,7 @@ export const routes: Routes = [
     path: `${workspaces}/:${workspaceId}/${incoming}`,
     component: AppPageComponent,
     pathMatch: 'full',
-    title: 'Incomming - Freezbe'
+    title: 'Incoming - Freezbe'
   },
   {
     path: `${workspaces}/:${workspaceId}/${incoming}/${tasks}/:${taskId}`,

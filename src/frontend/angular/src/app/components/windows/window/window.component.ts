@@ -2,6 +2,8 @@ import {booleanAttribute, Component, ElementRef, HostBinding, HostListener, Inpu
 import {NgForOf} from "@angular/common";
 import {CloseWindowComponent} from "../../buttons/close-window/close-window.component";
 import {BackgroundTypes} from "../../../common/types";
+import {InteractionService} from "../../../services/interaction/interaction.service";
+import {ViewStateService} from "../../../services/state/view-state.service";
 
 @Component({
   selector: 'window',
@@ -34,7 +36,7 @@ export class WindowComponent {
   @Input() @HostBinding('style.left') left: string;
   private target: HTMLElement | null;
 
-  constructor(protected elementRef: ElementRef, protected renderer: Renderer2) {
+  constructor(protected elementRef: ElementRef, protected renderer: Renderer2, protected viewState: ViewStateService, protected interactionService: InteractionService) {
     this.open = false;
     this.scrollable = false;
     this.top = "0";
