@@ -7,10 +7,7 @@ import {DataSourceService} from "../../services/data-source/data-source.service"
 @Component({
   selector: 'home-page',
   standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink
-  ],
+  imports: [NgForOf, RouterLink],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })

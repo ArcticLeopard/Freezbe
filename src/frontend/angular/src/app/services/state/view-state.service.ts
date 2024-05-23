@@ -7,6 +7,9 @@ import {BooleanState} from './booleanState';
 import {State} from "./state";
 import {ArrayState} from "./arrayState";
 import {WindowAddWorkspaceComponent} from "../../components/windows/window-add-workspace/window-add-workspace.component";
+import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
+import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
+import {WindowDueDateComponent} from "../../components/windows/window-due-date/window-due-date.component";
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +40,9 @@ export class ViewStateService {
   public priorityTasks: ArrayState<TaskType>;
   public incomingTasks: ArrayState<TaskType>;
   public windowAddWorkspace: State<WindowAddWorkspaceComponent | undefined>;
+  public windowColorPicker: State<WindowColorPickerComponent | undefined>;
+  public windowProject: State<WindowProjectComponent | undefined>;
+  public windowDueDate: State<WindowDueDateComponent | undefined>;
   context: ActiveAreaType;
 
   constructor(private dataSourceService: DataSourceService) {
@@ -69,7 +75,11 @@ export class ViewStateService {
     this.comments = new State<CommentType[] | undefined>(this.subject, this, undefined);
     this.priorityTasks = new ArrayState<TaskType>(this.subject, this, []);
     this.incomingTasks = new ArrayState<TaskType>(this.subject, this, []);
+
     this.windowAddWorkspace = new State<WindowAddWorkspaceComponent | undefined>(this.subject, this, undefined);
+    this.windowColorPicker = new State<WindowColorPickerComponent | undefined>(this.subject, this, undefined);
+    this.windowProject = new State<WindowProjectComponent | undefined>(this.subject, this, undefined);
+    this.windowDueDate = new State<WindowDueDateComponent | undefined>(this.subject, this, undefined);
   }
 
   refreshView() {

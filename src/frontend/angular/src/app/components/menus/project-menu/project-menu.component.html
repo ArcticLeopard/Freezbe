@@ -4,7 +4,7 @@
   </div>
 </div>
 <div class="header">
-  <btn-big (click)="appNavigator.GoToPriority()" [class.active]="viewState.currentViewType.Value == priority" [number]="viewState.priorityTasks.Values.length" class="redButton hd focus" text="Priority"></btn-big>
-  <btn-big (click)="appNavigator.GoToIncoming()" [class.active]="viewState.currentViewType.Value == incoming" [number]="viewState.incomingTasks.Values.length" class="orangeButton hd focus" text="Incoming"></btn-big>
+  <btn-big (click)="appNavigator.GoToPriority()" [class.active]="viewState.currentViewType.Value == priority" [number]="viewState.priorityTasks.Values.length" text="Priority" color="red" />
+  <btn-big (click)="appNavigator.GoToIncoming()" [class.active]="viewState.currentViewType.Value == incoming" [number]="viewState.incomingTasks.Values.length" text="Incoming" color="orange" />
 </div>
 <app-active-projects></app-active-projects>

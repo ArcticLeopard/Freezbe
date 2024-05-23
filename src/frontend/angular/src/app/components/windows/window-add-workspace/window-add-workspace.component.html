@@ -12,15 +12,36 @@
       </div>
     </div>
     <div class="windowContent scrollable">
-      <div class="content pt-4 px-9 tfs-1 text-center mb-2">
-        <div class="text-break pb-6">
-          Just like your life is divided into areas.<br>
-          This way you can divide projects into workspaces.<br>
-          This will help you stay organized.<br>
-          <span title="The limit is your browser's Local Storage limit.">Workspaces are unlimited.</span><br>
-          You can create a workspace.<br>
-        </div>
-        <btn-big class="orangeButton hd focus p-4" text="Create a New Workspace" numberDisabled></btn-big>
+      <div class="content pt-4 px-9 tfs-1 mb-2">
+        <ng-container [ngSwitch]="currentStep">
+          <ng-container *ngSwitchCase="1">
+            <div class="text-center">
+              <div class="text-break pb-6">
+                Just like your life is divided into areas.<br>
+                This way you can divide projects into workspaces.<br>
+                This will help you stay organized.<br>
+                <span title="The limit is your browser's Local Storage limit.">Workspaces are unlimited.</span><br>
+                You can create a workspace.<br>
+              </div>
+              <btn-big (click)="secondStep()" class="p-4" color="orange" numberDisabled text="Create a New Workspace" />
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="2">
+            <div class="row mt-2">
+              <div class="column s100 mr-2 f-as">
+                <label class="pb-2" for="workspaceName">Name</label>
+                <input #workspaceNameInput class="input-text" id="workspaceName" placeholder="Enter the name of your workspace" type="text">
+              </div>
+              <div class="column ml-2 f-ac">
+                <label class="pb-2" for="colorPicker">Color</label>
+                <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="interactionService.openColorPickerWindow()"></div>
+              </div>
+            </div>
+            <div class="pt-5">
+              <btn-big #secondStepButton [disabled]="actionDisabled" class="p-4 text-center" color="orange" numberDisabled text="Create" />
+            </div>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
     <div class="windowFooter">

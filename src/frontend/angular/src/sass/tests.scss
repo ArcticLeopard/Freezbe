@@ -1,3 +1,4 @@
+@import "variables";
 @import "colors";
 
 .small {
@@ -10,5 +11,58 @@
   @extend .tr-ae-05;
   scale: 1;
   height: $height;
+}
+
+.colorPicker {
+  @extend .pointer;
+  @extend .b;
+  width: (10 * $distance);
+  height: (10 * $distance);
+  border-radius: 1.2rem;
+
+  &:hover {
+    border-color: $white;
+    border-width: 0.2rem;
+  }
+}
+
+.colorPickerAnimation {
+  animation: colorChange 10s infinite;
+}
+
+@keyframes colorChange {
+  0% {
+    background-color: #007bff;
+  }
+  10% {
+    background-color: #6610f2;
+  }
+  20% {
+    background-color: #6f42c1;
+  }
+  30% {
+    background-color: #e83e8c;
+  }
+  40% {
+    background-color: #dc3545;
+  }
+  50% {
+    background-color: #fd7e14;
+  }
+  60% {
+    background-color: #ffc107;
+  }
+  70% {
+    background-color: #28a745;
+  }
+  80% {
+    background-color: #20c997;
+  }
+  90% {
+    background-color: #17a2b8;
+  }
+  100% {
+    background-color: #007bff;
+  }
 }
 

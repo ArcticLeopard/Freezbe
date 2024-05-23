@@ -4,18 +4,6 @@
   @include shadow(darken($classicDark, 2%));
 }
 
-.redButton {
-  color: $red;
-  @include activeColor(rgba($red, 0.1), darken($red, 5%));
-  @include activeBigButton(darken($red, 5%))
-}
-
-.orangeButton {
-  color: $orange;
-  @include activeColor(rgba($orange, 0.1), darken($orange, 5%));
-  @include activeBigButton(darken($orange, 5%))
-}
-
 .sectionInfoContainer {
   @extend .s100;
   display: flex;
@@ -43,4 +31,22 @@
   @media (max-width: 715px) {
     display: none;
   }
+}
+
+.input-text {
+  //Background
+  @extend .bg-classic-dark, .hd;
+
+  //Paddings
+  @extend .py-2, .px-3;
+
+  //Borders
+  @extend .b;
+
+  //Cursor
+  @extend .pointer;
+
+  //Width or/and Height
+  @extend .w100;
+  height: 3.2rem;
 }

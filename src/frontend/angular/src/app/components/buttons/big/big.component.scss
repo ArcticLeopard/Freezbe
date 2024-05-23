@@ -14,3 +14,21 @@
   @extend .pointer, .tfw-6;
   justify-content: center;
 }
+
+:host.button-red {
+  color: $red;
+  @include activeButtonDarkenFocus(rgba($red, 0.1), darken($red, 5%));
+  @include focusBigButton(darken($red, 5%))
+}
+
+:host.button-orange {
+  color: $orange;
+  @include activeButtonDarkenFocus(rgba($orange, 0.1), darken($orange, 5%));
+  @include focusBigButton(darken($orange, 5%))
+}
+
+:host.button-gray {
+  color: $gray;
+  @include blankButton(rgba($gray, 0.1), darken($gray, 5%));
+  @extend .cursor;
+}
