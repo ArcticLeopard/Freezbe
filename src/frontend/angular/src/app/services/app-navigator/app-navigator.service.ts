@@ -10,7 +10,7 @@ import {Subscription} from "rxjs";
   providedIn: 'root',
 })
 export class AppNavigatorService implements OnDestroy {
-  constructor(public route: ActivatedRoute, public router: Router, private titleService: Title, private dataSourceService: DataSourceService, private viewState: ViewStateService) {
+  constructor(protected route: ActivatedRoute, protected router: Router, private titleService: Title, private dataSourceService: DataSourceService, private viewState: ViewStateService) {
     this.routeSubscription = this.route.url.subscribe(p => this.handleRouteChange(p));
     this.stateSubscription = this.viewState.subject.subscribe(p => this.handleStateChange(p));
   }

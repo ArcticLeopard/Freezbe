@@ -1,8 +1,8 @@
-<div (click)="close()" class="background"></div>
-<div (click)="close()" [style.width.rem]="width" class="logotype">
+<div (click)="closeWindow()" class="background"></div>
+<div (click)="closeWindow()" [style.width.rem]="width" class="logotype">
   <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/main/docs/readme/images/Freezbe_logo.svg" alt="Logotype">
 </div>
-<div class="window" [style.width.rem]="width">
+<div class="window" [style.width.rem]="width" [style.height.rem]="height" [style.top]="top" [style.left]="left" [style.right]="right" #window>
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">

@@ -31,9 +31,9 @@ export class WindowAddWorkspaceComponent extends WindowComponent {
     }
   }
 
-  override show() {
+  override openWindow() {
     this.setStepBeforeShow(1);
-    super.show();
+    super.openWindow();
   }
 
   public get currentStep() {
