@@ -11,7 +11,7 @@ export class InteractionService {
   constructor(private viewState: ViewStateService, private appNavigator: AppNavigatorService) {
   }
 
-  public onEscape(event: KeyboardEvent) {
+  public onEscape(event: KeyboardEvent): void {
     this.onPress(event, 'Escape', () => {
       if (this.viewState.currentViewType.Value == projects && this.viewState.currentProjectId.Value) {
         this.appNavigator.GoToProject(this.viewState.currentProjectId.Value);
@@ -25,13 +25,13 @@ export class InteractionService {
     });
   }
 
-  public onPress(event: KeyboardEvent, key: KeyboardKeyType, fn: Function) {
+  public onPress(event: KeyboardEvent, key: KeyboardKeyType, fn: Function): void {
     if (event.key == key) {
       fn();
     }
   }
 
-  public onChangePosition(collection: AnyCollectionType, id: AnyStringType, event: KeyboardEvent, changePositionEnabled: boolean = true) {
+  public onChangePosition(collection: AnyCollectionType, id: AnyStringType, event: KeyboardEvent, changePositionEnabled: boolean = true): void {
     if (collection != null && collection.length > 0) {
       let index: number;
       //TODO Dopisac zaznaczanie pierwszego elementu w zbiorze.
@@ -69,7 +69,7 @@ export class InteractionService {
     }
   }
 
-  private changePosition(collection: any[], event: KeyboardEvent, index: number) {
+  private changePosition(collection: any[], event: KeyboardEvent, index: number): void {
     if (event.key === 'ArrowUp') {
       if (index > 0) {
         let temp = collection[index];
@@ -85,7 +85,7 @@ export class InteractionService {
     }
   }
 
-  private changeFocus(collection: any[], id: string, event: KeyboardEvent, index: number) {
+  private changeFocus(collection: any[], id: string, event: KeyboardEvent, index: number): void {
     if (event.key === 'ArrowUp' && index > 0) {
       id = collection[index - 1].id;
       this.viewState.contextId.Value = id;
@@ -98,7 +98,7 @@ export class InteractionService {
     }
   }
 
-  public addComment(content: string) {
+  public addComment(content: string): void {
     let task = this.viewState.task.Value;
     if (task) {
       this.addCommentForTask(content, task);
@@ -106,7 +106,7 @@ export class InteractionService {
     }
   }
 
-  private addCommentForTask(content: string, task: TaskType) {
+  private addCommentForTask(content: string, task: TaskType): void {
     let comment: CommentType = {
       id: this.GenerateId(),
       author: 'You',
@@ -117,7 +117,7 @@ export class InteractionService {
     this.viewState.refreshView(); //TODO Refactor
   }
 
-  public deleteComment(commentId: string) {
+  public deleteComment(commentId: string): void {
     let task = this.viewState.task.Value;
     let comments = task?.comments;
     if (comments) {
@@ -133,23 +133,23 @@ export class InteractionService {
     return Date.now().toString(36); //Single User / Offline
   }
 
-  openAddWorkspaceWindow() {
-    this.viewState.windowAddWorkspace.Value?.show();
+  openAddWorkspaceWindow(): void {
+    this.viewState.windowAddWorkspace.Value?.openWindow();
   }
 
-  openDueDateWindow(event: MouseEvent) {
-    this.viewState.windowDueDate.Value?.showUnder(event);
+  openDueDateWindow(): void {
+    this.viewState.windowDueDate.Value?.openWindowRight();
   }
 
-  openProjectWindow(event: MouseEvent) {
-    this.viewState.windowProject.Value?.showUnder(event);
+  openProjectWindow(): void {
+    this.viewState.windowProject.Value?.openWindowRight();
   }
 
-  openColorPickerWindow() {
-    this.viewState.windowColorPicker.Value?.show();
+  openColorPickerWindow(): void {
+    this.viewState.windowColorPicker.Value?.openWindow();
   }
 
-  openAddProjectWindow() {
+  openAddProjectWindow(): void {
     this.openAddWorkspaceWindow();//TODO
   }
 }

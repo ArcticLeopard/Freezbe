@@ -11,7 +11,7 @@ import {Subscription} from "rxjs";
 })
 
 export class CloseSidebarComponent implements OnDestroy {
-  constructor(public viewState: ViewStateService) {
+  constructor(protected viewState: ViewStateService) {
     this.subscription = this.viewState.subject.subscribe(p => {
       this.isHide = p.sidebarOpen.Value;
     });

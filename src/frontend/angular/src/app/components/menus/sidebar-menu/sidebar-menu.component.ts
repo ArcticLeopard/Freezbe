@@ -16,7 +16,7 @@ import {ActiveAreaDirective} from "../../../directives/active-area/active-area.d
 })
 
 export class SidebarMenuComponent implements OnDestroy {
-  constructor(public viewState: ViewStateService) {
+  constructor(protected viewState: ViewStateService) {
     this.subscription = viewState.subject.subscribe(p => {
       this.isHide = p.sidebarOpen.Value;
     });

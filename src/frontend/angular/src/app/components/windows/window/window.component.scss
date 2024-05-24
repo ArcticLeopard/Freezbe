@@ -1,9 +1,39 @@
 @import "../../../../imports";
 
-%background-base {
+%window-background-shared {
   @extend .s100;
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: -2;
+}
+
+:host {
+  @extend .s100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 99;
+
+  & * {
+    position: static;
+  }
+
+  & .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  & .window {
+    position: absolute;
+  }
 }
 
 :host.inMiddle {
@@ -14,7 +44,7 @@
   left: 0;
 
   .background {
-    @extend %background-base;
+    @extend %window-background-shared;
   }
 }
 
@@ -24,25 +54,21 @@
 
 :host.background {
   .background {
-    @extend %background-base;
+    @extend %window-background-shared;
     background-color: rgba(0, 0, 0, 0.8);
   }
 }
 
 :host.background-with-blur {
   .background {
-    @extend %background-base;
+    @extend %window-background-shared;
     backdrop-filter: blur(3rem);
     background-color: rgba(0, 0, 0, 0.1);
   }
 }
 
-:host {
-  position: absolute;
-  z-index: 99;
-}
-
 .window {
+  position: absolute;
   @extend .tfs-m-2;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5), 0 4px 50px rgba(0, 0, 0, 0.6);
   background-color: $dark;

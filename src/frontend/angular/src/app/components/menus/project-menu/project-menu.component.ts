@@ -18,7 +18,7 @@ import {ActiveAreaDirective} from "../../../directives/active-area/active-area.d
   styleUrl: './project-menu.component.scss'
 })
 export class ProjectMenuComponent {
-  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
+  constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
   }
 
   @HostListener('window:keydown', ['$event'])

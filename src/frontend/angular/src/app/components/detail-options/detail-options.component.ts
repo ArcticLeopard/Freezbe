@@ -15,6 +15,6 @@ import {InteractionService} from "../../services/interaction/interaction.service
   styleUrl: './detail-options.component.scss'
 })
 export class DetailOptionsComponent {
-  constructor(public viewState: ViewStateService, public interactionService: InteractionService) {
+  constructor(protected viewState: ViewStateService, protected interactionService: InteractionService) {
   }
 }

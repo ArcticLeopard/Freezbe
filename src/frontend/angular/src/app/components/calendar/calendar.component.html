@@ -5,6 +5,6 @@
 </div>
 <div *ngFor="let week of calendarMatrix" class="row">
   <ng-container *ngFor="let day of [0, 1, 2, 3, 4, 5, 6]">
-    <calendar-day [currentElement]="week[day]" (selected)="dateSelected($event)"></calendar-day>
+    <calendar-day [currentElement]="week[day]" (selected)="dateSelected($event)" />
   </ng-container>
 </div>

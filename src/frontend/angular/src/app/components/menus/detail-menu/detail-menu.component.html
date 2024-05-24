@@ -1,12 +1,12 @@
 <div class="header pl-3 pr-4">
   <div class="sectionInfoContainer">
-    <btn-close-task-details></btn-close-task-details>
+    <btn-close-task-details />
     <div class="px-4">
       <span class="task-name" title="Change Task Name">{{ viewState.task.Value?.name }}</span>
     </div>
-    <btn-placeholder></btn-placeholder>
+    <btn-placeholder />
   </div>
 </div>
-<app-detail-options></app-detail-options>
-<app-comment-list></app-comment-list>
-<app-comment-box (open)="commentList.scrollToBottom(150)"></app-comment-box>
+<app-detail-options />
+<app-comment-list />
+<app-comment-box (open)="commentList.scrollToBottom(150)" />

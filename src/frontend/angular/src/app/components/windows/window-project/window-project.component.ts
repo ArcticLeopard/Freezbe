@@ -14,8 +14,8 @@ export class WindowProjectComponent extends WindowComponent {
   @ViewChild('search')
   input: ElementRef;
 
-  override showUnder(event: MouseEvent) {
-    super.showUnder(event);
+  override openWindowRight() {
+    super.openWindowRight();
     setTimeout(() => {
       this.renderer.selectRootElement(this.input.nativeElement).focus();
     });
