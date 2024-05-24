@@ -4,6 +4,7 @@ import {CloseWindowComponent} from "../../buttons/close-window/close-window.comp
 import {BackgroundTypes} from "../../../common/types";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ViewStateService} from "../../../services/state/view-state.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'window',
@@ -13,7 +14,16 @@ import {ViewStateService} from "../../../services/state/view-state.service";
   styleUrl: './window.component.scss',
 })
 export class WindowComponent implements OnDestroy {
+  constructor(protected elementRef: ElementRef, protected renderer: Renderer2, protected viewState: ViewStateService, protected interactionService: InteractionService) {
+    this.open = false;
+    this.scrollable = false;
+    this.subscription = this.viewState.subject.subscribe(p => {
+      this.AfterViewStateChange(p);
+    });
+  }
+
   @Input() name: string = "Title";
+
   @Input({transform: numberAttribute}) minWidth: number = 22;
   @Input({transform: numberAttribute}) width: number;
   @Input({transform: numberAttribute}) minHeight: number = 31.5;
@@ -26,7 +36,16 @@ export class WindowComponent implements OnDestroy {
   @HostBinding('hidden') isHidden: boolean;
   @ViewChild('window') windowRef: ElementRef;
   @HostBinding('class.inMiddle') @Input({transform: booleanAttribute}) inMiddle: boolean;
+  protected closeWindowIsEnabled: boolean = true;
   @Input() backgroundType: BackgroundTypes;
+  private subscription: Subscription;
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
+  protected AfterViewStateChange(p: ViewStateService) {
+  }
 
   @Input({transform: booleanAttribute})
   get open() {
@@ -52,14 +71,6 @@ export class WindowComponent implements OnDestroy {
     this.isHidden = !value;
   }
 
-  constructor(protected elementRef: ElementRef, protected renderer: Renderer2, protected viewState: ViewStateService, protected interactionService: InteractionService) {
-    this.open = false;
-    this.scrollable = false;
-  }
-
-  ngOnDestroy(): void {
-  }
-
   public openWindow() {
     this.open = true;
   }
@@ -70,11 +81,13 @@ export class WindowComponent implements OnDestroy {
   }
 
   public closeWindow() {
-    this.open = false;
+    if (this.closeWindowIsEnabled) {
+      this.open = false;
+    }
   }
 
   private putWindowRightSide() {
-    const containerW = this.viewState.detailMenu.Value?.width;
+    let containerW = this.viewState.detailMenu.Value?.width;
     if (this.windowRef?.nativeElement && containerW) {
       const winW = parseInt(this.windowRef.nativeElement.style.width) * 10;
       const winH = parseInt(this.windowRef.nativeElement.style.height) * 10;
@@ -82,6 +95,13 @@ export class WindowComponent implements OnDestroy {
       const middleWidth = `${(containerW - winW) / 2}px`;
       this.top = middleHeight;
       this.right = middleWidth;
+    }
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  protected closeWindowOnKey(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.closeWindow();
     }
   }
 }

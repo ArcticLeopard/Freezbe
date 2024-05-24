@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {AnyCollectionType, AnyStringType, CommentType, KeyboardKeyType, TaskType} from "../../common/types";
+import {AnyCollectionType, AnyStringType, CommentType, KeyboardKeyType, WorkspaceCandidate, TaskType, WorkspaceType} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
 import {incoming, priority, projects} from "../../common/consts";
+import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +35,6 @@ export class InteractionService {
   public onChangePosition(collection: AnyCollectionType, id: AnyStringType, event: KeyboardEvent, changePositionEnabled: boolean = true): void {
     if (collection != null && collection.length > 0) {
       let index: number;
-      //TODO Dopisac zaznaczanie pierwszego elementu w zbiorze.
-      //TODO REFAKTORING
-      //TODO ZMIANA STREF ZANACZANIA
-      //TODO JESLI ELEMENT ZNAJDUJE SIE PONIZEJ SCROLLA /WIDOCZNOSCI TO PRZEWIN TAK ABY ELEMENT BYL WIDOCZNY
-      //TODO COMPILTED CHANGE NA SPACE
-      //TODO PROJECT NA PRIORITY / INCOMING
       if (event.ctrlKey) {
         if (changePositionEnabled) {
           index = collection.findIndex(element => element.id === id);
@@ -83,6 +78,7 @@ export class InteractionService {
         collection[index + 1] = temp;
       }
     }
+    this.viewState.update();
   }
 
   private changeFocus(collection: any[], id: string, event: KeyboardEvent, index: number): void {
@@ -102,7 +98,6 @@ export class InteractionService {
     let task = this.viewState.task.Value;
     if (task) {
       this.addCommentForTask(content, task);
-
     }
   }
 
@@ -114,7 +109,34 @@ export class InteractionService {
       content: content
     };
     task.comments?.push(comment);
-    this.viewState.refreshView(); //TODO Refactor
+    this.viewState.update();
+  }
+
+  public addWorkspace(workspaceCandidate: WorkspaceCandidate): void {
+    if (workspaceCandidate.name.trim().length <= 0 || workspaceCandidate.color.trim().length <= 0) {
+      throw new Error('Invalid Argument');
+    }
+    let workspaces = this.viewState.workspaces;
+    if (workspaces) {
+      let now = Date.now();
+      let newElement: WorkspaceType = {
+        id: this.GenerateId(now),
+        color: workspaceCandidate.color,
+        name: workspaceCandidate.name,
+        projects: [
+          {
+            name: 'Single tasks',
+            color: '#ffffff',
+            id: this.GenerateId(now + 1),
+            tasks: []
+          }
+        ]
+      };
+      this.viewState.workspaces.Values.push(newElement);
+      this.viewState.activeProjectSectionIsOpen.Value = true;
+      this.appNavigator.GoToWorkspace(newElement.id);
+      this.viewState.update();
+    }
   }
 
   public deleteComment(commentId: string): void {
@@ -124,13 +146,17 @@ export class InteractionService {
       let index = comments.findIndex(p => p.id === commentId);
       if (index !== -1) {
         comments.splice(index, 1);
-        this.viewState.refreshView();
+        this.viewState.update();
       }
     }
   }
 
-  private GenerateId(): string {
-    return Date.now().toString(36); //Single User / Offline
+  private GenerateId(date: Number | undefined = undefined): string {
+    if (date == undefined) {
+      return Date.now().toString(36); //Single User / Offline
+    } else {
+      return date.toString(36); //Single User / Offline
+    }
   }
 
   openAddWorkspaceWindow(): void {
@@ -145,8 +171,9 @@ export class InteractionService {
     this.viewState.windowProject.Value?.openWindowRight();
   }
 
-  openColorPickerWindow(): void {
+  openColorPickerWindow(): WindowColorPickerComponent | undefined {
     this.viewState.windowColorPicker.Value?.openWindow();
+    return this.viewState.windowColorPicker.Value;
   }
 
   openAddProjectWindow(): void {

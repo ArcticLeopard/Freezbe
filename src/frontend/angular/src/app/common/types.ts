@@ -23,3 +23,13 @@ export type ActiveAreaType = 'workspaces' | 'projects' | 'tasks' | 'details';
 export type KeyboardKeyType = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'Enter' | 'Escape';
 export type BackgroundTypes = 'background' | 'background-with-blur'
 export type BigButtonTypes = 'orange' | 'red' | 'gray';
+
+export type ColorDraft = string | undefined;
+export type Color = string;
+
+export type NameDraft = string | undefined;
+export type Name = string;
+
+export type WorkspaceCandidateDraft = { color: ColorDraft; name: NameDraft };
+export type WorkspaceCandidate = { color: Color; name: Name };
+//export type NewProjectType = { color: ColorDraft; name: string | undefined };

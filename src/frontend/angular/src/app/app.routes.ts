@@ -1,12 +1,17 @@
 import {Routes} from '@angular/router';
 import {AppPageComponent} from "./pages/app-page/app-page.component";
-import {HomePageComponent} from "./pages/home-page/home-page.component";
 import {calendar, incoming, priority, projectId, projects, singleTasks, taskId, tasks, workspaceId, workspaces} from "./common/consts";
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomePageComponent
+    redirectTo: `${workspaces}`,
+    pathMatch: 'full'
+  },
+  {
+    path: `${workspaces}`,
+    component: AppPageComponent,
+    pathMatch: 'full'
   },
   {
     path: `${workspaces}/:${workspaceId}/${projects}/:${projectId}`,
@@ -64,6 +69,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: `${workspaces}`
   },
 ];

@@ -18,16 +18,16 @@ import {ActiveAreaDirective} from "../../../directives/active-area/active-area.d
 export class SidebarMenuComponent implements OnDestroy {
   constructor(protected viewState: ViewStateService) {
     this.subscription = viewState.subject.subscribe(p => {
-      this.isHide = p.sidebarOpen.Value;
+      this.isHide = p.sidebarMenuIsOpen.Value;
     });
   }
 
   private subscription: Subscription;
 
   @HostBinding(GlobalSettings.sidebarMenuAnimationEnabled ? "class.isHideAnimated" : "class.isHide")
-  isHide: boolean = this.viewState.sidebarOpen.Value;
+  isHide: boolean = this.viewState.sidebarMenuIsOpen.Value;
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 }

@@ -19,10 +19,11 @@ export class ViewStateService {
   public readonly subject: BehaviorSubject<ViewStateService>;
 
   public taskDetailsOpen: BooleanState;
-  public sidebarOpen: BooleanState;
-  public workspaceOpen: BooleanState;
-  public activeProjectOpen: BooleanState;
-  public scrollPosition: State<number>;
+  public sidebarMenuIsOpen: BooleanState;
+  public workspaceMenuIsOpen: BooleanState;
+  public activeProjectSectionIsOpen: BooleanState;
+  public projectMenuScrollbarPosition: State<number>;
+  public workspaceMenuScrollbarPosition: State<number>;
   public currentViewType: State<string>;
   public currentViewName: State<string>;
 
@@ -32,12 +33,12 @@ export class ViewStateService {
   public contextId: State<string | null>;
 
   public workspace: State<WorkspaceType | undefined>;
-  public workspaces: State<WorkspaceType[]>;
+  public workspaces: ArrayState<WorkspaceType>;
   public project: State<ProjectType | undefined>;
-  public projects: State<ProjectType[] | undefined>;
+  public projects: ArrayState<ProjectType>;
   public task: State<TaskType | undefined>;
   public tasks: ArrayState<TaskType>;
-  public comments: State<CommentType[] | undefined>;
+  public comments: ArrayState<CommentType>;
   public priorityTasks: ArrayState<TaskType>;
   public incomingTasks: ArrayState<TaskType>;
   public windowAddWorkspace: State<WindowAddWorkspaceComponent | undefined>;
@@ -56,10 +57,13 @@ export class ViewStateService {
       this.dataSourceService.setWorkspaces();
     });
     this.taskDetailsOpen = new BooleanState(this.subject, this, false, false);
-    this.sidebarOpen = new BooleanState(this.subject, this, false, true, 'sidebarOpen');
-    this.workspaceOpen = new BooleanState(this.subject, this, GlobalSettings.hideWorkspaceMenuOnStartup, true, 'workspaceOpen');
-    this.activeProjectOpen = new BooleanState(this.subject, this, true, true, 'activeProjectOpen');
-    this.scrollPosition = new State<number>(this.subject, this, 0, true, 'scrollPosition');
+    this.sidebarMenuIsOpen = new BooleanState(this.subject, this, false, true, 'sidebarMenuIsOpen');
+    this.workspaceMenuIsOpen = new BooleanState(this.subject, this, GlobalSettings.hideWorkspaceMenuOnStartup, true, 'workspaceMenuIsOpen');
+
+    this.activeProjectSectionIsOpen = new BooleanState(this.subject, this, true, true, 'activeProjectSectionIsOpen');
+
+    this.projectMenuScrollbarPosition = new State<number>(this.subject, this, 0, true, 'projectMenuScrollbarPosition');
+    this.workspaceMenuScrollbarPosition = new State<number>(this.subject, this, 0, true, 'workspaceMenuScrollbarPosition');
 
     this.currentWorkspaceId = new State<string>(this.subject, this, '');
     this.currentViewType = new State<string>(this.subject, this, '');
@@ -69,12 +73,12 @@ export class ViewStateService {
     this.contextId = new State<string | null>(this.subject, this, null);
 
     this.workspace = new State<WorkspaceType | undefined>(this.subject, this, undefined);
-    this.workspaces = new State<WorkspaceType[]>(this.subject, this, dataSourceService.getWorkspaces());
+    this.workspaces = new ArrayState<WorkspaceType>(this.subject, this, dataSourceService.getWorkspaces());
     this.project = new State<ProjectType | undefined>(this.subject, this, undefined);
-    this.projects = new State<ProjectType[] | undefined>(this.subject, this, undefined);
+    this.projects = new ArrayState<ProjectType>(this.subject, this, []);
     this.task = new State<TaskType | undefined>(this.subject, this, undefined);
     this.tasks = new ArrayState<TaskType>(this.subject, this, []);
-    this.comments = new State<CommentType[] | undefined>(this.subject, this, undefined);
+    this.comments = new ArrayState<CommentType>(this.subject, this, []);
     this.priorityTasks = new ArrayState<TaskType>(this.subject, this, []);
     this.incomingTasks = new ArrayState<TaskType>(this.subject, this, []);
 
@@ -86,7 +90,7 @@ export class ViewStateService {
     this.detailMenu = new State<DetailMenuComponent | undefined>(this.subject, this, undefined);
   }
 
-  refreshView() {
+  update() {
     this.subject.next(this);
   }
 }

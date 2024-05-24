@@ -73,7 +73,6 @@ export class AppNavigatorService implements OnDestroy {
     if (this.currentViewType) {
       if (this.currentViewType !== projects) {
         this.router.navigate([workspaces, this.currentWorkspaceId, this.currentViewType]).then();
-        //TODO Dopisac zmiane tytułów zmiana tytułu nie działa w Priority oraz Incoming
       } else {
         this.router.navigate([workspaces, this.currentWorkspaceId, this.currentViewType, this.currentProjectId]).then();
         this.SetTitleForProject(this.currentProjectId);
@@ -85,7 +84,7 @@ export class AppNavigatorService implements OnDestroy {
     if (this.currentViewType) {
       if (this.currentViewType !== projects) {
         this.router.navigate([workspaces, this.currentWorkspaceId, this.currentViewType, tasks, taskId]).then();
-        //TODO Dopisac zmiane tytułów zmiana tytułu nie działa w Priority oraz Incoming
+        this.SetTitleForTask(taskId);
       } else {
         this.router.navigate([workspaces, this.currentWorkspaceId, this.currentViewType, this.currentProjectId, tasks, taskId]).then();
         this.SetTitleForTask(taskId);
@@ -147,6 +146,11 @@ export class AppNavigatorService implements OnDestroy {
   }
 
   private handleStateChange(viewState: ViewStateService): void {
+    if (this.viewState.currentWorkspaceId.Value == undefined) {
+      if (this.viewState.workspaces.Values.length > 0) {
+        this.GoToWorkspace(this.viewState.workspaces.Values[0].id);
+      }
+    }
     this.currentWorkspaceId = viewState.currentWorkspaceId.Value;
     this.currentViewType = viewState.currentViewType.Value;
 
@@ -155,7 +159,7 @@ export class AppNavigatorService implements OnDestroy {
 
     this.viewState.taskDetailsOpen.ValueWithoutPropagation = !!viewState.currentTaskId.Value;
     this.viewState.workspace.ValueWithoutPropagation = this.dataSourceService.getWorkspace(viewState.currentWorkspaceId.Value);
-    this.viewState.projects.ValueWithoutPropagation = this.dataSourceService.getProjects(viewState.currentWorkspaceId.Value);
+    this.viewState.projects.ValuesWithoutPropagation = this.dataSourceService.getProjects(viewState.currentWorkspaceId.Value);
 
     this.CleanView();
 
@@ -172,18 +176,11 @@ export class AppNavigatorService implements OnDestroy {
     this.UpdateDetails(viewState);
   }
 
-  private UpdateDetails(viewState: ViewStateService) {
-    if (viewState.currentTaskId.Value) {
-      this.viewState.task.ValueWithoutPropagation = this.dataSourceService.getTask(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
-      this.viewState.comments.ValueWithoutPropagation = this.dataSourceService.getComments(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
-    }
-  }
-
   private CleanView() {
     this.viewState.tasks.ValuesWithoutPropagation = [];
     this.viewState.project.ValueWithoutPropagation = undefined;
     this.viewState.task.ValueWithoutPropagation = undefined;
-    this.viewState.comments.ValueWithoutPropagation = undefined;
+    this.viewState.comments.ValuesWithoutPropagation = undefined;
   }
 
   private UpdateProjectView(viewState: ViewStateService) {
@@ -209,6 +206,13 @@ export class AppNavigatorService implements OnDestroy {
     if (viewState.currentViewType.Value == incoming) {
       this.viewState.currentViewName.ValueWithoutPropagation = this.viewState.currentViewType.Value;
       this.viewState.tasks.ValueWithoutPropagation = this.viewState.incomingTasks.Values;
+    }
+  }
+
+  private UpdateDetails(viewState: ViewStateService) {
+    if (viewState.currentTaskId.Value) {
+      this.viewState.task.ValueWithoutPropagation = this.dataSourceService.getTask(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
+      this.viewState.comments.ValuesWithoutPropagation = this.dataSourceService.getComments(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
     }
   }
 }

@@ -1,8 +1,8 @@
 <div (click)="closeWindow()" class="background"></div>
-<div (click)="closeWindow()" [style.width.rem]="width" class="logotype">
-  <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/main/docs/readme/images/Freezbe_logo.svg" alt="Logotype">
-</div>
 <div class="window" [style.width.rem]="width" [style.height.rem]="height" [style.top]="top" [style.left]="left" [style.right]="right" #window>
+  <div (click)="closeWindow()" [style.width.rem]="width" class="logotype">
+    <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/main/docs/readme/images/Freezbe_logo.svg" alt="Logotype">
+  </div>
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">
@@ -23,22 +23,22 @@
                 <span title="The limit is your browser's Local Storage limit.">Workspaces are unlimited.</span><br>
                 You can create a workspace.<br>
               </div>
-              <btn-big (click)="secondStep()" class="p-4" color="orange" numberDisabled text="Create a New Workspace" />
+              <btn-big #firstStepButton (click)="showStep(2)" class="p-4" color="orange" numberDisabled text="Create a New Workspace" keyboardClick />
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="2">
             <div class="row mt-2">
               <div class="column s100 mr-2 f-as">
                 <label class="pb-2" for="workspaceName">Name</label>
-                <input #workspaceNameInput class="input-text" id="workspaceName" placeholder="Enter the name of your workspace" type="text">
+                <input #workspaceNameInput class="input-text" id="workspaceName" placeholder="Enter the name of your workspace" type="text" keyboardClick>
               </div>
               <div class="column ml-2 f-ac">
                 <label class="pb-2" for="colorPicker">Color</label>
-                <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="interactionService.openColorPickerWindow()"></div>
+                <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="openColorPickerWindow()" #colorPicker keyboardClick></div>
               </div>
             </div>
             <div class="pt-5">
-              <btn-big #secondStepButton [disabled]="actionDisabled" class="p-4 text-center" color="orange" numberDisabled text="Create" />
+              <btn-big #secondStepButton [disabled]="!workspaceAddIsEnabled" class="p-4 text-center" color="orange" numberDisabled text="Create" (click)="createWorkspace()" keyboardClick />
             </div>
           </ng-container>
         </ng-container>
