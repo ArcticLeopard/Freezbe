@@ -13,7 +13,7 @@ import {InteractionService} from "../../services/interaction/interaction.service
   styleUrl: './active-projects.component.scss'
 })
 export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
-  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, private hostRef: ElementRef, public interactionService: InteractionService) {
+  constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, private hostRef: ElementRef, protected interactionService: InteractionService) {
   }
 
   private subscription: Subscription;

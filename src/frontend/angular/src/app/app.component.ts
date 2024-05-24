@@ -8,7 +8,7 @@ import {DetailMenuComponent} from "./components/menus/detail-menu/detail-menu.co
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, SidebarMenuComponent, TaskMenuComponent, DetailMenuComponent],
-  template: '<router-outlet></router-outlet>',
+  template: '<router-outlet />',
   styles: []
 })
 

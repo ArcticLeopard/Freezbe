@@ -16,7 +16,7 @@ import {WindowAddWorkspaceComponent} from "../../windows/window-add-workspace/wi
   styleUrl: './workspace-menu.component.scss',
 })
 export class WorkspaceMenuComponent implements OnDestroy {
-  constructor(public viewState: ViewStateService, public appNavigator: AppNavigatorService, public interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
+  constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, protected interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
     this.subscription = this.viewState.subject.subscribe(state => {
       this.isHide = state.workspaceOpen.Value;
       if (state.sidebarOpen.Value) {

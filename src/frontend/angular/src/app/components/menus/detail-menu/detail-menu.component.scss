@@ -41,3 +41,7 @@
 .task-name {
   @extend .pointerFocus, .tfs-p-2;
 }
+
+:host.hidden {
+  display: none;
+}

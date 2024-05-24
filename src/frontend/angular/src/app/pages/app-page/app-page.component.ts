@@ -34,13 +34,15 @@ import {WindowProjectComponent} from "../../components/windows/window-project/wi
   providers: [AppNavigatorService]
 })
 export class AppPageComponent implements AfterViewInit, OnDestroy {
-  constructor(public viewState: ViewStateService) {
+  constructor(protected viewState: ViewStateService) {
   }
 
   @ViewChild(WindowAddWorkspaceComponent) windowAddWorkspace: WindowAddWorkspaceComponent;
   @ViewChild(WindowColorPickerComponent) windowColorPicker: WindowColorPickerComponent;
   @ViewChild(WindowProjectComponent) windowProject: WindowProjectComponent;
   @ViewChild(WindowDueDateComponent) windowDueDate: WindowDueDateComponent;
+
+  @ViewChild(DetailMenuComponent) detailMenu: DetailMenuComponent;
 
   ngAfterViewInit(): void {
     if (this.viewState.windowAddWorkspace.Value == undefined && this.windowAddWorkspace != undefined) {
@@ -54,6 +56,9 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     }
     if (this.viewState.windowDueDate.Value == undefined && this.windowDueDate != undefined) {
       this.viewState.windowDueDate.Value = this.windowDueDate;
+    }
+    if (this.viewState.detailMenu.Value == undefined && this.detailMenu != undefined) {
+      this.viewState.detailMenu.Value = this.detailMenu;
     }
   }
 

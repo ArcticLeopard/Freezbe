@@ -23,7 +23,7 @@ import {ActiveAreaDirective} from "../../../directives/active-area/active-area.d
 })
 
 export class TaskMenuComponent {
-  constructor(public viewState: ViewStateService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
+  constructor(protected viewState: ViewStateService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
   }
 
   @HostListener('window:keydown', ['$event'])

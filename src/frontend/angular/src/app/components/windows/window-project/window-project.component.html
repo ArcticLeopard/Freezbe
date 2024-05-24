@@ -1,5 +1,5 @@
-<div (click)="close()" class="background"></div>
-<div class="window" [style.width.rem]="width" [style.height.rem]="height">
+<div (click)="closeWindow()" class="background"></div>
+<div class="window" [style.width.rem]="width" [style.height.rem]="height" [style.top]="top" [style.left]="left" [style.right]="right" #window>
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">

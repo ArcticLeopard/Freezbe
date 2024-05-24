@@ -1,17 +1,17 @@
 <div class="header pl-4 pr-4">
   <div class="sectionInfoContainer">
-    <btn-close-sidebar class="pr-2"></btn-close-sidebar>
+    <btn-close-sidebar class="pr-2" />
     <div class="tfs-p-2">
       <span class="ml-1 text-nowrap">{{ viewState.currentViewName.Value | titlecase }}</span>
     </div>
     <div class="text-gray text-nowrap">{{ this.viewState.tasks.length }} Tasks</div>
     <div>
-      <btn-append class="pl-2"></btn-append>
+      <btn-append class="pl-2" />
     </div>
   </div>
 </div>
 <div class="list">
   <ng-container *ngFor="let task of this.viewState.tasks">
-    <task-item [class.active]="task == viewState.task.Value" [model]="task" class="bg-classic-dark hd"></task-item>
+    <task-item [class.active]="task == viewState.task.Value" [model]="task" class="bg-classic-dark hd" />
   </ng-container>
 </div>

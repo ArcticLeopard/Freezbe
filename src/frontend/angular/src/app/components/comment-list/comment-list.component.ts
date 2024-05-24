@@ -12,7 +12,7 @@ import {InteractionService} from "../../services/interaction/interaction.service
   styleUrl: './comment-list.component.scss'
 })
 export class CommentListComponent {
-  constructor(private host: ElementRef, public viewState: ViewStateService, private renderer: Renderer2, private interactionService: InteractionService) {
+  constructor(private host: ElementRef, protected viewState: ViewStateService, private renderer: Renderer2, private interactionService: InteractionService) {
   }
 
   public scrollToBottom(delay: number = 0): void {

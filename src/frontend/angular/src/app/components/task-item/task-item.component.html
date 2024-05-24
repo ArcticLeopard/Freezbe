@@ -1,5 +1,5 @@
 <div (click)="focus($event)" class="task-container" [title]="'Task: '+model.name">
-  <btn-task-status [model]="model"></btn-task-status>
+  <btn-task-status [model]="model" />
   <div class="task" [class.completed]="model.completed">
     <div class="task-header">
       <div class="task-name">
@@ -30,5 +30,5 @@
       <div class="shadow"></div>
     </div>
   </div>
-  <btn-task-priority [model]="model"></btn-task-priority>
+  <btn-task-priority [model]="model" />
 </div>

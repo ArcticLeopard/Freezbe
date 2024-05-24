@@ -10,6 +10,7 @@ import {WindowAddWorkspaceComponent} from "../../components/windows/window-add-w
 import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
 import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
 import {WindowDueDateComponent} from "../../components/windows/window-due-date/window-due-date.component";
+import {DetailMenuComponent} from "../../components/menus/detail-menu/detail-menu.component";
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,7 @@ export class ViewStateService {
   public windowColorPicker: State<WindowColorPickerComponent | undefined>;
   public windowProject: State<WindowProjectComponent | undefined>;
   public windowDueDate: State<WindowDueDateComponent | undefined>;
+  public detailMenu: State<DetailMenuComponent | undefined>;
   context: ActiveAreaType;
 
   constructor(private dataSourceService: DataSourceService) {
@@ -80,6 +82,8 @@ export class ViewStateService {
     this.windowColorPicker = new State<WindowColorPickerComponent | undefined>(this.subject, this, undefined);
     this.windowProject = new State<WindowProjectComponent | undefined>(this.subject, this, undefined);
     this.windowDueDate = new State<WindowDueDateComponent | undefined>(this.subject, this, undefined);
+
+    this.detailMenu = new State<DetailMenuComponent | undefined>(this.subject, this, undefined);
   }
 
   refreshView() {
