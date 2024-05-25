@@ -20,3 +20,7 @@
 .workspaceName {
   @extend .ml-1, .pointerFocus, .text-nowrap;
 }
+
+:host.hidden {
+  display: none;
+}

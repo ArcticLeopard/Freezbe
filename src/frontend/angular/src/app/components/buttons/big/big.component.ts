@@ -1,4 +1,4 @@
-import {booleanAttribute, Component, HostBinding, Input, numberAttribute} from '@angular/core';
+import {booleanAttribute, Component, ElementRef, HostBinding, Input, numberAttribute} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {BigButtonTypes} from "../../../common/types";
 
@@ -10,6 +10,9 @@ import {BigButtonTypes} from "../../../common/types";
   styleUrl: './big.component.scss'
 })
 export class BigComponent {
+  constructor(private elementRef: ElementRef) {
+  }
+
   @Input()
   text: string = "Title";
 
@@ -36,4 +39,8 @@ export class BigComponent {
   @Input({transform: booleanAttribute})
   @HostBinding('class.button-gray')
   disabled: boolean = false;
+
+  public focus(): void {
+    this.elementRef.nativeElement.focus();
+  }
 }

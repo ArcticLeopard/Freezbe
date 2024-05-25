@@ -20,16 +20,16 @@ export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.subscription = this.viewState.subject.subscribe(() => {
-      this.hostRef.nativeElement.scrollTop = this.viewState.scrollPosition.Value;
+      this.hostRef.nativeElement.scrollTop = this.viewState.projectMenuScrollbarPosition.Value;
     });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   @HostListener('scroll', ['$event'])
   saveScrollPosition(event: any): void {
-    this.viewState.scrollPosition.Value = event.target.scrollTop;
+    this.viewState.projectMenuScrollbarPosition.Value = event.target.scrollTop;
   }
 }

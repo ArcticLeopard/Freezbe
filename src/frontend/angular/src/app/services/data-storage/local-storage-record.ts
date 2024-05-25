@@ -1,4 +1,3 @@
-//TODO DRY
 export class LocalStorageRecord<T> {
   private readonly keyOnLocalStorage: string;
 
