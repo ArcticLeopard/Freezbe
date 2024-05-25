@@ -19,3 +19,7 @@
   @extend .sidebarScroll, .h100;
   overflow-x: hidden;
 }
+
+:host.hidden {
+  display: none;
+}

@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostBinding, HostListener, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostBinding, HostListener, OnDestroy, ViewChild} from '@angular/core';
 import {DetailOptionsComponent} from "../../detail-options/detail-options.component";
 import {CommentListComponent} from "../../comment-list/comment-list.component";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
@@ -17,7 +17,7 @@ import {Subscription} from "rxjs";
   styleUrl: './detail-menu.component.scss'
 })
 
-export class DetailMenuComponent implements OnDestroy {
+export class DetailMenuComponent implements OnDestroy, AfterViewInit {
 
   @HostBinding('class.hidden') hidden: boolean;
   private subscription: Subscription;
@@ -27,19 +27,23 @@ export class DetailMenuComponent implements OnDestroy {
 
   constructor(protected viewState: ViewStateService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective, private elementRef: ElementRef) {
     this.subscription = viewState.subject.subscribe(p => {
+      p.detailMenu.ValueWithoutPropagation = this;
       this.hidden = !p.taskDetailsOpen.Value;
     });
+  }
+
+  ngAfterViewInit(): void {
     this.resizeObserver = new ResizeObserver(entries => {
       for (let entry of entries) {
         this.width = entry.contentRect.width;
       }
     });
-    this.resizeObserver.observe(elementRef.nativeElement);
+    this.resizeObserver.observe((this.elementRef.nativeElement as HTMLElement));
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.resizeObserver.disconnect();
+    this.subscription?.unsubscribe();
+    this.resizeObserver?.disconnect();
   }
 
   @HostListener('window:keydown', ['$event'])

@@ -12,7 +12,7 @@ export class AutoRefreshDirective implements OnInit {
   ngOnInit(): void {
     this.renderer.listen(this.target.nativeElement, "click", () => {
       setTimeout(() => {
-        this.viewState.refreshView();
+        this.viewState.update();
       }, 500);
     });
   }

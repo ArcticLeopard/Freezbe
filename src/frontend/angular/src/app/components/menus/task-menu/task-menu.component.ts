@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
 import {DatePipe, JsonPipe, NgForOf, NgIf, TitleCasePipe} from "@angular/common";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
 import {TaskStatusComponent} from "../../buttons/task-status/task-status.component";
@@ -12,6 +12,7 @@ import {AutoRefreshDirective} from "../../../directives/auto-refresh/auto-refres
 import {projects} from "../../../common/consts";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'menu-task',
@@ -22,8 +23,18 @@ import {ActiveAreaDirective} from "../../../directives/active-area/active-area.d
   styleUrl: './task-menu.component.scss'
 })
 
-export class TaskMenuComponent {
+export class TaskMenuComponent implements OnDestroy {
   constructor(protected viewState: ViewStateService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
+    this.subscription = viewState.subject.subscribe(p => {
+      this.hidden = !p.currentWorkspaceId.Value;
+    });
+  }
+
+  @HostBinding('class.hidden') hidden: boolean;
+  private subscription: Subscription;
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   @HostListener('window:keydown', ['$event'])
