@@ -10,17 +10,13 @@ import {CalendarDayType} from "../../common/types";
   styleUrl: './calendar-day.component.scss'
 })
 export class CalendarDayComponent implements OnInit {
-  @Input('currentElement')
-  currentElement: CalendarDayType;
+  @Input('currentElement') currentElement: CalendarDayType;
 
-  @Output('selected')
-  onSelected: EventEmitter<CalendarDayType> = new EventEmitter();
+  @Output('selected') onSelected = new EventEmitter<CalendarDayType>();
 
-  @HostBinding('class.isDay')
-  isDay: boolean;
+  @HostBinding('class.isDay') isDay: boolean;
 
-  @HostBinding('class.isToday')
-  isToday: boolean;
+  @HostBinding('class.isToday') isToday: boolean;
 
   ngOnInit(): void {
     this.isDay = this.currentElement.isDay;

@@ -10,11 +10,12 @@ import {incoming, priority} from "../../../common/consts";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 import {Subscription} from "rxjs";
+import {SectionHeaderComponent} from "../../buttons/section-header/section-header.component";
 
 @Component({
   selector: 'menu-project',
   standalone: true,
-  imports: [NgForOf, PlaceholderComponent, BigComponent, ActiveProjectsComponent, SearchComponent],
+  imports: [NgForOf, PlaceholderComponent, BigComponent, ActiveProjectsComponent, SearchComponent, SectionHeaderComponent],
   templateUrl: './project-menu.component.html',
   styleUrl: './project-menu.component.scss'
 })

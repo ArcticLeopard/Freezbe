@@ -3,8 +3,8 @@
   <div class="windowContainer">
     <div class="windowContent scrollable">
       <div class="center py-2 row">
-        <div *ngFor="let color of colors">
-          <div class="colorPicker m-1" [style.background]="color" (click)="onClick(color)" keyboardClick></div>
+        <div *ngFor="let color of colors; let i = index">
+          <div class="colorPicker m-1" [style.background]="color" (click)="onClick(color)" [keyboardClick]="i+3" #color></div>
         </div>
       </div>
     </div>

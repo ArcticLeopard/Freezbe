@@ -6,7 +6,7 @@
     </div>
     <div class="text-gray text-nowrap">{{ this.viewState.tasks.length }} Tasks</div>
     <div>
-      <btn-append class="pl-2" />
+      <btn-append class="pl-2" *ngIf="viewState.currentProjectId.Value" />
     </div>
   </div>
 </div>

@@ -16,7 +16,7 @@ import {WindowAddWorkspaceComponent} from "../../windows/window-add-workspace/wi
   styleUrl: './workspace-menu.component.scss',
 })
 export class WorkspaceMenuComponent implements AfterViewInit, OnDestroy {
-  constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, protected interactionService: InteractionService, private activeArea: ActiveAreaDirective, private hostRef: ElementRef) {
+  constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, protected interactionService: InteractionService, private activeArea: ActiveAreaDirective, private elementRef: ElementRef) {
     this.subscription = this.viewState.subject.subscribe(state => {
       this.isHide = state.workspaceMenuIsOpen.Value;
       if (state.sidebarMenuIsOpen.Value) {
@@ -31,7 +31,7 @@ export class WorkspaceMenuComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.subscription = this.viewState.subject.subscribe(() => {
-      this.hostRef.nativeElement.scrollTop = this.viewState.workspaceMenuScrollbarPosition.Value;
+      this.elementRef.nativeElement.scrollTop = this.viewState.workspaceMenuScrollbarPosition.Value;
     });
   }
 

@@ -1,4 +1,4 @@
-<div class="pl-3 transparentScroll" [class.opened]="isOpen">
+<div class="px-3" [class.opened]="isOpen">
   <div>
     <textarea #textAreaRef (focus)="this.isOpen = true" (keydown)="keyDownDetector($event)" [value]="inputValue" class="bg-classic hl focus p-4 my-3 pointer commentBox" placeholder="Add your comment..." title="Add your comment">
     </textarea>
