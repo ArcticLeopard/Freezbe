@@ -21,19 +21,18 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   private colorSubscription: Subscription;
   private _currentStep: number = 1;
 
-  @ViewChild('workspaceNameInput') workspaceNameInput: ElementRef;
+  @ViewChild('workspaceNameInput') workspaceNameInputRef: ElementRef;
   @ViewChild('secondStepButton') secondStepButton: BigComponent;
   @ViewChild('firstStepButton') firstStepButton: BigComponent;
-  @ViewChild('colorPicker') colorPicker: ElementRef;
+  @ViewChild('colorPicker') colorPickerRef: ElementRef;
   private workspaceCandidate: WorkspaceCandidateDraft;
+
+  override postOnDestroy() {
+    this.colorSubscription?.unsubscribe();
+  }
 
   get workspaceAddIsEnabled(): boolean {
     return this.workspaceCandidate.name != undefined && this.workspaceCandidate.color != undefined;
-  }
-
-  override ngOnDestroy() {
-    super.ngOnDestroy();
-    this.colorSubscription?.unsubscribe();
   }
 
   override AfterViewStateChange() {
@@ -51,7 +50,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
 
   @HostListener('document:keyup', ['$event'])
   protected handleKeyboardEvent(event: KeyboardEvent): void {
-    const inputElement = this.workspaceNameInput?.nativeElement;
+    const inputElement = this.workspaceNameInputRef?.nativeElement;
     if (inputElement && event.target === inputElement) {
       if (inputElement.value.trim()) {
         this.workspaceCandidate.name = inputElement.value.trim();
@@ -61,9 +60,8 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
     }
   }
 
-  override openWindow(): void {
+  protected override preOpen() {
     this.showStep(1);
-    super.openWindow();
   }
 
   protected get currentStep(): number {
@@ -81,8 +79,8 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
       if (this.firstStepButton != null) {
         this.renderer.selectRootElement(this.firstStepButton).focus();
       }
-      if (this.workspaceNameInput != null) {
-        this.renderer.selectRootElement(this.workspaceNameInput.nativeElement).focus();
+      if (this.workspaceNameInputRef != null) {
+        this.renderer.selectRootElement(this.workspaceNameInputRef.nativeElement).focus();
       }
     });
   }
@@ -92,10 +90,15 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
     if (window) {
       this.colorSubscription = window.onColorSelected.subscribe(color => {
         this.workspaceCandidate.color = color;
-        this.colorPicker.nativeElement.style.background = color;
-        if (this.colorPicker.nativeElement.classList.contains('colorPickerAnimation')) {
-          this.colorPicker.nativeElement.classList.remove('colorPickerAnimation');
-        }
+        this.colorPickerRef.nativeElement.classList.remove('colorPickerAnimation');
+        this.colorPickerRef.nativeElement.style.background = color;
+        setTimeout(() => {
+          if (this.secondStepButton.disabled) {
+            this.workspaceNameInputRef.nativeElement.focus();
+          } else {
+            this.secondStepButton.focus();
+          }
+        }, 100);
       });
     }
   }

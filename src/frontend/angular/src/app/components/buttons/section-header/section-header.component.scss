@@ -1,0 +1,24 @@
+@import "../../../../imports";
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: $sectionHeight;
+}
+
+.header {
+  @extend .section, .px-3, .tfw-6, .pointer;
+  @extend .w100;
+  @extend .bb;
+}
+
+.icon {
+  min-width: 1.8rem;
+  min-height: 1.8rem;
+}
+
+.text {
+  @extend .pl-1, .text-nowrap;
+}
+

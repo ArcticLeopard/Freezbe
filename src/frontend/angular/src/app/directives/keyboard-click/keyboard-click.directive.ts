@@ -1,19 +1,21 @@
-import {Directive, ElementRef, HostListener, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
 
 @Directive({
   selector: '[keyboardClick]',
   standalone: true
 })
 export class KeyboardClickDirective {
-  constructor(private el: ElementRef, private renderer: Renderer2) {
-    this.renderer.setAttribute(this.el.nativeElement, 'tabindex', '0');
+  @Input() keyboardClick: number = 0;
+
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+    this.renderer.setAttribute(this.elementRef.nativeElement, 'tabindex', this.keyboardClick.toString());
   }
 
   @HostListener('keydown.enter') onEnter() {
-    this.el.nativeElement.click();
+    this.elementRef.nativeElement.click();
   }
 
   @HostListener('keydown.space') onSpace() {
-    this.el.nativeElement.click();
+    this.elementRef.nativeElement.click();
   }
 }

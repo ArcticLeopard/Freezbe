@@ -13,14 +13,14 @@ import {InteractionService} from "../../services/interaction/interaction.service
   styleUrl: './active-projects.component.scss'
 })
 export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
-  constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, private hostRef: ElementRef, protected interactionService: InteractionService) {
+  constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, private elementRef: ElementRef, protected interactionService: InteractionService) {
   }
 
   private subscription: Subscription;
 
   ngAfterViewInit(): void {
     this.subscription = this.viewState.subject.subscribe(() => {
-      this.hostRef.nativeElement.scrollTop = this.viewState.projectMenuScrollbarPosition.Value;
+      this.elementRef.nativeElement.scrollTop = this.viewState.projectMenuScrollbarPosition.Value;
     });
   }
 

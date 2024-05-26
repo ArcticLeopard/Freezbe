@@ -6,11 +6,11 @@ import {ViewStateService} from "../../services/state/view-state.service";
   standalone: true,
 })
 export class AutoRefreshDirective implements OnInit {
-  constructor(private target: ElementRef, private renderer: Renderer2, private viewState: ViewStateService) {
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private viewState: ViewStateService) {
   }
 
   ngOnInit(): void {
-    this.renderer.listen(this.target.nativeElement, "click", () => {
+    this.renderer.listen(this.elementRef.nativeElement, "click", () => {
       setTimeout(() => {
         this.viewState.update();
       }, 500);

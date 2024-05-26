@@ -14,7 +14,7 @@
 }
 
 .header {
-  @extend .infoHeader;
+  @extend .infoHeader, .row;
 }
 
 .workspaceName {

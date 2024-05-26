@@ -1,11 +1,12 @@
 import {booleanAttribute, Component, ElementRef, HostBinding, Input, numberAttribute} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {BigButtonTypes} from "../../../common/types";
+import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 
 @Component({
   selector: 'btn-big',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, KeyboardClickDirective],
   templateUrl: './big.component.html',
   styleUrl: './big.component.scss'
 })

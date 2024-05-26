@@ -10,12 +10,6 @@
   //Flex
   @extend .column;
 
-  //Scrolls
-  @extend .sidebarScroll;
-
-  //Paddings
-  @extend .py-2;
-
   //Spaces
   @extend .h100;
 
@@ -23,7 +17,7 @@
   width: 10rem;
 
   &.isHide {
-    width: $distance;
+    width: 1px;
 
     .workspaceMenuElement {
       @extend .inactiveWorkspace;
@@ -49,6 +43,10 @@
       box-shadow: 0 0 0 .2rem $white-05;
     }
   }
+}
+
+.header {
+  @extend .infoHeader, .transparentScroll;
 }
 
 .workspaceMenuElement {
@@ -77,7 +75,7 @@
     color: $black;
     width: (10 * $distance);
     height: (10 * $distance);
-    margin: 0.4rem 0;
+    margin: 0.6rem 0;
     border-radius: 1.2rem;
 
     img {

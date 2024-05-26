@@ -23,22 +23,22 @@
                 <span title="The limit is your browser's Local Storage limit.">Workspaces are unlimited.</span><br>
                 You can create a workspace.<br>
               </div>
-              <btn-big #firstStepButton (click)="showStep(2)" class="p-4" color="orange" numberDisabled text="Create a New Workspace" keyboardClick />
+              <btn-big #firstStepButton (click)="showStep(2)" class="p-4" color="orange" numberDisabled text="Create a New Workspace" [keyboardClick]="0" />
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="2">
             <div class="row mt-2">
               <div class="column s100 mr-2 f-as">
                 <label class="pb-2" for="workspaceName">Name</label>
-                <input #workspaceNameInput class="input-text" id="workspaceName" placeholder="Enter the name of your workspace" type="text" keyboardClick>
+                <input #workspaceNameInput class="input-text" id="workspaceName" placeholder="Enter the name of your workspace" type="text" [keyboardClick]="1">
               </div>
               <div class="column ml-2 f-ac">
                 <label class="pb-2" for="colorPicker">Color</label>
-                <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="openColorPickerWindow()" #colorPicker keyboardClick></div>
+                <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
               </div>
             </div>
             <div class="pt-5">
-              <btn-big #secondStepButton [disabled]="!workspaceAddIsEnabled" class="p-4 text-center" color="orange" numberDisabled text="Create" (click)="createWorkspace()" keyboardClick />
+              <btn-big #secondStepButton [disabled]="!workspaceAddIsEnabled" class="p-4 text-center" color="orange" numberDisabled text="Create" (click)="createWorkspace()" [keyboardClick]="14" />
             </div>
           </ng-container>
         </ng-container>
