@@ -33,3 +33,4 @@ export type Name = string;
 export type WorkspaceCandidateDraft = { color: ColorDraft; name: NameDraft };
 export type WorkspaceCandidate = { color: Color; name: Name };
 //export type NewProjectType = { color: ColorDraft; name: string | undefined };
+export type WindowPositionOption = 'right';

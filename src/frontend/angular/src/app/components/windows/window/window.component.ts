@@ -1,15 +1,13 @@
 import {booleanAttribute, Component, ElementRef, HostBinding, HostListener, Input, numberAttribute, OnDestroy, Renderer2, ViewChild} from '@angular/core';
-import {NgForOf} from "@angular/common";
-import {CloseWindowComponent} from "../../buttons/close-window/close-window.component";
 import {BackgroundTypes} from "../../../common/types";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
+import {WindowOpenOptions} from "./windowOpenOptions";
 
 @Component({
   selector: 'window',
   standalone: true,
-  imports: [NgForOf, CloseWindowComponent],
   templateUrl: './window.component.html',
   styleUrl: './window.component.scss',
 })
@@ -23,7 +21,6 @@ export class WindowComponent implements OnDestroy {
   }
 
   @Input() name: string = "Title";
-
   @Input({transform: numberAttribute}) minWidth: number = 22;
   @Input({transform: numberAttribute}) width: number;
   @Input({transform: numberAttribute}) minHeight: number = 31.5;
@@ -39,9 +36,14 @@ export class WindowComponent implements OnDestroy {
   protected closeWindowIsEnabled: boolean = true;
   @Input() backgroundType: BackgroundTypes;
   private subscription: Subscription;
+  @HostListener('keydown.escape') onPressEscape = () => this.closeWindow();
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    this.postOnDestroy();
+  }
+
+  protected postOnDestroy(): void {
   }
 
   protected AfterViewStateChange(p: ViewStateService) {
@@ -64,20 +66,26 @@ export class WindowComponent implements OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
-    this.putWindowRightSide();
+    this.moveWindowToRightSide();
   }
 
   set open(value: boolean) {
     this.isHidden = !value;
   }
 
-  public openWindow() {
+  public openWindow(options?: WindowOpenOptions) {
+    if (options?.position === 'right') {
+      this.moveWindowToRightSide();
+    }
+    this.preOpen();
     this.open = true;
+    this.postOpen();
   }
 
-  public openWindowRight(): void {
-    this.putWindowRightSide();
-    this.open = true;
+  protected preOpen() {
+  }
+
+  protected postOpen() {
   }
 
   public closeWindow() {
@@ -86,7 +94,7 @@ export class WindowComponent implements OnDestroy {
     }
   }
 
-  private putWindowRightSide() {
+  private moveWindowToRightSide() {
     let containerW = this.viewState.detailMenu.Value?.width;
     if (this.windowRef?.nativeElement && containerW) {
       const winW = parseInt(this.windowRef.nativeElement.style.width) * 10;
@@ -95,13 +103,6 @@ export class WindowComponent implements OnDestroy {
       const middleWidth = `${(containerW - winW) / 2}px`;
       this.top = middleHeight;
       this.right = middleWidth;
-    }
-  }
-
-  @HostListener('document:keyup', ['$event'])
-  protected closeWindowOnKey(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      this.closeWindow();
     }
   }
 }

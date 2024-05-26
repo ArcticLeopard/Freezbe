@@ -10,6 +10,8 @@ import {Subscription} from "rxjs";
   providedIn: 'root',
 })
 export class AppNavigatorService implements OnDestroy {
+  canRedirect: boolean = false;
+
   constructor(protected route: ActivatedRoute, protected router: Router, private titleService: Title, private dataSourceService: DataSourceService, private viewState: ViewStateService) {
     this.routeSubscription = this.route.url.subscribe(p => this.handleRouteChange(p));
     this.stateSubscription = this.viewState.subject.subscribe(p => this.handleStateChange(p));
@@ -126,6 +128,7 @@ export class AppNavigatorService implements OnDestroy {
   }
 
   private handleRouteChange(urlSegments: UrlSegment[]): void {
+    this.canRedirect = urlSegments.length > 0 && urlSegments[0].path != '';
     this.viewState.currentWorkspaceId.Value = urlSegments[1]?.path;
     this.viewState.currentViewType.Value = urlSegments[2]?.path;
     this.viewState.currentProjectId.Value = null;
@@ -146,9 +149,11 @@ export class AppNavigatorService implements OnDestroy {
   }
 
   private handleStateChange(viewState: ViewStateService): void {
-    if (this.viewState.currentWorkspaceId.Value == undefined) {
-      if (this.viewState.workspaces.Values.length > 0) {
-        this.GoToWorkspace(this.viewState.workspaces.Values[0].id);
+    if (this.canRedirect) {
+      if (this.viewState.currentWorkspaceId.Value == undefined) {
+        if (this.viewState.workspaces.Values.length > 0) {
+          this.GoToWorkspace(this.viewState.workspaces.Values[0].id);
+        }
       }
     }
     this.currentWorkspaceId = viewState.currentWorkspaceId.Value;

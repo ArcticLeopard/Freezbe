@@ -159,24 +159,17 @@ export class InteractionService {
     }
   }
 
-  openAddWorkspaceWindow(): void {
-    this.viewState.windowAddWorkspace.Value?.openWindow();
-  }
-
-  openDueDateWindow(): void {
-    this.viewState.windowDueDate.Value?.openWindowRight();
-  }
-
-  openProjectWindow(): void {
-    this.viewState.windowProject.Value?.openWindowRight();
-  }
+  openAddWorkspaceWindow = (): void => this.viewState.windowAddWorkspace.Value?.openWindow();
+  openDueDateWindow = (): void => this.viewState.windowDueDate.Value?.openWindow({position: 'right'});
+  openProjectWindow = (): void => this.viewState.windowProject.Value?.openWindow({position: 'right'});
 
   openColorPickerWindow(): WindowColorPickerComponent | undefined {
     this.viewState.windowColorPicker.Value?.openWindow();
     return this.viewState.windowColorPicker.Value;
   }
 
-  openAddProjectWindow(): void {
+  openAddProjectWindow(event: MouseEvent): void {
     this.openAddWorkspaceWindow();//TODO
+    event.stopPropagation();
   }
 }

@@ -15,17 +15,10 @@ import {DateOnly} from "../../common/dto";
 export class CalendarComponent implements OnChanges, AfterViewInit {
   public calendarMatrix: CalendarDayType[][];
   days: string[] = DataSource.daysCollection;
-  @Input()
-  year: number;
-
-  @Input()
-  month: number;
-
-  @Output('dateSelected')
-  onDateSelected: EventEmitter<DateOnly> = new EventEmitter();
-
-  @ViewChildren(CalendarDayComponent)
-  CalendarDayComponents: QueryList<CalendarDayComponent> = new QueryList<CalendarDayComponent>();
+  @Input() year: number;
+  @Input() month: number;
+  @Output('dateSelected') onDateSelected = new EventEmitter<DateOnly>();
+  @ViewChildren(CalendarDayComponent) CalendarDayComponents = new QueryList<CalendarDayComponent>();
 
   ngOnChanges(): void {
     this.setCalendarMatrix();
@@ -79,9 +72,7 @@ export class CalendarComponent implements OnChanges, AfterViewInit {
     return matrix;
   }
 
-  dateSelected(selectedDay: CalendarDayType) {
-    this.onDateSelected.emit(new DateOnly(this.year, this.month, selectedDay.day));
-  }
+  dateSelected = (selectedDay: CalendarDayType) => this.onDateSelected.emit(new DateOnly(this.year, this.month, selectedDay.day));
 }
 
 

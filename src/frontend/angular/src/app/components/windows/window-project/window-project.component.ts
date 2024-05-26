@@ -1,6 +1,7 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, QueryList, ViewChildren} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {WindowComponent} from "../window/window.component";
+import {CursorHtmlElement} from "../../../Cursor";
 
 @Component({
   selector: 'window-project',
@@ -11,13 +12,11 @@ import {WindowComponent} from "../window/window.component";
 })
 
 export class WindowProjectComponent extends WindowComponent {
-  @ViewChild('search')
-  input: ElementRef;
+  private cursor: CursorHtmlElement;
+  @ViewChildren('search')
+  searchRefCollection = new QueryList<ElementRef<HTMLElement>>();
 
-  override openWindowRight() {
-    super.openWindowRight();
-    setTimeout(() => {
-      this.renderer.selectRootElement(this.input.nativeElement).focus();
-    });
-  }
+  protected override preOpen = () => this.cursor = new CursorHtmlElement(this.searchRefCollection.toArray());
+  protected override postOpen = () => this.cursor.currentFocus();
+
 }

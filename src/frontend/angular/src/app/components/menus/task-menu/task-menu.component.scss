@@ -12,7 +12,7 @@
 }
 
 .header {
-  @extend .infoHeader, .transparentScroll;
+  @extend .infoHeader, .row, .transparentScroll;
 }
 
 .list {

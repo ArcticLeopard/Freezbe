@@ -1,4 +1,5 @@
 @import "activeColors.scss";
+@import "variables.scss";
 
 .shadow-classic-dark {
   @include shadow(darken($classicDark, 2%));
@@ -14,9 +15,8 @@
 
 .infoHeader {
   @extend .bb, .w100;
-  display: flex;
   flex: 0 0 auto;
-  height: 5.6rem;
+  height: $headerHeight;
 }
 
 .panelArea {

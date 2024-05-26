@@ -9,9 +9,8 @@ import {InteractionService} from "../../services/interaction/interaction.service
 })
 
 export class CommentBoxComponent {
-  @Output('open')
-  onOpen: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @ViewChild("textAreaRef") textAreaRef: ElementRef;
+  @Output('open') onOpen = new EventEmitter<boolean>();
   isOpen: boolean = false;
   inputValue: string = "";
 
@@ -24,9 +23,6 @@ export class CommentBoxComponent {
       this.isOpen = false;
     }
   }
-
-  @ViewChild("textAreaRef")
-  textAreaRef: ElementRef;
 
   addComment() {
     let textArea = this.textAreaRef.nativeElement;

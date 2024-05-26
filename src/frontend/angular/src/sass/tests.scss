@@ -20,7 +20,7 @@
   height: (10 * $distance);
   border-radius: 1.2rem;
 
-  &:hover {
+  &:hover, &:active, &:focus {
     border-color: $white;
     border-width: 0.2rem;
   }
