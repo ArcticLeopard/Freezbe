@@ -1,4 +1,5 @@
 @import "colors.scss";
+@import "variables.scss";
 
 @mixin focusDarken($currentColor) {
   background-color: darken($currentColor, 20%);
@@ -132,5 +133,56 @@
     top: 0;
     width: 10rem;
     z-index: 1;
+  }
+}
+
+@mixin pt($index) {
+  padding-top: $distance * $index;
+}
+
+@mixin pb($index) {
+  padding-bottom: $distance * $index;
+}
+
+@mixin pl($index) {
+  padding-left: $distance * $index;
+}
+
+@mixin pr($index) {
+  padding-right: $distance * $index;
+}
+
+@mixin px($index) {
+  padding-left: $distance * $index;
+  padding-right: $distance * $index;
+}
+
+@mixin py($index) {
+  padding-top: $distance * $index;
+  padding-bottom: $distance * $index;
+}
+
+@mixin p($index) {
+  padding: $distance * $index;
+}
+
+@mixin tfs-p($i) {
+  font-size: $normal-font-size + ($i * 0.1);
+}
+
+@mixin tfs-m($i) {
+  font-size: $normal-font-size - ($i * 0.1);
+}
+
+@mixin text-sizer($start: 0) {
+
+  @media (max-width: 1090px) {
+    @include tfs-m($start + 1);
+  }
+  @media (max-width: 900px) {
+    @include tfs-m($start + 2);
+  }
+  @media (max-width: 800px) {
+    @include tfs-m($start + 3);
   }
 }

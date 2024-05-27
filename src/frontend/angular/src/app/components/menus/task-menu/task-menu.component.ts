@@ -24,7 +24,7 @@ import {Subscription} from "rxjs";
 })
 
 export class TaskMenuComponent implements OnDestroy {
-  constructor(protected viewState: ViewStateService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
+  constructor(protected viewState: ViewStateService, protected interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
     this.subscription = viewState.subject.subscribe(p => {
       this.hidden = !p.currentWorkspaceId.Value;
     });

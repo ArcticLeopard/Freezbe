@@ -23,3 +23,8 @@
 :host.hidden {
   display: none;
 }
+
+.text-header {
+  @extend .text-nowrap;
+  @include text-sizer(-1);
+}

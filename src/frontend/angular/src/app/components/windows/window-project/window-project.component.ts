@@ -16,7 +16,12 @@ export class WindowProjectComponent extends WindowComponent {
   @ViewChildren('search')
   searchRefCollection = new QueryList<ElementRef<HTMLElement>>();
 
-  protected override preOpen = () => this.cursor = new CursorHtmlElement(this.searchRefCollection.toArray());
+  protected override preOpen = () => {
+    this.name = 'Project';
+    this.width = 29;
+    this.height = 33;
+    return this.cursor = new CursorHtmlElement(this.searchRefCollection.toArray());
+  };
   protected override postOpen = () => this.cursor.currentFocus();
 
 }

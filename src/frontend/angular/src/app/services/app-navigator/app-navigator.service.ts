@@ -217,6 +217,7 @@ export class AppNavigatorService implements OnDestroy {
   private UpdateDetails(viewState: ViewStateService) {
     if (viewState.currentTaskId.Value) {
       this.viewState.task.ValueWithoutPropagation = this.dataSourceService.getTask(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
+      this.viewState.project.ValueWithoutPropagation = this.dataSourceService.getProjectByTask(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
       this.viewState.comments.ValuesWithoutPropagation = this.dataSourceService.getComments(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
     }
   }

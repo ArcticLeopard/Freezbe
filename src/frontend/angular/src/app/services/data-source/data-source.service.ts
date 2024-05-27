@@ -32,6 +32,16 @@ export class DataSourceService {
     return this.getProjects(workspaceId)?.find(p => p.id == projectId);
   }
 
+  public getProjectByTask(workspaceId: string, taskId: string): ProjectType | undefined {
+    const workspace = this.getWorkspace(workspaceId);
+    if (!workspace)
+      return undefined;
+
+    return workspace.projects.find(project =>
+      project.tasks.some(task => task.id === taskId)
+    );
+  }
+
   public getTasks(workspaceId: string, projectId: string): TaskType[] | undefined {
     return this.getProject(workspaceId, projectId)?.tasks.sort(this.sortTasksByCompleted);
   }

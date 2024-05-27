@@ -1,8 +1,6 @@
 <div (click)="closeWindow()" class="background"></div>
-<div class="window" [style.width.rem]="width" [style.height.rem]="height" [style.top]="top" [style.left]="left" [style.right]="right" #window>
-  <div (click)="closeWindow()" [style.width.rem]="width" class="logotype">
-    <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/main/docs/readme/images/Freezbe_logo.svg" alt="Logotype">
-  </div>
+<div class="window" [style.top]="top" [style.left]="left" [style.right]="right" #window>
+  <logotype (click)="closeWindow()" />
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">
@@ -12,7 +10,7 @@
       </div>
     </div>
     <div class="windowContent scrollable">
-      <div class="content pt-4 px-9 tfs-1 mb-2">
+      <div class="content">
         <ng-container [ngSwitch]="currentStep">
           <ng-container *ngSwitchCase="1">
             <div class="text-center">
@@ -23,7 +21,7 @@
                 <span title="The limit is your browser's Local Storage limit.">Workspaces are unlimited.</span><br>
                 You can create a workspace.<br>
               </div>
-              <btn-big #firstStepButton (click)="showStep(2)" class="p-4" color="orange" numberDisabled text="Create a New Workspace" [keyboardClick]="0" />
+              <btn-big #firstStepButton (click)="showStep(2)" class="button" color="orange" numberDisabled text="Create a New Workspace" [keyboardClick]="0" />
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="2">
@@ -37,9 +35,7 @@
                 <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
               </div>
             </div>
-            <div class="pt-5">
-              <btn-big #secondStepButton [disabled]="!workspaceAddIsEnabled" class="p-4 text-center" color="orange" numberDisabled text="Create" (click)="createWorkspace()" [keyboardClick]="14" />
-            </div>
+            <btn-big #secondStepButton [disabled]="!workspaceAddIsEnabled" class="button mt-5" color="orange" numberDisabled text="Create" (click)="createWorkspace()" [keyboardClick]="14" />
           </ng-container>
         </ng-container>
       </div>

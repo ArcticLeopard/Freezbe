@@ -12,6 +12,8 @@ import {WindowAddWorkspaceComponent} from "../../components/windows/window-add-w
 import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
 import {WindowDueDateComponent} from "../../components/windows/window-due-date/window-due-date.component";
 import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
+import {WindowAddProjectComponent} from "../../components/windows/window-add-project/window-add-project.component";
+import {WindowAddTaskComponent} from "../../components/windows/window-add-task/window-add-task.component";
 
 @Component({
   selector: 'app-page',
@@ -27,7 +29,9 @@ import {WindowProjectComponent} from "../../components/windows/window-project/wi
     WindowAddWorkspaceComponent,
     WindowColorPickerComponent,
     WindowDueDateComponent,
-    WindowProjectComponent
+    WindowProjectComponent,
+    WindowAddProjectComponent,
+    WindowAddTaskComponent
   ],
   templateUrl: './app-page.component.html',
   styleUrl: './app-page.component.scss',
@@ -38,6 +42,8 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
   }
 
   @ViewChild(WindowAddWorkspaceComponent) windowAddWorkspace: WindowAddWorkspaceComponent;
+  @ViewChild(WindowAddProjectComponent) windowAddProject: WindowAddProjectComponent;
+  @ViewChild(WindowAddTaskComponent) windowAddTask: WindowAddTaskComponent;
   @ViewChild(WindowColorPickerComponent) windowColorPicker: WindowColorPickerComponent;
   @ViewChild(WindowProjectComponent) windowProject: WindowProjectComponent;
   @ViewChild(WindowDueDateComponent) windowDueDate: WindowDueDateComponent;
@@ -47,6 +53,12 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (this.viewState.windowAddWorkspace.Value == undefined && this.windowAddWorkspace != undefined) {
       this.viewState.windowAddWorkspace.Value = this.windowAddWorkspace;
+    }
+    if (this.viewState.windowAddProject.Value == undefined && this.windowAddProject != undefined) {
+      this.viewState.windowAddProject.Value = this.windowAddProject;
+    }
+    if (this.viewState.windowAddTask.Value == undefined && this.windowAddTask != undefined) {
+      this.viewState.windowAddTask.Value = this.windowAddTask;
     }
     if (this.viewState.windowColorPicker.Value == undefined && this.windowColorPicker != undefined) {
       this.viewState.windowColorPicker.Value = this.windowColorPicker;
@@ -64,6 +76,8 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.viewState.windowAddWorkspace.Value = undefined;
+    this.viewState.windowAddProject.Value = undefined;
+    this.viewState.windowAddTask.Value = undefined;
     this.viewState.windowColorPicker.Value = undefined;
     this.viewState.windowProject.Value = undefined;
     this.viewState.windowDueDate.Value = undefined;
