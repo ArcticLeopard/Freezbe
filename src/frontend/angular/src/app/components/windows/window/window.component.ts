@@ -74,12 +74,14 @@ export class WindowComponent implements OnDestroy {
   }
 
   public openWindow(options?: WindowOpenOptions) {
-    if (options?.position === 'right') {
-      this.moveWindowToRightSide();
-    }
     this.preOpen();
-    this.open = true;
-    this.postOpen();
+    setTimeout(() => {
+      this.open = true;
+      if (options?.position === 'right') {
+        this.moveWindowToRightSide();
+      }
+      this.postOpen();
+    });
   }
 
   protected preOpen() {

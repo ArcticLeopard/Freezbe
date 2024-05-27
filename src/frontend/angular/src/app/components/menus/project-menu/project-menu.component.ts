@@ -11,11 +11,13 @@ import {InteractionService} from "../../../services/interaction/interaction.serv
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 import {Subscription} from "rxjs";
 import {SectionHeaderComponent} from "../../buttons/section-header/section-header.component";
+import {CloseWorkspaceComponent} from "../../buttons/close-workspace/close-workspace.component";
+import {CloseSidebarComponent} from "../../buttons/close-sidebar/close-sidebar.component";
 
 @Component({
   selector: 'menu-project',
   standalone: true,
-  imports: [NgForOf, PlaceholderComponent, BigComponent, ActiveProjectsComponent, SearchComponent, SectionHeaderComponent],
+  imports: [NgForOf, PlaceholderComponent, BigComponent, ActiveProjectsComponent, SearchComponent, SectionHeaderComponent, CloseSidebarComponent, CloseWorkspaceComponent],
   templateUrl: './project-menu.component.html',
   styleUrl: './project-menu.component.scss'
 })

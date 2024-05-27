@@ -11,6 +11,8 @@ import {WindowColorPickerComponent} from "../../components/windows/window-color-
 import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
 import {WindowDueDateComponent} from "../../components/windows/window-due-date/window-due-date.component";
 import {DetailMenuComponent} from "../../components/menus/detail-menu/detail-menu.component";
+import {WindowAddProjectComponent} from "../../components/windows/window-add-project/window-add-project.component";
+import {WindowAddTaskComponent} from "../../components/windows/window-add-task/window-add-task.component";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +44,8 @@ export class ViewStateService {
   public priorityTasks: ArrayState<TaskType>;
   public incomingTasks: ArrayState<TaskType>;
   public windowAddWorkspace: State<WindowAddWorkspaceComponent | undefined>;
+  public windowAddProject: State<WindowAddProjectComponent | undefined>;
+  public windowAddTask: State<WindowAddTaskComponent | undefined>;
   public windowColorPicker: State<WindowColorPickerComponent | undefined>;
   public windowProject: State<WindowProjectComponent | undefined>;
   public windowDueDate: State<WindowDueDateComponent | undefined>;
@@ -83,6 +87,8 @@ export class ViewStateService {
     this.incomingTasks = new ArrayState<TaskType>(this.subject, this, []);
 
     this.windowAddWorkspace = new State<WindowAddWorkspaceComponent | undefined>(this.subject, this, undefined);
+    this.windowAddProject = new State<WindowAddProjectComponent | undefined>(this.subject, this, undefined);
+    this.windowAddTask = new State<WindowAddTaskComponent | undefined>(this.subject, this, undefined);
     this.windowColorPicker = new State<WindowColorPickerComponent | undefined>(this.subject, this, undefined);
     this.windowProject = new State<WindowProjectComponent | undefined>(this.subject, this, undefined);
     this.windowDueDate = new State<WindowDueDateComponent | undefined>(this.subject, this, undefined);

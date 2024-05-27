@@ -1,2 +1,16 @@
 @import "../../../../imports";
 @import "../window/window.component";
+
+.window {
+  width: 43rem;
+  @media (max-width: 430px) {
+    width: 37.5rem;
+  }
+}
+
+.colorPicker {
+  @media (max-width: 430px) {
+    width: (8 * $distance);
+    height: (8 * $distance);
+  }
+}

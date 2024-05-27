@@ -2,7 +2,7 @@
 
 :host {
   @extend .tr-w-08;
-  width: 40rem;
+  width: 42rem;
   display: flex;
   overflow: visible;
 
@@ -13,6 +13,10 @@
 
   &.isHide {
     display: none;
+  }
+
+  @media (max-width: 430px) {
+    width: 32.5rem;
   }
 }
 

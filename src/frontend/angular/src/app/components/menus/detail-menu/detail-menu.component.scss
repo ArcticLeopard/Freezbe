@@ -39,7 +39,9 @@
 }
 
 .task-name {
-  @extend .pointerFocus, .tfs-p-2;
+  @extend .pointerFocus;
+  @extend .tfs-m-3;
+  @include text-sizer(4);
 }
 
 :host.hidden {

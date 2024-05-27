@@ -14,11 +14,14 @@
 }
 
 .header {
-  @extend .infoHeader, .row;
+  @extend .row;
+  @extend .bb, .w100;
+  flex: 0 0 auto;
+  height: $sectionHeight;
 }
 
 .workspaceName {
-  @extend .ml-1, .pointerFocus, .text-nowrap;
+  @extend .ml-1, .px-2, .pointerFocus, .text-nowrap;
 }
 
 :host.hidden {

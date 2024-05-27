@@ -8,11 +8,12 @@ import {WorkspaceCandidate, WorkspaceCandidateDraft} from "../../../common/types
 import {Subscription} from "rxjs";
 import {WindowColorPickerComponent} from "../window-color-picker/window-color-picker.component";
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
+import {LogotypeComponent} from "../../logotype/logotype.component";
 
 @Component({
   selector: 'window-add-workspace',
   standalone: true,
-  imports: [CalendarComponent, MonthPipe, NgForOf, BigComponent, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective],
+  imports: [CalendarComponent, MonthPipe, NgForOf, BigComponent, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent],
   templateUrl: './window-add-workspace.component.html',
   styleUrl: './window-add-workspace.component.scss'
 })
@@ -32,7 +33,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   }
 
   get workspaceAddIsEnabled(): boolean {
-    return this.workspaceCandidate.name != undefined && this.workspaceCandidate.color != undefined;
+    return this.workspaceCandidate?.name != undefined && this.workspaceCandidate?.color != undefined;
   }
 
   override AfterViewStateChange() {

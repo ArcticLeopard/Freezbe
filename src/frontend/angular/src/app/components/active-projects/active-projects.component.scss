@@ -31,4 +31,5 @@
 .text {
   @extend .pl-4, .py-1;
   @extend .text-nowrap;
+  @include text-sizer(2);
 }
