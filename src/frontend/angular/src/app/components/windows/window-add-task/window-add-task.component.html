@@ -1,0 +1,35 @@
+<div (click)="closeWindow()" class="background"></div>
+<div class="window" [style.top]="top" [style.left]="left" [style.right]="right">
+  <logotype (click)="closeWindow()" />
+  <div class="windowContainer">
+    <div class="windowHeader">
+      <div class="windowHeaderContainer">
+        <div class="windowHeaderTitleContainer">
+          <span class="pointerFocus">{{ name }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="windowContent scrollable">
+      <div class="content">
+        <div class="row mt-2">
+          <div class="column s100 mr-2 f-as">
+            <label class="pb-2" for="taskName">Name</label>
+            <input #taskNameInput class="input-text" id="taskName" placeholder="Enter the name of your task" type="text" [keyboardClick]="1">
+          </div>
+          <div class="column ml-2 f-ac">
+            <label class="pb-2" for="colorPicker">Color</label>
+            <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
+          </div>
+        </div>
+        <btn-big #button [disabled]="!taskAddIsEnabled" class="button mt-5" color="orange" numberDisabled text="Create" (click)="createTask()" [keyboardClick]="14" />
+      </div>
+    </div>
+    <div class="windowFooter">
+      <div class="windowFooterContainer">
+        <div class="windowFooterTitleContainer">
+          <span class="pointerFocus"><a href="https://github.com/ArcticLeopard/Freezbe" target="_blank">Freezbe is Free & Open Source</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

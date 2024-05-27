@@ -17,14 +17,6 @@
   }
 }
 
-@mixin tfs-p($i) {
-  font-size: $normal-font-size + ($i * 0.1);
-}
-
-@mixin tfs-m($i) {
-  font-size: $normal-font-size - ($i * 0.1);
-}
-
 $weights: 3, 6, 9;
 @each $weight in $weights {
   .tfw-#{""+$weight} {

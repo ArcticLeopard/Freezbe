@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AnyCollectionType, AnyStringType, CommentType, KeyboardKeyType, WorkspaceCandidate, TaskType, WorkspaceType} from "../../common/types";
+import {AnyCollectionType, AnyStringType, CommentType, KeyboardKeyType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
 import {incoming, priority, projects} from "../../common/consts";
@@ -139,6 +139,47 @@ export class InteractionService {
     }
   }
 
+  public addProject(projectCandidate: ProjectCandidate): void {
+    if (projectCandidate.name.trim().length <= 0 || projectCandidate.color.trim().length <= 0) {
+      throw new Error('Invalid Argument');
+    }
+    let projects = this.viewState.projects;
+    if (projects) {
+      let now = Date.now();
+      let newElement: ProjectType = {
+        id: this.GenerateId(now),
+        color: projectCandidate.color,
+        name: projectCandidate.name,
+        tasks: []
+      };
+      this.viewState.projects.Values.push(newElement);
+      this.viewState.activeProjectSectionIsOpen.Value = true;
+      this.appNavigator.GoToProject(newElement.id);
+      this.viewState.update();
+    }
+  }
+
+  public addTask(taskCandidate: TaskCandidate): void {
+    if (taskCandidate.name.trim().length <= 0 || taskCandidate.color.trim().length <= 0) {
+      throw new Error('Invalid Argument');
+    }
+    let tasks = this.viewState.tasks;
+    if (tasks) {
+      let now = Date.now();
+      let newElement: TaskType = {
+        id: this.GenerateId(now),
+        name: taskCandidate.name,
+        priority: false,
+        incoming: false,
+        completed: false,
+        comments: []
+      };
+      this.viewState.tasks.Values.push(newElement);
+      this.appNavigator.GoToTask(newElement.id);
+      this.viewState.update();
+    }
+  }
+
   public deleteComment(commentId: string): void {
     let task = this.viewState.task.Value;
     let comments = task?.comments;
@@ -160,16 +201,18 @@ export class InteractionService {
   }
 
   openAddWorkspaceWindow = (): void => this.viewState.windowAddWorkspace.Value?.openWindow();
+
+  openAddProjectWindow(event: MouseEvent): void {
+    this.viewState.windowAddProject.Value?.openWindow();
+    event.stopPropagation();
+  }
+
+  openAddTaskWindow = (): void => this.viewState.windowAddTask.Value?.openWindow();
   openDueDateWindow = (): void => this.viewState.windowDueDate.Value?.openWindow({position: 'right'});
   openProjectWindow = (): void => this.viewState.windowProject.Value?.openWindow({position: 'right'});
 
   openColorPickerWindow(): WindowColorPickerComponent | undefined {
     this.viewState.windowColorPicker.Value?.openWindow();
     return this.viewState.windowColorPicker.Value;
-  }
-
-  openAddProjectWindow(event: MouseEvent): void {
-    this.openAddWorkspaceWindow();//TODO
-    event.stopPropagation();
   }
 }

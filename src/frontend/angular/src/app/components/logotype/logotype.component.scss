@@ -1,0 +1,20 @@
+:host {
+  width: 43rem;
+  position: relative;
+  top: 0;
+  z-index: -1;
+
+  svg {
+    width: 43rem;
+    position: absolute;
+    top: -20.5rem;
+  }
+
+  @media (max-width: 430px) {
+    width: 37.5rem;
+  }
+
+  @media screen and (max-height: 540px) {
+    display: none;
+  }
+}

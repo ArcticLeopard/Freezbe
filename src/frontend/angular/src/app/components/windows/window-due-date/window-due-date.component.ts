@@ -17,6 +17,12 @@ export class WindowDueDateComponent extends WindowComponent implements OnInit {
   protected readonly CalendarChangeStrategy = CalendarChangeStrategy;
   model: WindowDueDateModel;
 
+  protected override preOpen() {
+    this.name = 'Calendar';
+    this.width = 29;
+    this.height = 31.5;
+  }
+
   @ViewChild(CalendarComponent)
   calendarRef: CalendarComponent;
 

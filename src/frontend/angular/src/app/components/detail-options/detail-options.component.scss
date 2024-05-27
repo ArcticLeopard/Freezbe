@@ -2,26 +2,26 @@
 
 :host {
   //Borders
-  @extend .bb;
-}
-
-.container {
-  //Width or/and Height
-  @extend .s100;
-
-  //Display
-  @extend .row;
-
-  flex-wrap: wrap;
+  @extend .infoHeader, .row, .center;
 }
 
 .detailButton {
+  @extend .bg-classic, .hd, .focus, .pointer, .s100, .my-2;
   //Borders
   @extend .b;
 
   //Width or/and Height
   @extend .w100;
 
-  @extend .tfs-m-2;
+  @extend .tfs-m-4;
+  @include text-sizer(4);
   height: 3.45rem;
+}
+
+.left {
+  @extend .ml-3, .mr-1;
+}
+
+.right {
+  @extend .ml-1, .mr-3;
 }

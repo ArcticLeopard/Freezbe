@@ -27,6 +27,7 @@
 
 .task-name {
   flex-shrink: 0;
+  @include text-sizer();
 }
 
 .task-details {
@@ -40,6 +41,7 @@
   .text-detail {
     @extend .pl-2;
     @extend .text-gray;
+    @include text-sizer(4)
   }
 
   .icon-detail {
