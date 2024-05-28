@@ -41,10 +41,17 @@ export class ProjectMenuComponent implements OnDestroy {
   changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
     if (this.activeArea.isFocused) {
       this.viewState.activeProjectSectionIsOpen.Value = true;
-      setTimeout(() => {
-        this.interactionService.onChangePosition(this.viewState.projects.Values, this.viewState.currentProjectId.Value, event);
-      }, 100);
-      event.preventDefault();
+      this.interactionService.processHotKey(event, this.hotkeyHandlers);
     }
   }
+
+  private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
+    this.interactionService.onPressPlus.bind(this.interactionService),
+    this.interactionService.onPressAt.bind(this.interactionService),
+    this.interactionService.onPressExclamationMark.bind(this.interactionService),
+    this.interactionService.onPressNumber.bind(this.interactionService),
+    this.interactionService.onPressControlWithArrow.bind(this.interactionService),
+    this.interactionService.onPressArrow.bind(this.interactionService),
+  ];
+
 }

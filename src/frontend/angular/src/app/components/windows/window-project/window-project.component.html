@@ -10,9 +10,9 @@
     </div>
     <div class="windowContent scrollable">
       <div class="content">
-        <input class="input-text" type="search" placeholder="Search" #search>
+        <input #searchRef [(ngModel)]="searchTerm" class="input-text" id="searchInput" placeholder="Search" type="search">
         <div class="projectList">
-          <div class="project" *ngFor="let project of viewState.projects.Values">{{ project.name }}</div>
+          <div [keyboardClick]="i" #projectRef (click)="onClick(project)" *ngFor="let project of filteredProjects(); let i = index" [class.active]="project == viewState.project.Value" class="project">{{ project?.name }}</div>
         </div>
       </div>
     </div>

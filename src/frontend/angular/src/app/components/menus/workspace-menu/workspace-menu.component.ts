@@ -39,15 +39,24 @@ export class WorkspaceMenuComponent implements AfterViewInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  @HostListener('window:keydown', ['$event'])
-  changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
-    if (this.activeArea.isFocused) {
-      this.interactionService.onChangePosition(this.viewState.workspaces.Values, this.viewState.currentWorkspaceId.Value, event);
-    }
-  }
-
   @HostListener('scroll', ['$event'])
   saveScrollPosition(event: any): void {
     this.viewState.workspaceMenuScrollbarPosition.Value = event.target.scrollTop;
   }
+
+  @HostListener('window:keydown', ['$event'])
+  changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
+    if (this.activeArea.isFocused) {
+      this.interactionService.processHotKey(event, this.hotkeyHandlers);
+    }
+  }
+
+  private readonly hotkeyHandlers = [
+    this.interactionService.onPressPlus.bind(this.interactionService),
+    this.interactionService.onPressAt.bind(this.interactionService),
+    this.interactionService.onPressExclamationMark.bind(this.interactionService),
+    this.interactionService.onPressNumber.bind(this.interactionService),
+    this.interactionService.onPressControlWithArrow.bind(this.interactionService),
+    this.interactionService.onPressArrow.bind(this.interactionService),
+  ];
 }

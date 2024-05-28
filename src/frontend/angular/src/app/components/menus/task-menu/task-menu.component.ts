@@ -9,7 +9,6 @@ import {SearchComponent} from "../../buttons/search/search.component";
 import {AppendComponent} from "../../buttons/append/append.component";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {AutoRefreshDirective} from "../../../directives/auto-refresh/auto-refresh.directive";
-import {projects} from "../../../common/consts";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 import {Subscription} from "rxjs";
@@ -40,9 +39,17 @@ export class TaskMenuComponent implements OnDestroy {
   @HostListener('window:keydown', ['$event'])
   public changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
     if (this.activeArea.isFocused) {
-      this.interactionService.onEscape(event);
-      let changePositionEnabled = this.viewState.currentViewType.Value == projects;
-      this.interactionService.onChangePosition(this.viewState.tasks.Values, this.viewState.currentTaskId.Value, event, changePositionEnabled);
+      this.interactionService.processHotKey(event, this.hotkeyHandlers);
     }
   }
+
+  private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
+    this.interactionService.onPressPlus.bind(this.interactionService),
+    this.interactionService.onPressAt.bind(this.interactionService),
+    this.interactionService.onPressExclamationMark.bind(this.interactionService),
+    this.interactionService.onPressEscape.bind(this.interactionService),
+    this.interactionService.onPressNumber.bind(this.interactionService),
+    this.interactionService.onPressControlWithArrow.bind(this.interactionService),
+    this.interactionService.onPressArrow.bind(this.interactionService),
+  ];
 }
