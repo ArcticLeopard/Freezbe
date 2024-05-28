@@ -27,12 +27,12 @@
           <ng-container *ngSwitchCase="2">
             <div class="row mt-2">
               <div class="column s100 mr-2 f-as">
-                <label class="pb-2" for="workspaceName">Name</label>
-                <input #workspaceNameInput class="input-text" id="workspaceName" placeholder="Enter the name of your workspace" type="text" [keyboardClick]="1">
+                <div class="pb-2">Name</div>
+                <input #workspaceNameInput class="input-text" id="workspaceInput" placeholder="Enter the name of your workspace" type="text" [keyboardClick]="1">
               </div>
               <div class="column ml-2 f-ac">
-                <label class="pb-2" for="colorPicker">Color</label>
-                <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
+                <label class="pb-2" for="workspaceColorPicker">Color</label>
+                <div class="colorPicker colorPickerAnimation" id="workspaceColorPicker" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
               </div>
             </div>
             <btn-big #secondStepButton [disabled]="!workspaceAddIsEnabled" class="button mt-5" color="orange" numberDisabled text="Create" (click)="createWorkspace()" [keyboardClick]="14" />

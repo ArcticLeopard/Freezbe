@@ -49,7 +49,7 @@ export class DetailMenuComponent implements OnDestroy, AfterViewInit {
   @HostListener('window:keydown', ['$event'])
   public changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
     if (this.activeArea.isFocused) {
-      this.interactionService.onEscape(event);
+      this.interactionService.onPressEscape(event);
     }
   }
 }

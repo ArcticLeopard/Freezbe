@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AnyCollectionType, AnyStringType, CommentType, KeyboardKeyType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate} from "../../common/types";
+import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
 import {incoming, priority, projects} from "../../common/consts";
@@ -12,56 +12,158 @@ export class InteractionService {
   constructor(private viewState: ViewStateService, private appNavigator: AppNavigatorService) {
   }
 
-  public onEscape(event: KeyboardEvent): void {
-    this.onPress(event, 'Escape', () => {
+  public processHotKey(event: KeyboardEvent, hotkeyHandlers: ((event: KeyboardEvent) => boolean)[]) {
+    setTimeout(() => {
+      for (const hotkeyHandler of hotkeyHandlers) {
+        if (hotkeyHandler(event)) {
+          break;
+        }
+      }
+    }, 100);
+  }
+
+  public onPressEscape(event: KeyboardEvent): boolean {
+    if (event.key == 'Escape') {
       if (this.viewState.currentViewType.Value == projects && this.viewState.currentProjectId.Value) {
         this.appNavigator.GoToProject(this.viewState.currentProjectId.Value);
+        return true;
       }
       if (this.viewState.currentViewType.Value == priority) {
         this.appNavigator.GoToPriority();
+        return true;
       }
       if (this.viewState.currentViewType.Value == incoming) {
         this.appNavigator.GoToIncoming();
+        return true;
       }
-    });
-  }
-
-  public onPress(event: KeyboardEvent, key: KeyboardKeyType, fn: Function): void {
-    if (event.key == key) {
-      fn();
     }
+    return false;
   }
 
-  public onChangePosition(collection: AnyCollectionType, id: AnyStringType, event: KeyboardEvent, changePositionEnabled: boolean = true): void {
+  public onPressControlWithArrow(event: KeyboardEvent): boolean {
+    let collection = this.GetCollectionByContext();
+    let id = this.viewState.contextId.Value;
     if (collection != null && collection.length > 0) {
       let index: number;
       if (event.ctrlKey) {
-        if (changePositionEnabled) {
+        if (this.changePositionEnabled()) {
           index = collection.findIndex(element => element.id === id);
           if (index !== -1) {
             this.changePosition(collection, event, index);
+            return true;
           }
-        }
-      } else {
-        if (id == null) {
-          if (event.key === 'ArrowDown') {
-            if (collection[0].id) {
-              this.viewState.contextId.Value = collection[0].id;
-              this.appNavigator.ContextGoTo();
-            }
-          }
-          if (event.key === 'ArrowUp') {
-            if (collection[collection.length - 1].id) {
-              this.viewState.contextId.Value = collection[collection.length - 1].id;
-              this.appNavigator.ContextGoTo();
-            }
-          }
-        } else {
-          index = collection.findIndex(element => element.id === id);
-          this.changeFocus(collection, id, event, index);
         }
       }
     }
+    return false;
+  }
+
+  public onPressNumber(event: KeyboardEvent): boolean {
+    let collection = this.GetCollectionByContext();
+    if (collection != null && collection.length > 0) {
+      let index: number;
+      const number = parseInt(event.key, 10);
+
+      if (!isNaN(number) && number >= 1 && number <= 12) {
+        index = number - 1;
+        if (collection[index] && collection[index].id) {
+          this.viewState.contextId.Value = collection[index].id;
+          this.appNavigator.ContextGoTo();
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public onPressPlus(event: KeyboardEvent): boolean {
+    if (event.key === '+' || event.key === '=') {
+      this.OpenWindowAddElementByContext();
+      return true;
+    }
+    return false;
+  }
+
+  public onPressAt(event: KeyboardEvent): boolean {
+    if (event.key === '@') {
+      this.appNavigator.GoToIncoming();
+      return true;
+    }
+    return false;
+  }
+
+  public onPressExclamationMark(event: KeyboardEvent): boolean {
+    if (event.key === '!') {
+      this.appNavigator.GoToPriority();
+      return true;
+    }
+    return false;
+  }
+
+  public onPressArrow(event: KeyboardEvent): boolean {
+    let collection = this.GetCollectionByContext();
+    let id = this.viewState.contextId.Value;
+    if (collection != null && collection.length > 0) {
+      let index: number;
+      if (id == null) {
+        if (event.key === 'ArrowDown') {
+          if (collection[0].id) {
+            this.viewState.contextId.Value = collection[0].id;
+            this.appNavigator.ContextGoTo();
+            return true;
+          }
+        }
+        if (event.key === 'ArrowUp') {
+          if (collection[collection.length - 1].id) {
+            this.viewState.contextId.Value = collection[collection.length - 1].id;
+            this.appNavigator.ContextGoTo();
+            return true;
+          }
+        }
+      } else {
+        index = collection.findIndex(element => element.id === id);
+        this.changeFocus(collection, id, event, index);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private GetCollectionByContext(): AnyCollectionType {
+    switch (this.viewState.context) {
+      case 'workspaces':
+        return this.viewState.workspaces.Values;
+      case 'projects':
+        return this.viewState.projects.Values;
+      case 'tasks':
+        return this.viewState.tasks.Values;
+      default:
+        return null;
+    }
+  }
+
+  private OpenWindowAddElementByContext(): void {
+    switch (this.viewState.context) {
+      case 'workspaces':
+        this.viewState.windowAddWorkspace.Value?.openWindow();
+        return;
+      case 'projects':
+        this.viewState.windowAddProject.Value?.openWindow();
+        return;
+      case 'tasks':
+        this.viewState.windowAddTask.Value?.openWindow();
+        return;
+      default:
+        return;
+    }
+  }
+
+  private changePositionEnabled(): boolean {
+    if (this.viewState.context == 'tasks') {
+      if (this.viewState.currentViewType.Value != projects)
+        return false;
+    }
+    return true;
   }
 
   private changePosition(collection: any[], event: KeyboardEvent, index: number): void {
@@ -214,5 +316,15 @@ export class InteractionService {
   openColorPickerWindow(): WindowColorPickerComponent | undefined {
     this.viewState.windowColorPicker.Value?.openWindow();
     return this.viewState.windowColorPicker.Value;
+  }
+
+  moveTaskToProject(taskId: string, projectId: string): void {
+    const taskIndex = this.viewState.project.Value?.tasks.findIndex(t => t.id === taskId);
+    if (taskIndex != undefined && this.viewState.task.Value) {
+      let newProject = this.viewState.projects.Values.find(p => p.id == projectId);
+      newProject?.tasks.push(this.viewState.task.Value);
+      this.viewState.project.Value?.tasks.splice(taskIndex, 1);
+    }
+    this.viewState.update();
   }
 }

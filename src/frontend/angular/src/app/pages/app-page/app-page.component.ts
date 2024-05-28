@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, ViewChild} from '@angular/core';
 import {DetailMenuComponent} from "../../components/menus/detail-menu/detail-menu.component";
 import {NgIf} from "@angular/common";
 import {SidebarMenuComponent} from "../../components/menus/sidebar-menu/sidebar-menu.component";
@@ -81,5 +81,15 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     this.viewState.windowColorPicker.Value = undefined;
     this.viewState.windowProject.Value = undefined;
     this.viewState.windowDueDate.Value = undefined;
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  onPress(event: KeyboardEvent): void {
+    if (event.key === 'ArrowLeft') {
+      //this.viewState.contextPrev();
+    }
+    if (event.key === 'ArrowRight') {
+      //this.viewState.contextNext();
+    }
   }
 }

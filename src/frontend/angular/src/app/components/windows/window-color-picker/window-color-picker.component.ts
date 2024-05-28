@@ -17,7 +17,7 @@ export class WindowColorPickerComponent extends WindowComponent {
   private cursor: CursorHtmlElement;
   protected readonly colors = colors;
   @Output() onColorSelected = new EventEmitter<string>();
-  protected override preOpen = () => this.cursor = new CursorHtmlElement(this.colorRefCollection.toArray());
+  protected override preOpen = () => this.cursor = new CursorHtmlElement(this.colorRefCollection);
   protected override postOpen = (): void => this.cursor.currentFocus();
   @HostListener('keydown.arrowRight') onPressRight = () => this.cursor.nextFocus();
   @HostListener('keydown.arrowLeft') onPressLeft = () => this.cursor.prevFocus();

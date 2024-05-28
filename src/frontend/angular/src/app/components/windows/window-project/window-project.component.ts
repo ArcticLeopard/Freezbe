@@ -1,27 +1,73 @@
-import {Component, ElementRef, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, HostListener, QueryList, ViewChildren} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {WindowComponent} from "../window/window.component";
 import {CursorHtmlElement} from "../../../Cursor";
+import {ProjectType} from "../../../common/types";
+import {FormsModule} from "@angular/forms";
+import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 
 @Component({
   selector: 'window-project',
   standalone: true,
-  imports: [NgForOf, NgIf],
+  imports: [NgForOf, NgIf, FormsModule, KeyboardClickDirective],
   templateUrl: './window-project.component.html',
   styleUrl: './window-project.component.scss'
 })
 
 export class WindowProjectComponent extends WindowComponent {
-  private cursor: CursorHtmlElement;
-  @ViewChildren('search')
-  searchRefCollection = new QueryList<ElementRef<HTMLElement>>();
+  searchTerm: string = '';
+  @ViewChildren('searchRef') searchRefCollection = new QueryList<ElementRef<HTMLElement>>();
+  private searchCursor: CursorHtmlElement;
+  @ViewChildren('projectRef') projectRefCollection = new QueryList<ElementRef<HTMLElement>>();
+  private projectCursor: CursorHtmlElement;
 
   protected override preOpen = () => {
     this.name = 'Project';
     this.width = 29;
     this.height = 33;
-    return this.cursor = new CursorHtmlElement(this.searchRefCollection.toArray());
+    this.projectCursor = new CursorHtmlElement(this.projectRefCollection);
+    return this.searchCursor = new CursorHtmlElement(this.searchRefCollection);
   };
-  protected override postOpen = () => this.cursor.currentFocus();
+  @HostListener('window:keydown.arrowUp', ['$event']) onPressUp = (event: KeyboardEvent) => {
+    if (this.open) {
+      this.projectCursor.prevFocus();
+      event.preventDefault();
+    }
+  };
+  @HostListener('window:keydown.arrowDown', ['$event']) onPressDown = (event: KeyboardEvent) => {
+    if (this.open) {
+      this.projectCursor.nextFocus();
+      event.preventDefault();
+    }
+  };
+  protected override postOpen = () => this.searchCursor.currentFocus();
 
+  moveElementToFront<T>(collection: T[], element: T): T[] {
+    const newCollection = [...collection];
+    const index = newCollection.indexOf(element);
+    if (index === -1) {
+      return newCollection;
+    }
+    newCollection.splice(index, 1);
+    newCollection.unshift(element);
+    return newCollection;
+  }
+
+  filteredProjects(): (ProjectType | undefined)[] {
+    const searchTermLower = this.searchTerm.toLowerCase();
+    return this.moveElementToFront(
+      this.viewState.projects.Values.filter(project =>
+        project.name.toLowerCase().includes(searchTermLower)
+      ),
+      this.viewState.project.Value
+    );
+  }
+
+  onClick(project: ProjectType | undefined) {
+    let taskId = this.viewState.currentTaskId.Value;
+    if (taskId != null && project) {
+      this.interactionService.moveTaskToProject(taskId, project.id);
+    }
+    this.closeWindow();
+  }
 }
