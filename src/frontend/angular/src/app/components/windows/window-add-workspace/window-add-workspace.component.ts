@@ -83,7 +83,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
       if (this.workspaceNameInputRef != null) {
         this.renderer.selectRootElement(this.workspaceNameInputRef.nativeElement).focus();
       }
-    });
+    }, 50);
   }
 
   protected openColorPickerWindow(): void {

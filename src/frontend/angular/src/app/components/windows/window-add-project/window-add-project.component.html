@@ -13,12 +13,12 @@
       <div class="content">
         <div class="row mt-2">
           <div class="column s100 mr-2 f-as">
-            <label class="pb-2" for="projectName">Name</label>
-            <input #projectNameInput class="input-text" id="projectName" placeholder="Enter the name of your project" type="text" [keyboardClick]="1">
+            <div class="pb-2">Name</div>
+            <input #projectNameInput class="input-text" id="projectInput" placeholder="Enter the name of your project" type="text" [keyboardClick]="1">
           </div>
           <div class="column ml-2 f-ac">
-            <label class="pb-2" for="colorPicker">Color</label>
-            <div class="colorPicker colorPickerAnimation" id="colorPicker" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
+            <div class="pb-2">Color</div>
+            <div class="colorPicker colorPickerAnimation" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
           </div>
         </div>
         <btn-big #button [disabled]="!projectAddIsEnabled" class="button mt-5" color="orange" numberDisabled text="Create" (click)="createProject()" [keyboardClick]="14" />

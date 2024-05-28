@@ -30,6 +30,7 @@
 
   //Scrolls
   @extend .whiteScroll;
+  @extend .s100;
 }
 
 .project {
@@ -39,8 +40,15 @@
   //Cursor
   @extend .pointer;
 
-  &:hover {
+  outline: none;
+
+  &:hover, &:focus, &.active {
     //Background
     @extend .bg-classic-dark, .hd;
+  }
+
+  &:focus {
+    color: white;
+    background: black;
   }
 }
