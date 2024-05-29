@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="windowContent" [class.scrollable]="scrollable">
-      <calendar [year]="model.year" [month]="model.month" />
+      <calendar [year]="model.year" [month]="model.month" (dateSelected)="setDate($event)" />
     </div>
   </div>
 </div>

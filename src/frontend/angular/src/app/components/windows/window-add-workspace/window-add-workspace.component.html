@@ -31,8 +31,8 @@
                 <input #workspaceNameInput class="input-text" id="workspaceInput" placeholder="Enter the name of your workspace" type="text" [keyboardClick]="1">
               </div>
               <div class="column ml-2 f-ac">
-                <label class="pb-2" for="workspaceColorPicker">Color</label>
-                <div class="colorPicker colorPickerAnimation" id="workspaceColorPicker" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
+                <div class="pb-2">Color</div>
+                <div class="colorPicker colorPickerAnimation" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
               </div>
             </div>
             <btn-big #secondStepButton [disabled]="!workspaceAddIsEnabled" class="button mt-5" color="orange" numberDisabled text="Create" (click)="createWorkspace()" [keyboardClick]="14" />

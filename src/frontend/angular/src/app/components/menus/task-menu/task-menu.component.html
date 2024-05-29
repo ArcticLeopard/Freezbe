@@ -1,7 +1,7 @@
 <div class="header pl-4 pr-4">
   <div class="sectionInfoContainer">
     <btn-close-sidebar class="pr-2" />
-    <div class="text-header text-gray">{{ this.viewState.tasks.length }} Tasks</div>
+    <div class="text-header text-gray">{{ getIncompleteTaskCount() }} Tasks</div>
     <div class="text-header">
       <span class="ml-1">{{ viewState.currentViewName.Value | titlecase }}</span>
     </div>

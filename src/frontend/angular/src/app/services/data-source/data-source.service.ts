@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CommentType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
+import {CommentType, DateOnly, ProjectType, TaskType, WorkspaceType} from "../../common/types";
 import {DataStorageService} from "../data-storage/data-storage.service";
 
 @Injectable({
@@ -70,8 +70,9 @@ export class DataSourceService {
     }
 
     return workspace.projects.flatMap(project =>
-      project.tasks.filter(task => task.incoming).filter(task => !task.completed)
-    );
+      project.tasks.filter(task => task.dueDate)
+        .filter(task => !task.completed)
+        .filter(task => this.isDateTodayOrEarlier(task.dueDate?.dateOnly)));
   }
 
   public getTask(workspaceId: string, taskId: string): TaskType | undefined {
@@ -86,5 +87,15 @@ export class DataSourceService {
 
   public getComments(workspaceId: string, taskId: string): CommentType[] | undefined {
     return this.getTask(workspaceId, taskId)?.comments;
+  }
+
+  private isDateTodayOrEarlier(dueDate: DateOnly | undefined): boolean {
+    if (dueDate != undefined) {
+      const today = new Date();
+      const dueDateObj = new Date(dueDate.year, dueDate.month - 1, dueDate.day);
+
+      return dueDateObj <= today;
+    }
+    return false;
   }
 }

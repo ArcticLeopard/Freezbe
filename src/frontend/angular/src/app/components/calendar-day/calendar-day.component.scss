@@ -19,6 +19,11 @@
     color: $fire;
     @extend .tfw-9;
   }
+
+  &.isSelected {
+    color: $white;
+    @extend .tfw-9;
+  }
 }
 
 

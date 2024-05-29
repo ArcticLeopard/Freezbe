@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
-import {incoming, priority, projects} from "../../common/consts";
+import {incoming, priority, projects, tasks, workspaces} from "../../common/consts";
 import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
 
 @Injectable({
@@ -131,11 +131,11 @@ export class InteractionService {
 
   private GetCollectionByContext(): AnyCollectionType {
     switch (this.viewState.context) {
-      case 'workspaces':
+      case workspaces:
         return this.viewState.workspaces.Values;
-      case 'projects':
+      case projects:
         return this.viewState.projects.Values;
-      case 'tasks':
+      case tasks:
         return this.viewState.tasks.Values;
       default:
         return null;
@@ -144,13 +144,13 @@ export class InteractionService {
 
   private OpenWindowAddElementByContext(): void {
     switch (this.viewState.context) {
-      case 'workspaces':
+      case workspaces:
         this.viewState.windowAddWorkspace.Value?.openWindow();
         return;
-      case 'projects':
+      case projects:
         this.viewState.windowAddProject.Value?.openWindow();
         return;
-      case 'tasks':
+      case tasks:
         this.viewState.windowAddTask.Value?.openWindow();
         return;
       default:
@@ -159,7 +159,7 @@ export class InteractionService {
   }
 
   private changePositionEnabled(): boolean {
-    if (this.viewState.context == 'tasks') {
+    if (this.viewState.context == tasks) {
       if (this.viewState.currentViewType.Value != projects)
         return false;
     }
