@@ -1,5 +1,5 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {incoming, priority, projects, tasks, workspaces} from "../../common/consts";
+import {details, incoming, priority, projects, tasks, workspaces} from "../../common/consts";
 import {ActivatedRoute, Router, UrlSegment} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {DataSourceService} from "../data-source/data-source.service";
@@ -102,16 +102,16 @@ export class AppNavigatorService implements OnDestroy {
   private GoToByContext(context: string, contextId: string): void {
     this.router.navigate([workspaces, this.currentWorkspaceId, priority]).then();
     switch (context) {
-      case 'workspaces':
+      case workspaces:
         this.GoToWorkspace(contextId);
         return;
-      case 'projects':
+      case projects:
         this.GoToProject(contextId);
         return;
-      case 'tasks':
+      case tasks:
         this.GoToTaskDetails(contextId);
         return;
-      case 'details':
+      case details:
         this.GoToTaskDetails(contextId);
         return;
     }

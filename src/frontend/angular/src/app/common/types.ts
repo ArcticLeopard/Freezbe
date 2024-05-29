@@ -6,11 +6,13 @@ export type TaskType = {
   priority: boolean;
   incoming: boolean;
   completed: boolean;
-  dueDate?: number;
+  dueDate?: { dateOnly: DateOnly }
   comments?: (CommentType)[];
 };
+
+export type DateOnly = { year: number, month: number, day: number }
 export type CommentType = { id: string; content: string; author: string; createdAt: number };
-export type CalendarDayType = { day: number, isToday: boolean, isDay: boolean };
+export type CalendarDayType = { day: number, isToday: boolean, isDay: boolean, isSelected: boolean };
 
 export enum CalendarChangeStrategy {
   monthChangeStrategy,

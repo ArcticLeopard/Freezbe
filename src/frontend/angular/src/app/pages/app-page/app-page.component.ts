@@ -86,10 +86,10 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
   @HostListener('document:keyup', ['$event'])
   onPress(event: KeyboardEvent): void {
     if (event.key === 'ArrowLeft') {
-      //this.viewState.contextPrev();
+      this.viewState.contextPrev();
     }
     if (event.key === 'ArrowRight') {
-      //this.viewState.contextNext();
+      this.viewState.contextNext();
     }
   }
 }

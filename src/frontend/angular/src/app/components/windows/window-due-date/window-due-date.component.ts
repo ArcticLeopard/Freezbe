@@ -3,12 +3,13 @@ import {MonthPipe} from "../../../pipes/month/month.pipe";
 import {NgForOf, NgIf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {WindowComponent} from "../window/window.component";
-import {CalendarChangeStrategy} from "../../../common/types";
+import {CalendarChangeStrategy, DateOnly} from "../../../common/types";
+import {BigComponent} from "../../buttons/big/big.component";
 
 @Component({
   selector: 'window-due-date',
   standalone: true,
-  imports: [MonthPipe, NgForOf, CalendarComponent, NgIf],
+  imports: [MonthPipe, NgForOf, CalendarComponent, NgIf, BigComponent],
   templateUrl: './window-due-date.component.html',
   styleUrl: './window-due-date.component.scss'
 })
@@ -37,6 +38,20 @@ export class WindowDueDateComponent extends WindowComponent implements OnInit {
       this.model.next(changeStrategy);
     }
   }
+
+  setDate(dateOnly: DateOnly) {
+    if (this.viewState.task.Value != undefined) {
+      if (this.viewState.task.Value.dueDate == undefined) {
+        this.viewState.task.Value.dueDate = {
+          dateOnly: dateOnly
+        };
+      } else {
+        this.viewState.task.Value.dueDate.dateOnly = dateOnly;
+      }
+      this.viewState.update();
+    }
+  }
+
 }
 
 export class WindowDueDateModel {

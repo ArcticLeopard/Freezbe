@@ -10,6 +10,7 @@ export const task = "task";
 export const taskId = "taskId";
 export const tasks = "tasks";
 
+export const details = "details";
 export const comment = "comment";
 export const commentId = "commentId";
 export const comments = "comments";

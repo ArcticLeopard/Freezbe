@@ -2,6 +2,7 @@ import {Directive, HostBinding, HostListener, Input} from '@angular/core';
 import {ViewStateService} from "../../services/state/view-state.service";
 import {State} from "../../services/state/state";
 import {ActiveAreaType} from "../../common/types";
+import {details, projects, tasks, workspaces} from "../../common/consts";
 
 @Directive({
   selector: '[activeArea]',
@@ -9,43 +10,69 @@ import {ActiveAreaType} from "../../common/types";
 })
 export class ActiveAreaDirective {
   constructor(private viewState: ViewStateService) {
+    ActiveAreaDirective.activeAreas.push(this);
+    viewState.contextEnabled = false;
+    viewState.contextSubject.subscribe(p => {
+      this.isFocused = this.context == p;
+      this.contextId = this.setByContext(p);
+      this.viewState.context = p;
+      this.viewState.contextId = this.contextId;
+    });
   }
 
-  @Input()
-  public context: ActiveAreaType;
+  static activeAreas: ActiveAreaDirective[] = [];
+
+  @Input() public context: ActiveAreaType;
+  @HostBinding('class.activeArea') isFocused: boolean = false;
   private contextId: State<string | null>;
-
-  @HostBinding('class.activeArea')
-  isFocused: boolean = false;
-
-  @HostListener('mouseenter')
-  onMouseEnter() {
-    this.isFocused = true;
-    this.setByContext();
-    this.viewState.context = this.context;
-    this.viewState.contextId = this.contextId;
-  }
-
-  private setByContext() {
-    switch (this.context) {
-      case 'workspaces':
-        this.contextId = this.viewState.currentWorkspaceId;
-        return;
-      case 'projects':
-        this.contextId = this.viewState.currentProjectId;
-        return;
-      case 'tasks':
-        this.contextId = this.viewState.currentTaskId;
-        return;
-      case 'details':
-        this.contextId = this.viewState.currentTaskId;
-        return;
-    }
-  }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.isFocused = false;
+    this.ClearFocus();
+    this.viewState.contextEnabled = true;
   }
 
+  @HostListener('mouseenter')
+  onMouseChangeArea() {
+    this.activeAreaHandle();
+  }
+
+  @HostListener('click')
+  @HostListener('mousemove')
+  onMouseInteraction() {
+    if (this.viewState.context != this.context) {
+      this.viewState.contextEnabled = true;
+      this.activeAreaHandle();
+    }
+  }
+
+  private activeAreaHandle() {
+    this.ClearFocus();
+    if (this.viewState.contextEnabled) {
+      this.isFocused = true;
+      this.contextId = this.setByContext(this.context);
+      this.viewState.context = this.context;
+      this.viewState.contextId = this.contextId;
+    } else {
+      this.viewState.contextSubject.next(this.viewState.context);
+    }
+    this.viewState.contextEnabled = false;
+  }
+
+  private ClearFocus() {
+    ActiveAreaDirective.activeAreas.forEach(p => p.isFocused = false);
+  }
+
+  private setByContext(context: ActiveAreaType) {
+    switch (context) {
+      case workspaces:
+        return this.viewState.currentWorkspaceId;
+      case projects:
+        return this.viewState.currentProjectId;
+      case tasks:
+        return this.viewState.currentTaskId;
+      case details:
+        return this.viewState.currentTaskId;
+    }
+  }
 }
