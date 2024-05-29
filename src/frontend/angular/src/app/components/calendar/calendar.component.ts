@@ -2,8 +2,8 @@ import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, QueryL
 import {NgForOf, NgIf, SlicePipe, UpperCasePipe} from "@angular/common";
 import {CalendarDayComponent} from "../calendar-day/calendar-day.component";
 import {DataSource} from "../../common/dataSource";
-import {CalendarDayType} from "../../common/types";
-import {DateOnly} from "../../common/dto";
+import {CalendarDayType, DateOnly} from "../../common/types";
+import {ViewStateService} from "../../services/state/view-state.service";
 
 @Component({
   selector: 'calendar',
@@ -13,6 +13,9 @@ import {DateOnly} from "../../common/dto";
   styleUrl: './calendar.component.scss'
 })
 export class CalendarComponent implements OnChanges, AfterViewInit {
+  constructor(private viewState: ViewStateService) {
+  }
+
   public calendarMatrix: CalendarDayType[][];
   days: string[] = DataSource.daysCollection;
   @Input() year: number;
@@ -43,25 +46,18 @@ export class CalendarComponent implements OnChanges, AfterViewInit {
     let row: CalendarDayType[] = [];
     let dayCounter: number = 1;
     let currentDate = new Date();
-    let currentMonthIsOpen = this.year == currentDate.getFullYear() && this.month == currentDate.getMonth() + 1;
+    let dateOnly: DateOnly | undefined = this.viewState.task.Value?.dueDate?.dateOnly;
+    let todayIsVisible = this.year == currentDate.getFullYear() && this.month == currentDate.getMonth() + 1;
+    let selectedDayIsVisible = dateOnly ? this.year == dateOnly.year && this.month == dateOnly.month : false;
     let currentDay = currentDate.getDate();
-
     for (let i: number = 0; i < 6; i++) {
       row = [];
       for (let j: number = 1; j <= 7; j++) {
         if ((i === 0 && j < firstDayOfWeek) || dayCounter > daysInMonth) {
-          let calendarDay: CalendarDayType = {
-            day: 0,
-            isDay: false,
-            isToday: false
-          };
+          let calendarDay: CalendarDayType = {day: 0, isDay: false, isToday: false, isSelected: false};
           row.push(calendarDay);
         } else {
-          let calendarDay: CalendarDayType = {
-            day: dayCounter,
-            isDay: true,
-            isToday: currentMonthIsOpen && currentDay == dayCounter
-          };
+          let calendarDay: CalendarDayType = {day: dayCounter, isDay: true, isToday: todayIsVisible && currentDay == dayCounter, isSelected: selectedDayIsVisible && dateOnly!.day == dayCounter};
           row.push(calendarDay);
           dayCounter++;
         }
@@ -72,7 +68,9 @@ export class CalendarComponent implements OnChanges, AfterViewInit {
     return matrix;
   }
 
-  dateSelected = (selectedDay: CalendarDayType) => this.onDateSelected.emit(new DateOnly(this.year, this.month, selectedDay.day));
+  dateSelected = (selectedDay: CalendarDayType) => {
+    this.onDateSelected.emit({year: this.year, month: this.month, day: selectedDay.day});
+  };
 }
 
 

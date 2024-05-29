@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
 import {GlobalSettings} from "../../common/globalSettings";
 import {ActiveAreaType, CommentType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
 import {DataSourceService} from "../data-source/data-source.service";
@@ -13,6 +13,7 @@ import {WindowDueDateComponent} from "../../components/windows/window-due-date/w
 import {DetailMenuComponent} from "../../components/menus/detail-menu/detail-menu.component";
 import {WindowAddProjectComponent} from "../../components/windows/window-add-project/window-add-project.component";
 import {WindowAddTaskComponent} from "../../components/windows/window-add-task/window-add-task.component";
+import {details, projects, tasks, workspaces} from '../../common/consts';
 
 @Injectable({
   providedIn: 'root'
@@ -50,14 +51,16 @@ export class ViewStateService {
   public windowProject: State<WindowProjectComponent | undefined>;
   public windowDueDate: State<WindowDueDateComponent | undefined>;
   public detailMenu: State<DetailMenuComponent | undefined>;
+  contextEnabled: boolean;
   context: ActiveAreaType;
+  contextSubject: Subject<ActiveAreaType>;
 
   constructor(private dataSourceService: DataSourceService) {
     let counter = 0;
     this.subject = new BehaviorSubject<ViewStateService>(this);
     this.subject.subscribe(() => {
       counter++;
-      console.log("StateService: Subject Update Counter: " + counter);
+      // console.log("StateService: Subject Update Counter: " + counter);
       this.dataSourceService.setWorkspaces();
     });
     this.taskDetailsOpen = new BooleanState(this.subject, this, false, false);
@@ -94,9 +97,31 @@ export class ViewStateService {
     this.windowDueDate = new State<WindowDueDateComponent | undefined>(this.subject, this, undefined);
 
     this.detailMenu = new State<DetailMenuComponent | undefined>(this.subject, this, undefined);
+
+    this.contextSubject = new Subject<ActiveAreaType>();
   }
 
   update() {
     this.subject.next(this);
+  }
+
+  contextPrev() {
+    this.updateContext(-1);
+  }
+
+  contextNext() {
+    this.updateContext(1);
+  }
+
+  private updateContext(direction: number) {
+    let areas: ActiveAreaType[] = this.taskDetailsOpen.Value ? [workspaces, projects, tasks, details] : [workspaces, projects, tasks];
+    let index = areas.findIndex(p => p == this.context);
+    if (index !== -1) {
+      let newIndex = (index + direction + areas.length) % areas.length;
+      this.context = areas[newIndex];
+    } else {
+      this.context = areas[2];
+    }
+    this.contextSubject.next(this.context);
   }
 }

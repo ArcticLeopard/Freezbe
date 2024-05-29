@@ -18,7 +18,7 @@ export class DataSource {
               priority: true,
               incoming: true,
               completed: false,
-              dueDate: Date.now(),
+              dueDate: undefined,
               comments: [
                 {
                   id: 'lt7w16o0p',
@@ -123,7 +123,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1711518000000
+              dueDate: undefined
             },
             {
               id: 'lt7w16p2',
@@ -131,7 +131,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1711417600000
+              dueDate: undefined
             },
             {
               id: 'lt7w16p3',
@@ -139,7 +139,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1711316600000
+              dueDate: undefined
             },
             {
               id: 'lt7w16p4',
@@ -147,7 +147,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1711215600000
+              dueDate: undefined
             },
             {
               id: 'lt7w16p5',
@@ -155,7 +155,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1711114600000
+              dueDate: undefined
             },
             {
               id: 'lt7w16p6',
@@ -163,7 +163,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1711013600000
+              dueDate: undefined
             },
             {
               id: 'lt7w16p7',
@@ -171,7 +171,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1710912600000
+              dueDate: undefined
             },
             {
               id: 'lt7w16p8',
@@ -179,7 +179,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1710802600000
+              dueDate: undefined
             },
             {
               id: 'lt7w16p9',
@@ -187,7 +187,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1710612600000
+              dueDate: undefined
             },
             {
               id: 'lt7w16pa',
@@ -195,7 +195,7 @@ export class DataSource {
               priority: false,
               incoming: true,
               completed: false,
-              dueDate: 1710009600000
+              dueDate: undefined
             }
           ]
         },

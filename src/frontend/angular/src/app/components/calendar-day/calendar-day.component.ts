@@ -17,10 +17,12 @@ export class CalendarDayComponent implements OnInit {
   @HostBinding('class.isDay') isDay: boolean;
 
   @HostBinding('class.isToday') isToday: boolean;
+  @HostBinding('class.isSelected') isSelected: boolean;
 
   ngOnInit(): void {
     this.isDay = this.currentElement.isDay;
     this.isToday = this.currentElement.isToday;
+    this.isSelected = this.currentElement.isSelected;
   }
 
   @HostListener('click')

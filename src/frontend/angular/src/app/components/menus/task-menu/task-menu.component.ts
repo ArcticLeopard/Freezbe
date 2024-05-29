@@ -43,6 +43,8 @@ export class TaskMenuComponent implements OnDestroy {
     }
   }
 
+  getIncompleteTaskCount = (): number => this.viewState.tasks.Values.filter(p => !p.completed).length;
+
   private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
     this.interactionService.onPressPlus.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
