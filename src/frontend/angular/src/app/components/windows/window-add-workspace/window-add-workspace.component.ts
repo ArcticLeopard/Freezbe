@@ -3,17 +3,17 @@ import {WindowComponent} from "../window/window.component";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {MonthPipe} from "../../../pipes/month/month.pipe";
 import {NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
-import {BigComponent} from "../../buttons/big/big.component";
 import {WorkspaceCandidate, WorkspaceCandidateDraft} from "../../../common/types";
 import {Subscription} from "rxjs";
 import {WindowColorPickerComponent} from "../window-color-picker/window-color-picker.component";
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 import {LogotypeComponent} from "../../logotype/logotype.component";
+import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
 
 @Component({
   selector: 'window-add-workspace',
   standalone: true,
-  imports: [CalendarComponent, MonthPipe, NgForOf, BigComponent, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent],
+  imports: [CalendarComponent, MonthPipe, NgForOf, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent, NormalButtonComponent],
   templateUrl: './window-add-workspace.component.html',
   styleUrl: './window-add-workspace.component.scss'
 })
@@ -23,8 +23,8 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   private _currentStep: number = 1;
 
   @ViewChild('workspaceNameInput') workspaceNameInputRef: ElementRef;
-  @ViewChild('secondStepButton') secondStepButton: BigComponent;
-  @ViewChild('firstStepButton') firstStepButton: BigComponent;
+  @ViewChild('secondStepButton') secondStepButton: NormalButtonComponent;
+  @ViewChild('firstStepButton') firstStepButton: NormalButtonComponent;
   @ViewChild('colorPicker') colorPickerRef: ElementRef;
   private workspaceCandidate: WorkspaceCandidateDraft;
 
@@ -32,7 +32,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
     this.colorSubscription?.unsubscribe();
   }
 
-  get workspaceAddIsEnabled(): boolean {
+  get buttonIsEnabled(): boolean {
     return this.workspaceCandidate?.name != undefined && this.workspaceCandidate?.color != undefined;
   }
 
@@ -105,7 +105,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   }
 
   protected createWorkspace(): void {
-    if (this.workspaceAddIsEnabled) {
+    if (this.buttonIsEnabled) {
       this.interactionService.addWorkspace(<WorkspaceCandidate>this.workspaceCandidate);
       this.closeWindowIsEnabled = true;
       this.closeWindow();

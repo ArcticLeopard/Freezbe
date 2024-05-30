@@ -4,12 +4,12 @@ import {NgForOf, NgIf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {WindowComponent} from "../window/window.component";
 import {CalendarChangeStrategy, DateOnly} from "../../../common/types";
-import {BigComponent} from "../../buttons/big/big.component";
+import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
 
 @Component({
   selector: 'window-due-date',
   standalone: true,
-  imports: [MonthPipe, NgForOf, CalendarComponent, NgIf, BigComponent],
+  imports: [MonthPipe, NgForOf, CalendarComponent, NgIf, NormalButtonComponent],
   templateUrl: './window-due-date.component.html',
   styleUrl: './window-due-date.component.scss'
 })
@@ -21,7 +21,7 @@ export class WindowDueDateComponent extends WindowComponent implements OnInit {
   protected override preOpen() {
     this.name = 'Calendar';
     this.width = 29;
-    this.height = 31.5;
+    this.height = 35.7;
   }
 
   @ViewChild(CalendarComponent)
@@ -36,19 +36,6 @@ export class WindowDueDateComponent extends WindowComponent implements OnInit {
       this.model.previous(changeStrategy);
     } else if (wheelEvent.deltaY > 0) {
       this.model.next(changeStrategy);
-    }
-  }
-
-  setDate(dateOnly: DateOnly) {
-    if (this.viewState.task.Value != undefined) {
-      if (this.viewState.task.Value.dueDate == undefined) {
-        this.viewState.task.Value.dueDate = {
-          dateOnly: dateOnly
-        };
-      } else {
-        this.viewState.task.Value.dueDate.dateOnly = dateOnly;
-      }
-      this.viewState.update();
     }
   }
 

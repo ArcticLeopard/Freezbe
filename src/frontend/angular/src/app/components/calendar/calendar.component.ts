@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, QueryList, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe, UpperCasePipe} from "@angular/common";
 import {CalendarDayComponent} from "../calendar-day/calendar-day.component";
 import {DataSource} from "../../common/dataSource";
 import {CalendarDayType, DateOnly} from "../../common/types";
 import {ViewStateService} from "../../services/state/view-state.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'calendar',
@@ -12,8 +13,20 @@ import {ViewStateService} from "../../services/state/view-state.service";
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.scss'
 })
-export class CalendarComponent implements OnChanges, AfterViewInit {
+export class CalendarComponent implements OnInit, OnDestroy, OnChanges {
+  private subscription: Subscription;
+
   constructor(private viewState: ViewStateService) {
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.viewState.subject.subscribe(() => {
+      this.setCalendarMatrix();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   public calendarMatrix: CalendarDayType[][];
@@ -25,10 +38,6 @@ export class CalendarComponent implements OnChanges, AfterViewInit {
 
   ngOnChanges(): void {
     this.setCalendarMatrix();
-  }
-
-  ngAfterViewInit(): void {
-    this.CalendarDayComponents.changes;
   }
 
   public setCalendarMatrix(): void {

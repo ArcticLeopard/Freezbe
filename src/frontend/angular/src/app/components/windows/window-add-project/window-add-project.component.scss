@@ -30,6 +30,6 @@
   height: 3.5rem;
 }
 
-.button {
-  @extend .p-4, .text-center;
+btn-normal {
+  @extend .mt-5;
 }

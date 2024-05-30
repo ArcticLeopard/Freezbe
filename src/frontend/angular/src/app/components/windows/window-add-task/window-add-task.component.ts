@@ -3,17 +3,17 @@ import {WindowComponent} from "../window/window.component";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {MonthPipe} from "../../../pipes/month/month.pipe";
 import {NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
-import {BigComponent} from "../../buttons/big/big.component";
 import {TaskCandidate, TaskCandidateDraft} from "../../../common/types";
 import {Subscription} from "rxjs";
 import {WindowColorPickerComponent} from "../window-color-picker/window-color-picker.component";
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 import {LogotypeComponent} from "../../logotype/logotype.component";
+import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
 
 @Component({
   selector: 'window-add-task',
   standalone: true,
-  imports: [CalendarComponent, MonthPipe, NgForOf, BigComponent, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent],
+  imports: [CalendarComponent, MonthPipe, NgForOf, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent, NormalButtonComponent],
   templateUrl: './window-add-task.component.html',
   styleUrl: './window-add-task.component.scss'
 })
@@ -21,8 +21,8 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
   private colorSubscription: Subscription;
 
   @ViewChild('taskNameInput') taskNameInputRef: ElementRef;
-  @ViewChild('button') button: BigComponent;
-  @ViewChild('colorPicker') colorPickerRef: ElementRef;
+  @ViewChild('button') button: NormalButtonComponent;
+  @ViewChild('datePicker') datePickerRef: ElementRef;
   private taskCandidate: TaskCandidateDraft;
 
   protected override preOpen() {
@@ -43,8 +43,8 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
     this.colorSubscription?.unsubscribe();
   }
 
-  get taskAddIsEnabled(): boolean {
-    return this.taskCandidate?.name != undefined && this.taskCandidate?.color != undefined;
+  get buttonIsEnabled(): boolean {
+    return this.taskCandidate?.name != undefined;// && this.taskCandidate?.color != undefined;//TODO
   }
 
   @HostListener('document:keyup', ['$event'])
@@ -64,8 +64,6 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
     if (window) {
       this.colorSubscription = window.onColorSelected.subscribe(color => {
         this.taskCandidate.color = color;
-        this.colorPickerRef.nativeElement.classList.remove('colorPickerAnimation');
-        this.colorPickerRef.nativeElement.style.background = color;
         setTimeout(() => {
           if (this.button.disabled) {
             this.taskNameInputRef.nativeElement.focus();
@@ -78,7 +76,7 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
   }
 
   protected createTask(): void {
-    if (this.taskAddIsEnabled) {
+    if (this.buttonIsEnabled) {
       this.interactionService.addTask(<TaskCandidate>this.taskCandidate);
       this.closeWindowIsEnabled = true;
       this.closeWindow();
