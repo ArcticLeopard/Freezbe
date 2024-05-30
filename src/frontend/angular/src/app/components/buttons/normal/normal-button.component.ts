@@ -1,23 +1,19 @@
-import {booleanAttribute, Component, ElementRef, HostBinding, Input, numberAttribute} from '@angular/core';
+import {booleanAttribute, Component, ElementRef, HostBinding, Input} from '@angular/core';
 import {BigButtonTypes} from "../../../common/types";
-import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 
 @Component({
-  selector: 'btn-big',
+  selector: 'btn-normal',
   standalone: true,
-  imports: [KeyboardClickDirective],
-  templateUrl: './big.component.html',
-  styleUrl: './big.component.scss'
+  imports: [],
+  templateUrl: './normal-button.component.html',
+  styleUrl: './normal-button.component.scss'
 })
-export class BigComponent {
+export class NormalButtonComponent {
   constructor(private elementRef: ElementRef) {
   }
 
   @Input()
   text: string = "Title";
-
-  @Input({transform: numberAttribute})
-  number: number = 0;
 
   @Input()
   color: BigButtonTypes;

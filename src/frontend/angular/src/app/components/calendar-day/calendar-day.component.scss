@@ -21,7 +21,9 @@
   }
 
   &.isSelected {
-    color: $white;
+    outline: $bs-sot $white;
+    border-radius: 0.35rem;
+    background: $black;
     @extend .tfw-9;
   }
 }

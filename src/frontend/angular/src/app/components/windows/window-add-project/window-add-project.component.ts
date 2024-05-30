@@ -3,17 +3,17 @@ import {WindowComponent} from "../window/window.component";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {MonthPipe} from "../../../pipes/month/month.pipe";
 import {NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
-import {BigComponent} from "../../buttons/big/big.component";
 import {ProjectCandidate, ProjectCandidateDraft} from "../../../common/types";
 import {Subscription} from "rxjs";
 import {WindowColorPickerComponent} from "../window-color-picker/window-color-picker.component";
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 import {LogotypeComponent} from "../../logotype/logotype.component";
+import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
 
 @Component({
   selector: 'window-add-project',
   standalone: true,
-  imports: [CalendarComponent, MonthPipe, NgForOf, BigComponent, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent],
+  imports: [CalendarComponent, MonthPipe, NgForOf, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent, NormalButtonComponent],
   templateUrl: './window-add-project.component.html',
   styleUrl: './window-add-project.component.scss'
 })
@@ -21,7 +21,7 @@ export class WindowAddProjectComponent extends WindowComponent implements OnDest
   private colorSubscription: Subscription;
 
   @ViewChild('projectNameInput') projectNameInputRef: ElementRef;
-  @ViewChild('button') button: BigComponent;
+  @ViewChild('button') button: NormalButtonComponent;
   @ViewChild('colorPicker') colorPickerRef: ElementRef;
   private projectCandidate: ProjectCandidateDraft;
 
@@ -43,7 +43,7 @@ export class WindowAddProjectComponent extends WindowComponent implements OnDest
     this.colorSubscription?.unsubscribe();
   }
 
-  get projectAddIsEnabled(): boolean {
+  get buttonIsEnabled(): boolean {
     return this.projectCandidate?.name != undefined && this.projectCandidate?.color != undefined;
   }
 
@@ -78,7 +78,7 @@ export class WindowAddProjectComponent extends WindowComponent implements OnDest
   }
 
   protected createProject(): void {
-    if (this.projectAddIsEnabled) {
+    if (this.buttonIsEnabled) {
       this.interactionService.addProject(<ProjectCandidate>this.projectCandidate);
       this.closeWindowIsEnabled = true;
       this.closeWindow();

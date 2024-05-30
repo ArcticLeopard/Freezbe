@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate} from "../../common/types";
+import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate, DateOnly} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
 import {incoming, priority, projects, tasks, workspaces} from "../../common/consts";
@@ -278,6 +278,26 @@ export class InteractionService {
       };
       this.viewState.tasks.Values.push(newElement);
       this.appNavigator.GoToTask(newElement.id);
+      this.viewState.update();
+    }
+  }
+
+  public setDate(dateOnly: DateOnly) {
+    if (this.viewState.task.Value != undefined) {
+      if (this.viewState.task.Value.dueDate == undefined) {
+        this.viewState.task.Value.dueDate = {
+          dateOnly: dateOnly
+        };
+      } else {
+        this.viewState.task.Value.dueDate.dateOnly = dateOnly;
+      }
+      this.viewState.update();
+    }
+  }
+
+  public unsetDate() {
+    if (this.viewState.task.Value != undefined) {
+      this.viewState.task.Value.dueDate = undefined;
       this.viewState.update();
     }
   }

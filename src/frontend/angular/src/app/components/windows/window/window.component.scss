@@ -146,3 +146,8 @@
 
   @extend .center;
 }
+
+svg:hover, :focus {
+  outline: none;
+  fill: $white
+}
