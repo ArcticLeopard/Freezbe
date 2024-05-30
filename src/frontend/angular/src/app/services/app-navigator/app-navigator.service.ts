@@ -25,8 +25,8 @@ export class AppNavigatorService implements OnDestroy {
   private currentTaskId: string | null;
 
   ngOnDestroy(): void {
-    this.routeSubscription.unsubscribe();
-    this.stateSubscription.unsubscribe();
+    this.routeSubscription?.unsubscribe();
+    this.stateSubscription?.unsubscribe();
   }
 
   public GoToPriority(): void {

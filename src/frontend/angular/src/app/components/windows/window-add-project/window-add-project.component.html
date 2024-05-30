@@ -21,7 +21,7 @@
             <div class="colorPicker colorPickerAnimation" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
           </div>
         </div>
-        <btn-big #button [disabled]="!projectAddIsEnabled" class="button mt-5" color="orange" numberDisabled text="Create" (click)="createProject()" [keyboardClick]="14" />
+        <btn-normal #button [disabled]="!buttonIsEnabled" color="orange" text="Create" (click)="createProject()" [keyboardClick]="14" />
       </div>
     </div>
     <div class="windowFooter">

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, HostListener, OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostBinding, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
@@ -15,9 +15,10 @@ import {WindowAddWorkspaceComponent} from "../../windows/window-add-workspace/wi
   templateUrl: './workspace-menu.component.html',
   styleUrl: './workspace-menu.component.scss',
 })
-export class WorkspaceMenuComponent implements AfterViewInit, OnDestroy {
+export class WorkspaceMenuComponent implements OnDestroy {
   constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, protected interactionService: InteractionService, private activeArea: ActiveAreaDirective, private elementRef: ElementRef) {
     this.subscription = this.viewState.subject.subscribe(state => {
+      this.elementRef.nativeElement.scrollTop = this.viewState.workspaceMenuScrollbarPosition.Value;
       this.isHide = state.workspaceMenuIsOpen.Value;
       if (state.sidebarMenuIsOpen.Value) {
         this.isHide = state.sidebarMenuIsOpen.Value;
@@ -28,12 +29,6 @@ export class WorkspaceMenuComponent implements AfterViewInit, OnDestroy {
   private subscription: Subscription;
   protected readonly GlobalSettings = GlobalSettings;
   @HostBinding('class.isHide') isHide: boolean = this.viewState.workspaceMenuIsOpen.Value;
-
-  ngAfterViewInit(): void {
-    this.subscription = this.viewState.subject.subscribe(() => {
-      this.elementRef.nativeElement.scrollTop = this.viewState.workspaceMenuScrollbarPosition.Value;
-    });
-  }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();

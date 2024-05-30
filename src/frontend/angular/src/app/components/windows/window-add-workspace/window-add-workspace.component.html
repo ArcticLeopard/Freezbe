@@ -21,7 +21,7 @@
                 <span title="The limit is your browser's Local Storage limit.">Workspaces are unlimited.</span><br>
                 You can create a workspace.<br>
               </div>
-              <btn-big #firstStepButton (click)="showStep(2)" class="button" color="orange" numberDisabled text="Create a New Workspace" [keyboardClick]="0" />
+              <btn-normal #firstStepButton (click)="showStep(2)" color="orange" text="Create a New Workspace" [keyboardClick]="0" />
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="2">
@@ -35,7 +35,7 @@
                 <div class="colorPicker colorPickerAnimation" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
               </div>
             </div>
-            <btn-big #secondStepButton [disabled]="!workspaceAddIsEnabled" class="button mt-5" color="orange" numberDisabled text="Create" (click)="createWorkspace()" [keyboardClick]="14" />
+            <btn-normal #secondStepButton [disabled]="!buttonIsEnabled" class="mt-5" color="orange" text="Create" (click)="createWorkspace()" [keyboardClick]="14" />
           </ng-container>
         </ng-container>
       </div>

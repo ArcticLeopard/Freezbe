@@ -17,11 +17,15 @@
             <input #taskNameInput class="input-text" id="taskInput" placeholder="Enter the name of your task" type="text" [keyboardClick]="1">
           </div>
           <div class="column ml-2 f-ac">
-            <div class="pb-2">Color</div>
-            <div class="colorPicker colorPickerAnimation" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
+            <div class="pb-2">Date</div>
+            <svg #datePicker [keyboardClick]="2" width="32" height="32" viewBox="0 0 32 32" fill="#ABABAB">
+              <path d="M21.538,22.654l-4.615,-0l0,4.615l4.615,0l0,-4.615Zm-12.923,-0l-4.615,-0l-0,4.615l4.615,0l0,-4.615Zm6.462,-0l-4.615,-0l-0,4.615l4.615,0l-0,-4.615Zm6.461,-6.462l-4.615,0l0,4.616l4.615,-0l0,-4.616Zm-12.923,0l-4.615,0l-0,4.616l4.615,-0l0,-4.616Zm6.462,0l-4.615,0l-0,4.616l4.615,-0l-0,-4.616Zm12.923,0l-4.615,0l-0,4.616l4.615,-0l-0,-4.616Zm-12.923,-6.461l-4.615,-0l-0,4.615l4.615,0l-0,-4.615Zm6.461,-0l-4.615,-0l0,4.615l4.615,0l0,-4.615Zm6.462,-0l-4.615,-0l-0,4.615l4.615,0l-0,-4.615Z" />
+              <path d="M4,2.437l-0,-1.937l-3,-0l0,1.937l-1,0l0,29.063l32,0l0,-29.063l-1,0l0,-1.937l-3,-0l0,1.937l-24,0Zm26.769,3.876l-29.538,-0l-0,24.218l29.538,0l0,-24.218Z" />
+              <title>Due Date</title>
+            </svg>
           </div>
         </div>
-        <btn-big #button [disabled]="!taskAddIsEnabled" class="button mt-5" color="orange" numberDisabled text="Create" (click)="createTask()" [keyboardClick]="14" />
+        <btn-normal #button [disabled]="!buttonIsEnabled" color="orange" text="Create" (click)="createTask()" [keyboardClick]="14" />
       </div>
     </div>
     <div class="windowFooter">

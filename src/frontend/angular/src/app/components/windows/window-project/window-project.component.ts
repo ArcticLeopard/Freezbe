@@ -24,7 +24,7 @@ export class WindowProjectComponent extends WindowComponent {
   protected override preOpen = () => {
     this.name = 'Project';
     this.width = 29;
-    this.height = 33;
+    this.height = 35.7;
     this.projectCursor = new CursorHtmlElement(this.projectRefCollection);
     return this.searchCursor = new CursorHtmlElement(this.searchRefCollection);
   };
