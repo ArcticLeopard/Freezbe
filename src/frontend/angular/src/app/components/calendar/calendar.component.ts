@@ -33,7 +33,7 @@ export class CalendarComponent implements OnInit, OnDestroy, OnChanges {
   days: string[] = DataSource.daysCollection;
   @Input() year: number;
   @Input() month: number;
-  @Output('dateSelected') onDateSelected = new EventEmitter<DateOnly>();
+  @Output('setDate') onSetDate = new EventEmitter<DateOnly>();
   @ViewChildren(CalendarDayComponent) CalendarDayComponents = new QueryList<CalendarDayComponent>();
 
   ngOnChanges(): void {
@@ -78,7 +78,7 @@ export class CalendarComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   dateSelected = (selectedDay: CalendarDayType) => {
-    this.onDateSelected.emit({year: this.year, month: this.month, day: selectedDay.day});
+    this.onSetDate.emit({year: this.year, month: this.month, day: selectedDay.day});
   };
 }
 

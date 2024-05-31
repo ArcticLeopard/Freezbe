@@ -1,9 +1,13 @@
 import {Injectable} from '@angular/core';
-import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate, DateOnly} from "../../common/types";
+import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate, DateOnly, ObjectType} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
 import {incoming, priority, projects, tasks, workspaces} from "../../common/consts";
 import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
+import {WindowOpenOptions} from "../../components/windows/window/windowOpenOptions";
+import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
+import {WindowDueDateComponent} from "../../components/windows/window-due-date/window-due-date.component";
+import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
 
 @Injectable({
   providedIn: 'root'
@@ -158,6 +162,17 @@ export class InteractionService {
     }
   }
 
+  public openWindowEditWorkspace = (options?: WindowOpenOptions) => this.openWindowEditElement('workspace', options);
+  public openWindowEditProject = (options?: WindowOpenOptions) => this.openWindowEditElement('project', options);
+  public openWindowEditTask = (options?: WindowOpenOptions) => this.openWindowEditElement('task', options);
+
+  protected openWindowEditElement(objectType: ObjectType, options?: WindowOpenOptions): void {
+    if (this.viewState.windowEdit.Value) {
+      this.viewState.windowEdit.Value.objectType = objectType;
+      this.viewState.windowEdit.Value.openWindow(options);
+    }
+  }
+
   private changePositionEnabled(): boolean {
     if (this.viewState.context == tasks) {
       if (this.viewState.currentViewType.Value != projects)
@@ -262,19 +277,21 @@ export class InteractionService {
   }
 
   public addTask(taskCandidate: TaskCandidate): void {
-    if (taskCandidate.name.trim().length <= 0 || taskCandidate.color.trim().length <= 0) {
+    if (taskCandidate.name.trim().length <= 0) {
       throw new Error('Invalid Argument');
     }
     let tasks = this.viewState.tasks;
     if (tasks) {
       let now = Date.now();
+      let dueDate = taskCandidate.date ? {dateOnly: taskCandidate.date} : undefined;
       let newElement: TaskType = {
         id: this.GenerateId(now),
         name: taskCandidate.name,
         priority: false,
         incoming: false,
         completed: false,
-        comments: []
+        comments: [],
+        dueDate: dueDate
       };
       this.viewState.tasks.Values.push(newElement);
       this.appNavigator.GoToTask(newElement.id);
@@ -282,23 +299,58 @@ export class InteractionService {
     }
   }
 
-  public setDate(dateOnly: DateOnly) {
-    if (this.viewState.task.Value != undefined) {
-      if (this.viewState.task.Value.dueDate == undefined) {
-        this.viewState.task.Value.dueDate = {
-          dateOnly: dateOnly
-        };
-      } else {
-        this.viewState.task.Value.dueDate.dateOnly = dateOnly;
+  public setDate(dateOnly: DateOnly | undefined) {
+    if (dateOnly != undefined) {
+      if (this.viewState.task.Value != undefined) {
+        if (this.viewState.task.Value.dueDate == undefined) {
+          this.viewState.task.Value.dueDate = {
+            dateOnly: dateOnly
+          };
+        } else {
+          this.viewState.task.Value.dueDate.dateOnly = dateOnly;
+        }
+        this.viewState.update();
       }
-      this.viewState.update();
+    } else {
+      if (this.viewState.task.Value != undefined) {
+        this.viewState.task.Value.dueDate = dateOnly;
+        this.viewState.update();
+      }
     }
   }
 
-  public unsetDate() {
-    if (this.viewState.task.Value != undefined) {
-      this.viewState.task.Value.dueDate = undefined;
-      this.viewState.update();
+  public deleteWorkspace(workspaceId: string): void {
+    let workspaces = this.viewState.workspaces.Values;
+    if (workspaces) {
+      let index = workspaces.findIndex(p => p.id === workspaceId);
+      if (index !== -1) {
+        workspaces.splice(index, 1);
+        this.viewState.update();
+      }
+    }
+  }
+
+  public deleteProject(projectId: string): void {
+    let workspace = this.viewState.workspace.Value;
+    let projects = workspace?.projects;
+    if (projects) {
+      let index = projects.findIndex(p => p.id === projectId);
+      if (index !== -1) {
+        projects.splice(index, 1);
+        this.viewState.update();
+      }
+    }
+  }
+
+  public deleteTask(taskId: string): void {
+    let project = this.viewState.project.Value;
+    let tasks = project?.tasks;
+    if (tasks) {
+      let index = tasks.findIndex(p => p.id === taskId);
+      if (index !== -1) {
+        tasks.splice(index, 1);
+        this.viewState.update();
+      }
     }
   }
 
@@ -330,12 +382,23 @@ export class InteractionService {
   }
 
   openAddTaskWindow = (): void => this.viewState.windowAddTask.Value?.openWindow();
-  openDueDateWindow = (): void => this.viewState.windowDueDate.Value?.openWindow({position: 'right'});
-  openProjectWindow = (): void => this.viewState.windowProject.Value?.openWindow({position: 'right'});
+  openDueDateWindow = (options?: WindowOpenOptions): WindowDueDateComponent | undefined => {
+    this.viewState.windowDueDate.Value?.openWindow(options);
+    return this.viewState.windowDueDate.Value;
+  };
+  openProjectWindow = (options?: WindowOpenOptions): WindowProjectComponent | undefined => {
+    this.viewState.windowProject.Value?.openWindow(options);
+    return this.viewState.windowProject.Value;
+  };
 
-  openColorPickerWindow(): WindowColorPickerComponent | undefined {
-    this.viewState.windowColorPicker.Value?.openWindow();
+  openColorPickerWindow(options?: WindowOpenOptions): WindowColorPickerComponent | undefined {
+    this.viewState.windowColorPicker.Value?.openWindow(options);
     return this.viewState.windowColorPicker.Value;
+  }
+
+  openRenameWindow(options?: WindowOpenOptions): WindowRenameComponent | undefined {
+    this.viewState.windowRename.Value?.openWindow(options);
+    return this.viewState.windowRename.Value;
   }
 
   moveTaskToProject(taskId: string, projectId: string): void {

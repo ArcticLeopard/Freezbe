@@ -52,4 +52,8 @@ export class DetailMenuComponent implements OnDestroy, AfterViewInit {
       this.interactionService.onPressEscape(event);
     }
   }
+
+  openWindowEditTask() {
+    this.interactionService.openWindowEditTask({position: "center"});
+  }
 }

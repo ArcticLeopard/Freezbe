@@ -1,0 +1,20 @@
+<div (click)="closeWindow()" class="background"></div>
+<div class="window" [style.top]="top" [style.left]="left" [style.right]="right" #window>
+  <logotype (click)="closeWindow()" />
+  <div class="windowContainer">
+    <div class="windowContent scrollable">
+      <div class="content">
+        <btn-normal color="orange" text="Rename" (click)="openRenameWindow()" [keyboardClick]="1" />
+        <btn-normal color="orange" text="Change Color" (click)="openColorPickerWindow()" [keyboardClick]="2" *ngIf="itCanShowChangeColor" />
+        <btn-normal color="red" text="Delete" (click)="delete()" [keyboardClick]="3" />
+      </div>
+    </div>
+    <div class="windowFooter">
+      <div class="windowFooterContainer">
+        <div class="windowFooterTitleContainer">
+          <span class="pointerFocus"><a href="https://github.com/ArcticLeopard/Freezbe" target="_blank">Freezbe is Free & Open Source</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

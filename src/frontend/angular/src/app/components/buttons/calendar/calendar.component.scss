@@ -1,0 +1,11 @@
+@import "../../../../imports";
+
+:host {
+  @extend .s100;
+}
+
+:host:hover, :host:focus, :host:active {
+  svg {
+    fill: $white;
+  }
+}

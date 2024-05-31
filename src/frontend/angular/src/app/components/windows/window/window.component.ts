@@ -4,6 +4,8 @@ import {InteractionService} from "../../../services/interaction/interaction.serv
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 import {WindowOpenOptions} from "./windowOpenOptions";
+import {DialogWindowCloseOrderService} from "../../../services/dialog-window-close-order/dialog-window-close-order.service";
+import {AppNavigatorService} from "../../../services/app-navigator/app-navigator.service";
 
 @Component({
   selector: 'window',
@@ -12,7 +14,7 @@ import {WindowOpenOptions} from "./windowOpenOptions";
   styleUrl: './window.component.scss',
 })
 export class WindowComponent implements OnDestroy {
-  constructor(protected elementRef: ElementRef, protected renderer: Renderer2, protected viewState: ViewStateService, protected interactionService: InteractionService) {
+  constructor(protected elementRef: ElementRef, protected renderer: Renderer2, protected viewState: ViewStateService, protected interactionService: InteractionService, private dialogWindowCloseOrderService: DialogWindowCloseOrderService, protected appNavigator: AppNavigatorService) {
     this.open = false;
     this.scrollable = false;
     this.subscription = this.viewState.subject.subscribe(p => {
@@ -32,11 +34,10 @@ export class WindowComponent implements OnDestroy {
   @Input() right: string;
   @HostBinding('hidden') isHidden: boolean;
   @ViewChild('window') windowRef: ElementRef;
-  @HostBinding('class.inMiddle') @Input({transform: booleanAttribute}) inMiddle: boolean;
+  @HostBinding('class.centre') @Input({transform: booleanAttribute}) centre: boolean;
   protected closeWindowIsEnabled: boolean = true;
   @Input() backgroundType: BackgroundTypes;
   private subscription: Subscription;
-  @HostListener('keydown.escape') onPressEscape = () => this.closeWindow();
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -66,7 +67,7 @@ export class WindowComponent implements OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
-    this.moveWindowToRightSide();
+    this.setWindowRightPosition();
   }
 
   set open(value: boolean) {
@@ -75,10 +76,15 @@ export class WindowComponent implements OnDestroy {
 
   public openWindow(options?: WindowOpenOptions) {
     this.preOpen();
+    this.dialogWindowCloseOrderService.addDialog(this);
     setTimeout(() => {
       this.open = true;
       if (options?.position === 'right') {
-        this.moveWindowToRightSide();
+        this.centre = false;
+        this.setWindowRightPosition();
+      }
+      if (options?.position === 'center') {
+        this.setWindowCentralPosition();
       }
       this.postOpen();
     });
@@ -96,15 +102,27 @@ export class WindowComponent implements OnDestroy {
     }
   }
 
-  private moveWindowToRightSide() {
-    let containerW = this.viewState.detailMenu.Value?.width;
-    if (this.windowRef?.nativeElement && containerW) {
-      const winW = parseInt(this.windowRef.nativeElement.style.width) * 10;
-      const winH = parseInt(this.windowRef.nativeElement.style.height) * 10;
-      const middleHeight = `${(window.innerHeight - winH) / 2}px`;
-      const middleWidth = `${(containerW - winW) / 2}px`;
-      this.top = middleHeight;
-      this.right = middleWidth;
+  private setWindowCentralPosition() {
+    this.centre = true;
+    if (this.windowRef.nativeElement) {
+      this.renderer.removeStyle(this.windowRef.nativeElement, 'top');
+      this.renderer.removeStyle(this.windowRef.nativeElement, 'right');
+    }
+  }
+
+  private setWindowRightPosition() {
+    if (!this.centre) {
+      let containerW = this.viewState.detailMenu.Value?.width;
+      if (this.windowRef?.nativeElement && containerW) {
+        this.renderer.setStyle(this.windowRef.nativeElement, 'top', this.top);
+        this.renderer.setStyle(this.windowRef.nativeElement, 'right', this.right);
+        const winW = parseInt(this.windowRef.nativeElement.style.width) * 10;
+        const winH = parseInt(this.windowRef.nativeElement.style.height) * 10;
+        const middleHeight = `${(window.innerHeight - winH) / 2}px`;
+        const middleWidth = `${(containerW - winW) / 2}px`;
+        this.top = middleHeight;
+        this.right = middleWidth;
+      }
     }
   }
 }
