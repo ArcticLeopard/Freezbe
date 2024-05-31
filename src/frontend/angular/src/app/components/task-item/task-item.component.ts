@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe, NgIf} from "@angular/common";
 import {TaskStatusComponent} from "../buttons/task-status/task-status.component";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
@@ -7,6 +7,7 @@ import {TaskPriorityComponent} from "../buttons/task-priority/task-priority.comp
 import {DateOnlyPipe} from "../../pipes/date-only/date-only.pipe";
 import {DataSourceService} from "../../services/data-source/data-source.service";
 import {ViewStateService} from "../../services/state/view-state.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'task-item',
@@ -15,8 +16,9 @@ import {ViewStateService} from "../../services/state/view-state.service";
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss'
 })
-export class TaskItemComponent implements OnInit {
+export class TaskItemComponent implements OnInit, AfterViewInit, OnDestroy {
   public showProject: boolean;
+  private subscription: Subscription;
 
   constructor(protected appNavigator: AppNavigatorService, private viewState: ViewStateService, private dataSourceService: DataSourceService) {
   }
@@ -26,6 +28,7 @@ export class TaskItemComponent implements OnInit {
 
   @HostBinding('class.active')
   public active: boolean = false;
+
   protected project: ProjectType;
 
   ngOnInit(): void {
@@ -34,6 +37,19 @@ export class TaskItemComponent implements OnInit {
     if (project) {
       this.project = project;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.subscription = this.viewState.subject.subscribe(() => {
+      let project = this.dataSourceService.getProjectByTask(this.viewState.currentWorkspaceId.Value, this.model.id);
+      if (project) {
+        this.project = project;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   focus(mouseEvent: MouseEvent): void {

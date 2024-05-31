@@ -9,8 +9,8 @@ import {Subscription} from "rxjs";
 export class ResizerDirective implements OnDestroy {
   constructor(private viewState: ViewStateService) {
     this.previousWidth = window.innerWidth;
-    if (!this.viewState.sidebarMenuIsOpen.isInLocalStorage()) {
-      this.viewState.sidebarMenuIsOpen.Value = this.previousWidth < 1024;
+    if (!this.viewState.sidebarMenuIsClose.isInLocalStorage()) {
+      this.viewState.sidebarMenuIsClose.Value = this.previousWidth < 1024;
     }
     this.subscription = viewState.subject.subscribe(p => {
       this.isActive = !!p.currentTaskId.Value;
@@ -32,13 +32,13 @@ export class ResizerDirective implements OnDestroy {
   onResize(event: Event): void {
     const currentWidth = (event.target as Window).innerWidth;
     if (currentWidth >= 1024) {
-      if (this.viewState.sidebarMenuIsOpen.Value) {
-        this.viewState.sidebarMenuIsOpen.Value = false;
+      if (this.viewState.sidebarMenuIsClose.Value) {
+        this.viewState.sidebarMenuIsClose.Value = false;
       }
     } else {
       if (currentWidth < this.previousWidth) {
-        if (!this.viewState.sidebarMenuIsOpen.Value) {
-          this.viewState.sidebarMenuIsOpen.Value = true;
+        if (!this.viewState.sidebarMenuIsClose.Value) {
+          this.viewState.sidebarMenuIsClose.Value = true;
         }
       }
     }

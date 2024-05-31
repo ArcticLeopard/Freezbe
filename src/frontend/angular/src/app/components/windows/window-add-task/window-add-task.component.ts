@@ -25,6 +25,7 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
   private taskCandidate: TaskCandidateDraft;
 
   protected override preOpen() {
+    this.FreshInputs();
     this.taskCandidate = {
       name: undefined,
       date: undefined
@@ -34,7 +35,7 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
 
   protected override postOpen() {
     setTimeout(() => {
-      this.renderer.selectRootElement(this.taskNameInputRef.nativeElement).focus();
+      this.taskNameInputRef.nativeElement.focus();
     });
   }
 
@@ -62,7 +63,8 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
     if (this.buttonIsEnabled) {
       this.interactionService.addTask(<TaskCandidate>this.taskCandidate);
       this.closeWindowIsEnabled = true;
-      this.closeWindow();
+      this.FreshInputs();
+      this.taskNameInputRef.nativeElement.focus();
     }
   }
 
@@ -81,5 +83,19 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
         }, 100);
       });
     }
+  }
+
+  onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      this.createTask();
+    }
+  };
+
+  private FreshInputs() {
+    this.taskNameInputRef.nativeElement.value = '';
+    this.taskCandidate = {
+      name: undefined,
+      date: undefined
+    };
   }
 }

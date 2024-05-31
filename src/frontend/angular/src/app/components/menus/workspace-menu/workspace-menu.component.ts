@@ -19,16 +19,16 @@ export class WorkspaceMenuComponent implements OnDestroy {
   constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, protected interactionService: InteractionService, private activeArea: ActiveAreaDirective, private elementRef: ElementRef) {
     this.subscription = this.viewState.subject.subscribe(state => {
       this.elementRef.nativeElement.scrollTop = this.viewState.workspaceMenuScrollbarPosition.Value;
-      this.isHide = state.workspaceMenuIsOpen.Value;
-      if (state.sidebarMenuIsOpen.Value) {
-        this.isHide = state.sidebarMenuIsOpen.Value;
+      this.isHide = state.workspaceMenuIsClose.Value;
+      if (state.sidebarMenuIsClose.Value) {
+        this.isHide = state.sidebarMenuIsClose.Value;
       }
     });
   }
 
   private subscription: Subscription;
   protected readonly GlobalSettings = GlobalSettings;
-  @HostBinding('class.isHide') isHide: boolean = this.viewState.workspaceMenuIsOpen.Value;
+  @HostBinding('class.isHide') isHide: boolean = this.viewState.workspaceMenuIsClose.Value;
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -48,6 +48,7 @@ export class WorkspaceMenuComponent implements OnDestroy {
 
   private readonly hotkeyHandlers = [
     this.interactionService.onPressPlus.bind(this.interactionService),
+    this.interactionService.onPressMinus.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
     this.interactionService.onPressExclamationMark.bind(this.interactionService),
     this.interactionService.onPressNumber.bind(this.interactionService),
