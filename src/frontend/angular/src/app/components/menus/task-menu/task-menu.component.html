@@ -3,7 +3,7 @@
     <btn-close-sidebar class="pr-2" />
     <div class="text-header text-gray">{{ getIncompleteTaskCount() }} Tasks</div>
     <div class="text-header">
-      <span class="ml-1">{{ viewState.currentViewName.Value | titlecase }}</span>
+      <span class="ml-1" [class.pointerFocus]="itCanEdit" (click)="openWindowEditProject()">{{ viewState.currentViewName.Value | titlecase }}</span>
     </div>
     <div>
       <btn-append (click)="interactionService.openAddTaskWindow()" *ngIf="viewState.currentProjectId.Value" class="pl-2" />

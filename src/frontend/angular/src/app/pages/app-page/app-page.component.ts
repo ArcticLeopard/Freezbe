@@ -14,6 +14,8 @@ import {WindowDueDateComponent} from "../../components/windows/window-due-date/w
 import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
 import {WindowAddProjectComponent} from "../../components/windows/window-add-project/window-add-project.component";
 import {WindowAddTaskComponent} from "../../components/windows/window-add-task/window-add-task.component";
+import {WindowEditComponent} from "../../components/windows/window-edit/window-edit.component";
+import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
 
 @Component({
   selector: 'app-page',
@@ -31,7 +33,9 @@ import {WindowAddTaskComponent} from "../../components/windows/window-add-task/w
     WindowDueDateComponent,
     WindowProjectComponent,
     WindowAddProjectComponent,
-    WindowAddTaskComponent
+    WindowAddTaskComponent,
+    WindowEditComponent,
+    WindowRenameComponent
   ],
   templateUrl: './app-page.component.html',
   styleUrl: './app-page.component.scss',
@@ -44,10 +48,11 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
   @ViewChild(WindowAddWorkspaceComponent) windowAddWorkspace: WindowAddWorkspaceComponent;
   @ViewChild(WindowAddProjectComponent) windowAddProject: WindowAddProjectComponent;
   @ViewChild(WindowAddTaskComponent) windowAddTask: WindowAddTaskComponent;
+  @ViewChild(WindowEditComponent) windowEdit: WindowEditComponent;
   @ViewChild(WindowColorPickerComponent) windowColorPicker: WindowColorPickerComponent;
+  @ViewChild(WindowRenameComponent) windowRename: WindowRenameComponent;
   @ViewChild(WindowProjectComponent) windowProject: WindowProjectComponent;
   @ViewChild(WindowDueDateComponent) windowDueDate: WindowDueDateComponent;
-
   @ViewChild(DetailMenuComponent) detailMenu: DetailMenuComponent;
 
   ngAfterViewInit(): void {
@@ -60,8 +65,14 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     if (this.viewState.windowAddTask.Value == undefined && this.windowAddTask != undefined) {
       this.viewState.windowAddTask.Value = this.windowAddTask;
     }
+    if (this.viewState.windowEdit.Value == undefined && this.windowEdit != undefined) {
+      this.viewState.windowEdit.Value = this.windowEdit;
+    }
     if (this.viewState.windowColorPicker.Value == undefined && this.windowColorPicker != undefined) {
       this.viewState.windowColorPicker.Value = this.windowColorPicker;
+    }
+    if (this.viewState.windowRename.Value == undefined && this.windowRename != undefined) {
+      this.viewState.windowRename.Value = this.windowRename;
     }
     if (this.viewState.windowProject.Value == undefined && this.windowProject != undefined) {
       this.viewState.windowProject.Value = this.windowProject;
@@ -78,7 +89,9 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     this.viewState.windowAddWorkspace.Value = undefined;
     this.viewState.windowAddProject.Value = undefined;
     this.viewState.windowAddTask.Value = undefined;
+    this.viewState.windowEdit.Value = undefined;
     this.viewState.windowColorPicker.Value = undefined;
+    this.viewState.windowRename.Value = undefined;
     this.viewState.windowProject.Value = undefined;
     this.viewState.windowDueDate.Value = undefined;
   }

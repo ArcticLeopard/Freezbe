@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnDestroy, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {WindowComponent} from "../window/window.component";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {MonthPipe} from "../../../pipes/month/month.pipe";
@@ -17,7 +17,7 @@ import {NormalButtonComponent} from "../../buttons/normal/normal-button.componen
   templateUrl: './window-add-project.component.html',
   styleUrl: './window-add-project.component.scss'
 })
-export class WindowAddProjectComponent extends WindowComponent implements OnDestroy {
+export class WindowAddProjectComponent extends WindowComponent {
   private colorSubscription: Subscription;
 
   @ViewChild('projectNameInput') projectNameInputRef: ElementRef;
@@ -44,7 +44,7 @@ export class WindowAddProjectComponent extends WindowComponent implements OnDest
   }
 
   get buttonIsEnabled(): boolean {
-    return this.projectCandidate?.name != undefined && this.projectCandidate?.color != undefined;
+    return this.projectCandidate?.name != undefined && this.projectCandidate?.name != 'Single tasks' && this.projectCandidate?.color != undefined;
   }
 
   @HostListener('document:keyup', ['$event'])
@@ -60,7 +60,7 @@ export class WindowAddProjectComponent extends WindowComponent implements OnDest
   }
 
   protected openColorPickerWindow(): void {
-    let window: WindowColorPickerComponent | undefined = this.interactionService.openColorPickerWindow();
+    let window: WindowColorPickerComponent | undefined = this.interactionService.openColorPickerWindow({position: "center"});
     if (window) {
       this.colorSubscription = window.onColorSelected.subscribe(color => {
         this.projectCandidate.color = color;

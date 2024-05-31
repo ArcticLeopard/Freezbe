@@ -14,6 +14,8 @@ import {DetailMenuComponent} from "../../components/menus/detail-menu/detail-men
 import {WindowAddProjectComponent} from "../../components/windows/window-add-project/window-add-project.component";
 import {WindowAddTaskComponent} from "../../components/windows/window-add-task/window-add-task.component";
 import {details, projects, tasks, workspaces} from '../../common/consts';
+import {WindowEditComponent} from "../../components/windows/window-edit/window-edit.component";
+import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +49,9 @@ export class ViewStateService {
   public windowAddWorkspace: State<WindowAddWorkspaceComponent | undefined>;
   public windowAddProject: State<WindowAddProjectComponent | undefined>;
   public windowAddTask: State<WindowAddTaskComponent | undefined>;
+  public windowEdit: State<WindowEditComponent | undefined>;
   public windowColorPicker: State<WindowColorPickerComponent | undefined>;
+  public windowRename: State<WindowRenameComponent | undefined>;
   public windowProject: State<WindowProjectComponent | undefined>;
   public windowDueDate: State<WindowDueDateComponent | undefined>;
   public detailMenu: State<DetailMenuComponent | undefined>;
@@ -92,7 +96,9 @@ export class ViewStateService {
     this.windowAddWorkspace = new State<WindowAddWorkspaceComponent | undefined>(this.subject, this, undefined);
     this.windowAddProject = new State<WindowAddProjectComponent | undefined>(this.subject, this, undefined);
     this.windowAddTask = new State<WindowAddTaskComponent | undefined>(this.subject, this, undefined);
+    this.windowEdit = new State<WindowEditComponent | undefined>(this.subject, this, undefined);
     this.windowColorPicker = new State<WindowColorPickerComponent | undefined>(this.subject, this, undefined);
+    this.windowRename = new State<WindowRenameComponent | undefined>(this.subject, this, undefined);
     this.windowProject = new State<WindowProjectComponent | undefined>(this.subject, this, undefined);
     this.windowDueDate = new State<WindowDueDateComponent | undefined>(this.subject, this, undefined);
 

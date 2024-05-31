@@ -15,6 +15,27 @@ import {DateOnlyPipe} from "../../pipes/date-only/date-only.pipe";
   styleUrl: './detail-options.component.scss'
 })
 export class DetailOptionsComponent {
-  constructor(protected viewState: ViewStateService, protected interactionService: InteractionService) {
+  constructor(protected viewState: ViewStateService, private interactionService: InteractionService) {
+  }
+
+  protected openProjectWindow(): void {
+    let window: WindowProjectComponent | undefined = this.interactionService.openProjectWindow({position: 'right'});
+    if (window) {
+      window.onClick.subscribe(project => {
+        let taskId = this.viewState.currentTaskId.Value;
+        if (taskId != null && project) {
+          this.interactionService.moveTaskToProject(taskId, project.id);
+        }
+      });
+    }
+  }
+
+  protected openDueDateWindow(): void {
+    let window: WindowDueDateComponent | undefined = this.interactionService.openDueDateWindow({position: 'right'});
+    if (window) {
+      window.onSetDate.subscribe(dateOnly => {
+        this.interactionService.setDate(dateOnly);
+      });
+    }
   }
 }

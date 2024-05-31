@@ -20,9 +20,8 @@ export enum CalendarChangeStrategy {
 }
 
 export type AnyCollectionType = any[] | undefined | null;
-export type AnyStringType = string | undefined | null;
 export type ActiveAreaType = 'workspaces' | 'projects' | 'tasks' | 'details';
-export type KeyboardKeyType = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'Enter' | 'Escape';
+export type ObjectType = 'workspace' | 'project' | 'task'
 export type BackgroundTypes = 'background' | 'background-with-blur'
 export type BigButtonTypes = 'orange' | 'red' | 'gray';
 
@@ -36,6 +35,6 @@ export type WorkspaceCandidateDraft = { color: ColorDraft; name: NameDraft };
 export type WorkspaceCandidate = { color: Color; name: Name };
 export type ProjectCandidateDraft = { color: ColorDraft; name: NameDraft };
 export type ProjectCandidate = { color: Color; name: Name };
-export type TaskCandidateDraft = { color: ColorDraft; name: NameDraft };
-export type TaskCandidate = { color: Color; name: Name };
-export type WindowPositionOption = 'right';
+export type TaskCandidateDraft = { date?: DateOnly; name: NameDraft };
+export type TaskCandidate = { date?: DateOnly; name: Name };
+export type WindowPositionOption = 'right' | 'center';

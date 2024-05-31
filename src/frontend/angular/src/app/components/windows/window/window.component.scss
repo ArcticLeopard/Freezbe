@@ -36,7 +36,7 @@
   }
 }
 
-:host.inMiddle {
+:host.centre {
   @extend .s100;
   @extend .column, .center;
   position: fixed;
@@ -48,7 +48,7 @@
   }
 }
 
-:host.inMiddle[hidden] {
+:host.centre[hidden] {
   display: none;
 }
 

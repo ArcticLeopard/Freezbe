@@ -12,6 +12,7 @@ import {AutoRefreshDirective} from "../../../directives/auto-refresh/auto-refres
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 import {Subscription} from "rxjs";
+import {projects} from "../../../common/consts";
 
 @Component({
   selector: 'menu-task',
@@ -54,4 +55,18 @@ export class TaskMenuComponent implements OnDestroy {
     this.interactionService.onPressControlWithArrow.bind(this.interactionService),
     this.interactionService.onPressArrow.bind(this.interactionService),
   ];
+
+  openWindowEditProject() {
+    if (this.itCanEdit) {
+      this.interactionService.openWindowEditProject({position: "center"});
+    }
+  }
+
+  get itCanEdit(): boolean {
+    let project = this.viewState.project.Value;
+    if (project) {
+      return project.name != 'Single tasks';
+    }
+    return this.viewState.currentViewType.Value == projects;
+  }
 }

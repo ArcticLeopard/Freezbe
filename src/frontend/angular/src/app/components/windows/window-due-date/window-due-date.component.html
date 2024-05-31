@@ -29,8 +29,8 @@
     </div>
     <div class="windowContent" [class.scrollable]="scrollable">
       <div class="s100 column">
-        <calendar [year]="model.year" [month]="model.month" (dateSelected)="interactionService.setDate($event)"></calendar>
-        <btn-normal text="Remove Date" color="red" (click)="interactionService.unsetDate()" />
+        <calendar [year]="model.year" [month]="model.month" (setDate)="setDate($event)"></calendar>
+        <btn-normal text="Remove Date" color="red" (click)="setDate(undefined)" />
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, HostBinding, HostListener, OnDestroy} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
