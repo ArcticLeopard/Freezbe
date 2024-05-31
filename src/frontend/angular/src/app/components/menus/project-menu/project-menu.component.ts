@@ -54,4 +54,7 @@ export class ProjectMenuComponent implements OnDestroy {
     this.interactionService.onPressArrow.bind(this.interactionService),
   ];
 
+  openWindowEditWorkspace() {
+    this.interactionService.openWindowEditWorkspace({position: "center"});
+  }
 }

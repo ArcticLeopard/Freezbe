@@ -87,7 +87,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   }
 
   protected openColorPickerWindow(): void {
-    let window: WindowColorPickerComponent | undefined = this.interactionService.openColorPickerWindow();
+    let window: WindowColorPickerComponent | undefined = this.interactionService.openColorPickerWindow({position: "center"});
     if (window) {
       this.colorSubscription = window.onColorSelected.subscribe(color => {
         this.workspaceCandidate.color = color;

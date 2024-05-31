@@ -7,10 +7,10 @@
       </div>
     </div>
     <div class="task-details">
-      <!--      <div class="detail" title="Project" *ngIf="task.project !== null">-->
-      <!--        <span class="icon-detail"><svg width="10" height="10" viewBox="0 0 32 32"><path d="M30,25l-14,7l-14,-7l0,-18l14,-7l14,7l0,18Zm-12,-10l0,11.997l8,-3.996l0,-12.001l-8,4Zm-12,7.989l8,3.996l0,-11.985l-8,-4l0,11.989Zm10.012,-18.979l7.988,3.99l-7.988,3.99l-7.989,-3.99l7.989,-3.99Z" /></svg></span>-->
-      <!--        <span class="text-detail">{{ task.project }}</span>-->
-      <!--      </div>-->
+      <div class="detail" title="Project" *ngIf="showProject" (click)="appNavigator.GoToProject(project.id)">
+        <span class="icon-detail" [style.fill]="project.color"><svg width="10" height="10" viewBox="0 0 32 32"><path d="M30,25l-14,7l-14,-7l0,-18l14,-7l14,7l0,18Zm-12,-10l0,11.997l8,-3.996l0,-12.001l-8,4Zm-12,7.989l8,3.996l0,-11.985l-8,-4l0,11.989Zm10.012,-18.979l7.988,3.99l-7.988,3.99l-7.989,-3.99l7.989,-3.99Z" /></svg></span>
+        <span class="text-detail">{{ project.name }}</span>
+      </div>
       <div class="detail" title="Comments" *ngIf="model.comments?.length">
         <span class="icon-detail"><svg width="10" height="10" viewBox="0 0 32 32"><path d="M32,12.8c0,-7.065 -7.169,-12.8 -16,-12.8c-8.831,0 -16,5.735 -16,12.8c0,3.11 1.415,6.114 3.982,8.45l-3.982,10.75l10.873,-7.075c1.651,0.447 3.383,0.675 5.127,0.675c8.831,-0 16,-5.735 16,-12.8Zm-12.779,-1.983c-0,-0.711 -0.577,-1.288 -1.288,-1.288l-3.866,0c-0.711,0 -1.288,0.577 -1.288,1.288l0,3.866c0,0.711 0.577,1.288 1.288,1.288l3.866,-0c0.711,-0 1.288,-0.577 1.288,-1.288l-0,-3.866Zm-9.663,0c0,-0.711 -0.577,-1.288 -1.288,-1.288l-3.865,0c-0.711,0 -1.289,0.577 -1.289,1.288l0,3.866c0,0.711 0.578,1.288 1.289,1.288l3.865,-0c0.711,-0 1.288,-0.577 1.288,-1.288l0,-3.866Zm19.326,0c-0,-0.711 -0.578,-1.288 -1.289,-1.288l-3.865,0c-0.711,0 -1.288,0.577 -1.288,1.288l-0,3.866c-0,0.711 0.577,1.288 1.288,1.288l3.865,-0c0.711,-0 1.289,-0.577 1.289,-1.288l-0,-3.866Z" /></svg></span>
         <span class="text-detail">{{ model.comments?.length ?? 0 }}</span>

@@ -1,0 +1,15 @@
+@import "../../../../imports";
+@import "../window/window.component";
+
+.input-text {
+  @extend .mb-3;
+  height: 4.5rem;
+  width: 40.8rem;
+  @media (max-width: 430px) {
+    width: 35.2rem;
+  }
+}
+
+btn-normal {
+  @extend .s100;
+}

@@ -1,0 +1,11 @@
+<div (click)="closeWindow()" class="background"></div>
+<div class="window" [style.top]="top" [style.left]="left" [style.right]="right" #window>
+  <div class="windowContainer">
+    <div class="windowContent scrollable">
+      <div class="column center p-3">
+        <input type="text" class="input-text" #inputRef [keyboardClick]="1">
+        <btn-normal color="orange" text="Rename" [keyboardClick]="2" (click)="Rename()" />
+      </div>
+    </div>
+  </div>
+</div>

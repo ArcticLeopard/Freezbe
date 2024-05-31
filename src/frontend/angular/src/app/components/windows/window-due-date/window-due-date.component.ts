@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MonthPipe} from "../../../pipes/month/month.pipe";
 import {NgForOf, NgIf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
@@ -15,6 +15,7 @@ import {NormalButtonComponent} from "../../buttons/normal/normal-button.componen
 })
 
 export class WindowDueDateComponent extends WindowComponent implements OnInit {
+  onSetDate = new EventEmitter<DateOnly | undefined>();
   protected readonly CalendarChangeStrategy = CalendarChangeStrategy;
   model: WindowDueDateModel;
 
@@ -39,6 +40,9 @@ export class WindowDueDateComponent extends WindowComponent implements OnInit {
     }
   }
 
+  public setDate(dateOnly: DateOnly | undefined) {
+    this.onSetDate.emit(dateOnly);
+  }
 }
 
 export class WindowDueDateModel {

@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, QueryList, ViewChildren} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Output, QueryList, ViewChildren} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {WindowComponent} from "../window/window.component";
 import {CursorHtmlElement} from "../../../Cursor";
@@ -63,10 +63,12 @@ export class WindowProjectComponent extends WindowComponent {
     );
   }
 
-  onClick(project: ProjectType | undefined) {
-    let taskId = this.viewState.currentTaskId.Value;
-    if (taskId != null && project) {
-      this.interactionService.moveTaskToProject(taskId, project.id);
+  @Output('click')
+  onClick = new EventEmitter<ProjectType>();
+
+  setProject(project: ProjectType | undefined) {
+    if (project) {
+      this.onClick.emit(project);
     }
     this.closeWindow();
   }

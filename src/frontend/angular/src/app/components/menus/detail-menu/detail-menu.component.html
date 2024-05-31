@@ -2,7 +2,7 @@
   <div class="sectionInfoContainer">
     <btn-close-task-details />
     <div class="px-4">
-      <span class="task-name" title="Change Task Name">{{ viewState.task.Value?.name }}</span>
+      <span class="task-name" title="Change Task Name" (click)="openWindowEditTask()">{{ viewState.task.Value?.name }}</span>
     </div>
   </div>
 </div>
