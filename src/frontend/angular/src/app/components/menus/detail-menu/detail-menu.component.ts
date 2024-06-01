@@ -28,7 +28,7 @@ export class DetailMenuComponent implements OnDestroy, AfterViewInit {
   constructor(protected viewState: ViewStateService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective, private elementRef: ElementRef) {
     this.subscription = viewState.subject.subscribe(p => {
       p.detailMenu.ValueWithoutPropagation = this;
-      this.hidden = !p.taskDetailsOpen.Value;
+      this.hidden = p.taskDetailsIsClose.Value;
     });
   }
 

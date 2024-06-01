@@ -52,4 +52,10 @@ export class WindowRenameComponent extends WindowComponent {
     this.viewState.update();
     this.closeWindow();
   }
+
+  onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      this.Rename();
+    }
+  };
 }
