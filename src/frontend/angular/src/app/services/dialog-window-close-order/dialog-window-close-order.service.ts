@@ -1,15 +1,20 @@
 import {Inject, Injectable, Optional, Renderer2, RendererFactory2} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 import {WindowComponent} from "../../components/windows/window/window.component";
+import {ViewStateService} from "../state/view-state.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogWindowCloseOrderService {
-  private openedDialogs: WindowComponent[] = [];
+  private openedDialogWindows: WindowComponent[] = [];
   private renderer: Renderer2;
 
-  constructor(@Optional() @Inject(DOCUMENT) private document: Document, rendererFactory: RendererFactory2
+  constructor
+  (
+    @Optional() @Inject(DOCUMENT) private document: Document,
+    rendererFactory: RendererFactory2,
+    private viewState: ViewStateService
   ) {
     this.renderer = rendererFactory.createRenderer(null, null);
     if (this.document) {
@@ -17,20 +22,24 @@ export class DialogWindowCloseOrderService {
     }
   }
 
-  public addDialog(dialog: WindowComponent): void {
-    this.openedDialogs.push(dialog);
+  public addDialog(dialogWindow: WindowComponent): void {
+    this.openedDialogWindows.push(dialogWindow);
+    this.viewState.openedDialogWindows.Value = this.openedDialogWindows.length;
   }
 
-  private removeTopDialog(): void {
-    if (this.openedDialogs.length > 0) {
-      const topDialogWindow = this.openedDialogs.pop();
-      topDialogWindow?.closeWindow();
+  public removeDialog(): WindowComponent | undefined {
+    if (this.openedDialogWindows.length > 0) {
+      let result = this.openedDialogWindows.pop();
+      this.viewState.openedDialogWindows.Value = this.openedDialogWindows.length;
+      return result;
     }
+    return undefined;
   }
 
   private onKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
-      this.removeTopDialog();
+      let dialogWindow = this.removeDialog();
+      dialogWindow?.closeWindow();
     }
   }
 }

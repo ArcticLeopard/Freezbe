@@ -23,10 +23,13 @@ import {WindowRenameComponent} from "../../components/windows/window-rename/wind
 export class ViewStateService {
   public readonly subject: BehaviorSubject<ViewStateService>;
 
-  public taskDetailsOpen: BooleanState;
-  public sidebarMenuIsOpen: BooleanState;
-  public workspaceMenuIsOpen: BooleanState;
+  public taskDetailsIsClose: BooleanState;
+  public sidebarMenuIsClose: BooleanState;
+  public workspaceMenuIsClose: BooleanState;
+  public openedDialogWindows: State<number>;
+
   public activeProjectSectionIsOpen: BooleanState;
+
   public projectMenuScrollbarPosition: State<number>;
   public workspaceMenuScrollbarPosition: State<number>;
   public currentViewType: State<string>;
@@ -55,6 +58,7 @@ export class ViewStateService {
   public windowProject: State<WindowProjectComponent | undefined>;
   public windowDueDate: State<WindowDueDateComponent | undefined>;
   public detailMenu: State<DetailMenuComponent | undefined>;
+
   contextEnabled: boolean;
   context: ActiveAreaType;
   contextSubject: Subject<ActiveAreaType>;
@@ -67,9 +71,10 @@ export class ViewStateService {
       // console.log("StateService: Subject Update Counter: " + counter);
       this.dataSourceService.setWorkspaces();
     });
-    this.taskDetailsOpen = new BooleanState(this.subject, this, false, false);
-    this.sidebarMenuIsOpen = new BooleanState(this.subject, this, false, true, 'sidebarMenuIsOpen');
-    this.workspaceMenuIsOpen = new BooleanState(this.subject, this, GlobalSettings.hideWorkspaceMenuOnStartup, true, 'workspaceMenuIsOpen');
+    this.taskDetailsIsClose = new BooleanState(this.subject, this, false, false);
+    this.sidebarMenuIsClose = new BooleanState(this.subject, this, false, true, 'sidebarMenuIsOpen');
+    this.workspaceMenuIsClose = new BooleanState(this.subject, this, GlobalSettings.hideWorkspaceMenuOnStartup, true, 'workspaceMenuIsOpen');
+    this.openedDialogWindows = new State(this.subject, this, 0);
 
     this.activeProjectSectionIsOpen = new BooleanState(this.subject, this, true, true, 'activeProjectSectionIsOpen');
 
@@ -103,7 +108,6 @@ export class ViewStateService {
     this.windowDueDate = new State<WindowDueDateComponent | undefined>(this.subject, this, undefined);
 
     this.detailMenu = new State<DetailMenuComponent | undefined>(this.subject, this, undefined);
-
     this.contextSubject = new Subject<ActiveAreaType>();
   }
 
@@ -120,14 +124,32 @@ export class ViewStateService {
   }
 
   private updateContext(direction: number) {
-    let areas: ActiveAreaType[] = this.taskDetailsOpen.Value ? [workspaces, projects, tasks, details] : [workspaces, projects, tasks];
-    let index = areas.findIndex(p => p == this.context);
-    if (index !== -1) {
-      let newIndex = (index + direction + areas.length) % areas.length;
-      this.context = areas[newIndex];
-    } else {
-      this.context = areas[2];
+    if (!this.openedDialogWindows.Value) {
+      let areas = this.visibleAreas();
+      let index = areas.findIndex(p => p == this.context);
+      if (index !== -1) {
+        let newIndex = (index + direction + areas.length) % areas.length;
+        this.context = areas[newIndex];
+      } else {
+        this.context = areas[2];
+      }
+      this.contextSubject.next(this.context);
     }
-    this.contextSubject.next(this.context);
+  }
+
+  private visibleAreas() {
+    let areas: ActiveAreaType[] = [];
+    if (!this.sidebarMenuIsClose.Value) {
+      if (!this.workspaceMenuIsClose.Value) {
+        areas.push(workspaces);
+      }
+      areas.push(projects);
+    }
+    if (!(window.innerWidth <= 715 && !this.taskDetailsIsClose.Value)) {
+      areas.push(tasks);
+    }
+    if (!this.taskDetailsIsClose.Value)
+      areas.push(details);
+    return areas;
   }
 }

@@ -13,14 +13,14 @@ import {Subscription} from "rxjs";
 export class CloseWorkspaceComponent implements OnDestroy {
   constructor(protected viewState: ViewStateService) {
     this.subscription = this.viewState.subject.subscribe(p => {
-      this.isHide = p.workspaceMenuIsOpen.Value;
+      this.isHide = p.workspaceMenuIsClose.Value;
     });
   }
 
   private subscription: Subscription;
 
   @HostBinding('class.isHide')
-  isHide: boolean = !this.viewState.workspaceMenuIsOpen;
+  isHide: boolean = this.viewState.workspaceMenuIsClose.Value;
 
   @HostBinding(GlobalSettings.workspaceMenuIconAnimationEnabled ? "class.iconAnimated" : "")
   iconAnimated: boolean = true;
@@ -31,6 +31,6 @@ export class CloseWorkspaceComponent implements OnDestroy {
 
   @HostListener('click')
   ChangeVisibilityWorkspaceMenu(): void {
-    this.viewState.workspaceMenuIsOpen.Toggle();
+    this.viewState.workspaceMenuIsClose.Toggle();
   }
 }

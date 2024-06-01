@@ -12,7 +12,6 @@ import {AutoRefreshDirective} from "../../../directives/auto-refresh/auto-refres
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 import {Subscription} from "rxjs";
-import {projects} from "../../../common/consts";
 
 @Component({
   selector: 'menu-task',
@@ -48,6 +47,7 @@ export class TaskMenuComponent implements OnDestroy {
 
   private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
     this.interactionService.onPressPlus.bind(this.interactionService),
+    this.interactionService.onPressMinus.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
     this.interactionService.onPressExclamationMark.bind(this.interactionService),
     this.interactionService.onPressEscape.bind(this.interactionService),
@@ -57,16 +57,10 @@ export class TaskMenuComponent implements OnDestroy {
   ];
 
   openWindowEditProject() {
-    if (this.itCanEdit) {
-      this.interactionService.openWindowEditProject({position: "center"});
-    }
+    this.interactionService.openWindowEditProject({position: "center"});
   }
 
-  get itCanEdit(): boolean {
-    let project = this.viewState.project.Value;
-    if (project) {
-      return project.name != 'Single tasks';
-    }
-    return this.viewState.currentViewType.Value == projects;
+  get itCanOpenWindowEditProject() {
+    return this.interactionService.itCanOpenWindowEditProject;
   }
 }

@@ -88,6 +88,26 @@ export class InteractionService {
     return false;
   }
 
+  public onPressMinus(event: KeyboardEvent): boolean {
+    if (event.key === '-') {
+      switch (this.viewState.context) {
+        case workspaces:
+          this.openWindowEditWorkspace({position: "center"});
+          return true;
+        case projects:
+          this.openWindowEditProject({position: "center"});
+          return true;
+        case tasks:
+          this.openWindowEditTask({position: "center"});
+          return true;
+        case "details":
+          this.openWindowEditTask({position: "center"});
+          return true;
+      }
+    }
+    return false;
+  }
+
   public onPressAt(event: KeyboardEvent): boolean {
     if (event.key === '@') {
       this.appNavigator.GoToIncoming();
@@ -163,8 +183,29 @@ export class InteractionService {
   }
 
   public openWindowEditWorkspace = (options?: WindowOpenOptions) => this.openWindowEditElement('workspace', options);
-  public openWindowEditProject = (options?: WindowOpenOptions) => this.openWindowEditElement('project', options);
-  public openWindowEditTask = (options?: WindowOpenOptions) => this.openWindowEditElement('task', options);
+  public openWindowEditProject = (options?: WindowOpenOptions) => {
+    if (this.itCanOpenWindowEditProject) {
+      this.openWindowEditElement('project', options);
+    }
+  };
+
+  public openWindowEditTask = (options?: WindowOpenOptions) => {
+    if (this.itCanOpenWindowEditTask) {
+      this.openWindowEditElement('task', options);
+    }
+  };
+
+  get itCanOpenWindowEditProject(): boolean {
+    let project = this.viewState.project.Value;
+    if (project) {
+      return project.name != 'Single tasks';
+    }
+    return this.viewState.currentViewType.Value == projects;
+  }
+
+  get itCanOpenWindowEditTask(): boolean {
+    return !!this.viewState.task.Value;
+  }
 
   protected openWindowEditElement(objectType: ObjectType, options?: WindowOpenOptions): void {
     if (this.viewState.windowEdit.Value) {
@@ -294,7 +335,9 @@ export class InteractionService {
         dueDate: dueDate
       };
       this.viewState.tasks.Values.push(newElement);
-      this.appNavigator.GoToTask(newElement.id);
+      if (this.viewState.currentTaskId.Value) {
+        this.appNavigator.GoToTask(newElement.id);
+      }
       this.viewState.update();
     }
   }

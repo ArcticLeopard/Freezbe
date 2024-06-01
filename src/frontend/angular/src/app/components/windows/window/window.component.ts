@@ -18,7 +18,9 @@ export class WindowComponent implements OnDestroy {
     this.open = false;
     this.scrollable = false;
     this.subscription = this.viewState.subject.subscribe(p => {
-      this.AfterViewStateChange(p);
+      setTimeout(() => {
+        this.AfterViewStateChange(p);
+      });
     });
   }
 
@@ -99,6 +101,7 @@ export class WindowComponent implements OnDestroy {
   public closeWindow() {
     if (this.closeWindowIsEnabled) {
       this.open = false;
+      this.dialogWindowCloseOrderService.removeDialog();
     }
   }
 

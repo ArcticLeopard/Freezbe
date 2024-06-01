@@ -162,7 +162,7 @@ export class AppNavigatorService implements OnDestroy {
     this.currentTaskId = viewState.currentTaskId.Value;
     this.currentProjectId = viewState.currentProjectId.Value;
 
-    this.viewState.taskDetailsOpen.ValueWithoutPropagation = !!viewState.currentTaskId.Value;
+    this.viewState.taskDetailsIsClose.ValueWithoutPropagation = !viewState.currentTaskId.Value;
     this.viewState.workspace.ValueWithoutPropagation = this.dataSourceService.getWorkspace(viewState.currentWorkspaceId.Value);
     this.viewState.projects.ValuesWithoutPropagation = this.dataSourceService.getProjects(viewState.currentWorkspaceId.Value);
 

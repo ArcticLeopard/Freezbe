@@ -111,4 +111,16 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
       this.closeWindow();
     }
   }
+
+  onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      if (this.workspaceCandidate?.name != undefined) {
+        if (this.secondStepButton.disabled) {
+          this.openColorPickerWindow();
+        } else {
+          this.secondStepButton.focus();
+        }
+      }
+    }
+  };
 }

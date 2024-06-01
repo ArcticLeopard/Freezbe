@@ -47,6 +47,7 @@ export class ProjectMenuComponent implements OnDestroy {
 
   private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
     this.interactionService.onPressPlus.bind(this.interactionService),
+    this.interactionService.onPressMinus.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
     this.interactionService.onPressExclamationMark.bind(this.interactionService),
     this.interactionService.onPressNumber.bind(this.interactionService),

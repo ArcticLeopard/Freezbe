@@ -13,14 +13,14 @@ import {Subscription} from "rxjs";
 export class CloseSidebarComponent implements OnDestroy {
   constructor(protected viewState: ViewStateService) {
     this.subscription = this.viewState.subject.subscribe(p => {
-      this.isHide = p.sidebarMenuIsOpen.Value;
+      this.isHide = p.sidebarMenuIsClose.Value;
     });
   }
 
   private subscription: Subscription;
 
   @HostBinding('class.isHide')
-  isHide: boolean = !this.viewState.sidebarMenuIsOpen;
+  isHide: boolean = !this.viewState.sidebarMenuIsClose;
 
   @HostBinding(GlobalSettings.sidebarMenuIconAnimationEnabled ? "class.iconAnimated" : "")
   iconAnimated: boolean = true;
@@ -31,6 +31,6 @@ export class CloseSidebarComponent implements OnDestroy {
 
   @HostListener('click')
   ChangeVisibilitySidebarMenu(): void {
-    this.viewState.sidebarMenuIsOpen.Toggle();
+    this.viewState.sidebarMenuIsClose.Toggle();
   }
 }

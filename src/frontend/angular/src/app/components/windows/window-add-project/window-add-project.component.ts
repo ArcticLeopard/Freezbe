@@ -26,10 +26,7 @@ export class WindowAddProjectComponent extends WindowComponent {
   private projectCandidate: ProjectCandidateDraft;
 
   protected override preOpen() {
-    this.projectCandidate = {
-      name: undefined,
-      color: undefined
-    };
+    this.FreshInputs();
     this.name = "Add a project";
   }
 
@@ -84,4 +81,28 @@ export class WindowAddProjectComponent extends WindowComponent {
       this.closeWindow();
     }
   }
+
+  private FreshInputs() {
+    this.projectNameInputRef.nativeElement.value = '';
+    if (!this.colorPickerRef.nativeElement.classList.contains('colorPickerAnimation')) {
+      this.colorPickerRef.nativeElement.classList.add('colorPickerAnimation');
+    }
+    this.colorPickerRef.nativeElement.style.background = '';
+    this.projectCandidate = {
+      name: undefined,
+      color: undefined
+    };
+  }
+
+  onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      if (this.projectCandidate?.name != undefined) {
+        if (this.button.disabled) {
+          this.openColorPickerWindow();
+        } else {
+          this.button.focus();
+        }
+      }
+    }
+  };
 }
