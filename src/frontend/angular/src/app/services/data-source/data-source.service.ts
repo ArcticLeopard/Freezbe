@@ -10,6 +10,15 @@ export class DataSourceService {
 
   constructor(private dataStorageService: DataStorageService) {
     this.source = dataStorageService.storage;
+    this.startListeningOtherTabUpdate();
+  }
+
+  startListeningOtherTabUpdate() {
+    window.addEventListener('storage', (event: StorageEvent) => {
+      if (event.key === 'memory') {
+        window.location.reload();
+      }
+    });
   }
 
   public setWorkspaces() {
