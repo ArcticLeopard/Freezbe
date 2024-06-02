@@ -47,6 +47,9 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
     this.backgroundType = 'background-with-blur';
     this.open = true;
     this.closeWindowIsEnabled = false;
+    if (this.firstStepButton) {
+      this.renderer.selectRootElement(this.firstStepButton).focus();
+    }
   }
 
   @HostListener('document:keyup', ['$event'])

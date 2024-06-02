@@ -72,7 +72,7 @@ export class InteractionService {
         index = number - 1;
         if (collection[index] && collection[index].id) {
           this.viewState.contextId.Value = collection[index].id;
-          this.appNavigator.ContextGoTo();
+          this.appNavigator.GoToByContext();
           return true;
         }
       }
@@ -133,14 +133,14 @@ export class InteractionService {
         if (event.key === 'ArrowDown') {
           if (collection[0].id) {
             this.viewState.contextId.Value = collection[0].id;
-            this.appNavigator.ContextGoTo();
+            this.appNavigator.GoToByContext();
             return true;
           }
         }
         if (event.key === 'ArrowUp') {
           if (collection[collection.length - 1].id) {
             this.viewState.contextId.Value = collection[collection.length - 1].id;
-            this.appNavigator.ContextGoTo();
+            this.appNavigator.GoToByContext();
             return true;
           }
         }
@@ -175,9 +175,9 @@ export class InteractionService {
         this.viewState.windowAddProject.Value?.openWindow();
         return;
       case tasks:
-        this.viewState.windowAddTask.Value?.openWindow();
-        return;
-      default:
+        if (this.itCanOpenWindowAddTask) {
+          this.viewState.windowAddTask.Value?.openWindow();
+        }
         return;
     }
   }
@@ -194,6 +194,10 @@ export class InteractionService {
       this.openWindowEditElement('task', options);
     }
   };
+
+  get itCanOpenWindowAddTask(): boolean {
+    return this.viewState.currentViewType.Value == projects;
+  }
 
   get itCanOpenWindowEditProject(): boolean {
     let project = this.viewState.project.Value;
@@ -243,12 +247,12 @@ export class InteractionService {
     if (event.key === 'ArrowUp' && index > 0) {
       id = collection[index - 1].id;
       this.viewState.contextId.Value = id;
-      this.appNavigator.ContextGoTo();
+      this.appNavigator.GoToByContext();
     }
     if (event.key === 'ArrowDown' && index < collection.length - 1) {
       id = collection[index + 1].id;
       this.viewState.contextId.Value = id;
-      this.appNavigator.ContextGoTo();
+      this.appNavigator.GoToByContext();
     }
   }
 
