@@ -10,19 +10,18 @@ import {Subscription} from "rxjs";
   providedIn: 'root',
 })
 export class AppNavigatorService implements OnDestroy {
-  canRedirect: boolean = false;
-
-  constructor(protected route: ActivatedRoute, protected router: Router, private titleService: Title, private dataSourceService: DataSourceService, private viewState: ViewStateService) {
-    this.routeSubscription = this.route.url.subscribe(p => this.handleRouteChange(p));
-    this.stateSubscription = this.viewState.subject.subscribe(p => this.handleStateChange(p));
-  }
-
+  private canRedirect: boolean = false;
   private routeSubscription: Subscription;
   private stateSubscription: Subscription;
   private currentViewType: string;
   private currentWorkspaceId: string;
   private currentProjectId: string | null;
   private currentTaskId: string | null;
+
+  constructor(protected route: ActivatedRoute, protected router: Router, private titleService: Title, private dataSourceService: DataSourceService, private viewState: ViewStateService) {
+    this.routeSubscription = this.route.url.subscribe(p => this.handleRouteChange(p));
+    this.stateSubscription = this.viewState.subject.subscribe(p => this.handleStateChange(p));
+  }
 
   ngOnDestroy(): void {
     this.routeSubscription?.unsubscribe();
@@ -94,12 +93,12 @@ export class AppNavigatorService implements OnDestroy {
     }
   }
 
-  public ContextGoTo() {
+  public GoToByContext() {
     if (this.viewState.contextId.Value)
-      this.GoToByContext(this.viewState.context, this.viewState.contextId.Value);
+      this.GoToByContextId(this.viewState.context, this.viewState.contextId.Value);
   }
 
-  private GoToByContext(context: string, contextId: string): void {
+  private GoToByContextId(context: string, contextId: string): void {
     this.router.navigate([workspaces, this.currentWorkspaceId, priority]).then();
     switch (context) {
       case workspaces:
@@ -149,22 +148,38 @@ export class AppNavigatorService implements OnDestroy {
   }
 
   private handleStateChange(viewState: ViewStateService): void {
+    this.currentWorkspaceId = viewState.currentWorkspaceId.Value;
+    this.currentViewType = viewState.currentViewType.Value;
+    this.currentProjectId = viewState.currentProjectId.Value;
+    this.currentTaskId = viewState.currentTaskId.Value;
+
+    //REDIRECT WHEN INVALID PATH
     if (this.canRedirect) {
-      if (this.viewState.currentWorkspaceId.Value == undefined) {
-        if (this.viewState.workspaces.Values.length > 0) {
-          this.GoToWorkspace(this.viewState.workspaces.Values[0].id);
+      if (viewState.currentWorkspaceId.Value == undefined || !this.dataSourceService.containWorkspace(viewState.currentWorkspaceId.Value)) {
+        if (viewState.workspaces.Values.length > 0) {
+          this.GoToWorkspace(viewState.workspaces.Values[0].id);
+          return;
         }
       }
     }
-    this.currentWorkspaceId = viewState.currentWorkspaceId.Value;
-    this.currentViewType = viewState.currentViewType.Value;
+    if (this.currentViewType == projects) {
+      if (viewState.currentProjectId.Value != undefined) {
+        if (!this.dataSourceService.containProject(viewState.currentWorkspaceId.Value, viewState.currentProjectId.Value) && viewState.projects.Values.length > 0) {
+          this.GoToProject(viewState.projects.Values[0].id);
+          return;
+        }
+      }
+    }
+    if (viewState.currentProjectId.Value != undefined && viewState.currentTaskId.Value != undefined) {
+      if (!this.dataSourceService.containTaskInWorkspace(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value) && viewState.tasks.Values.length > 0) {
+        this.GoToTask(viewState.tasks.Values[0].id);
+        return;
+      }
+    }
 
-    this.currentTaskId = viewState.currentTaskId.Value;
-    this.currentProjectId = viewState.currentProjectId.Value;
-
-    this.viewState.taskDetailsIsClose.ValueWithoutPropagation = !viewState.currentTaskId.Value;
-    this.viewState.workspace.ValueWithoutPropagation = this.dataSourceService.getWorkspace(viewState.currentWorkspaceId.Value);
-    this.viewState.projects.ValuesWithoutPropagation = this.dataSourceService.getProjects(viewState.currentWorkspaceId.Value);
+    viewState.taskDetailsIsClose.ValueWithoutPropagation = !viewState.currentTaskId.Value;
+    viewState.workspace.ValueWithoutPropagation = this.dataSourceService.getWorkspace(viewState.currentWorkspaceId.Value);
+    viewState.projects.ValuesWithoutPropagation = this.dataSourceService.getProjects(viewState.currentWorkspaceId.Value);
 
     this.CleanView();
 

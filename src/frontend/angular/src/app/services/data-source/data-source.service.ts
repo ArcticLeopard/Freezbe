@@ -24,6 +24,28 @@ export class DataSourceService {
     return this.getWorkspaces().find(p => p.id == workspaceId);
   }
 
+  public containWorkspace(workspaceId: string): boolean {
+    if (workspaceId == undefined)
+      return false;
+    return this.getWorkspaces().some(p => p.id == workspaceId);
+  }
+
+  public containProject(workspaceId: string, projectId: string): boolean {
+    if (workspaceId == undefined || projectId == undefined)
+      return false;
+    return this.getProjects(workspaceId)?.some(p => p.id == projectId) ?? false;
+  }
+
+  public containTaskInProject(workspaceId: string, projectId: string, taskId: string): boolean {
+    if (workspaceId == undefined || projectId == undefined || taskId == undefined)
+      return false;
+    return this.getTasks(workspaceId, projectId)?.some(p => p.id == taskId) ?? false;
+  }
+
+  public containTaskInWorkspace(workspaceId: string, taskId: string): boolean {
+    return this.getWorkspace(workspaceId)?.projects?.some(project => project.tasks.some(task => task.id === taskId)) ?? false;
+  }
+
   public getProjects(workspaceId: string): ProjectType[] | undefined {
     return this.getWorkspace(workspaceId)?.projects;
   }
