@@ -41,7 +41,7 @@ export class WorkspaceMenuComponent implements OnDestroy {
 
   @HostListener('window:keydown', ['$event'])
   changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
-    if (this.activeArea.isFocused) {
+    if (!this.viewState.contextEnabled && this.activeArea.isFocused) {
       this.interactionService.processHotKey(event, this.hotkeyHandlers);
     }
   }

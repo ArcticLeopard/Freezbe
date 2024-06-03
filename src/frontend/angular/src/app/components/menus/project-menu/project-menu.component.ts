@@ -22,24 +22,28 @@ import {CloseSidebarComponent} from "../../buttons/close-sidebar/close-sidebar.c
   styleUrl: './project-menu.component.scss'
 })
 export class ProjectMenuComponent implements OnDestroy {
+  @HostBinding('class.hidden') hidden: boolean;
+  protected readonly priority = priority;
+  protected readonly incoming = incoming;
+  private subscription: Subscription;
+
   constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, private interactionService: InteractionService, private activeArea: ActiveAreaDirective) {
     this.subscription = viewState.subject.subscribe(p => {
       this.hidden = !p.currentWorkspaceId.Value;
     });
   }
 
-  @HostBinding('class.hidden') hidden: boolean;
-  protected readonly priority = priority;
-  protected readonly incoming = incoming;
-  private subscription: Subscription;
-
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 
+  protected openWindowEditWorkspace() {
+    this.interactionService.openWindowEditWorkspace({position: "center"});
+  }
+
   @HostListener('window:keydown', ['$event'])
   changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
-    if (this.activeArea.isFocused) {
+    if (!this.viewState.contextEnabled && this.activeArea.isFocused) {
       this.viewState.activeProjectSectionIsOpen.Value = true;
       this.interactionService.processHotKey(event, this.hotkeyHandlers);
     }
@@ -54,8 +58,4 @@ export class ProjectMenuComponent implements OnDestroy {
     this.interactionService.onPressControlWithArrow.bind(this.interactionService),
     this.interactionService.onPressArrow.bind(this.interactionService),
   ];
-
-  openWindowEditWorkspace() {
-    this.interactionService.openWindowEditWorkspace({position: "center"});
-  }
 }

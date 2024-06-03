@@ -26,11 +26,13 @@ export class WindowAddProjectComponent extends WindowComponent {
   private projectCandidate: ProjectCandidateDraft;
 
   protected override preOpen() {
+    super.preOpen();
     this.FreshInputs();
     this.name = "Add a project";
   }
 
   protected override postOpen() {
+    super.postOpen();
     setTimeout(() => {
       this.renderer.selectRootElement(this.projectNameInputRef.nativeElement).focus();
     });

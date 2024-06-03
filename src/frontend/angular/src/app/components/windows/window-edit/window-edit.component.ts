@@ -11,6 +11,7 @@ import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboar
 import {ObjectType} from "../../../common/types";
 import {WindowRenameComponent} from "../window-rename/window-rename.component";
 import {CursorHtmlElement} from "../../../Cursor";
+import {project, task, workspace} from "../../../common/consts";
 
 @Component({
   selector: 'window-edit',
@@ -23,30 +24,42 @@ export class WindowEditComponent extends WindowComponent {
   public objectType: ObjectType;
   @ViewChildren(NormalButtonComponent, {read: ElementRef<HTMLElement>}) buttonRefCollection: QueryList<ElementRef<HTMLElement>> = new QueryList<ElementRef<HTMLElement>>();
   private buttonCursor: CursorHtmlElement;
-  private colorSubscription: Subscription;
+  private onColorSelectedSubscription: Subscription;
+  private onCloseSubscription: Subscription;
+  private isOpen: boolean = false;
 
   protected override preOpen() {
+    super.preOpen();
     this.buttonCursor = new CursorHtmlElement(this.buttonRefCollection);
     setTimeout(() => {
       this.buttonRefCollection.first.nativeElement.focus();
     }, 50);
   }
 
-  override postOnDestroy() {
-    this.colorSubscription?.unsubscribe();
-  }
-
   protected openColorPickerWindow(): void {
     let window: WindowColorPickerComponent | undefined = this.interactionService.openColorPickerWindow({position: "center"});
     if (window) {
-      this.colorSubscription = window.onColorSelected.subscribe(color => {
-        if (this.objectType === 'workspace' && this.viewState?.workspace?.Value) {
+      this.isOpen = true;
+      this.onColorSelectedSubscription = window.onColorSelected.subscribe(color => {
+        if (this.objectType === workspace && this.viewState?.workspace?.Value) {
           this.viewState.workspace.Value.color = color;
+          this.viewState.update();
         }
-        if (this.objectType === 'project' && this.viewState?.project?.Value) {
+        if (this.objectType === project && this.viewState?.project?.Value) {
           this.viewState.project.Value.color = color;
+          this.viewState.update();
         }
+      });
+
+      this.onCloseSubscription = window.onClose.subscribe(() => {
+        this.buttonRefCollection.get(1)?.nativeElement?.focus();
         this.viewState.update();
+        setTimeout(() => {
+          this.onColorSelectedSubscription?.unsubscribe();
+          this.onCloseSubscription?.unsubscribe();
+          this.isOpen = false;
+        }, 1000);
+
       });
     }
   }
@@ -54,22 +67,29 @@ export class WindowEditComponent extends WindowComponent {
   protected openRenameWindow(): void {
     let window: WindowRenameComponent | undefined = this.interactionService.openRenameWindow({position: "center"});
     if (window) {
+      this.isOpen = true;
       window.setContext(this.objectType);
+      this.onCloseSubscription = window.onClose.subscribe(() => {
+        this.buttonRefCollection.get(0)?.nativeElement?.focus();
+        this.viewState.update();
+        this.onCloseSubscription?.unsubscribe();
+        this.isOpen = false;
+      });
     }
   }
 
   protected delete(): void {
-    if (this.objectType === 'workspace' && this.viewState.workspace.Value) {
+    if (this.objectType === workspace && this.viewState.workspace.Value) {
       this.interactionService.deleteWorkspace(this.viewState.workspace.Value?.id);
       if (this.viewState.workspaces?.Values.length > 0) {
         this.appNavigator.GoToWorkspace(this.viewState.workspaces.Values[0].id);
       }
     }
-    if (this.objectType === 'project' && this.viewState.project.Value) {
+    if (this.objectType === project && this.viewState.project.Value) {
       this.interactionService.deleteProject(this.viewState.project.Value?.id);
       this.appNavigator.GoToPriority();
     }
-    if (this.objectType === 'task' && this.viewState.task.Value) {
+    if (this.objectType === task && this.viewState.task.Value) {
       this.interactionService.deleteTask(this.viewState.task.Value?.id);
       this.appNavigator.GoToTasks();
     }
@@ -78,17 +98,17 @@ export class WindowEditComponent extends WindowComponent {
   }
 
   get itCanShowChangeColor(): boolean {
-    return this.objectType == 'workspace' || this.objectType == 'project';
+    return this.objectType == workspace || this.objectType == project;
   }
 
   @HostListener('window:keydown.arrowUp', ['$event']) onPressUp = (event: KeyboardEvent) => {
-    if (this.open) {
+    if (this.open && !this.isOpen) {
       this.buttonCursor.prevFocus();
       event.preventDefault();
     }
   };
   @HostListener('window:keydown.arrowDown', ['$event']) onPressDown = (event: KeyboardEvent) => {
-    if (this.open) {
+    if (this.open && !this.isOpen) {
       this.buttonCursor.nextFocus();
       event.preventDefault();
     }

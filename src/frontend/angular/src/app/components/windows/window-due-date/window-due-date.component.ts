@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {MonthPipe} from "../../../pipes/month/month.pipe";
 import {NgForOf, NgIf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
@@ -20,6 +20,7 @@ export class WindowDueDateComponent extends WindowComponent implements OnInit {
   model: WindowDueDateModel;
 
   protected override preOpen() {
+    super.preOpen();
     this.name = 'Calendar';
     this.width = 29;
     this.height = 35.7;

@@ -46,14 +46,20 @@ export class DetailMenuComponent implements OnDestroy, AfterViewInit {
     this.resizeObserver?.disconnect();
   }
 
-  @HostListener('window:keydown', ['$event'])
-  public changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
-    if (this.activeArea.isFocused) {
-      this.interactionService.onPressEscape(event);
-    }
-  }
-
   openWindowEditTask() {
     this.interactionService.openWindowEditTask({position: "center"});
   }
+
+  @HostListener('window:keydown', ['$event'])
+  public changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
+    if (!this.viewState.contextEnabled && this.activeArea.isFocused) {
+      this.interactionService.processHotKey(event, this.hotkeyHandlers);
+    }
+  }
+
+  private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
+    this.interactionService.onPressArrow.bind(this.interactionService),
+    this.interactionService.onPressMinus.bind(this.interactionService),
+    this.interactionService.onPressEscape.bind(this.interactionService),
+  ];
 }

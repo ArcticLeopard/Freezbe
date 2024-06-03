@@ -38,12 +38,20 @@ export class TaskMenuComponent implements OnDestroy {
 
   @HostListener('window:keydown', ['$event'])
   public changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
-    if (this.activeArea.isFocused) {
+    if (!this.viewState.contextEnabled && this.activeArea.isFocused) {
       this.interactionService.processHotKey(event, this.hotkeyHandlers);
     }
   }
 
   getIncompleteTaskCount = (): number => this.viewState.tasks.Values.filter(p => !p.completed).length;
+
+  openWindowEditProject() {
+    this.interactionService.openWindowEditProject({position: "center"});
+  }
+
+  get itCanOpenWindowEditProject() {
+    return this.interactionService.itCanOpenWindowEditProject;
+  }
 
   private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
     this.interactionService.onPressPlus.bind(this.interactionService),
@@ -55,12 +63,4 @@ export class TaskMenuComponent implements OnDestroy {
     this.interactionService.onPressControlWithArrow.bind(this.interactionService),
     this.interactionService.onPressArrow.bind(this.interactionService),
   ];
-
-  openWindowEditProject() {
-    this.interactionService.openWindowEditProject({position: "center"});
-  }
-
-  get itCanOpenWindowEditProject() {
-    return this.interactionService.itCanOpenWindowEditProject;
-  }
 }
