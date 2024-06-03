@@ -17,7 +17,7 @@
   @extend .row;
   @extend .bb, .w100;
   flex: 0 0 auto;
-  height: $sectionHeight;
+  height: $headerHeight;
 }
 
 .workspaceName {

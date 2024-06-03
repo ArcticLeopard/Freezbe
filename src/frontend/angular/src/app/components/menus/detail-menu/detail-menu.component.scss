@@ -12,6 +12,7 @@
 
   @extend .panelArea;
   flex: 1 0 31.5rem;
+  overflow: hidden;
 }
 
 .header {
@@ -42,6 +43,7 @@
   @extend .pointerFocus;
   @extend .tfs-m-3;
   @include text-sizer(4);
+  word-break: break-word;
 }
 
 :host.hidden {

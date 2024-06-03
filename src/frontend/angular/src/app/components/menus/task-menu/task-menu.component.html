@@ -1,14 +1,14 @@
 <div class="header pl-4 pr-4">
   <div class="sectionInfoContainer">
-    <btn-close-sidebar class="pr-2" />
-    <div class="text-header text-gray">{{ getIncompleteTaskCount() }} Tasks</div>
-    <div class="text-header">
-      <span class="ml-1" [class.pointerFocus]="itCanOpenWindowEditProject" (click)="openWindowEditProject()" [class.cursor-not-allowed]="!itCanOpenWindowEditProject" [title]="itCanOpenWindowEditProject?'Edit a project':''">{{ viewState.currentViewName.Value | titlecase }}</span>
+    <div class="row f-ac pr-5">
+      <btn-close-sidebar class="pr-5" />
+      <div class="text-gray pr-2 text-header">{{ getIncompleteTaskCount() }} Tasks</div>
     </div>
     <div>
-      <btn-append (click)="interactionService.openAddTaskWindow()" *ngIf="viewState.currentProjectId.Value" class="pl-2" />
+      <span class="ml-1" [class.pointerFocus]="itCanOpenWindowEditProject" (click)="openWindowEditProject()" [class.cursor-not-allowed]="!itCanOpenWindowEditProject" [title]="itCanOpenWindowEditProject?'Edit a project':''">{{ viewState.currentViewName.Value | titlecase }}</span>
     </div>
   </div>
+  <btn-append (click)="interactionService.openAddTaskWindow()" *ngIf="viewState.currentProjectId.Value" class="shadow" />
 </div>
 <div class="list">
   <ng-container *ngFor="let task of this.viewState.tasks">

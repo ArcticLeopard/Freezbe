@@ -43,7 +43,7 @@ export class ProjectMenuComponent implements OnDestroy {
 
   @HostListener('window:keydown', ['$event'])
   changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
-    if (!this.viewState.contextEnabled && this.activeArea.isFocused) {
+    if (this.viewState.openedDialogWindows.Value == 0 && !this.viewState.contextEnabled && this.activeArea.isFocused) {
       this.viewState.activeProjectSectionIsOpen.Value = true;
       this.interactionService.processHotKey(event, this.hotkeyHandlers);
     }

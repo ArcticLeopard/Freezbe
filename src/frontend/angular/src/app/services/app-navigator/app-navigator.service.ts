@@ -194,6 +194,8 @@ export class AppNavigatorService implements OnDestroy {
 
     //Details View
     this.UpdateDetails(viewState);
+    
+    this.viewState.activeAreaEnabled = true;
   }
 
   private CleanView() {

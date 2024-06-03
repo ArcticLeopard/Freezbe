@@ -28,13 +28,17 @@ export class ActiveAreaDirective {
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.ClearFocus();
-    this.viewState.contextEnabled = true;
+    if (this.viewState.activeAreaEnabled) {
+      this.ClearFocus();
+      this.viewState.contextEnabled = true;
+    }
   }
 
   @HostListener('mouseenter')
   onMouseChangeArea() {
-    this.activeAreaHandle();
+    if (this.viewState.activeAreaEnabled) {
+      this.activeAreaHandle();
+    }
   }
 
   @HostListener('click')
