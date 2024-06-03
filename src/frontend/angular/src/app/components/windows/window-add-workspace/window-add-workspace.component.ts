@@ -65,6 +65,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   }
 
   protected override preOpen() {
+    super.preOpen();
     this.showStep(1);
   }
 

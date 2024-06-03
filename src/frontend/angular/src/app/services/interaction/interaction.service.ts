@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate, DateOnly, ObjectType} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
-import {incoming, priority, projects, tasks, workspaces} from "../../common/consts";
+import {details, incoming, priority, project, projects, task, tasks, workspace, workspaces} from "../../common/consts";
 import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
 import {WindowOpenOptions} from "../../components/windows/window/windowOpenOptions";
 import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
@@ -28,6 +28,7 @@ export class InteractionService {
 
   public onPressEscape(event: KeyboardEvent): boolean {
     if (event.key == 'Escape') {
+      this.viewState.contextPrev();
       if (this.viewState.currentViewType.Value == projects && this.viewState.currentProjectId.Value) {
         this.appNavigator.GoToProject(this.viewState.currentProjectId.Value);
         return true;
@@ -44,8 +45,88 @@ export class InteractionService {
     return false;
   }
 
+  public onPressLeft(): void {
+    if (this.viewState.context == projects) {
+      this.appNavigator.GoToPriority();
+    }
+    if (this.viewState.context == tasks) {
+      this.toggleCompleted();
+    }
+    if (this.viewState.context == details) {
+      let window = this.openProjectWindow({position: "right"});
+      //TODO REFACTOR - TEMP SOLUTION
+      if (window) {
+        window.onClick.subscribe(project => {
+          let taskId = this.viewState.currentTaskId.Value;
+          if (taskId != null && project) {
+            this.moveTaskToProject(taskId, project.id);
+          }
+        });
+      }
+    }
+  }
+
+  public onPressRight(): void {
+    if (this.viewState.context == projects) {
+      this.appNavigator.GoToIncoming();
+    }
+    if (this.viewState.context == tasks) {
+      this.togglePriority();
+    }
+    if (this.viewState.context == details) {
+      let window = this.openDueDateWindow({position: "right"});
+      //TODO REFACTOR - TEMP SOLUTION
+      if (window) {
+        window.onSetDate.subscribe(dateOnly => {
+          this.setDate(dateOnly);
+        });
+      }
+    }
+  }
+
+  public onPressArrow(event: KeyboardEvent): boolean {
+    let collection = this.getCollectionByContext();
+    let id = this.viewState.contextId.Value;
+    if (!event.ctrlKey) {
+      if (collection != null && collection.length > 0) {
+        if (id == null) {
+          if (event.key === 'ArrowDown') {
+            if (collection[0].id) {
+              this.viewState.contextId.Value = collection[0].id;
+              this.appNavigator.GoToByContext();
+              return true;
+            }
+          }
+          if (event.key === 'ArrowUp') {
+            if (collection[collection.length - 1].id) {
+              this.viewState.contextId.Value = collection[collection.length - 1].id;
+              this.appNavigator.GoToByContext();
+              return true;
+            }
+          }
+        } else {
+          if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            let index: number;
+            index = collection.findIndex(element => element.id === id);
+            this.changeFocus(collection, id, event, index);
+            return true;
+          }
+        }
+      }
+      if (event.key === 'ArrowLeft') {
+        this.onPressLeft();
+        return true;
+      }
+      if (event.key === 'ArrowRight') {
+        this.onPressRight();
+        return true;
+      }
+    }
+    return false;
+  }
+
   public onPressControlWithArrow(event: KeyboardEvent): boolean {
-    let collection = this.GetCollectionByContext();
+    let collection = this.getCollectionByContext();
     let id = this.viewState.contextId.Value;
     if (collection != null && collection.length > 0) {
       let index: number;
@@ -63,7 +144,7 @@ export class InteractionService {
   }
 
   public onPressNumber(event: KeyboardEvent): boolean {
-    let collection = this.GetCollectionByContext();
+    let collection = this.getCollectionByContext();
     if (collection != null && collection.length > 0) {
       let index: number;
       const number = parseInt(event.key, 10);
@@ -82,7 +163,7 @@ export class InteractionService {
 
   public onPressPlus(event: KeyboardEvent): boolean {
     if (event.key === '+' || event.key === '=') {
-      this.OpenWindowAddElementByContext();
+      this.openWindowAddElementByContext();
       return true;
     }
     return false;
@@ -124,36 +205,7 @@ export class InteractionService {
     return false;
   }
 
-  public onPressArrow(event: KeyboardEvent): boolean {
-    let collection = this.GetCollectionByContext();
-    let id = this.viewState.contextId.Value;
-    if (collection != null && collection.length > 0) {
-      let index: number;
-      if (id == null) {
-        if (event.key === 'ArrowDown') {
-          if (collection[0].id) {
-            this.viewState.contextId.Value = collection[0].id;
-            this.appNavigator.GoToByContext();
-            return true;
-          }
-        }
-        if (event.key === 'ArrowUp') {
-          if (collection[collection.length - 1].id) {
-            this.viewState.contextId.Value = collection[collection.length - 1].id;
-            this.appNavigator.GoToByContext();
-            return true;
-          }
-        }
-      } else {
-        index = collection.findIndex(element => element.id === id);
-        this.changeFocus(collection, id, event, index);
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private GetCollectionByContext(): AnyCollectionType {
+  private getCollectionByContext(): AnyCollectionType {
     switch (this.viewState.context) {
       case workspaces:
         return this.viewState.workspaces.Values;
@@ -166,7 +218,7 @@ export class InteractionService {
     }
   }
 
-  private OpenWindowAddElementByContext(): void {
+  private openWindowAddElementByContext(): void {
     switch (this.viewState.context) {
       case workspaces:
         this.viewState.windowAddWorkspace.Value?.openWindow();
@@ -182,16 +234,16 @@ export class InteractionService {
     }
   }
 
-  public openWindowEditWorkspace = (options?: WindowOpenOptions) => this.openWindowEditElement('workspace', options);
+  public openWindowEditWorkspace = (options?: WindowOpenOptions) => this.openWindowEditElement(workspace, options);
   public openWindowEditProject = (options?: WindowOpenOptions) => {
     if (this.itCanOpenWindowEditProject) {
-      this.openWindowEditElement('project', options);
+      this.openWindowEditElement(project, options);
     }
   };
 
   public openWindowEditTask = (options?: WindowOpenOptions) => {
     if (this.itCanOpenWindowEditTask) {
-      this.openWindowEditElement('task', options);
+      this.openWindowEditElement(task, options);
     }
   };
 
@@ -260,6 +312,18 @@ export class InteractionService {
     let task = this.viewState.task.Value;
     if (task) {
       this.addCommentForTask(content, task);
+    }
+  }
+
+  public toggleCompleted(): void {
+    if (this.viewState.currentTaskId.Value && this.viewState.task.Value) {
+      this.viewState.task.Value.completed = !this.viewState.task.Value.completed;
+    }
+  }
+
+  public togglePriority(): void {
+    if (this.viewState.currentTaskId.Value && this.viewState.task.Value) {
+      this.viewState.task.Value.priority = !this.viewState.task.Value.priority;
     }
   }
 

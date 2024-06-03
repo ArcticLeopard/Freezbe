@@ -25,6 +25,7 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
   private taskCandidate: TaskCandidateDraft;
 
   protected override preOpen() {
+    super.preOpen();
     this.FreshInputs();
     this.taskCandidate = {
       name: undefined,
@@ -34,6 +35,7 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
   }
 
   protected override postOpen() {
+    super.postOpen();
     setTimeout(() => {
       this.taskNameInputRef.nativeElement.focus();
     });

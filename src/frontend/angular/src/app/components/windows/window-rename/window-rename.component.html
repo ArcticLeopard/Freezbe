@@ -4,7 +4,7 @@
     <div class="windowContent scrollable">
       <div class="column center p-3">
         <input type="text" class="input-text" #inputRef [keyboardClick]="1" (keydown)="onKeyDown($event)">
-        <btn-normal color="orange" text="Rename" [keyboardClick]="2" (click)="Rename()" />
+        <btn-normal color="orange" text="Rename" [keyboardClick]="2" (click)="Rename()" [disabled]="!buttonIsEnabled" />
       </div>
     </div>
   </div>

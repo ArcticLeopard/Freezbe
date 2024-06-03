@@ -22,7 +22,8 @@ export class WindowProjectComponent extends WindowComponent {
   private projectCursor: CursorHtmlElement;
 
   protected override preOpen = () => {
-    this.name = 'Project';
+    super.preOpen();
+    this.name = 'Change Project';
     this.width = 29;
     this.height = 35.7;
     this.projectCursor = new CursorHtmlElement(this.projectRefCollection);
@@ -40,7 +41,11 @@ export class WindowProjectComponent extends WindowComponent {
       event.preventDefault();
     }
   };
-  protected override postOpen = () => this.searchCursor.currentFocus();
+
+  protected override postOpen() {
+    super.postOpen();
+    this.searchCursor.currentFocus();
+  };
 
   moveElementToFront<T>(collection: T[], element: T): T[] {
     const newCollection = [...collection];

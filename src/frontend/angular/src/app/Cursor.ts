@@ -51,4 +51,11 @@ export class CursorHtmlElement extends Cursor<ElementRef<HTMLElement>> {
       this.current()?.nativeElement.focus();
     }, timeout);
   }
+
+  setFocus(index: number, timeout: number | undefined = undefined) {
+    setTimeout(() => {
+      this.index = index;
+      this.current()?.nativeElement.focus();
+    }, timeout);
+  }
 }

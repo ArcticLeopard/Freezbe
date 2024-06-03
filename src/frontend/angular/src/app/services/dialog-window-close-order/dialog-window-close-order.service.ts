@@ -38,8 +38,10 @@ export class DialogWindowCloseOrderService {
 
   private onKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
-      let dialogWindow = this.removeDialog();
-      dialogWindow?.closeWindow();
+      if (this.openedDialogWindows.length > 0) {
+        let dialogWindow = this.openedDialogWindows[this.openedDialogWindows.length - 1];
+        dialogWindow?.closeWindow();
+      }
     }
   }
 }
