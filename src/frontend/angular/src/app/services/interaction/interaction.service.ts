@@ -28,7 +28,9 @@ export class InteractionService {
 
   public onPressEscape(event: KeyboardEvent): boolean {
     if (event.key == 'Escape') {
-      this.viewState.contextPrev();
+      if (this.viewState.context == details) {
+        this.viewState.contextPrev();
+      }
       if (this.viewState.currentViewType.Value == projects && this.viewState.currentProjectId.Value) {
         this.appNavigator.GoToProject(this.viewState.currentProjectId.Value);
         return true;
@@ -48,9 +50,11 @@ export class InteractionService {
   public onPressLeft(): void {
     if (this.viewState.context == projects) {
       this.appNavigator.GoToPriority();
+      this.viewState.update();
     }
     if (this.viewState.context == tasks) {
       this.toggleCompleted();
+      this.viewState.update();
     }
     if (this.viewState.context == details) {
       let window = this.openProjectWindow({position: "right"});

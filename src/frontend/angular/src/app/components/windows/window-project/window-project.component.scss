@@ -34,6 +34,8 @@
 }
 
 .project {
+  @extend .row;
+
   //Paddings
   @extend .px-5, .py-3;
 
@@ -51,4 +53,24 @@
     color: white;
     background: black;
   }
+
+  svg {
+    @extend .tr-ae-12;
+  }
+
+  &:hover svg {
+    rotate: 360deg;
+  }
+}
+
+.icon {
+  @extend .row;
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+.text {
+  @extend .pl-4, .py-1;
+  @extend .text-nowrap;
+  @include text-sizer(2);
 }

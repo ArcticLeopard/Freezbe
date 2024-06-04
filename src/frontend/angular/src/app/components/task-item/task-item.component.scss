@@ -1,7 +1,7 @@
 @import "../../../imports";
 
 :host {
-  @extend .shadow-classic-dark;
+  @include shadow(darken($classicDark, 2%));
   @extend .tr-ae-04;
   height: 5.3rem;
   display: flex;
@@ -61,4 +61,13 @@
   .task-name {
     text-decoration: line-through;
   }
+}
+
+.tests {
+  background: red !important;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
 }

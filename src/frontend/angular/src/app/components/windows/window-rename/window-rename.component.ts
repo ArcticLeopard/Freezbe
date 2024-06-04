@@ -65,8 +65,14 @@ export class WindowRenameComponent extends WindowComponent {
 
   //TODO REFACTOR - TEMP SOLUTION
   get buttonIsEnabled(): boolean {
-    if (this.input?.nativeElement?.value)
-      return this.input.nativeElement.value.trim().length > 0;
+    let minLength = 0;
+    let maxLength = 128;
+    if (this.objectType === workspace)
+      maxLength = 50;
+
+    if (this.input?.nativeElement?.value) {
+      return this.input.nativeElement.value.trim().length > minLength && this.input.nativeElement.value.trim().length <= maxLength;
+    }
     return false;
   }
 }

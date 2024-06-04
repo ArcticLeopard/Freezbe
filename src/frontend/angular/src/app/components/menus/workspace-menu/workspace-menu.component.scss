@@ -84,6 +84,7 @@
   }
 
   .workspaceMenuElementText {
+    @extend .w100;
     //Text
     @extend .tfs-m-5, .tfw-6, .text-prewrap, .text-center;
 

@@ -9,10 +9,13 @@
 
   @extend .panelArea;
   flex: 2 0 31.5rem;
+  overflow: hidden;
+  @include shadow($dark);
 }
 
 .header {
   @extend .infoHeader, .row, .transparentScroll;
+  position: relative;
 }
 
 .list {
@@ -25,6 +28,6 @@
 }
 
 .text-header {
-  @extend .text-nowrap;
+  @extend .text-header-wrap;
   @include text-sizer(-1);
 }

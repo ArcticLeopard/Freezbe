@@ -12,7 +12,14 @@
       <div class="content">
         <input #searchRef [(ngModel)]="searchTerm" class="input-text" id="searchInput" placeholder="Search" type="search">
         <div class="projectList">
-          <div [keyboardClick]="i" #projectRef (click)="setProject(project)" *ngFor="let project of filteredProjects(); let i = index" [class.active]="project == viewState.project.Value" class="project">{{ project?.name }}</div>
+          <div [keyboardClick]="i" #projectRef (click)="setProject(project)" *ngFor="let project of filteredProjects(); let i = index" [class.active]="project == viewState.project.Value" class="project" [title]="'Project: '+project?.name">
+            <span class="icon">
+                <svg width="20" height="20" viewBox="0 0 32 32" [attr.fill]="project?.color">
+                  <path d="M30,25l-14,7l-14,-7l0,-18l14,-7l14,7l0,18Zm-12,-10l0,11.997l8,-3.996l0,-12.001l-8,4Zm-12,7.989l8,3.996l0,-11.985l-8,-4l0,11.989Zm10.012,-18.979l7.988,3.99l-7.988,3.99l-7.989,-3.99l7.989,-3.99Z" />
+                </svg>
+              </span>
+            <span class="text">{{ project?.name }}</span>
+          </div>
         </div>
       </div>
     </div>
