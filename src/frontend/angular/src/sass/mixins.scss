@@ -126,6 +126,7 @@
 
 @mixin shadow($color) {
   .shadow {
+    @extend .row, .f-je, .f-ac, .pr-4;
     position: absolute;
     background: linear-gradient(90deg, rgba(red($color), green($color), blue($color), 0) 0%, rgba(red($color), green($color), blue($color), 1) 50%);
     bottom: 0;

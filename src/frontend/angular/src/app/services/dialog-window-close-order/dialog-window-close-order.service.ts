@@ -25,12 +25,14 @@ export class DialogWindowCloseOrderService {
   public addDialog(dialogWindow: WindowComponent): void {
     this.openedDialogWindows.push(dialogWindow);
     this.viewState.openedDialogWindows.Value = this.openedDialogWindows.length;
+    this.viewState.activeAreaEnabled = false;
   }
 
   public removeDialog(): WindowComponent | undefined {
     if (this.openedDialogWindows.length > 0) {
       let result = this.openedDialogWindows.pop();
       this.viewState.openedDialogWindows.Value = this.openedDialogWindows.length;
+      this.viewState.activeAreaEnabled = true;
       return result;
     }
     return undefined;
@@ -41,6 +43,7 @@ export class DialogWindowCloseOrderService {
       if (this.openedDialogWindows.length > 0) {
         let dialogWindow = this.openedDialogWindows[this.openedDialogWindows.length - 1];
         dialogWindow?.closeWindow();
+        event.stopPropagation();
       }
     }
   }

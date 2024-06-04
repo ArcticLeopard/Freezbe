@@ -33,7 +33,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   }
 
   get buttonIsEnabled(): boolean {
-    return this.workspaceCandidate?.name != undefined && this.workspaceCandidate?.color != undefined;
+    return this.workspaceCandidate?.name != undefined && this.workspaceCandidate?.name.length <= 50 && this.workspaceCandidate?.color != undefined;
   }
 
   override AfterViewStateChange() {

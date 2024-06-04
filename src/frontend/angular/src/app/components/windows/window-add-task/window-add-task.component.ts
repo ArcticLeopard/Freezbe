@@ -46,7 +46,7 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
   }
 
   get buttonIsEnabled(): boolean {
-    return this.taskCandidate?.name != undefined;
+    return this.taskCandidate?.name != undefined && this.taskCandidate?.name.length <= 128;
   }
 
   @HostListener('document:keyup', ['$event'])

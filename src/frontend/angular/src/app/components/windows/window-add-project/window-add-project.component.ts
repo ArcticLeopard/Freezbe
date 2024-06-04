@@ -43,7 +43,7 @@ export class WindowAddProjectComponent extends WindowComponent {
   }
 
   get buttonIsEnabled(): boolean {
-    return this.projectCandidate?.name != undefined && this.projectCandidate?.name != 'Single tasks' && this.projectCandidate?.color != undefined;
+    return this.projectCandidate?.name != undefined && this.projectCandidate?.name != 'Single tasks' && this.projectCandidate?.name.length <= 128 && this.projectCandidate?.color != undefined;
   }
 
   @HostListener('document:keyup', ['$event'])

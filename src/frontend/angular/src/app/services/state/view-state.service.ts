@@ -59,6 +59,7 @@ export class ViewStateService {
   public windowDueDate: State<WindowDueDateComponent | undefined>;
   public detailMenu: State<DetailMenuComponent | undefined>;
 
+  activeAreaEnabled: boolean;
   contextEnabled: boolean;
   context: ActiveAreaType;
   contextSubject: Subject<ActiveAreaType>;
