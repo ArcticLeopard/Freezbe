@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate, DateOnly, ObjectType} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
@@ -8,12 +8,14 @@ import {WindowOpenOptions} from "../../components/windows/window/windowOpenOptio
 import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
 import {WindowDueDateComponent} from "../../components/windows/window-due-date/window-due-date.component";
 import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
+import {WindowManagerService} from "../window-manager/window-manager.service";
+import {WorkspaceValidator} from "../../common/workspaceValidator";
 
 @Injectable({
   providedIn: 'root'
 })
 export class InteractionService {
-  constructor(private viewState: ViewStateService, private appNavigator: AppNavigatorService) {
+  constructor(private viewState: ViewStateService, private appNavigator: AppNavigatorService, private windowManager: WindowManagerService) {
   }
 
   public processHotKey(event: KeyboardEvent, hotkeyHandlers: ((event: KeyboardEvent) => boolean)[]) {
@@ -342,7 +344,7 @@ export class InteractionService {
     this.viewState.update();
   }
 
-  public addWorkspace(workspaceCandidate: WorkspaceCandidate): void {
+  public createWorkspace(workspaceCandidate: WorkspaceCandidate): void {
     if (workspaceCandidate.name.trim().length <= 0 || workspaceCandidate.color.trim().length <= 0) {
       throw new Error('Invalid Argument');
     }
@@ -362,11 +364,58 @@ export class InteractionService {
           }
         ]
       };
-      this.viewState.workspaces.Values.push(newElement);
-      this.viewState.activeProjectSectionIsOpen.Value = true;
-      this.appNavigator.GoToWorkspace(newElement.id);
-      this.viewState.update();
+      this.addWorkspace(newElement);
     }
+  }
+
+  public importWorkspaceFromJson(json: string, onSuccessImported: EventEmitter<void>) {
+    try {
+      const importedWorkspace: WorkspaceType = JSON.parse(json);
+      let isWorkspaceStructureValid = WorkspaceValidator.validateWorkspaceStructure(importedWorkspace);
+      if (isWorkspaceStructureValid) {
+        let workspaces = this.viewState.workspaces;
+        if (workspaces) {
+          let isWorkspaceWithImportedIdExists = workspaces.Values.find(p => p.id == importedWorkspace.id);
+          if (!isWorkspaceWithImportedIdExists) {
+            this.addWorkspace(importedWorkspace);
+            onSuccessImported.emit();
+          } else {
+            const window = this.windowManager.openImportWorkspaceChooseAction(importedWorkspace);
+            const onOpenSubscription4ImportWorkspaceChooseAction = window.onOpen.subscribe(w => {
+              const onFirstOptionSelectedSubscription4ImportWorkspaceChooseAction = w.onFirstOptionSelected.subscribe(() => {
+                workspaces.removeById(importedWorkspace.id);
+                this.addWorkspace(importedWorkspace);
+                window.closeWindow();
+                onSuccessImported.emit();
+              });
+              const onSecondOptionSelectedSubscription4ImportWorkspaceChooseAction = w.onSecondOptionSelected.subscribe(() => {
+                importedWorkspace.id = this.GenerateId();
+                this.addWorkspace(importedWorkspace);
+                window.closeWindow();
+                onSuccessImported.emit();
+              });
+              const onCloseSubscription4ImportWorkspaceChooseAction = w.onClose.subscribe(() => {
+                onOpenSubscription4ImportWorkspaceChooseAction?.unsubscribe();
+                onFirstOptionSelectedSubscription4ImportWorkspaceChooseAction?.unsubscribe();
+                onSecondOptionSelectedSubscription4ImportWorkspaceChooseAction?.unsubscribe();
+                onCloseSubscription4ImportWorkspaceChooseAction?.unsubscribe();
+              });
+            });
+          }
+        }
+      } else {
+        this.windowManager.openMessageBoxWindowInvalidJson();
+      }
+    } catch (error) {
+      this.windowManager.openMessageBoxWindowInvalidJson();
+    }
+  }
+
+  private addWorkspace(workspace: WorkspaceType) {
+    this.viewState.workspaces.Values.push(workspace);
+    this.viewState.activeProjectSectionIsOpen.Value = true;
+    this.appNavigator.GoToWorkspace(workspace.id);
+    this.viewState.update();
   }
 
   public addProject(projectCandidate: ProjectCandidate): void {
@@ -501,6 +550,7 @@ export class InteractionService {
     this.viewState.windowDueDate.Value?.openWindow(options);
     return this.viewState.windowDueDate.Value;
   };
+
   openProjectWindow = (options?: WindowOpenOptions): WindowProjectComponent | undefined => {
     this.viewState.windowProject.Value?.openWindow(options);
     return this.viewState.windowProject.Value;

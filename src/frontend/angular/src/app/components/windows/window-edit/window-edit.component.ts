@@ -12,6 +12,7 @@ import {ObjectType} from "../../../common/types";
 import {WindowRenameComponent} from "../window-rename/window-rename.component";
 import {CursorHtmlElement} from "../../../Cursor";
 import {project, task, workspace} from "../../../common/consts";
+import {DateFormatter} from "../../../common/dateFormatter";
 
 @Component({
   selector: 'window-edit',
@@ -34,6 +35,20 @@ export class WindowEditComponent extends WindowComponent {
     setTimeout(() => {
       this.buttonRefCollection.first.nativeElement.focus();
     }, 50);
+  }
+
+  protected openRenameWindow(): void {
+    let window: WindowRenameComponent | undefined = this.interactionService.openRenameWindow({position: "center"});
+    if (window) {
+      this.isOpen = true;
+      window.setContext(this.objectType);
+      this.onCloseSubscription = window.onClose.subscribe(() => {
+        this.buttonRefCollection.get(0)?.nativeElement?.focus();
+        this.viewState.update();
+        this.onCloseSubscription?.unsubscribe();
+        this.isOpen = false;
+      });
+    }
   }
 
   protected openColorPickerWindow(): void {
@@ -64,17 +79,19 @@ export class WindowEditComponent extends WindowComponent {
     }
   }
 
-  protected openRenameWindow(): void {
-    let window: WindowRenameComponent | undefined = this.interactionService.openRenameWindow({position: "center"});
-    if (window) {
-      this.isOpen = true;
-      window.setContext(this.objectType);
-      this.onCloseSubscription = window.onClose.subscribe(() => {
-        this.buttonRefCollection.get(0)?.nativeElement?.focus();
-        this.viewState.update();
-        this.onCloseSubscription?.unsubscribe();
-        this.isOpen = false;
-      });
+  protected export() {
+    if (this.viewState.workspace.Value) {
+      const jsonString = JSON.stringify(this.viewState.workspace.Value);
+      const blob = new Blob([jsonString], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const date = new Date();
+      const formattedDate = DateFormatter.format(date, 'yyyyMMddHHmmss');
+      a.download = `${this.viewState.workspace.Value?.id}.${formattedDate}.workspace.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      this.buttonRefCollection.get(2)?.nativeElement?.focus();
     }
   }
 
@@ -99,6 +116,10 @@ export class WindowEditComponent extends WindowComponent {
 
   get itCanShowChangeColor(): boolean {
     return this.objectType == workspace || this.objectType == project;
+  }
+
+  get itCanShowExport(): boolean {
+    return this.objectType == workspace;
   }
 
   @HostListener('window:keydown.arrowUp', ['$event']) onPressUp = (event: KeyboardEvent) => {

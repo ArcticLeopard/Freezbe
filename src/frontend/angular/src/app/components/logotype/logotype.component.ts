@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, numberAttribute} from '@angular/core';
 
 @Component({
   selector: 'logotype',
@@ -8,4 +8,5 @@ import {Component} from '@angular/core';
   styleUrl: './logotype.component.scss'
 })
 export class LogotypeComponent {
+  @Input({transform: numberAttribute, alias: "top"}) protected top: number;
 }

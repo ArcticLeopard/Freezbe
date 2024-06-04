@@ -73,10 +73,6 @@ export class ArrayState<TType> {
     console.info(`Removed incorrect record from LocalStorage: ${this.keyOnLocalStorage}`);
   }
 
-  isInLocalStorage(): boolean {
-    return localStorage.getItem(this.keyOnLocalStorage) != null;
-  }
-
   [Symbol.iterator](): Iterator<TType> {
     let index = 0;
     const values = this._value;
