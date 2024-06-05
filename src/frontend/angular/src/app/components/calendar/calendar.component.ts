@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe, UpperCasePipe} from "@angular/common";
 import {CalendarDayComponent} from "../calendar-day/calendar-day.component";
-import {DataSource} from "../../common/dataSource";
 import {CalendarDayType, DateOnly} from "../../common/types";
 import {ViewStateService} from "../../services/state/view-state.service";
 import {Subscription} from "rxjs";
+import {daysCollection} from "../../common/consts";
 
 @Component({
   selector: 'calendar',
@@ -30,7 +30,7 @@ export class CalendarComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   public calendarMatrix: CalendarDayType[][];
-  days: string[] = DataSource.daysCollection;
+  days: string[] = daysCollection;
   @Input() year: number;
   @Input() month: number;
   @Output('setDate') onSetDate = new EventEmitter<DateOnly>();

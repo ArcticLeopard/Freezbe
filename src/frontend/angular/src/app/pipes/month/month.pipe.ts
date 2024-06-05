@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {DataSource} from "../../common/dataSource";
+import {monthsCollection} from "../../common/consts";
 
 @Pipe({
   name: 'month',
@@ -7,7 +7,6 @@ import {DataSource} from "../../common/dataSource";
 })
 export class MonthPipe implements PipeTransform {
   transform(value: number): string {
-    const months: string[] = DataSource.monthsCollection;
-    return months[value - 1];
+    return monthsCollection[value - 1];
   }
 }

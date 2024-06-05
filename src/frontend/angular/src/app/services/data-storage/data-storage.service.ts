@@ -13,7 +13,7 @@ export class DataStorageService {
     //this.storage = DataSource.template;
     //this.saveStateOnLocalStorage(this.storage);
     this.localStorageRecord = new LocalStorageRecord<WorkspaceType[]>('memory');
-    this.storage = this.localStorageRecord.loadFromLocalStorage(this.storage);
+    this.storage = this.localStorageRecord.loadFromLocalStorageWithCleaner(this.storage);
   }
 
   public saveStateOnLocalStorage(currentState: WorkspaceType[]): void {

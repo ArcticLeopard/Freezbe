@@ -1,5 +1,5 @@
 import {Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
-import {DatePipe, JsonPipe, NgForOf, NgIf, TitleCasePipe} from "@angular/common";
+import {DatePipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
 import {TaskStatusComponent} from "../../buttons/task-status/task-status.component";
 import {CloseSidebarComponent} from "../../buttons/close-sidebar/close-sidebar.component";
@@ -17,7 +17,7 @@ import {Subscription} from "rxjs";
   selector: 'menu-task',
   standalone: true,
   imports: [NgForOf, CommentBoxComponent, TaskStatusComponent, CloseSidebarComponent, PlaceholderComponent, DatePipe, NgIf,
-    TaskItemComponent, SearchComponent, AppendComponent, JsonPipe, TitleCasePipe, AutoRefreshDirective],
+    TaskItemComponent, SearchComponent, AppendComponent, JsonPipe, AutoRefreshDirective],
   templateUrl: './task-menu.component.html',
   styleUrl: './task-menu.component.scss'
 })

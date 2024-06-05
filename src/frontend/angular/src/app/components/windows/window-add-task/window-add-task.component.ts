@@ -31,7 +31,7 @@ export class WindowAddTaskComponent extends WindowComponent implements OnDestroy
       name: undefined,
       date: undefined
     };
-    this.name = "Add a task";
+    this.windowTitle = "Add a task";
   }
 
   protected override postOpen() {

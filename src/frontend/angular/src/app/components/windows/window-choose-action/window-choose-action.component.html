@@ -3,21 +3,15 @@
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">
-        <!--        <btn-close-window />-->
         <div class="windowHeaderTitleContainer">
           <span class="pointerFocus">{{ windowTitle }}</span>
         </div>
       </div>
     </div>
     <div class="windowContent" [class.scrollable]="scrollable">
-      <ng-content />
-    </div>
-    <div class="windowFooter">
-      <div class="windowFooterContainer">
-        <div class="windowFooterTitleContainer">
-          <span class="pointerFocus"><a href="https://github.com/ArcticLeopard/Freezbe" target="_blank">Freezbe is Free & Open Source</a></span>
-        </div>
-      </div>
+      <div class="text-center ">{{ message }}</div>
+      <btn-normal color="orange" [text]="firstOptionText" (click)="onFirstOptionSelected.emit()" />
+      <btn-normal color="orange" [text]="secondOptionText" (click)="onSecondOptionSelected.emit()" />
     </div>
   </div>
 </div>

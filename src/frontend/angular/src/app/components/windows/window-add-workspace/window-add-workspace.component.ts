@@ -9,18 +9,20 @@ import {WindowColorPickerComponent} from "../window-color-picker/window-color-pi
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 import {LogotypeComponent} from "../../logotype/logotype.component";
 import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
+import {ImportComponent} from "../../buttons/import/import.component";
 
 @Component({
   selector: 'window-add-workspace',
   standalone: true,
-  imports: [CalendarComponent, MonthPipe, NgForOf, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent, NormalButtonComponent],
+  imports: [CalendarComponent, MonthPipe, NgForOf, NgSwitchDefault, NgSwitch, NgSwitchCase, NgIf, KeyboardClickDirective, LogotypeComponent, NormalButtonComponent, ImportComponent],
   templateUrl: './window-add-workspace.component.html',
   styleUrl: './window-add-workspace.component.scss'
 })
 export class WindowAddWorkspaceComponent extends WindowComponent implements OnDestroy {
-  private readonly names: string[] = ['Add a workspace', 'Set up a Workspace'];
+  private readonly stepProperties: ({ name: string, logotypeTop: number })[] = [{name: 'Add a workspace', logotypeTop: -24.5}, {name: 'Set up a Workspace', logotypeTop: -19.5}];
   private colorSubscription: Subscription;
   private _currentStep: number = 1;
+  protected logotypeTop: number = -24.5;
 
   @ViewChild('workspaceNameInput') workspaceNameInputRef: ElementRef;
   @ViewChild('secondStepButton') secondStepButton: NormalButtonComponent;
@@ -66,16 +68,19 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
 
   protected override preOpen() {
     super.preOpen();
-    this.showStep(1);
+    this.setStep(1);
   }
 
   protected get currentStep(): number {
     return this._currentStep;
   }
 
-  protected showStep(step: number): void {
+  protected setStep(step: number): void {
     this._currentStep = step;
-    this.name = this.names[step - 1];
+    let stepProperty = this.stepProperties[step - 1];
+    this.windowTitle = stepProperty.name;
+    this.logotypeTop = stepProperty.logotypeTop;
+
     this.workspaceCandidate = {
       name: undefined,
       color: undefined
@@ -110,10 +115,16 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
 
   protected createWorkspace(): void {
     if (this.buttonIsEnabled) {
-      this.interactionService.addWorkspace(<WorkspaceCandidate>this.workspaceCandidate);
+      this.interactionService.createWorkspace(<WorkspaceCandidate>this.workspaceCandidate);
       this.closeWindowIsEnabled = true;
       this.closeWindow();
     }
+  }
+
+  override postClose() {
+    super.postClose();
+    this.setStep(1);
+    this.closeWindowIsEnabled = true;
   }
 
   onKeyDown = (event: KeyboardEvent) => {

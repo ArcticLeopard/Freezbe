@@ -28,7 +28,7 @@ export class WindowAddProjectComponent extends WindowComponent {
   protected override preOpen() {
     super.preOpen();
     this.FreshInputs();
-    this.name = "Add a project";
+    this.windowTitle = "Add a project";
   }
 
   protected override postOpen() {

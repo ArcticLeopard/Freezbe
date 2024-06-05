@@ -34,10 +34,6 @@ export class LocalStorageRecord<T> {
     return backupValue;
   }
 
-  public isInLocalStorage(): boolean {
-    return localStorage.getItem(this.keyOnLocalStorage) != null;
-  }
-
   private removeFromLocalStorage(): void {
     localStorage.removeItem(this.keyOnLocalStorage);
     console.info(`Removed incorrect record from LocalStorage: ${this.keyOnLocalStorage}`);

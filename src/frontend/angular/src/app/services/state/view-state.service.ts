@@ -16,6 +16,9 @@ import {WindowAddTaskComponent} from "../../components/windows/window-add-task/w
 import {details, projects, tasks, workspaces} from '../../common/consts';
 import {WindowEditComponent} from "../../components/windows/window-edit/window-edit.component";
 import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
+import {WindowMessageBoxComponent} from "../../components/windows/window-message-box/window-message-box.component";
+import {WindowChooseActionComponent} from "../../components/windows/window-choose-action/window-choose-action.component";
+import {ArrayStateWithId} from "./arrayStateWithId";
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +44,7 @@ export class ViewStateService {
   public contextId: State<string | null>;
 
   public workspace: State<WorkspaceType | undefined>;
-  public workspaces: ArrayState<WorkspaceType>;
+  public workspaces: ArrayStateWithId<WorkspaceType>;
   public project: State<ProjectType | undefined>;
   public projects: ArrayState<ProjectType>;
   public task: State<TaskType | undefined>;
@@ -57,6 +60,8 @@ export class ViewStateService {
   public windowRename: State<WindowRenameComponent | undefined>;
   public windowProject: State<WindowProjectComponent | undefined>;
   public windowDueDate: State<WindowDueDateComponent | undefined>;
+  public windowMessageBox: State<WindowMessageBoxComponent | undefined>;
+  public windowChooseAction: State<WindowChooseActionComponent | undefined>;
   public detailMenu: State<DetailMenuComponent | undefined>;
 
   activeAreaEnabled: boolean;
@@ -90,7 +95,7 @@ export class ViewStateService {
     this.contextId = new State<string | null>(this.subject, this, null);
 
     this.workspace = new State<WorkspaceType | undefined>(this.subject, this, undefined);
-    this.workspaces = new ArrayState<WorkspaceType>(this.subject, this, dataSourceService.getWorkspaces());
+    this.workspaces = new ArrayStateWithId<WorkspaceType>(this.subject, this, dataSourceService.getWorkspaces());
     this.project = new State<ProjectType | undefined>(this.subject, this, undefined);
     this.projects = new ArrayState<ProjectType>(this.subject, this, []);
     this.task = new State<TaskType | undefined>(this.subject, this, undefined);
@@ -107,6 +112,8 @@ export class ViewStateService {
     this.windowRename = new State<WindowRenameComponent | undefined>(this.subject, this, undefined);
     this.windowProject = new State<WindowProjectComponent | undefined>(this.subject, this, undefined);
     this.windowDueDate = new State<WindowDueDateComponent | undefined>(this.subject, this, undefined);
+    this.windowMessageBox = new State<WindowMessageBoxComponent | undefined>(this.subject, this, undefined);
+    this.windowChooseAction = new State<WindowChooseActionComponent | undefined>(this.subject, this, undefined);
 
     this.detailMenu = new State<DetailMenuComponent | undefined>(this.subject, this, undefined);
     this.contextSubject = new Subject<ActiveAreaType>();

@@ -1,11 +1,19 @@
 <div (click)="closeWindow()" class="background"></div>
-<div class="window" [style.top]="top" [style.left]="left" [style.right]="right" #window>
-  <logotype (click)="closeWindow()" />
+<div class="window" [style.top]="top" [style.left]="left" [style.right]="right">
+  <logotype (click)="closeWindow()" [top]="logotypeTop" />
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">
+        <ng-container [ngSwitch]="currentStep">
+          <ng-container *ngSwitchCase="2">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="#ABABAB" (click)="setStep(1)">
+              <path d="M16.753,12.05c-0,0 8.227,-11.42 7.831,-11.787c-0.396,-0.366 -1.01,-0.354 -1.392,0.027l-13,13c-0.392,0.392 -0.392,1.028 0,1.42l13,13c0.382,0.381 0.996,0.393 1.392,0.027c0.396,-0.367 -7.831,-11.787 -7.831,-11.787c-0.962,-1.122 -0.962,-2.778 -0,-3.9Z" />
+              <title>Back to first screen</title>
+            </svg>
+          </ng-container>
+        </ng-container>
         <div class="windowHeaderTitleContainer">
-          <span class="pointerFocus">{{ name }}</span>
+          <span class="pointerFocus">{{ windowTitle }}</span>
         </div>
       </div>
     </div>
@@ -15,27 +23,29 @@
           <ng-container *ngSwitchCase="1">
             <div class="text-center">
               <div class="text-break pb-6">
+                You can create a workspace.<br>
                 Just like your life is divided into areas.<br>
                 This way you can divide projects into workspaces.<br>
                 This will help you stay organized.<br>
-                <span title="The limit is your browser's Local Storage limit.">Workspaces are unlimited.</span><br>
-                You can create a workspace.<br>
+                <span title="If you want to clean your browser. Export data.">Data is stored in Local Storage.</span><br>
+                <span title="The limit is your browser's Local Storage limit.">Everything is unlimited.</span><br>
               </div>
-              <btn-normal #firstStepButton (click)="showStep(2)" color="orange" text="Create a New Workspace" [keyboardClick]="0" />
+              <btn-normal #firstStepButton (click)="setStep(2)" color="orange" text="Create a New Workspace" [keyboardClick]="0" />
+              <btn-import (onSuccessImported)="closeWindow(true)" [keyboardClick]="1" />
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="2">
             <div class="row mt-2">
               <div class="column s100 mr-2 f-as">
                 <div class="pb-2">Name</div>
-                <input #workspaceNameInput class="input-text" id="workspaceInput" placeholder="Enter the name of your workspace" type="text" [keyboardClick]="1" (keydown)="onKeyDown($event)">
+                <input #workspaceNameInput class="input-text" id="workspaceInput" placeholder="Enter the name of your workspace" type="text" [keyboardClick]="2" (keydown)="onKeyDown($event)">
               </div>
               <div class="column ml-2 f-ac">
                 <div class="pb-2">Color</div>
-                <div class="colorPicker colorPickerAnimation" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="2"></div>
+                <div class="colorPicker colorPickerAnimation" (click)="openColorPickerWindow()" #colorPicker [keyboardClick]="3"></div>
               </div>
             </div>
-            <btn-normal #secondStepButton [disabled]="!buttonIsEnabled" class="mt-5" color="orange" text="Create" (click)="createWorkspace()" [keyboardClick]="14" />
+            <btn-normal #secondStepButton [disabled]="!buttonIsEnabled" class="mt-5" color="orange" text="Create" (click)="createWorkspace()" [keyboardClick]="4" />
           </ng-container>
         </ng-container>
       </div>
