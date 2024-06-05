@@ -16,6 +16,8 @@ import {WindowAddProjectComponent} from "../../components/windows/window-add-pro
 import {WindowAddTaskComponent} from "../../components/windows/window-add-task/window-add-task.component";
 import {WindowEditComponent} from "../../components/windows/window-edit/window-edit.component";
 import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
+import {WindowMessageBoxComponent} from "../../components/windows/window-message-box/window-message-box.component";
+import {WindowChooseActionComponent} from "../../components/windows/window-choose-action/window-choose-action.component";
 
 @Component({
   selector: 'app-page',
@@ -35,7 +37,9 @@ import {WindowRenameComponent} from "../../components/windows/window-rename/wind
     WindowAddProjectComponent,
     WindowAddTaskComponent,
     WindowEditComponent,
-    WindowRenameComponent
+    WindowRenameComponent,
+    WindowMessageBoxComponent,
+    WindowChooseActionComponent
   ],
   templateUrl: './app-page.component.html',
   styleUrl: './app-page.component.scss',
@@ -53,6 +57,8 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
   @ViewChild(WindowRenameComponent) windowRename: WindowRenameComponent;
   @ViewChild(WindowProjectComponent) windowProject: WindowProjectComponent;
   @ViewChild(WindowDueDateComponent) windowDueDate: WindowDueDateComponent;
+  @ViewChild(WindowMessageBoxComponent) windowMessageBox: WindowMessageBoxComponent;
+  @ViewChild(WindowChooseActionComponent) windowChooseAction: WindowChooseActionComponent;
   @ViewChild(DetailMenuComponent) detailMenu: DetailMenuComponent;
 
   ngAfterViewInit(): void {
@@ -79,6 +85,13 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     }
     if (this.viewState.windowDueDate.Value == undefined && this.windowDueDate != undefined) {
       this.viewState.windowDueDate.Value = this.windowDueDate;
+
+    }
+    if (this.viewState.windowMessageBox.Value == undefined && this.windowMessageBox != undefined) {
+      this.viewState.windowMessageBox.Value = this.windowMessageBox;
+    }
+    if (this.viewState.windowChooseAction.Value == undefined && this.windowChooseAction != undefined) {
+      this.viewState.windowChooseAction.Value = this.windowChooseAction;
     }
     if (this.viewState.detailMenu.Value == undefined && this.detailMenu != undefined) {
       this.viewState.detailMenu.Value = this.detailMenu;
@@ -94,6 +107,9 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     this.viewState.windowRename.Value = undefined;
     this.viewState.windowProject.Value = undefined;
     this.viewState.windowDueDate.Value = undefined;
+    this.viewState.windowMessageBox.Value = undefined;
+    this.viewState.windowChooseAction.Value = undefined;
+    this.viewState.detailMenu.Value = undefined;
   }
 
   @HostListener('document:keyup', ['$event'])

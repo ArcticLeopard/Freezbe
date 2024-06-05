@@ -4,7 +4,7 @@
     <div class="windowContent scrollable">
       <div class="row center py-2">
         <div *ngFor="let color of colors; let i = index">
-          <div class="colorPicker m-1" [style.background]="color" (click)="onClick(color)" [keyboardClick]="i+3" #color></div>
+          <div class="colorPicker m-1" [style.background]="color" (click)="onClick(color)" [keyboardClick]="i" #color></div>
         </div>
       </div>
     </div>

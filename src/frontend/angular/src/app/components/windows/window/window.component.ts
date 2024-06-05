@@ -27,14 +27,21 @@ abstract class WindowAbstract {
     });
   }
 
-  public closeWindow() {
+  public closeWindow(reload: boolean = false) {
     if (this.closeWindowIsEnabled) {
       this.open = false;
       this.postClose();
     }
+    if (reload) {
+      setTimeout(() => {
+        window.location.reload();
+      });
+    }
   }
 
   protected abstract postOnDestroy(): void;
+
+  protected abstract postConstructor(): void;
 
   protected abstract preOpen(): void;
 
@@ -54,6 +61,9 @@ abstract class WindowEmptyImplementation extends WindowAbstract {
   }
 
   protected override preOpen(): void {
+  }
+
+  protected override postConstructor(): void {
   }
 
   protected override postOpen(): void {
@@ -79,7 +89,7 @@ abstract class WindowEmptyImplementation extends WindowAbstract {
   styleUrl: './window.component.scss',
 })
 export class WindowComponent extends WindowEmptyImplementation implements OnDestroy {
-  @Input() name: string = "Title";
+  @Input() windowTitle: string = "Title";
   @Input({transform: booleanAttribute})
   @Input({transform: numberAttribute}) minWidth: number = 22;
   @Input({transform: numberAttribute}) width: number;
@@ -93,7 +103,9 @@ export class WindowComponent extends WindowEmptyImplementation implements OnDest
   @ViewChild('window') windowRef: ElementRef;
   @HostBinding('class.centre') @Input({transform: booleanAttribute}) centre: boolean;
   @Input() backgroundType: BackgroundTypes;
+  @Input({transform: booleanAttribute})
   @HostBinding('hidden') isHidden: boolean;
+  onOpen = new EventEmitter<any>();
   onClose = new EventEmitter<void>();
   private subscription: Subscription;
 
@@ -106,6 +118,7 @@ export class WindowComponent extends WindowEmptyImplementation implements OnDest
         this.AfterViewStateChange();
       });
     });
+    this.postConstructor();
   }
 
   ngOnDestroy(): void {
@@ -134,6 +147,10 @@ export class WindowComponent extends WindowEmptyImplementation implements OnDest
   protected override preOpen() {
     this.dialogWindowCloseOrderService.addDialog(this);
   };
+
+  protected override postOpen() {
+    this.onOpen.emit(this);
+  }
 
   protected override postClose() {
     this.dialogWindowCloseOrderService.removeDialog();

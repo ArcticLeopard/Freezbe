@@ -1,0 +1,6 @@
+@import "../../../../imports";
+@import "../window/window.component";
+
+.windowContent {
+  @extend .p-4;
+}

@@ -1,11 +1,11 @@
 <div (click)="closeWindow()" class="background"></div>
 <div class="window" [style.top]="top" [style.left]="left" [style.right]="right">
-  <logotype (click)="closeWindow()" />
+  <logotype (click)="closeWindow()" top="-20.5" />
   <div class="windowContainer">
     <div class="windowHeader">
       <div class="windowHeaderContainer">
         <div class="windowHeaderTitleContainer">
-          <span class="pointerFocus">{{ name }}</span>
+          <span class="pointerFocus">{{ windowTitle }}</span>
         </div>
       </div>
     </div>

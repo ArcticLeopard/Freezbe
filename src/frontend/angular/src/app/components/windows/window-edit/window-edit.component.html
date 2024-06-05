@@ -1,12 +1,13 @@
 <div (click)="closeWindow()" class="background"></div>
 <div class="window" [style.top]="top" [style.left]="left" [style.right]="right" #window>
-  <logotype (click)="closeWindow()" />
+  <logotype (click)="closeWindow()" top="-20.5" />
   <div class="windowContainer">
     <div class="windowContent scrollable">
       <div class="content">
         <btn-normal color="orange" text="Rename" (click)="openRenameWindow()" [keyboardClick]="1" />
         <btn-normal color="orange" text="Change Color" (click)="openColorPickerWindow()" [keyboardClick]="2" *ngIf="itCanShowChangeColor" />
-        <btn-normal color="red" text="Delete" (click)="delete()" [keyboardClick]="3" />
+        <btn-normal color="orange" text="Export a Workspace" (click)="export()" [keyboardClick]="3" *ngIf="itCanShowExport" />
+        <btn-normal color="red" text="Delete" (click)="delete()" [keyboardClick]="4" />
       </div>
     </div>
     <div class="windowFooter">

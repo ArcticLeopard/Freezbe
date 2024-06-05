@@ -21,7 +21,7 @@ export class WindowDueDateComponent extends WindowComponent implements OnInit {
 
   protected override preOpen() {
     super.preOpen();
-    this.name = 'Calendar';
+    this.windowTitle = 'Calendar';
     this.width = 29;
     this.height = 35.7;
   }

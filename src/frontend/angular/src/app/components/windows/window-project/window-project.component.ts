@@ -23,7 +23,7 @@ export class WindowProjectComponent extends WindowComponent {
 
   protected override preOpen = () => {
     super.preOpen();
-    this.name = 'Change Project';
+    this.windowTitle = 'Change Project';
     this.width = 29;
     this.height = 35.7;
     this.projectCursor = new CursorHtmlElement(this.projectRefCollection);

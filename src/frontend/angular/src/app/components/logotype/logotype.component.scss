@@ -7,14 +7,13 @@
   svg {
     width: 43rem;
     position: absolute;
-    top: -20.5rem;
 
     @media (max-width: 430px) {
       width: 37.5rem;
     }
   }
 
-  @media screen and (max-height: 540px) {
+  @media screen and (max-height: 620px) {
     display: none;
   }
 }

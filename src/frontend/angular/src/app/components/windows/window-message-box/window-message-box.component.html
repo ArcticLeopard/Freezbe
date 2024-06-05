@@ -1,0 +1,15 @@
+<div (click)="closeWindow()" class="background"></div>
+<div class="window" [style.width.rem]="width" [style.height.rem]="height" [style.top]="top" [style.left]="left" [style.right]="right" #window>
+  <div class="windowHeader">
+    <div class="windowHeaderContainer">
+      <div class="windowHeaderTitleContainer">
+        <span class="pointerFocus">{{ windowTitle }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="windowContainer">
+    <div class="windowContent" [class.scrollable]="scrollable">
+      {{ message }}
+    </div>
+  </div>
+</div>
