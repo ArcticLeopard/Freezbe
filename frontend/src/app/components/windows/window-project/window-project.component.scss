@@ -1,0 +1,76 @@
+@import "../../../../imports";
+@import "../window/window.component";
+
+.content {
+  //Display Flex With Options
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  //Width or/and Height
+  @extend .s100;
+
+  //Paddings
+  @extend .pt-4, .px-2, .pb-2;
+
+  //Borders
+  border-radius: 0.5rem;
+}
+
+.projectList {
+  //Background
+  @extend .bg-classic-dark;
+
+  //Margins
+  @extend .mt-4;
+
+  //Borders
+  border-radius: 0.5rem;
+  @extend .b;
+
+  //Scrolls
+  @extend .whiteScroll;
+  @extend .s100;
+}
+
+.project {
+  @extend .row;
+
+  //Paddings
+  @extend .px-5, .py-3;
+
+  //Cursor
+  @extend .pointer;
+
+  outline: none;
+
+  &:hover, &:focus, &.active {
+    //Background
+    @extend .bg-classic-dark, .hd;
+  }
+
+  &:focus {
+    color: white;
+    background: black;
+  }
+
+  svg {
+    @extend .tr-ae-12;
+  }
+
+  &:hover svg {
+    rotate: 360deg;
+  }
+}
+
+.icon {
+  @extend .row, .center;
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+.text {
+  @extend .pl-4, .py-1;
+  @extend .text-nowrap;
+  @include text-sizer(2);
+}

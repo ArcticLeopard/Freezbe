@@ -1,23 +1,43 @@
-![](docs/readme/images/Freezbe_logo.png)
+[![100 - Commitów](https://img.shields.io/badge/100-Commitów-2ea44f)](https://100commitow.pl/)
+[![Lang - EN](https://img.shields.io/badge/lang-en-2ea44f)](/README.md)
+[![Lang - PL](https://img.shields.io/badge/lang-pl-2ea44f)](/README.PL.md)
 
-# Freezbe
-Application for managing assignments and projects.<br>
-Designed to assist users in organizing their responsibilities, schedules, and projects efficiently.
+[![Freezbe](docs/readme/images/Freezbe_logo.png "Freezbe")](http://www.freezbe.pl/)
 
-## Motivation
-The application is being developed for the purposes of the "**100 Commits**" Contest.<br>
-The main motivations for participating in the contest for me are the following factors:
-- Creating a product that I will use.
-- Practicing consistency.
-- Practicing Reverse Engineering.
-- Expanding my technological stack with new technologies.
-- Adding an interesting entry to my CV.
+## Introduction:
 
-## [The Backlog & Delivery Log is now on GitHub Projects](https://github.com/users/ArcticLeopard/projects/2)
+Freezbe is a task management application that ensures complete data privacy – your data is not sent anywhere.<br>
+The UI is designed with mobile users in mind and also allows for convenient use with a keyboard.
+
+## Important:
+
+The application stores data in Local Storage.<br>
+If you plan to clear your browser, make sure to export the workspace you are working on to avoid data loss.
+
+## Features:
+
+-   **Zones**: The application can display up to 4 visible zones: Workspace, Projects, Tasks, Details.<br>
+    Each zone can be active.
+-   **Workspace**: Groups projects.
+-   **Projects**: Group tasks.
+-   **Details**: Can contain task details, including comments.
 
 <p align="center">
  <img src="https://raw.githubusercontent.com/ArcticLeopard/Freezbe/main/docs/readme/images/Developer.png" />
 </p>
 
-## Current UI - Preview (Work in progress)
-![](docs/UI/PreviewCurrentUserInterface.png)
+## Motivation
+
+The main motivations for participating in the contest for me are the following factors:
+
+-   Creating a product that I will use.
+-   Practicing consistency.
+-   Practicing Reverse Engineering.
+-   Expanding my technological stack with new technologies.
+-   Adding an interesting entry to my CV.
+
+## UI
+
+![](docs/readme/images/PreviewCurrentUserInterface.png)
+
+[![Freezbe](docs/readme/images/TryNow.png "Freezbe")](http://www.freezbe.pl/)
