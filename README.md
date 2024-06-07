@@ -1,6 +1,7 @@
 [![100 - Commitów](https://img.shields.io/badge/100-Commitów-2ea44f)](https://100commitow.pl/)
 [![Lang - EN](https://img.shields.io/badge/lang-en-2ea44f)](/README.md)
 [![Lang - PL](https://img.shields.io/badge/lang-pl-2ea44f)](/README.PL.md)
+[![Try - Now](https://img.shields.io/badge/try-now-2ea44f)](https://freezbe.pl/)
 
 [![Freezbe](docs/readme/images/Freezbe_logo.png "Freezbe")](http://www.freezbe.pl/)
 
@@ -38,6 +39,6 @@ The main motivations for participating in the contest for me are the following f
 
 ## UI
 
-![](docs/readme/images/PreviewCurrentUserInterface.png)
+[![UI](docs/readme/images/PreviewCurrentUserInterface.png "UI")](http://www.freezbe.pl/)
 
 [![Freezbe](docs/readme/images/TryNow.png "Freezbe")](http://www.freezbe.pl/)
