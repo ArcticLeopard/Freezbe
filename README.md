@@ -8,7 +8,8 @@
 ## Introduction:
 
 Freezbe is a task management application that ensures complete data privacy – your data is not sent anywhere.<br>
-The UI is designed with mobile users in mind and also allows for convenient use with a keyboard.
+The UI is designed with mobile users in mind and also allows for convenient use with a keyboard.<br>
+[![Video](docs/readme/images/Video.png "Video")](https://github.com/ArcticLeopard/Freezbe/raw/main/docs/readme/videos/Freezbe-pl.mp4)
 
 ## Important:
 

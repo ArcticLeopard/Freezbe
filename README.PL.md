@@ -1,13 +1,15 @@
 [![100 - Commitów](https://img.shields.io/badge/100-Commitów-2ea44f)](https://100commitow.pl/)
 [![Lang - EN](https://img.shields.io/badge/lang-en-2ea44f)](/README.md)
 [![Lang - PL](https://img.shields.io/badge/lang-pl-2ea44f)](/README.PL.md)
+[![Try - Now](https://img.shields.io/badge/try-now-2ea44f)](https://freezbe.pl/)
 
 [![Freezbe](docs/readme/images/Freezbe_logo.png "Freezbe")](http://www.freezbe.pl/)
 
 ## Wprowadzenie:
 
 Freezbe to aplikacja do zarządzania zadaniami, która zapewnia pełną prywatność danych – twoje dane nigdzie nie są wysyłane.
-Interfejs użytkownika został zaprojektowany z myślą o użytkownikach mobilnych, ale jest również w pełni funkcjonalny na komputerach stacjonarnych.
+Interfejs użytkownika został zaprojektowany z myślą o użytkownikach mobilnych, ale jest również w pełni funkcjonalny na komputerach stacjonarnych.<br>
+[![Video](docs/readme/images/Video.png "Video")](https://github.com/ArcticLeopard/Freezbe/raw/main/docs/readme/videos/Freezbe-pl.mp4)
 
 ## Ważne:
 
@@ -35,6 +37,6 @@ Główne motywacje do udziału w konkursie dla mnie to następujące czynniki:
 
 ## UI
 
-![](docs/readme/images/PreviewCurrentUserInterface.png)
+[![UI](docs/readme/images/PreviewCurrentUserInterface.png "UI")](http://www.freezbe.pl/)
 
 [![Freezbe](docs/readme/images/TryNow.png "Freezbe")](http://www.freezbe.pl/)
