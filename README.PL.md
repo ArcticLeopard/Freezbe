@@ -9,7 +9,7 @@
 
 Freezbe to aplikacja do zarządzania zadaniami, która zapewnia pełną prywatność danych – twoje dane nigdzie nie są wysyłane.
 Interfejs użytkownika został zaprojektowany z myślą o użytkownikach mobilnych, ale jest również w pełni funkcjonalny na komputerach stacjonarnych.<br>
-[![Video](docs/readme/images/Video.png "Video")](https://github.com/ArcticLeopard/Freezbe/raw/main/docs/readme/videos/Freezbe-pl.mp4)
+[![Video](docs/readme/images/Video.png "Video")](https://youtu.be/JcyTco7CkB8)
 
 ## Ważne:
 
