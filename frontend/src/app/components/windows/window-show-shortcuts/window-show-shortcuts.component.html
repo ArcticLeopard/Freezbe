@@ -1,0 +1,23 @@
+<div (click)="closeWindow()" class="background"></div>
+<div class="window" [style.width.rem]="width" [style.height.rem]="height" [style.top]="top" [style.left]="left" [style.right]="right" #window>
+  <div class="windowContainer">
+    <div class="windowHeader">
+      <div class="windowHeaderContainer">
+        <div class="windowHeaderTitleContainer">
+          <span class="pointerFocus">{{ windowTitle }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="windowContent" [class.scrollable]="scrollable">
+      <div *ngFor="let section of sections; let i = index">
+        <btn-normal color="orange" [text]="section.title" (click)="setActiveSection(i)" [keyboardClick]="i" />
+        <div *ngIf="activeSectionIndex === i">
+          <div *ngFor="let shortcut of section.shortcuts" class="row f-jsb">
+            <span class="text-left"><strong>{{ shortcut.key }}</strong></span>
+            <span class="text-right">{{ shortcut.description }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

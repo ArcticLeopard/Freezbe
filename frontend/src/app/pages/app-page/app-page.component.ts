@@ -18,6 +18,7 @@ import {WindowEditComponent} from "../../components/windows/window-edit/window-e
 import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
 import {WindowMessageBoxComponent} from "../../components/windows/window-message-box/window-message-box.component";
 import {WindowChooseActionComponent} from "../../components/windows/window-choose-action/window-choose-action.component";
+import {WindowShowShortcutsComponent} from "../../components/windows/window-show-shortcuts/window-show-shortcuts.component";
 
 @Component({
   selector: 'app-page',
@@ -39,7 +40,8 @@ import {WindowChooseActionComponent} from "../../components/windows/window-choos
     WindowEditComponent,
     WindowRenameComponent,
     WindowMessageBoxComponent,
-    WindowChooseActionComponent
+    WindowChooseActionComponent,
+    WindowShowShortcutsComponent
   ],
   templateUrl: './app-page.component.html',
   styleUrl: './app-page.component.scss',
@@ -59,6 +61,7 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
   @ViewChild(WindowDueDateComponent) windowDueDate: WindowDueDateComponent;
   @ViewChild(WindowMessageBoxComponent) windowMessageBox: WindowMessageBoxComponent;
   @ViewChild(WindowChooseActionComponent) windowChooseAction: WindowChooseActionComponent;
+  @ViewChild(WindowShowShortcutsComponent) windowShowShortcuts: WindowShowShortcutsComponent;
   @ViewChild(DetailMenuComponent) detailMenu: DetailMenuComponent;
 
   ngAfterViewInit(): void {
@@ -93,6 +96,9 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     if (this.viewState.windowChooseAction.Value == undefined && this.windowChooseAction != undefined) {
       this.viewState.windowChooseAction.Value = this.windowChooseAction;
     }
+    if (this.viewState.windowShowShortcuts.Value == undefined && this.windowShowShortcuts != undefined) {
+      this.viewState.windowShowShortcuts.Value = this.windowShowShortcuts;
+    }
     if (this.viewState.detailMenu.Value == undefined && this.detailMenu != undefined) {
       this.viewState.detailMenu.Value = this.detailMenu;
     }
@@ -109,6 +115,7 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     this.viewState.windowDueDate.Value = undefined;
     this.viewState.windowMessageBox.Value = undefined;
     this.viewState.windowChooseAction.Value = undefined;
+    this.viewState.windowShowShortcuts.Value = undefined;
     this.viewState.detailMenu.Value = undefined;
   }
 

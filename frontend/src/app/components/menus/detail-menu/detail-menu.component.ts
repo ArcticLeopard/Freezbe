@@ -59,9 +59,11 @@ export class DetailMenuComponent implements OnDestroy, AfterViewInit {
   }
 
   private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
+    this.interactionService.onPressShiftWithQuestionMark.bind(this.interactionService),
     this.interactionService.onPressPlus.bind(this.interactionService),
-    this.interactionService.onPressArrow.bind(this.interactionService),
     this.interactionService.onPressMinus.bind(this.interactionService),
+    this.interactionService.onPressDelete.bind(this.interactionService),
+    this.interactionService.onPressArrow.bind(this.interactionService),
     this.interactionService.onPressEscape.bind(this.interactionService),
   ];
 }

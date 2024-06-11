@@ -47,6 +47,7 @@ export class WorkspaceMenuComponent implements OnDestroy {
   }
 
   private readonly hotkeyHandlers = [
+    this.interactionService.onPressShiftWithQuestionMark.bind(this.interactionService),
     this.interactionService.onPressPlus.bind(this.interactionService),
     this.interactionService.onPressMinus.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
