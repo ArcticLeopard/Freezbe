@@ -187,3 +187,15 @@
     @include tfs-m($start + 3);
   }
 }
+
+@mixin border-animation($color1, $color2) {
+  @keyframes border-gradient {
+    0% {
+      border-bottom-color: $color1;
+    }
+    100% {
+      border-bottom-color: $color2;
+    }
+  }
+  animation: border-gradient 1s infinite alternate;
+}

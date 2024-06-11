@@ -36,6 +36,15 @@ export class TaskMenuComponent implements OnDestroy {
     this.subscription?.unsubscribe();
   }
 
+  @HostListener('window:click', ['$event'])
+  public CollapseSidebar(): void {
+    if (this.viewState.openedDialogWindows.Value == 0 && !this.viewState.contextEnabled && this.activeArea.isFocused) {
+      if (window.innerWidth <= 715) {
+        this.viewState.sidebarMenuIsClose.Value = true;
+      }
+    }
+  }
+
   @HostListener('window:keydown', ['$event'])
   public changeTaskPositionAfterKeydown(event: KeyboardEvent): void {
     if (this.viewState.openedDialogWindows.Value == 0 && !this.viewState.contextEnabled && this.activeArea.isFocused) {
@@ -54,8 +63,10 @@ export class TaskMenuComponent implements OnDestroy {
   }
 
   private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
+    this.interactionService.onPressShiftWithQuestionMark.bind(this.interactionService),
     this.interactionService.onPressPlus.bind(this.interactionService),
     this.interactionService.onPressMinus.bind(this.interactionService),
+    this.interactionService.onPressDelete.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
     this.interactionService.onPressExclamationMark.bind(this.interactionService),
     this.interactionService.onPressEscape.bind(this.interactionService),

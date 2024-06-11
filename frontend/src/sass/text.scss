@@ -47,6 +47,14 @@ $weights: 3, 6, 9;
   text-align: center;
 }
 
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
 .text-header-wrap {
   display: flex;
   flex-wrap: wrap;

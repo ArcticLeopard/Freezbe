@@ -30,21 +30,15 @@ export class InteractionService {
 
   public onPressEscape(event: KeyboardEvent): boolean {
     if (event.key == 'Escape') {
-      if (this.viewState.context == details) {
-        this.viewState.contextPrev();
-      }
-      if (this.viewState.currentViewType.Value == projects && this.viewState.currentProjectId.Value) {
-        this.appNavigator.GoToProject(this.viewState.currentProjectId.Value);
-        return true;
-      }
-      if (this.viewState.currentViewType.Value == priority) {
-        this.appNavigator.GoToPriority();
-        return true;
-      }
-      if (this.viewState.currentViewType.Value == incoming) {
-        this.appNavigator.GoToIncoming();
-        return true;
-      }
+      return this.hideDetails();
+    }
+    return false;
+  }
+
+  public onPressShiftWithQuestionMark(event: KeyboardEvent): boolean {
+    if (event.shiftKey && event.key === '?') {
+      this.viewState.windowShowShortcuts.Value?.openWindow();
+      return true;
     }
     return false;
   }
@@ -190,6 +184,19 @@ export class InteractionService {
         case "details":
           this.openWindowEditTask({position: "center"});
           return true;
+      }
+    }
+    return false;
+  }
+
+  public onPressDelete(event: KeyboardEvent): boolean {
+    if (event.key === 'Delete') {
+      if (this.viewState.task.Value) {
+        this.deleteTask(this.viewState.task.Value?.id);
+        setTimeout(() => {
+          this.hideDetails();
+        });
+        return true;
       }
     }
     return false;
@@ -458,7 +465,7 @@ export class InteractionService {
         comments: [],
         dueDate: dueDate
       };
-      this.viewState.tasks.Values.push(newElement);
+      this.viewState.tasks.Values.unshift(newElement);
       if (this.viewState.currentTaskId.Value) {
         this.appNavigator.GoToTask(newElement.id);
       }
@@ -577,5 +584,24 @@ export class InteractionService {
       this.viewState.project.Value?.tasks.splice(taskIndex, 1);
     }
     this.viewState.update();
+  }
+
+  private hideDetails(): boolean {
+    if (this.viewState.context == details) {
+      this.viewState.contextPrev();
+    }
+    if (this.viewState.currentViewType.Value == projects && this.viewState.currentProjectId.Value) {
+      this.appNavigator.GoToProject(this.viewState.currentProjectId.Value);
+      return true;
+    }
+    if (this.viewState.currentViewType.Value == priority) {
+      this.appNavigator.GoToPriority();
+      return true;
+    }
+    if (this.viewState.currentViewType.Value == incoming) {
+      this.appNavigator.GoToIncoming();
+      return true;
+    }
+    return false;
   }
 }

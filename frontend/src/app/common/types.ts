@@ -38,3 +38,13 @@ export type ProjectCandidate = { color: Color; name: Name };
 export type TaskCandidateDraft = { date?: DateOnly; name: NameDraft };
 export type TaskCandidate = { date?: DateOnly; name: Name };
 export type WindowPositionOption = 'right' | 'center';
+
+export type Shortcut = {
+  key: string;
+  description: string;
+}
+
+export type ShortcutSection = {
+  title: string;
+  shortcuts: Shortcut[];
+}

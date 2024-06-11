@@ -138,7 +138,7 @@
 
 .windowHeaderTitleContainer, .windowFooterTitleContainer {
   //Display
-  @extend .row;
+  @extend .column;
 
   //Width or/and Height
   @extend .s100;

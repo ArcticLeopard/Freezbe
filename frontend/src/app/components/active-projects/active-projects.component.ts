@@ -4,6 +4,7 @@ import {ViewStateService} from "../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
+import {ProjectType} from "../../common/types";
 
 @Component({
   selector: 'app-active-projects',
@@ -31,5 +32,12 @@ export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
   @HostListener('scroll', ['$event'])
   saveScrollPosition(event: any): void {
     this.viewState.projectMenuScrollbarPosition.Value = event.target.scrollTop;
+  }
+
+  onClickProject(project: ProjectType) {
+    this.appNavigator.GoToProject(project.id);
+    if (window.innerWidth <= 715) {
+      this.viewState.sidebarMenuIsClose.Value = true;
+    }
   }
 }

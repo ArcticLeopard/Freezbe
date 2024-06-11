@@ -50,6 +50,7 @@ export class ProjectMenuComponent implements OnDestroy {
   }
 
   private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
+    this.interactionService.onPressShiftWithQuestionMark.bind(this.interactionService),
     this.interactionService.onPressPlus.bind(this.interactionService),
     this.interactionService.onPressMinus.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
@@ -58,4 +59,18 @@ export class ProjectMenuComponent implements OnDestroy {
     this.interactionService.onPressControlWithArrow.bind(this.interactionService),
     this.interactionService.onPressArrow.bind(this.interactionService),
   ];
+
+  onClickPriority() {
+    this.appNavigator.GoToPriority();
+    if (window.innerWidth <= 715) {
+      this.viewState.sidebarMenuIsClose.Value = true;
+    }
+  }
+
+  onClickIncoming() {
+    this.appNavigator.GoToIncoming();
+    if (window.innerWidth <= 715) {
+      this.viewState.sidebarMenuIsClose.Value = true;
+    }
+  }
 }

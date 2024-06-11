@@ -1,0 +1,15 @@
+@import "../../../../imports";
+@import "../window/window.component";
+
+.windowContent {
+  @extend .p-4;
+
+  & btn-normal, & div {
+    @extend .mb-3;
+  }
+}
+
+strong {
+  @extend .pr-6;
+  color: $orange;
+}

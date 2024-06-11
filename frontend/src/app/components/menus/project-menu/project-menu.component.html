@@ -5,8 +5,9 @@
   </div>
 </div>
 <div class="header">
-  <btn-big (click)="appNavigator.GoToPriority()" [class.active]="viewState.currentViewType.Value == priority" [number]="viewState.priorityTasks.Values.length" text="Priority" color="red" />
-  <btn-big (click)="appNavigator.GoToIncoming()" [class.active]="viewState.currentViewType.Value == incoming" [number]="viewState.incomingTasks.Values.length" text="Incoming" color="orange" />
+  <btn-big (click)="onClickPriority()" [class.active]="viewState.currentViewType.Value == priority" [number]="viewState.priorityTasks.Values.length" text="Priority" color="red" />
+  <btn-big (click)="onClickIncoming()" [class.active]="viewState.currentViewType.Value == incoming" [number]="viewState.incomingTasks.Values.length" text="Incoming" color="orange" />
 </div>
 <section-header />
 <app-active-projects />
+<div class="bottomSpace"></div>
