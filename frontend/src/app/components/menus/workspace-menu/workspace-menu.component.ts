@@ -50,6 +50,7 @@ export class WorkspaceMenuComponent implements OnDestroy {
     this.interactionService.onPressShiftWithQuestionMark.bind(this.interactionService),
     this.interactionService.onPressPlus.bind(this.interactionService),
     this.interactionService.onPressMinus.bind(this.interactionService),
+    this.interactionService.onPressF2.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
     this.interactionService.onPressExclamationMark.bind(this.interactionService),
     this.interactionService.onPressNumber.bind(this.interactionService),

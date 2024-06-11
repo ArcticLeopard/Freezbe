@@ -75,11 +75,22 @@ export class WindowProjectComponent extends WindowComponent {
     if (project) {
       this.onClick.emit(project);
     }
+    this.searchTerm = '';
     this.closeWindow();
   }
 
   protected override postClose() {
     super.postClose();
     this.searchTerm = '';
+  }
+
+  override closeWindow(reload: boolean = false) {
+    if (this.searchTerm.length > 0) {
+      this.searchCursor.currentFocus();
+      this.searchTerm = '';
+
+    } else {
+      super.closeWindow(reload);
+    }
   }
 }

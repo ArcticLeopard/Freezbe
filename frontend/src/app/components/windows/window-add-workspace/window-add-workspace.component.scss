@@ -37,3 +37,8 @@ btn-normal {
 .windowHeaderContainer svg {
   position: absolute;
 }
+
+.windowFooter {
+  @extend .my-3;
+  border: none;
+}

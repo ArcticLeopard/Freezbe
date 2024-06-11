@@ -69,7 +69,8 @@ export class WindowShowShortcutsComponent extends WindowComponent {
       title: 'For: Workspaces Active Zone',
       shortcuts: [
         {key: '+', description: 'Add new workspace'},
-        {key: '-', description: 'Edit workspace'},
+        {key: '-', description: 'Edit active workspace'},
+        {key: 'F2', description: 'Rename active workspace'},
         {key: '1..9', description: 'Select workspace by specified number'},
         {key: 'Down', description: 'Select the workspace below'},
         {key: 'Up', description: 'Select the workspace above'},
@@ -81,7 +82,8 @@ export class WindowShowShortcutsComponent extends WindowComponent {
       title: 'For: Projects Active Zone',
       shortcuts: [
         {key: '+', description: 'Add new project'},
-        {key: '-', description: 'Edit project'},
+        {key: '-', description: 'Edit active project'},
+        {key: 'F2', description: 'Rename active project'},
         {key: '1..9', description: 'Select project by specified number'},
         {key: 'Down', description: 'Select the project below'},
         {key: 'Up', description: 'Select the project above'},
@@ -95,7 +97,8 @@ export class WindowShowShortcutsComponent extends WindowComponent {
       title: 'For: Tasks Active Zone',
       shortcuts: [
         {key: '+', description: 'Add new task'},
-        {key: '-', description: 'Edit task'},
+        {key: '-', description: 'Edit active task'},
+        {key: 'F2', description: 'Rename active task'},
         {key: '1..9', description: 'Select task by specified number'},
         {key: 'Down', description: 'Select the task below'},
         {key: 'Up', description: 'Select the task above'},
@@ -111,8 +114,10 @@ export class WindowShowShortcutsComponent extends WindowComponent {
       shortcuts: [
         {key: '+', description: 'Add new comment'},
         {key: '-', description: 'Edit active task'},
+        {key: 'F2', description: 'Rename active task'},
         {key: 'Left', description: 'Change project window for the active task'},
         {key: 'Right', description: 'Change due date window for the active task'},
+        {key: 'Down', description: 'Add new comment'},
         {key: 'Delete', description: 'Delete the active task'}
       ]
     },

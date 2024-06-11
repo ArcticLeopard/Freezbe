@@ -58,14 +58,11 @@ export class TaskMenuComponent implements OnDestroy {
     this.interactionService.openWindowEditProject({position: "center"});
   }
 
-  get itCanOpenWindowEditProject() {
-    return this.interactionService.itCanOpenWindowEditProject;
-  }
-
   private readonly hotkeyHandlers: ((event: KeyboardEvent) => boolean)[] = [
     this.interactionService.onPressShiftWithQuestionMark.bind(this.interactionService),
     this.interactionService.onPressPlus.bind(this.interactionService),
     this.interactionService.onPressMinus.bind(this.interactionService),
+    this.interactionService.onPressF2.bind(this.interactionService),
     this.interactionService.onPressDelete.bind(this.interactionService),
     this.interactionService.onPressAt.bind(this.interactionService),
     this.interactionService.onPressExclamationMark.bind(this.interactionService),

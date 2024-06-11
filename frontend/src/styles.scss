@@ -46,6 +46,10 @@ body, html {
   box-sizing: inherit;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 textarea {
   resize: none;
 }

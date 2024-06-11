@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from "rxjs";
 import {GlobalSettings} from "../../common/globalSettings";
-import {ActiveAreaType, CommentType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
+import {ActiveAreaType, CommentType, ObjectType, ProjectType, TaskType, WorkspaceType} from "../../common/types";
 import {DataSourceService} from "../data-source/data-source.service";
 import {BooleanState} from './booleanState';
 import {State} from "./state";
@@ -162,5 +162,41 @@ export class ViewStateService {
     if (!this.taskDetailsIsClose.Value)
       areas.push(details);
     return areas;
+  }
+
+  public get objectType(): ObjectType {
+    const mapping: Record<ActiveAreaType, ObjectType> = {
+      workspaces: 'workspace',
+      projects: 'project',
+      tasks: 'task',
+      details: 'task'
+    };
+    return mapping[this.context];
+  }
+
+  public objectIsEditable(objectType: ObjectType) {
+    switch (objectType) {
+      case "workspace":
+        return this.workspaceIsEditable;
+      case "project":
+        return this.projectIsEditable;
+      case "task":
+        return this.taskIsEditable;
+    }
+  }
+
+  public get workspaceIsEditable(): boolean {
+    return true;
+  }
+
+  public get projectIsEditable(): boolean {
+    if (this.project.Value) {
+      return this.project.Value.name != 'Single tasks';
+    }
+    return this.currentViewType.Value == projects;
+  }
+
+  public get taskIsEditable(): boolean {
+    return !!this.task.Value;
   }
 }
