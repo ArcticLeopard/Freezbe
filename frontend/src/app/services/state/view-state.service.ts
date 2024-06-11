@@ -19,6 +19,7 @@ import {WindowRenameComponent} from "../../components/windows/window-rename/wind
 import {WindowMessageBoxComponent} from "../../components/windows/window-message-box/window-message-box.component";
 import {WindowChooseActionComponent} from "../../components/windows/window-choose-action/window-choose-action.component";
 import {ArrayStateWithId} from "./arrayStateWithId";
+import {WindowShowShortcutsComponent} from "../../components/windows/window-show-shortcuts/window-show-shortcuts.component";
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,7 @@ export class ViewStateService {
   public windowDueDate: State<WindowDueDateComponent | undefined>;
   public windowMessageBox: State<WindowMessageBoxComponent | undefined>;
   public windowChooseAction: State<WindowChooseActionComponent | undefined>;
+  public windowShowShortcuts: State<WindowShowShortcutsComponent | undefined>;
   public detailMenu: State<DetailMenuComponent | undefined>;
 
   activeAreaEnabled: boolean;
@@ -114,6 +116,7 @@ export class ViewStateService {
     this.windowDueDate = new State<WindowDueDateComponent | undefined>(this.subject, this, undefined);
     this.windowMessageBox = new State<WindowMessageBoxComponent | undefined>(this.subject, this, undefined);
     this.windowChooseAction = new State<WindowChooseActionComponent | undefined>(this.subject, this, undefined);
+    this.windowShowShortcuts = new State<WindowShowShortcutsComponent | undefined>(this.subject, this, undefined);
 
     this.detailMenu = new State<DetailMenuComponent | undefined>(this.subject, this, undefined);
     this.contextSubject = new Subject<ActiveAreaType>();

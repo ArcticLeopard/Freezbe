@@ -29,8 +29,9 @@ export class CloseSidebarComponent implements OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  @HostListener('click')
-  ChangeVisibilitySidebarMenu(): void {
+  @HostListener('click', ['$event'])
+  ChangeVisibilitySidebarMenu(event: Event): void {
     this.viewState.sidebarMenuIsClose.Toggle();
+    event.stopPropagation();
   }
 }
