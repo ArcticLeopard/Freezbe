@@ -22,7 +22,7 @@
         <ng-container [ngSwitch]="currentStep">
           <ng-container *ngSwitchCase="1">
             <div class="text-center">
-              <div class="text-break pb-6">
+              <div class="text-break pb-4">
                 You can create a workspace.<br>
                 Just like your life is divided into areas.<br>
                 This way you can divide projects into workspaces.<br>
@@ -38,7 +38,7 @@
             <div class="row mt-2">
               <div class="column s100 mr-2 f-as">
                 <div class="pb-2">Name</div>
-                <input #workspaceNameInput class="input-text" id="workspaceInput" placeholder="Enter the name of your workspace" type="text" [keyboardClick]="2" (keydown)="onKeyDown($event)">
+                <input #workspaceNameInput class="input-text" id="workspaceInput" placeholder="Enter the name of your workspace" type="text" [keyboardClick]="2" (keydown)="onKeyDown($event)" autocomplete="off">
               </div>
               <div class="column ml-2 f-ac">
                 <div class="pb-2">Color</div>
@@ -53,8 +53,8 @@
     <div class="windowFooter">
       <div class="windowFooterContainer">
         <div class="windowFooterTitleContainer">
-          <span class="pointerFocus"><a href="https://github.com/ArcticLeopard/Freezbe" target="_blank">Freezbe is Free & Open Source</a></span>
-          <span class="pointerFocus"><a href="https://youtu.be/-qko_WBh-is" target="_blank">Youtube: What Freezbe Is?</a></span>
+          <span class="pointerFocus my-1"><a href="https://github.com/ArcticLeopard/Freezbe" target="_blank">Freezbe is Free & Open Source</a></span>
+          <span class="pointerFocus my-1"><a href="https://youtu.be/-qko_WBh-is" target="_blank">Youtube: What Freezbe Is?</a></span>
         </div>
       </div>
     </div>

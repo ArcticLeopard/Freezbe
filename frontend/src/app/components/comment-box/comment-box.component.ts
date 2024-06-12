@@ -1,5 +1,6 @@
 import {Component, ElementRef, EventEmitter, HostListener, Output, ViewChild} from '@angular/core';
 import {InteractionService} from "../../services/interaction/interaction.service";
+import {ViewStateService} from "../../services/state/view-state.service";
 
 @Component({
   selector: 'app-comment-box',
@@ -11,10 +12,20 @@ import {InteractionService} from "../../services/interaction/interaction.service
 export class CommentBoxComponent {
   @ViewChild("textAreaRef") textAreaRef: ElementRef;
   @Output('open') onOpen = new EventEmitter<boolean>();
-  isOpen: boolean = false;
+  private _isOpen: boolean = false;
+
+  public get isOpen(): boolean {
+    return this._isOpen;
+  }
+
+  public set isOpen(value: boolean) {
+    this._isOpen = value;
+    this.viewState.contextEnabled = value;
+  }
+
   inputValue: string = "";
 
-  constructor(private elementRef: ElementRef, private interactionService: InteractionService) {
+  constructor(private elementRef: ElementRef, private interactionService: InteractionService, private viewState: ViewStateService) {
   }
 
   @HostListener('document:click', ['$event'])
@@ -36,6 +47,11 @@ export class CommentBoxComponent {
   keyDownDetector(event: KeyboardEvent) {
     if (event.ctrlKey && event.key === 'Enter') {
       this.addComment();
+    }
+    if (event.key === 'Escape') {
+      this.isOpen = false;
+      this.textAreaRef.nativeElement.blur();
+      event.stopPropagation();
     }
   }
 
