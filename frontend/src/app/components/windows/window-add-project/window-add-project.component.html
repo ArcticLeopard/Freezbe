@@ -14,7 +14,7 @@
         <div class="row mt-2">
           <div class="column s100 mr-2 f-as">
             <div class="pb-2">Name</div>
-            <input #projectNameInput class="input-text" id="projectInput" placeholder="Enter the name of your project" type="text" [keyboardClick]="1" (keydown)="onKeyDown($event)">
+            <input #projectNameInput class="input-text" id="projectInput" placeholder="Enter the name of your project" type="text" [keyboardClick]="1" (keydown)="onKeyDown($event)" autocomplete="off">
           </div>
           <div class="column ml-2 f-ac">
             <div class="pb-2">Color</div>

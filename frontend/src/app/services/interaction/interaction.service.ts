@@ -84,6 +84,12 @@ export class InteractionService {
     }
   }
 
+  public onPressDown(): void {
+    if (this.viewState.context == details) {
+      this.viewState.detailMenu.Value?.commentBox.focusCommentBox();
+    }
+  }
+
   public onPressArrow(event: KeyboardEvent): boolean {
     let collection = this.getCollectionByContext();
     let id = this.viewState.contextId.Value;
@@ -119,6 +125,10 @@ export class InteractionService {
       }
       if (event.key === 'ArrowRight') {
         this.onPressRight();
+        return true;
+      }
+      if (event.key === 'ArrowDown') {
+        this.onPressDown();
         return true;
       }
     }
@@ -171,19 +181,22 @@ export class InteractionService {
 
   public onPressMinus(event: KeyboardEvent): boolean {
     if (event.key === '-') {
-      switch (this.viewState.context) {
-        case workspaces:
-          this.openWindowEditWorkspace({position: "center"});
+      if (this.viewState.objectIsEditable(this.viewState.objectType)) {
+        this.openWindowEditElement(this.viewState.objectType, {position: "center"});
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public onPressF2(event: KeyboardEvent): boolean {
+    if (event.key === 'F2') {
+      if (this.viewState.objectIsEditable(this.viewState.objectType)) {
+        let window: WindowRenameComponent | undefined = this.openRenameWindow({position: "center"});
+        if (window) {
+          window.setContext(this.viewState.objectType);
           return true;
-        case projects:
-          this.openWindowEditProject({position: "center"});
-          return true;
-        case tasks:
-          this.openWindowEditTask({position: "center"});
-          return true;
-        case "details":
-          this.openWindowEditTask({position: "center"});
-          return true;
+        }
       }
     }
     return false;
@@ -252,38 +265,26 @@ export class InteractionService {
 
   public openWindowEditWorkspace = (options?: WindowOpenOptions) => this.openWindowEditElement(workspace, options);
   public openWindowEditProject = (options?: WindowOpenOptions) => {
-    if (this.itCanOpenWindowEditProject) {
+    if (this.viewState.projectIsEditable) {
       this.openWindowEditElement(project, options);
     }
   };
 
   public openWindowEditTask = (options?: WindowOpenOptions) => {
-    if (this.itCanOpenWindowEditTask) {
+    if (this.viewState.taskIsEditable) {
       this.openWindowEditElement(task, options);
     }
   };
-
-  get itCanOpenWindowAddTask(): boolean {
-    return this.viewState.currentViewType.Value == projects;
-  }
-
-  get itCanOpenWindowEditProject(): boolean {
-    let project = this.viewState.project.Value;
-    if (project) {
-      return project.name != 'Single tasks';
-    }
-    return this.viewState.currentViewType.Value == projects;
-  }
-
-  get itCanOpenWindowEditTask(): boolean {
-    return !!this.viewState.task.Value;
-  }
 
   protected openWindowEditElement(objectType: ObjectType, options?: WindowOpenOptions): void {
     if (this.viewState.windowEdit.Value) {
       this.viewState.windowEdit.Value.objectType = objectType;
       this.viewState.windowEdit.Value.openWindow(options);
     }
+  }
+
+  get itCanOpenWindowAddTask(): boolean {
+    return this.viewState.currentViewType.Value == projects;
   }
 
   private changePositionEnabled(): boolean {

@@ -1,9 +1,7 @@
 <div class="header px-3">
   <div class="sectionInfoContainer">
     <btn-close-task-details />
-    <div class="px-4">
-      <span class="task-name" title="Edit a task" (click)="openWindowEditTask()">{{ viewState.task.Value?.name }}</span>
-    </div>
+    <div class="task-name px-4" title="Edit a task" (click)="openWindowEditTask()">{{ viewState.task.Value?.name }}</div>
   </div>
 </div>
 <app-detail-options />
