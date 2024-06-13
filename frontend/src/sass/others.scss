@@ -21,7 +21,7 @@
 
 .activeArea {
   border-bottom: $white-60 solid 0.1rem;
-  @include border-animation(white, rgba(255, 255, 255, 0.3));
+  @include border-animation($white, $black);
 }
 
 .resizer {

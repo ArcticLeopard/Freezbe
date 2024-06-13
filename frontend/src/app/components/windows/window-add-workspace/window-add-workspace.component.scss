@@ -12,7 +12,7 @@
   @extend .pt-4, .px-9, .tfs-m-2, .mb-2;
   line-height: 1.8rem;
   letter-spacing: 0.1rem;
-  @media (max-width: 430px) {
+  @media (max-width: 450px) {
     @include tfs-m(3);
     @include px(5);
   }
