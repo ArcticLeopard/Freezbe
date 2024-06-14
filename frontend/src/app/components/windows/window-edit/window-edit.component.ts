@@ -10,7 +10,7 @@ import {NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/c
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 import {ObjectType} from "../../../common/types";
 import {WindowRenameComponent} from "../window-rename/window-rename.component";
-import {CursorHtmlElement} from "../../../Cursor";
+import {CursorHtmlElement} from "../../../common/cursor";
 import {project, task, workspace} from "../../../common/consts";
 import {DateFormatter} from "../../../common/dateFormatter";
 

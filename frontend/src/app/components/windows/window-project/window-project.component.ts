@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, HostListener, Output, QueryList, ViewChildren} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {WindowComponent} from "../window/window.component";
-import {CursorHtmlElement} from "../../../Cursor";
+import {CursorHtmlElement} from "../../../common/cursor";
 import {ProjectType} from "../../../common/types";
 import {FormsModule} from "@angular/forms";
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
