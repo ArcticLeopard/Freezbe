@@ -3,7 +3,7 @@ import {WindowComponent} from "../window/window.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {colors} from "../../../common/consts";
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
-import {CursorHtmlElement} from "../../../Cursor";
+import {CursorHtmlElement} from "../../../common/cursor";
 
 @Component({
   selector: 'window-color-picker',

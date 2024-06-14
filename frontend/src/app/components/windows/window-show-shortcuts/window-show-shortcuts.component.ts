@@ -3,7 +3,7 @@ import {WindowComponent} from "../window/window.component";
 import {ShortcutSection} from "../../../common/types";
 import {NgForOf, NgIf} from "@angular/common";
 import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
-import {CursorHtmlElement} from "../../../Cursor";
+import {CursorHtmlElement} from "../../../common/cursor";
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 
 @Component({
