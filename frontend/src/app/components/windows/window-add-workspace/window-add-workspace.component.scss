@@ -13,7 +13,7 @@
   line-height: 1.8rem;
   letter-spacing: 0.1rem;
   @media (max-width: 450px) {
-    @include tfs-m(3);
+    @include tfs-m(4);
     @include px(5);
   }
 }
