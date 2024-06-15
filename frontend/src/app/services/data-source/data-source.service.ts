@@ -15,7 +15,7 @@ export class DataSourceService {
 
   startListeningOtherTabUpdate() {
     window.addEventListener('storage', (event: StorageEvent) => {
-      if (event.key === 'memory') {
+      if (event.key === 'memory' && !document.hasFocus()) {
         window.location.reload();
       }
     });
