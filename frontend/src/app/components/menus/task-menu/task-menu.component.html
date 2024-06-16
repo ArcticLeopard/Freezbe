@@ -1,14 +1,17 @@
 <div class="header pl-4 pr-4">
   <div class="sectionInfoContainer">
-    <div class="row f-ac pr-5">
-      <btn-close-sidebar class="pr-5" />
-      <div class="text-gray pr-2 text-header">{{ getIncompleteTaskCount() }} Tasks</div>
+    <div class="row f-ac pr-1">
+      <btn-close-sidebar class="pr-4" />
     </div>
-    <div>
-      <span class="ml-1" [class.pointerFocus]="this.viewState.projectIsEditable" (click)="openWindowEditProject()" [class.cursor-not-allowed]="!this.viewState.projectIsEditable" [title]="this.viewState.projectIsEditable?'Edit a project':''">{{ viewState.currentViewName.Value }}</span>
+    <div class="row">
+      <icon-lock *ngIf="!viewState.projectIsEditable" />
+      <span class="ml-1" [style.color]="viewState.project.Value?.color ?? '#ABABAB'" [class.pointerFocus]="this.viewState.projectIsEditable" (click)="openWindowEditProject()" [class.cursor-not-allowed]="!this.viewState.projectIsEditable" [title]="this.viewState.projectIsEditable?'Edit a project':''">{{ viewState.currentViewName.Value }}</span>
     </div>
   </div>
-  <btn-append (click)="interactionService.openAddTaskWindow()" *ngIf="viewState.currentProjectId.Value" class="shadow" />
+  <div class="shadow">
+    <div class="text-gray-ab pr-2 text-header">{{ getIncompleteTaskCount() }} Tasks</div>
+    <btn-append (click)="interactionService.openAddTaskWindow()" *ngIf="viewState.currentProjectId.Value" />
+  </div>
 </div>
 <div class="list">
   <ng-container *ngFor="let task of this.viewState.tasks">

@@ -8,11 +8,12 @@ import {DateOnlyPipe} from "../../pipes/date-only/date-only.pipe";
 import {DataSourceService} from "../../services/data-source/data-source.service";
 import {ViewStateService} from "../../services/state/view-state.service";
 import {Subscription} from "rxjs";
+import {CubeComponent} from "../icons/cube/cube.component";
 
 @Component({
   selector: 'task-item',
   standalone: true,
-  imports: [DatePipe, NgIf, TaskStatusComponent, TaskPriorityComponent, DateOnlyPipe],
+  imports: [DatePipe, NgIf, TaskStatusComponent, TaskPriorityComponent, DateOnlyPipe, CubeComponent],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss'
 })

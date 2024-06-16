@@ -10,7 +10,17 @@
   @extend .panelArea;
   flex: 2 0 31.5rem;
   overflow: hidden;
-  @include shadow($dark);
+
+  .shadow {
+    @extend .row, .f-je, .f-ac, .pr-4;
+    position: absolute;
+    background: linear-gradient(90deg, rgba(red($dark), green($dark), blue($dark), 0) 0%, rgba(red($dark), green($dark), blue($dark), 1) 17%);
+    bottom: 0;
+    right: 0;
+    top: 0;
+    width: 14.5rem;
+    z-index: 1;
+  }
 }
 
 .header {
