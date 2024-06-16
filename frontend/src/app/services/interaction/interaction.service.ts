@@ -369,7 +369,7 @@ export class InteractionService {
         projects: [
           {
             name: 'Single tasks',
-            color: '#ffffff',
+            color: '#ABABAB',
             id: this.GenerateId(now + 1),
             tasks: []
           }

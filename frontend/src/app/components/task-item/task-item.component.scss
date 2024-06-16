@@ -44,12 +44,12 @@
     @include text-sizer(4)
   }
 
-  .icon-detail {
+  .icon {
     @extend .text-gray;
   }
 
   &.delay {
-    .text-detail, .icon-detail {
+    .text-detail, .icon {
       @extend .text-fire;
     }
   }

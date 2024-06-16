@@ -12,12 +12,14 @@ import {AutoRefreshDirective} from "../../../directives/auto-refresh/auto-refres
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
 import {Subscription} from "rxjs";
+import {CubeComponent} from "../../icons/cube/cube.component";
+import {LockComponent} from "../../icons/lock/lock.component";
 
 @Component({
   selector: 'menu-task',
   standalone: true,
   imports: [NgForOf, CommentBoxComponent, TaskStatusComponent, CloseSidebarComponent, PlaceholderComponent, DatePipe, NgIf,
-    TaskItemComponent, SearchComponent, AppendComponent, JsonPipe, AutoRefreshDirective],
+    TaskItemComponent, SearchComponent, AppendComponent, JsonPipe, AutoRefreshDirective, CubeComponent, LockComponent],
   templateUrl: './task-menu.component.html',
   styleUrl: './task-menu.component.scss'
 })

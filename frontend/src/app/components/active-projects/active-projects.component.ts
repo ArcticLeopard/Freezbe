@@ -1,15 +1,17 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {ViewStateService} from "../../services/state/view-state.service";
 import {Subscription} from "rxjs";
 import {AppNavigatorService} from "../../services/app-navigator/app-navigator.service";
 import {InteractionService} from "../../services/interaction/interaction.service";
 import {ProjectType} from "../../common/types";
+import {LockComponent} from "../icons/lock/lock.component";
+import {CubeComponent} from "../icons/cube/cube.component";
 
 @Component({
-  selector: 'app-active-projects',
+  selector: 'active-projects',
   standalone: true,
-  imports: [NgForOf, NgIf],
+  imports: [NgForOf, NgIf, LockComponent, CubeComponent, NgSwitchCase, NgSwitchDefault, NgSwitch],
   templateUrl: './active-projects.component.html',
   styleUrl: './active-projects.component.scss'
 })
