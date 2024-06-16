@@ -14,11 +14,11 @@
 .project {
   @extend .section, .px-6, .hl, .bg-gray-dark, .pointer, .tfs-m-1;
 
-  svg {
+  icon-cube {
     @extend .tr-ae-12;
   }
 
-  &:hover svg {
+  &:hover icon-cube {
     rotate: 360deg;
   }
 }
