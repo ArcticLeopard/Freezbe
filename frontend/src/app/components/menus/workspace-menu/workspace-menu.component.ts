@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostBinding, HostListener, OnDestroy} from '@angular/core';
+import {Component, ElementRef, HostBinding, HostListener, OnDestroy, ViewChild} from '@angular/core';
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {Subscription} from "rxjs";
@@ -16,6 +16,8 @@ import {WindowAddWorkspaceComponent} from "../../windows/window-add-workspace/wi
   styleUrl: './workspace-menu.component.scss',
 })
 export class WorkspaceMenuComponent implements OnDestroy {
+  @ViewChild('sidebarScroll', {static: false}) sidebarScroll: ElementRef;
+
   constructor(protected viewState: ViewStateService, protected appNavigator: AppNavigatorService, protected interactionService: InteractionService, private activeArea: ActiveAreaDirective, private elementRef: ElementRef) {
     this.subscription = this.viewState.subject.subscribe(state => {
       this.elementRef.nativeElement.scrollTop = this.viewState.workspaceMenuScrollbarPosition.Value;
@@ -32,6 +34,19 @@ export class WorkspaceMenuComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  onWheel(event: WheelEvent) {
+    if (event.ctrlKey) {
+      return;
+    }
+    event.preventDefault();
+    const scrollAmount = 82;
+    if (event.deltaY > 0) {
+      this.sidebarScroll.nativeElement.scrollBy(0, scrollAmount);
+    } else {
+      this.sidebarScroll.nativeElement.scrollBy(0, -scrollAmount);
+    }
   }
 
   @HostListener('scroll', ['$event'])

@@ -19,10 +19,10 @@ import {ImportComponent} from "../../buttons/import/import.component";
   styleUrl: './window-add-workspace.component.scss'
 })
 export class WindowAddWorkspaceComponent extends WindowComponent implements OnDestroy {
-  private readonly stepProperties: ({ name: string, logotypeTop: number })[] = [{name: 'Add a workspace', logotypeTop: -24.5}, {name: 'Set up a Workspace', logotypeTop: -19.5}];
+  private readonly stepProperties: ({ name: string, logotypeTop: number })[] = [{name: 'Add a workspace', logotypeTop: -25}, {name: 'Set up a Workspace', logotypeTop: -20.5}];
   private colorSubscription: Subscription;
   private _currentStep: number = 1;
-  protected logotypeTop: number = -24.5;
+  protected logotypeTop: number = -25;
 
   @ViewChild('workspaceNameInput') workspaceNameInputRef: ElementRef;
   @ViewChild('secondStepButton') secondStepButton: NormalButtonComponent;

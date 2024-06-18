@@ -1,4 +1,4 @@
-<div class="header column center">
+<div class="header mh-header transparentScroll center">
   <div title="Add a workspace" class="workspaceMenuElement" (click)="interactionService.openAddWorkspaceWindow()">
     <div class="workspaceMenuElementIcon">
       <svg width="28" height="28" viewBox="0 0 28 28" fill="#ABABAB">
@@ -7,7 +7,7 @@
     </div>
   </div>
 </div>
-<div class="sidebarScroll h100">
+<div class="sidebarScroll h100" (wheel)="onWheel($event)" #sidebarScroll>
   <div *ngFor="let workspace of viewState.workspaces.Values" [title]="'Workspace: '+workspace.name" class="workspaceMenuElement" [class.active]="workspace === viewState.workspace.Value" (click)="appNavigator.GoToWorkspace(workspace.id)">
     <div [style.background]="workspace.color ?? GlobalSettings.defaultWorkspaceBackgroundColor" class="workspaceMenuElementIcon">
       <img *ngIf="workspace.imageUrl" [src]="workspace.imageUrl" alt>
