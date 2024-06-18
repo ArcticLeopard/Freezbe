@@ -13,13 +13,6 @@
   overflow: hidden;
 }
 
-.header {
-  @extend .row;
-  @extend .bb, .w100;
-  flex: 0 0 auto;
-  height: $headerHeight;
-}
-
 .workspaceName {
   @extend .ml-1, .px-2, .pointerFocus, .text-nowrap;
 }

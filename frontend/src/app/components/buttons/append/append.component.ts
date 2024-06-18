@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'btn-append',
@@ -7,5 +7,5 @@ import {Component} from '@angular/core';
   styleUrl: './append.component.scss'
 })
 export class AppendComponent {
-
+  @Input() title: string;
 }

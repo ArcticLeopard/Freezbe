@@ -45,10 +45,6 @@
   }
 }
 
-.header {
-  @extend .infoHeader, .transparentScroll;
-}
-
 .workspaceMenuElement {
   //Flex
   @extend .column, .center;

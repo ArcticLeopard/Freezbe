@@ -27,6 +27,21 @@
   }
 }
 
+.defaultFocus {
+  cursor: default;
+  @extend .tr-ae-04;
+
+  &:hover {
+    color: $white-90;
+    text-shadow: 0 0 3px $white-05;
+  }
+
+  &:active {
+    color: $white;
+    text-shadow: 0 0 3px $white-35;
+  }
+}
+
 .cursor-not-allowed {
   cursor: not-allowed;
 }

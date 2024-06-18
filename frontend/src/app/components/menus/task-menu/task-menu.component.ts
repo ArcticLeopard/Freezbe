@@ -1,4 +1,4 @@
-import {Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
+import {Component, ElementRef, HostBinding, HostListener, OnDestroy, ViewChild} from '@angular/core';
 import {DatePipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
 import {TaskStatusComponent} from "../../buttons/task-status/task-status.component";
@@ -30,6 +30,8 @@ export class TaskMenuComponent implements OnDestroy {
       this.hidden = !p.currentWorkspaceId.Value;
     });
   }
+
+  @ViewChild('sidebarScroll', {static: false}) sidebarScroll: ElementRef;
 
   @HostBinding('class.hidden') hidden: boolean;
   private subscription: Subscription;
@@ -73,4 +75,17 @@ export class TaskMenuComponent implements OnDestroy {
     this.interactionService.onPressControlWithArrow.bind(this.interactionService),
     this.interactionService.onPressArrow.bind(this.interactionService),
   ];
+
+  onWheel(event: WheelEvent) {
+    if (event.ctrlKey) {
+      return;
+    }
+    event.preventDefault();
+    const scrollAmount = 55;
+    if (event.deltaY > 0) {
+      this.sidebarScroll.nativeElement.scrollBy(0, scrollAmount);
+    } else {
+      this.sidebarScroll.nativeElement.scrollBy(0, -scrollAmount);
+    }
+  }
 }

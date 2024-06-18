@@ -1,19 +1,19 @@
-<div class="header pl-4 pr-4">
+<div class="header mh-header transparentScroll pos-rel pl-4 pr-4">
   <div class="sectionInfoContainer">
     <div class="row f-ac pr-1">
       <btn-close-sidebar class="pr-4" />
     </div>
     <div class="row">
       <icon-lock *ngIf="!viewState.projectIsEditable" />
-      <span class="ml-1" [style.color]="viewState.project.Value?.color ?? '#ABABAB'" [class.pointerFocus]="this.viewState.projectIsEditable" (click)="openWindowEditProject()" [class.cursor-not-allowed]="!this.viewState.projectIsEditable" [title]="this.viewState.projectIsEditable?'Edit a project':''">{{ viewState.currentViewName.Value }}</span>
+      <span class="ml-2" [style.color]="viewState.project.Value?.color ?? '#ABABAB'" [class.pointerFocus]="this.viewState.projectIsEditable" (click)="openWindowEditProject()" [class.cursor-not-allowed]="!this.viewState.projectIsEditable" [title]="this.viewState.projectIsEditable?'Edit a project':''">{{ viewState.currentViewName.Value }}</span>
     </div>
   </div>
   <div class="shadow">
-    <div class="text-gray-ab pr-2 text-header">{{ getIncompleteTaskCount() }} Tasks</div>
-    <btn-append (click)="interactionService.openAddTaskWindow()" *ngIf="viewState.currentProjectId.Value" />
+    <div class="text-gray-ab text-header defaultFocus">{{ getIncompleteTaskCount() }} Tasks</div>
+    <btn-append class="pl-3" title="Add new task" (click)="interactionService.openAddTaskWindow()" *ngIf="viewState.currentProjectId.Value" />
   </div>
 </div>
-<div class="list">
+<div class="sidebarScroll h100" (wheel)="onWheel($event)" #sidebarScroll>
   <ng-container *ngFor="let task of this.viewState.tasks">
     <task-item [class.active]="task == viewState.task.Value" [model]="task" class="bg-classic-dark hd" />
   </ng-container>

@@ -15,10 +15,6 @@
   overflow: hidden;
 }
 
-.header {
-  @extend .infoHeader, .row;
-}
-
 .comment {
   user-select: text;
 }
