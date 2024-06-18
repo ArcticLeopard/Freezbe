@@ -1,2 +1,4 @@
-<button class="detailButton left" title="Change Project" (click)="openProjectWindow()"> {{ (viewState.project.Value?.name ?? 'Project') }}</button>
-<button class="detailButton right" title="Change Due Date" (click)="openDueDateWindow()">{{ (viewState.task.Value?.dueDate?.dateOnly | dateOnly) ?? 'Due Date' }}</button>
+<div class="header h-section center">
+  <button class="detailButton left" title="Change Project" (click)="openProjectWindow()"> {{ (viewState.project.Value?.name ?? 'Project') }}</button>
+  <button class="detailButton right" title="Change Due Date" (click)="openDueDateWindow()">{{ (viewState.task.Value?.dueDate?.dateOnly | dateOnly) ?? 'Due Date' }}</button>
+</div>

@@ -1,10 +1,5 @@
 @import "../../../imports";
 
-:host {
-  //Borders
-  @extend .infoHeader, .row, .center;
-}
-
 .detailButton {
   @extend .bg-classic, .hd, .focus, .pointer, .s100, .my-2;
   //Borders

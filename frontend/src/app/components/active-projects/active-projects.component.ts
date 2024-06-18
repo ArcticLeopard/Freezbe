@@ -42,4 +42,19 @@ export class ActiveProjectsComponent implements AfterViewInit, OnDestroy {
       this.viewState.sidebarMenuIsClose.Value = true;
     }
   }
+
+  @HostListener('wheel', ['$event'])
+  onWheel(event: WheelEvent) {
+    if (event.ctrlKey) {
+      return;
+    }
+    event.preventDefault();
+    const scrollAmount = 40;
+    if (event.deltaY > 0) {
+      this.elementRef.nativeElement.scrollBy(0, scrollAmount);
+    } else {
+      this.elementRef.nativeElement.scrollBy(0, -scrollAmount);
+    }
+  }
+
 }

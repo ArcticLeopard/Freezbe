@@ -9,19 +9,13 @@
   flex: 1;
 }
 
-.infoHeader {
-  @extend .bb, .w100;
-  flex: 0 0 auto;
-  min-height: $headerHeight;
-}
-
 .panelArea {
   border-bottom: $dark solid 0.3rem;
 }
 
 .activeArea {
   border-bottom: $white-60 solid 0.3rem;
-  @include border-animation($white, $black);
+  @include border-animation($white, $dark);
 }
 
 .resizer {
@@ -102,5 +96,27 @@
 }
 
 .bottomSpace {
-  height: 1.05rem;
+  height: 0.8rem;
+}
+
+.header {
+  @extend .bb, .w100;
+  @extend .row;
+  flex: 0 0 auto;
+}
+
+.h-section {
+  height: $sectionHeight;
+}
+
+.h-header {
+  height: $headerHeight;
+}
+
+.mh-header {
+  min-height: $headerHeight;
+}
+
+.pos-rel {
+  position: relative;
 }

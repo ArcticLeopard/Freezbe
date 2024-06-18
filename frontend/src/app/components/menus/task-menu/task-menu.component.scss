@@ -23,16 +23,6 @@
   }
 }
 
-.header {
-  @extend .infoHeader, .row, .transparentScroll;
-  position: relative;
-}
-
-.list {
-  @extend .sidebarScroll, .h100;
-  overflow-x: hidden;
-}
-
 :host.hidden {
   display: none;
 }
