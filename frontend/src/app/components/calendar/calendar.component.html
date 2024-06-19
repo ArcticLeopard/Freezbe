@@ -1,6 +1,6 @@
 <div class="row">
   <ng-container *ngFor="let day of days; let i = index">
-    <div class="header" [title]="day">{{ day|slice:0:2 | uppercase }}</div>
+    <div class="days" [title]="day">{{ day|slice:0:2 | uppercase }}</div>
   </ng-container>
 </div>
 <div *ngFor="let week of calendarMatrix" class="row">
