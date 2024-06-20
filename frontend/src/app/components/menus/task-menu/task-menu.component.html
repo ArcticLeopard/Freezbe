@@ -1,8 +1,7 @@
 <div class="header mh-header transparentScroll pos-rel pl-4 pr-4">
   <div class="sectionInfoContainer">
-    <div class="row f-ac pr-1">
-      <btn-close-sidebar class="pr-4" />
-    </div>
+    <btn-close-sidebar class="pr-4" />
+    <div class="row f-ac pr-1"></div>
     <div class="row">
       <icon-lock *ngIf="!viewState.projectIsEditable" />
       <span class="ml-2" [style.color]="viewState.project.Value?.color ?? '#ABABAB'" [class.pointerFocus]="this.viewState.projectIsEditable" (click)="openWindowEditProject()" [class.cursor-not-allowed]="!this.viewState.projectIsEditable" [title]="this.viewState.projectIsEditable?'Edit a project':''">{{ viewState.currentViewName.Value }}</span>

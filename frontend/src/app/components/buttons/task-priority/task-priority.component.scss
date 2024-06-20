@@ -1,7 +1,7 @@
 @import "../../../../imports";
 
 :host {
-  z-index: 5;
+  @extend .center-icon;
 }
 
 svg:hover {
