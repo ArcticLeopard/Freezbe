@@ -1,5 +1,9 @@
 @import "../../../../imports";
 
+:host {
+  @extend .center-icon;
+}
+
 svg:hover {
   fill: $white;
 }

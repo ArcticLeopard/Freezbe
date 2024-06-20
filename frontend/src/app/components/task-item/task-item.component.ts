@@ -85,4 +85,10 @@ export class TaskItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
     return false;
   }
+
+  canShowDetails(model: TaskType): boolean {
+    if (this.viewState.currentProjectId.Value)
+      return model.dueDate !== undefined || (model.comments != null && model.comments.length > 0);
+    return true;
+  }
 }

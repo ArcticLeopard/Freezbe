@@ -1,6 +1,8 @@
 @import "../../../../imports";
 
 :host {
+  @extend .center-icon;
+
   &.iconAnimated svg {
     @extend .tr-ae-03;
   }

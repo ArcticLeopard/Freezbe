@@ -6,6 +6,8 @@
 
 .comment {
   user-select: text;
+  @extend .tfs-m-3;
+  @include text-sizer(4);
 }
 
 pre {
