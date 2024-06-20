@@ -219,6 +219,10 @@ export class AppNavigatorService implements OnDestroy {
     this.viewState.priorityTasks.ValuesWithoutPropagation = this.dataSourceService.getPriorityTasks(viewState.currentWorkspaceId.Value);
     if (viewState.currentViewType.Value == priority) {
       this.viewState.currentViewName.ValueWithoutPropagation = 'Priority';
+      if (viewState.currentTaskId.Value) {
+        this.viewState.project.ValueWithoutPropagation = this.dataSourceService.getProjectByTask(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
+        this.viewState.currentViewName.ValueWithoutPropagation = 'Priority - ' + this.viewState.project.Value?.name ?? '';
+      }
       this.viewState.tasks.ValueWithoutPropagation = this.viewState.priorityTasks.Values;
     }
   }
@@ -227,6 +231,10 @@ export class AppNavigatorService implements OnDestroy {
     this.viewState.incomingTasks.ValuesWithoutPropagation = this.dataSourceService.getIncomingTasks(viewState.currentWorkspaceId.Value);
     if (viewState.currentViewType.Value == incoming) {
       this.viewState.currentViewName.ValueWithoutPropagation = 'Incoming';
+      if (viewState.currentTaskId.Value) {
+        this.viewState.project.ValueWithoutPropagation = this.dataSourceService.getProjectByTask(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
+        this.viewState.currentViewName.ValueWithoutPropagation = 'Incoming - ' + this.viewState.project.Value?.name ?? '';
+      }
       this.viewState.tasks.ValueWithoutPropagation = this.viewState.incomingTasks.Values;
     }
   }

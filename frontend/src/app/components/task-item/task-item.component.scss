@@ -22,7 +22,7 @@
 }
 
 .task-header {
-  @extend .row, .pb-1, .pointerFocus;
+  @extend .row, .pointerFocus;
 }
 
 .task-name {
@@ -31,7 +31,7 @@
 }
 
 .task-details {
-  @extend .row, .pt-1;
+  @extend .row, .pt-2;
 }
 
 .detail {
