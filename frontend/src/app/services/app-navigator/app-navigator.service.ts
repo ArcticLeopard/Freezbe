@@ -210,7 +210,7 @@ export class AppNavigatorService implements OnDestroy {
       if (viewState.currentProjectId.Value) {
         this.viewState.tasks.ValuesWithoutPropagation = this.dataSourceService.getTasks(viewState.currentWorkspaceId.Value, viewState.currentProjectId.Value);
         this.viewState.project.ValueWithoutPropagation = this.dataSourceService.getProject(viewState.currentWorkspaceId.Value, viewState.currentProjectId.Value);
-        this.viewState.currentViewName.ValueWithoutPropagation = this.viewState.project.Value?.name ?? '';
+        this.viewState.currentViewName.ValueWithoutPropagation = (this.viewState.project.Value?.name ?? '');
       }
     }
   }
@@ -221,7 +221,7 @@ export class AppNavigatorService implements OnDestroy {
       this.viewState.currentViewName.ValueWithoutPropagation = 'Priority';
       if (viewState.currentTaskId.Value) {
         this.viewState.project.ValueWithoutPropagation = this.dataSourceService.getProjectByTask(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
-        this.viewState.currentViewName.ValueWithoutPropagation = 'Priority - ' + this.viewState.project.Value?.name ?? '';
+        this.viewState.currentViewName.ValueWithoutPropagation = 'Priority - ' + (this.viewState.project.Value?.name ?? '');
       }
       this.viewState.tasks.ValueWithoutPropagation = this.viewState.priorityTasks.Values;
     }
@@ -233,7 +233,7 @@ export class AppNavigatorService implements OnDestroy {
       this.viewState.currentViewName.ValueWithoutPropagation = 'Incoming';
       if (viewState.currentTaskId.Value) {
         this.viewState.project.ValueWithoutPropagation = this.dataSourceService.getProjectByTask(viewState.currentWorkspaceId.Value, viewState.currentTaskId.Value);
-        this.viewState.currentViewName.ValueWithoutPropagation = 'Incoming - ' + this.viewState.project.Value?.name ?? '';
+        this.viewState.currentViewName.ValueWithoutPropagation = 'Incoming - ' + (this.viewState.project.Value?.name ?? '');
       }
       this.viewState.tasks.ValueWithoutPropagation = this.viewState.incomingTasks.Values;
     }
