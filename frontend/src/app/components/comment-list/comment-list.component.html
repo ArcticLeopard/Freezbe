@@ -12,6 +12,6 @@
         </svg>
       </span>
     </div>
-    <pre class="text-break comment mb-6 ml-3 mr-2 p-4 bg-classic ">{{ comment.content }}</pre>
+    <pre class="text-break comment mb-6 ml-3 mr-2 p-4 bg-classic" [innerHTML]="comment.content | linkify"></pre>
   </div>
 </div>
