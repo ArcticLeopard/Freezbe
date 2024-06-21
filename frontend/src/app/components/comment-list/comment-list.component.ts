@@ -3,11 +3,12 @@ import {DatePipe, NgClass, NgForOf} from "@angular/common";
 import {ViewStateService} from "../../services/state/view-state.service";
 import {CommentType} from "../../common/types";
 import {InteractionService} from "../../services/interaction/interaction.service";
+import {LinkifyPipe} from "../../pipes/linkify/linkify.pipe";
 
 @Component({
   selector: 'app-comment-list',
   standalone: true,
-  imports: [NgForOf, NgClass, DatePipe,],
+  imports: [NgForOf, NgClass, DatePipe, LinkifyPipe],
   templateUrl: './comment-list.component.html',
   styleUrl: './comment-list.component.scss'
 })
