@@ -4,11 +4,12 @@ import {ViewStateService} from "../../services/state/view-state.service";
 import {CommentType} from "../../common/types";
 import {InteractionService} from "../../services/interaction/interaction.service";
 import {LinkifyPipe} from "../../pipes/linkify/linkify.pipe";
+import {EscapeHtmlPipe} from "../../pipes/escape-html/escape-html.pipe";
 
 @Component({
   selector: 'app-comment-list',
   standalone: true,
-  imports: [NgForOf, NgClass, DatePipe, LinkifyPipe],
+  imports: [NgForOf, NgClass, DatePipe, LinkifyPipe, EscapeHtmlPipe],
   templateUrl: './comment-list.component.html',
   styleUrl: './comment-list.component.scss'
 })
