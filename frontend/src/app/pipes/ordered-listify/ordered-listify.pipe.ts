@@ -1,10 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'listify',
+  name: 'orderedListify',
   standalone: true
 })
-export class ListifyPipe implements PipeTransform {
+export class OrderedListifyPipe implements PipeTransform {
 
   transform(value: string): string {
     if (!value) {
@@ -16,15 +16,15 @@ export class ListifyPipe implements PipeTransform {
     let result = '';
 
     lines.forEach(line => {
-      if (line.startsWith('- ')) {
+      if (line.match(/^\d+\.\s/)) {
         if (!inList) {
-          result += '<ul>';
+          result += '<ol>';
           inList = true;
         }
-        result += `<li>${line.substring(2)}</li>`;
+        result += `<li>${line.replace(/^\d+\.\s/, '')}</li>`;
       } else {
         if (inList) {
-          result += '</ul>';
+          result += '</ol>';
           inList = false;
         }
         result += line ? `${line}` : '';
@@ -33,7 +33,7 @@ export class ListifyPipe implements PipeTransform {
     });
 
     if (inList) {
-      result += '</ul>';
+      result += '</ol>';
     }
 
     return result;
