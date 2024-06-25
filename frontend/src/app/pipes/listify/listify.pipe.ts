@@ -35,8 +35,7 @@ export class ListifyPipe implements PipeTransform {
     if (inList) {
       result += '</ul>';
     }
-
-    return result;
+    return result.slice(0, -2);
   }
 
 }
