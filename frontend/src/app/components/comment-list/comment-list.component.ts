@@ -7,11 +7,12 @@ import {LinkifyPipe} from "../../pipes/linkify/linkify.pipe";
 import {EscapeHtmlPipe} from "../../pipes/escape-html/escape-html.pipe";
 import {ListifyPipe} from "../../pipes/listify/listify.pipe";
 import {OrderedListifyPipe} from "../../pipes/ordered-listify/ordered-listify.pipe";
+import {CheckifyPipe} from "../../pipes/checkify/checkify.pipe";
 
 @Component({
   selector: 'app-comment-list',
   standalone: true,
-  imports: [NgForOf, NgClass, DatePipe, LinkifyPipe, EscapeHtmlPipe, ListifyPipe, OrderedListifyPipe],
+  imports: [NgForOf, NgClass, DatePipe, LinkifyPipe, EscapeHtmlPipe, ListifyPipe, OrderedListifyPipe, CheckifyPipe],
   templateUrl: './comment-list.component.html',
   styleUrl: './comment-list.component.scss'
 })
