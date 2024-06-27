@@ -18,13 +18,13 @@ export class OrderedListifyPipe implements PipeTransform {
     lines.forEach(line => {
       if (line.match(/^\d+\.\s/)) {
         if (!inList) {
-          result += '<ol>';
+          result += '<ol style="padding-left: 2rem">';
           inList = true;
         }
-        result += `<li>${line.replace(/^\d+\.\s/, '')}</li>`;
+        result += `<li style="padding-left: 0.35rem">${line.replace(/^\d+\.\s/, '')}</li>`;
       } else {
         if (inList) {
-          result += '</ol>';
+          result += '</ol>\n';
           inList = false;
         }
         result += line ? `${line}` : '';

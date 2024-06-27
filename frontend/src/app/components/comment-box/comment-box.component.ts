@@ -38,7 +38,7 @@ export class CommentBoxComponent {
   addComment() {
     let textArea = this.textAreaRef.nativeElement;
     if (textArea.value.trim()) {
-      this.interactionService.addComment(textArea.value.trim());
+      this.interactionService.addComment(textArea.value);
       this.onOpen.emit(this.isOpen);
       textArea.value = '';
     }
@@ -57,7 +57,12 @@ export class CommentBoxComponent {
         const currentLineEnd = value.indexOf('\n', cursorPosition);
 
         const currentLine = value.substring(currentLineStart, currentLineEnd === -1 ? value.length : currentLineEnd);
-        this.handleBulletPoint(currentLine, event, value, cursorPosition, input);
+        if (this.handleCheckedPoint(currentLine, event, value, cursorPosition, input)) {
+          return;
+        }
+        if (this.handleBulletPoint(currentLine, event, value, cursorPosition, input)) {
+          return;
+        }
         this.handleNumberedList(currentLine, event, value, cursorPosition, input);
       }
     }
@@ -69,7 +74,7 @@ export class CommentBoxComponent {
   }
 
   private handleBulletPoint(currentLine: string, event: KeyboardEvent, value: string, cursorPosition: number, input: HTMLInputElement) {
-    const match = currentLine.match(/^-\s*/);
+    const match = currentLine.match(/^- /);
     if (match) {
       event.preventDefault();
       const beforeCursor = value.substring(0, cursorPosition);
@@ -77,19 +82,72 @@ export class CommentBoxComponent {
       const lines = value.split('\n');
       const currentLineIndex = lines.findIndex(line => line === currentLine);
 
-      if (currentLine.trim() === "-") {
+      if (currentLine === "- ") {
         lines.splice(currentLineIndex, 1);
         input.value = lines.join('\n');
+        input.value += "\n";
         input.selectionStart = input.selectionEnd = cursorPosition - currentLine.length;
       } else {
         input.value = `${beforeCursor}\n- ${afterCursor}`;
         input.selectionStart = input.selectionEnd = cursorPosition + 3;
       }
+      return true;
+    } else {
+      if (currentLine.match(/^-$/)) {
+        input.value += ' ';
+        event.preventDefault();
+        return true;
+      }
     }
+    return false;
+  }
+
+  private handleCheckedPoint(currentLine: string, event: KeyboardEvent, value: string, cursorPosition: number, input: HTMLInputElement) {
+    const match = currentLine.match(/^- \[( |x)] /);
+    if (match) {
+      event.preventDefault();
+      const beforeCursor = value.substring(0, cursorPosition);
+      const afterCursor = value.substring(cursorPosition);
+      const lines = value.split('\n');
+      const currentLineIndex = lines.findIndex(line => line === currentLine);
+      if (currentLine === "- [ ] " || currentLine === "- [x] ") {
+        event.preventDefault();
+        lines.splice(currentLineIndex, 1);
+        input.value = lines.join('\n');
+        input.value += "\n";
+        input.selectionStart = input.selectionEnd = cursorPosition - currentLine.length;
+        return true;
+      } else {
+        event.preventDefault();
+        input.value = `${beforeCursor}\n- [ ] ${afterCursor}`;
+        input.selectionStart = input.selectionEnd = cursorPosition + 7;
+        return true;
+      }
+    } else {
+      if (currentLine.match(/^- \[$/)) {
+        event.preventDefault();
+        input.value = input.value.slice(0, cursorPosition) + ' ] ' + input.value.slice(cursorPosition);
+        this.setCursorOnPosition(input, cursorPosition + 3);
+        return true;
+      }
+      if (currentLine.match(/^- \[( |x)$/)) {
+        event.preventDefault();
+        input.value = input.value.slice(0, cursorPosition) + '] ' + input.value.slice(cursorPosition);
+        this.setCursorOnPosition(input, cursorPosition + 2);
+        return true;
+      }
+      if (currentLine.match(/^- \[( |x)]$/)) {
+        event.preventDefault();
+        input.value = input.value.slice(0, cursorPosition) + ' ' + input.value.slice(cursorPosition);
+        this.setCursorOnPosition(input, cursorPosition + 1);
+        return true;
+      }
+    }
+    return false;
   }
 
   private handleNumberedList(currentLine: string, event: KeyboardEvent, value: string, cursorPosition: number, input: HTMLInputElement) {
-    const match = currentLine.match(/^(\d+)\.\s*(.*)$/);
+    const match = currentLine.match(/^(\d+)\. /);
     if (match) {
       event.preventDefault();
       const beforeCursor = value.substring(0, cursorPosition);
@@ -97,24 +155,48 @@ export class CommentBoxComponent {
       const number = parseInt(match[1], 10);
 
       const lines = value.split('\n');
-      if (match[2] === '') {
+      if (currentLine.match(/^(\d+)\.\s$/)) {
         const currentLineIndex = lines.findIndex(line => line === currentLine);
         if (currentLineIndex !== -1) {
           lines.splice(currentLineIndex, 1);
           input.value = lines.join('\n');
+          input.value += "\n";
           input.selectionStart = input.selectionEnd = cursorPosition - currentLine.length;
         }
       } else {
         if (afterCursor.trim() === '') {
-          input.value = `${beforeCursor}\n${number + 1}. \n`;
-          input.selectionStart = input.selectionEnd = beforeCursor.length + (number + 1).toString().length + 3;
+          event.preventDefault();
+          input.value = `${beforeCursor}\n${number + 1}. `;
+          this.setCursorOnPosition(input);
         } else {
+          event.preventDefault();
           input.value = `${beforeCursor}\n${number + 1}. ${afterCursor}`;
           input.selectionStart = input.selectionEnd = cursorPosition + (number + 1).toString().length + 3;
         }
       }
+    } else {
+      if (currentLine.match(/^(\d+)\.$/)) {
+        event.preventDefault();
+        input.value = input.value.slice(0, cursorPosition) + ' ' + input.value.slice(cursorPosition);
+        this.setCursorOnPosition(input, cursorPosition + 1);
+      }
     }
   }
+
+  setCursorOnPosition(input: HTMLInputElement, position?: number) {
+    if (!position) {
+      position = this.getLastLetterPositionNextLine(input);
+    }
+    input.setSelectionRange(position, position);
+  }
+
+  getLastLetterPositionNextLine = (input: HTMLInputElement) => {
+    const cursorPosition = input.selectionStart ?? 0;
+    const textBeforeCursor = input.value.slice(0, cursorPosition);
+    const nextLineBreak = textBeforeCursor.lastIndexOf('\n') + 1;
+    const nextLineEnd = input.value.indexOf('\n', nextLineBreak);
+    return nextLineEnd === -1 ? input.value.length : nextLineEnd;
+  };
 
   focusCommentBox() {
     this.textAreaRef.nativeElement.focus();
