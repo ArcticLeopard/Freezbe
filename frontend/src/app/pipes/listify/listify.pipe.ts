@@ -42,7 +42,7 @@ export class ListifyPipe implements PipeTransform {
       }
 
       if (inList) {
-        result += '</ul>';
+        result += '</ul>\n';
         inList = false;
       }
       result += line ? `${line}\n` : '';
