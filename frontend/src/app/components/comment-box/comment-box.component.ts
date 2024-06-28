@@ -201,4 +201,62 @@ export class CommentBoxComponent {
   focusCommentBox() {
     this.textAreaRef.nativeElement.focus();
   }
+
+  protected insertCheckbox() {
+    this.insertText('- [ ] ');
+  }
+
+  protected insertBulletList() {
+    this.insertText('- ');
+  }
+
+  protected insertNumberedList() {
+    this.insertText('1. ');
+  }
+
+  private insertText(text: string) {
+    const textarea = this.textAreaRef.nativeElement;
+    const start = textarea.selectionStart ?? 0;
+
+    const lineStartIndex = textarea.value.lastIndexOf('\n', start - 1) + 1;
+
+    const lineEndIndex = textarea.value.indexOf('\n', start);
+    const endOfLine = lineEndIndex === -1 ? textarea.value.length : lineEndIndex;
+
+    const currentLine = textarea.value.substring(lineStartIndex, endOfLine);
+
+    const regexPatterns = [
+      /^(\d+\.\s)/,       // Matches "1. ", "2. ", ..., "n. "
+      /^- \[( |x)] /,     // Matches "- [ ] " or "- [x] "
+      /^- \[( |x)]/,      // Matches "- [ ]" or "- [x]"
+      /^- \[( |x)/,       // Matches "- [ " or "- [x"
+      /^- \[/,            // Matches "- ["
+      /^(-\s)/            // Matches "- "
+    ];
+
+    let newLine = currentLine;
+
+    let matchedPattern = false;
+    for (const pattern of regexPatterns) {
+      if (pattern.test(currentLine)) {
+        newLine = currentLine.replace(pattern, text);
+        matchedPattern = true;
+        break;
+      }
+    }
+
+    if (!matchedPattern) {
+      newLine = text + currentLine;
+    }
+
+    const beforeText = textarea.value.substring(0, lineStartIndex);
+    const afterText = textarea.value.substring(endOfLine);
+
+    textarea.value = beforeText + newLine + afterText;
+
+    // Set the cursor to the end of the current line
+    const newCursorPosition = lineStartIndex + newLine.length;
+    textarea.setSelectionRange(newCursorPosition, newCursorPosition);
+    textarea.focus();
+  }
 }
