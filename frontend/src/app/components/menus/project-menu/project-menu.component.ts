@@ -1,6 +1,5 @@
 import {Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
 import {NgForOf} from "@angular/common";
-import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.component";
 import {BigComponent} from "../../buttons/big/big.component";
 import {ActiveProjectsComponent} from "../../active-projects/active-projects.component";
 import {SearchComponent} from "../../buttons/search/search.component";
@@ -17,7 +16,7 @@ import {CloseSidebarComponent} from "../../buttons/close-sidebar/close-sidebar.c
 @Component({
   selector: 'menu-project',
   standalone: true,
-  imports: [NgForOf, PlaceholderComponent, BigComponent, ActiveProjectsComponent, SearchComponent, SectionHeaderComponent, CloseSidebarComponent, CloseWorkspaceComponent],
+  imports: [NgForOf, BigComponent, ActiveProjectsComponent, SearchComponent, SectionHeaderComponent, CloseSidebarComponent, CloseWorkspaceComponent],
   templateUrl: './project-menu.component.html',
   styleUrl: './project-menu.component.scss'
 })
