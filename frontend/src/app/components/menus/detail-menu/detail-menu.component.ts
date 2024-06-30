@@ -3,7 +3,6 @@ import {DetailOptionsComponent} from "../../detail-options/detail-options.compon
 import {CommentListComponent} from "../../comment-list/comment-list.component";
 import {CommentBoxComponent} from "../../comment-box/comment-box.component";
 import {CloseTaskDetailsComponent} from "../../buttons/close-task-details/close-task-details.component";
-import {PlaceholderComponent} from "../../buttons/placeholder/placeholder.component";
 import {ViewStateService} from "../../../services/state/view-state.service";
 import {InteractionService} from "../../../services/interaction/interaction.service";
 import {ActiveAreaDirective} from "../../../directives/active-area/active-area.directive";
@@ -12,7 +11,7 @@ import {Subscription} from "rxjs";
 @Component({
   selector: 'menu-detail',
   standalone: true,
-  imports: [DetailOptionsComponent, CommentListComponent, CommentBoxComponent, CloseTaskDetailsComponent, PlaceholderComponent],
+  imports: [DetailOptionsComponent, CommentListComponent, CommentBoxComponent, CloseTaskDetailsComponent],
   templateUrl: './detail-menu.component.html',
   styleUrl: './detail-menu.component.scss'
 })
