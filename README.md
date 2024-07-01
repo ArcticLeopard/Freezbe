@@ -1,4 +1,3 @@
-[![100 - Commitów](https://img.shields.io/badge/100-Commitów-2ea44f)](https://100commitow.pl/)
 [![Lang - EN](https://img.shields.io/badge/lang-en-2ea44f)](/README.md)
 [![Lang - PL](https://img.shields.io/badge/lang-pl-2ea44f)](/README.PL.md)
 [![Try - Now](https://img.shields.io/badge/try-now-2ea44f)](https://freezbe.pl/)
