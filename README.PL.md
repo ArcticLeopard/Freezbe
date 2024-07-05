@@ -1,5 +1,7 @@
 [![Lang - EN](https://img.shields.io/badge/lang-en-2ea44f)](/README.md)
 [![Lang - PL](https://img.shields.io/badge/lang-pl-2ea44f)](/README.PL.md)
+[![Lang - DE](https://img.shields.io/badge/lang-de-2ea44f)](/README.DE.md)
+[![Lang - ES](https://img.shields.io/badge/lang-es-2ea44f)](/README.ES.md)
 [![Try - Now](https://img.shields.io/badge/try-now-2ea44f)](https://freezbe.pl/)
 
 [![Freezbe](docs/readme/images/Freezbe_logo.png "Freezbe")](http://www.freezbe.pl/)
