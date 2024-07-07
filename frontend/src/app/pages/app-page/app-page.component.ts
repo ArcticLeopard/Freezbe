@@ -19,6 +19,7 @@ import {WindowRenameComponent} from "../../components/windows/window-rename/wind
 import {WindowMessageBoxComponent} from "../../components/windows/window-message-box/window-message-box.component";
 import {WindowChooseActionComponent} from "../../components/windows/window-choose-action/window-choose-action.component";
 import {WindowShowShortcutsComponent} from "../../components/windows/window-show-shortcuts/window-show-shortcuts.component";
+import {WindowSyncComponent} from "../../components/windows/window-sync/window-sync.component";
 
 @Component({
   selector: 'app-page',
@@ -62,6 +63,7 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
   @ViewChild(WindowMessageBoxComponent) windowMessageBox: WindowMessageBoxComponent;
   @ViewChild(WindowChooseActionComponent) windowChooseAction: WindowChooseActionComponent;
   @ViewChild(WindowShowShortcutsComponent) windowShowShortcuts: WindowShowShortcutsComponent;
+  @ViewChild(WindowSyncComponent) windowSync: WindowSyncComponent;
   @ViewChild(DetailMenuComponent) detailMenu: DetailMenuComponent;
 
   ngAfterViewInit(): void {
@@ -99,6 +101,9 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     if (this.viewState.windowShowShortcuts.Value == undefined && this.windowShowShortcuts != undefined) {
       this.viewState.windowShowShortcuts.Value = this.windowShowShortcuts;
     }
+    if (this.viewState.windowSync.Value == undefined && this.windowSync != undefined) {
+      this.viewState.windowSync.Value = this.windowSync;
+    }
     if (this.viewState.detailMenu.Value == undefined && this.detailMenu != undefined) {
       this.viewState.detailMenu.Value = this.detailMenu;
     }
@@ -116,6 +121,7 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     this.viewState.windowMessageBox.Value = undefined;
     this.viewState.windowChooseAction.Value = undefined;
     this.viewState.windowShowShortcuts.Value = undefined;
+    this.viewState.windowSync.Value = undefined;
     this.viewState.detailMenu.Value = undefined;
   }
 
