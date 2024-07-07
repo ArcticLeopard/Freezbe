@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {WindowComponent} from "../window/window.component";
 
 @Component({
   selector: 'window-sync',
@@ -7,6 +8,6 @@ import { Component } from '@angular/core';
   templateUrl: './window-sync.component.html',
   styleUrl: './window-sync.component.scss'
 })
-export class WindowSyncComponent {
+export class WindowSyncComponent extends WindowComponent {
 
 }
