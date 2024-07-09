@@ -8,7 +8,9 @@ import {AppNavigatorService} from "../../services/app-navigator/app-navigator.se
 import {ActiveAreaDirective} from "../../directives/active-area/active-area.directive";
 import {WorkspaceMenuComponent} from "../../components/menus/workspace-menu/workspace-menu.component";
 import {ResizerDirective} from "../../directives/resizer/resizer.directive";
-import {WindowAddWorkspaceComponent} from "../../components/windows/window-add-workspace/window-add-workspace.component";
+import {
+  WindowAddWorkspaceComponent
+} from "../../components/windows/window-add-workspace/window-add-workspace.component";
 import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
 import {WindowDueDateComponent} from "../../components/windows/window-due-date/window-due-date.component";
 import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
@@ -17,8 +19,12 @@ import {WindowAddTaskComponent} from "../../components/windows/window-add-task/w
 import {WindowEditComponent} from "../../components/windows/window-edit/window-edit.component";
 import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
 import {WindowMessageBoxComponent} from "../../components/windows/window-message-box/window-message-box.component";
-import {WindowChooseActionComponent} from "../../components/windows/window-choose-action/window-choose-action.component";
-import {WindowShowShortcutsComponent} from "../../components/windows/window-show-shortcuts/window-show-shortcuts.component";
+import {
+  WindowChooseActionComponent
+} from "../../components/windows/window-choose-action/window-choose-action.component";
+import {
+  WindowShowShortcutsComponent
+} from "../../components/windows/window-show-shortcuts/window-show-shortcuts.component";
 import {WindowSyncComponent} from "../../components/windows/window-sync/window-sync.component";
 
 @Component({
@@ -42,7 +48,8 @@ import {WindowSyncComponent} from "../../components/windows/window-sync/window-s
     WindowRenameComponent,
     WindowMessageBoxComponent,
     WindowChooseActionComponent,
-    WindowShowShortcutsComponent
+    WindowShowShortcutsComponent,
+    WindowSyncComponent
   ],
   templateUrl: './app-page.component.html',
   styleUrl: './app-page.component.scss',
