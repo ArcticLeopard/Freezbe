@@ -9,8 +9,11 @@
         </div>
       </div>
     </div>
-    <div class="windowContent" [class.scrollable]="scrollable">
-      <ng-content />
+    <div class="windowContent scrollable">
+      <div class="column center p-3">
+        <input type="text" class="input-text" [keyboardClick]="1" autocomplete="off">
+        <btn-normal color="orange" text="Sync" [keyboardClick]="2" />
+      </div>
     </div>
     <div class="windowFooter">
       <div class="windowFooterContainer">

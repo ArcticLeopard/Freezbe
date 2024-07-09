@@ -57,6 +57,11 @@
     @extend %window-background-shared;
     background-color: rgba(0, 0, 0, 0.8);
   }
+
+  .background:hover {
+    transition: background-color 0.8s ease;
+    background-color: rgba(0, 0, 0, 0.79);
+  }
 }
 
 :host.background-with-blur {
