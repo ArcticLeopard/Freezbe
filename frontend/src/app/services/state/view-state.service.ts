@@ -6,7 +6,9 @@ import {DataSourceService} from "../data-source/data-source.service";
 import {BooleanState} from './booleanState';
 import {State} from "./state";
 import {ArrayState} from "./arrayState";
-import {WindowAddWorkspaceComponent} from "../../components/windows/window-add-workspace/window-add-workspace.component";
+import {
+  WindowAddWorkspaceComponent
+} from "../../components/windows/window-add-workspace/window-add-workspace.component";
 import {WindowColorPickerComponent} from "../../components/windows/window-color-picker/window-color-picker.component";
 import {WindowProjectComponent} from "../../components/windows/window-project/window-project.component";
 import {WindowDueDateComponent} from "../../components/windows/window-due-date/window-due-date.component";
@@ -17,10 +19,15 @@ import {details, projects, tasks, workspaces} from '../../common/consts';
 import {WindowEditComponent} from "../../components/windows/window-edit/window-edit.component";
 import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
 import {WindowMessageBoxComponent} from "../../components/windows/window-message-box/window-message-box.component";
-import {WindowChooseActionComponent} from "../../components/windows/window-choose-action/window-choose-action.component";
+import {
+  WindowChooseActionComponent
+} from "../../components/windows/window-choose-action/window-choose-action.component";
 import {ArrayStateWithId} from "./arrayStateWithId";
-import {WindowShowShortcutsComponent} from "../../components/windows/window-show-shortcuts/window-show-shortcuts.component";
+import {
+  WindowShowShortcutsComponent
+} from "../../components/windows/window-show-shortcuts/window-show-shortcuts.component";
 import {WindowSyncComponent} from "../../components/windows/window-sync/window-sync.component";
+import {WindowCommentMenuComponent} from "../../components/windows/window-comment-menu/window-comment-menu.component";
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +72,7 @@ export class ViewStateService {
   public windowMessageBox: State<WindowMessageBoxComponent | undefined>;
   public windowChooseAction: State<WindowChooseActionComponent | undefined>;
   public windowShowShortcuts: State<WindowShowShortcutsComponent | undefined>;
+  public windowCommentMenu: State<WindowCommentMenuComponent | undefined>;
   public windowSync: State<WindowSyncComponent | undefined>;
   public detailMenu: State<DetailMenuComponent | undefined>;
 
@@ -119,6 +127,7 @@ export class ViewStateService {
     this.windowMessageBox = new State<WindowMessageBoxComponent | undefined>(this.subject, this, undefined);
     this.windowChooseAction = new State<WindowChooseActionComponent | undefined>(this.subject, this, undefined);
     this.windowShowShortcuts = new State<WindowShowShortcutsComponent | undefined>(this.subject, this, undefined);
+    this.windowCommentMenu = new State<WindowCommentMenuComponent | undefined>(this.subject, this, undefined);
     this.windowSync = new State<WindowSyncComponent | undefined>(this.subject, this, undefined);
 
     this.detailMenu = new State<DetailMenuComponent | undefined>(this.subject, this, undefined);

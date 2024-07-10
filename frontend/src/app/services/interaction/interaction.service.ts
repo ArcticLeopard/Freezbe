@@ -1,5 +1,16 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {AnyCollectionType, CommentType, WorkspaceCandidate, TaskType, WorkspaceType, ProjectCandidate, ProjectType, TaskCandidate, DateOnly, ObjectType} from "../../common/types";
+import {
+  AnyCollectionType,
+  CommentType,
+  WorkspaceCandidate,
+  TaskType,
+  WorkspaceType,
+  ProjectCandidate,
+  ProjectType,
+  TaskCandidate,
+  DateOnly,
+  ObjectType
+} from "../../common/types";
 import {ViewStateService} from "../state/view-state.service";
 import {AppNavigatorService} from "../app-navigator/app-navigator.service";
 import {details, incoming, priority, project, projects, task, tasks, workspace, workspaces} from "../../common/consts";
@@ -10,6 +21,7 @@ import {WindowDueDateComponent} from "../../components/windows/window-due-date/w
 import {WindowRenameComponent} from "../../components/windows/window-rename/window-rename.component";
 import {WindowManagerService} from "../window-manager/window-manager.service";
 import {WorkspaceValidator} from "../../common/workspaceValidator";
+import {WindowCommentMenuComponent} from "../../components/windows/window-comment-menu/window-comment-menu.component";
 
 @Injectable({
   providedIn: 'root'
@@ -565,6 +577,11 @@ export class InteractionService {
   openProjectWindow = (options?: WindowOpenOptions): WindowProjectComponent | undefined => {
     this.viewState.windowProject.Value?.openWindow(options);
     return this.viewState.windowProject.Value;
+  };
+
+  openCommentMenu = (options?: WindowOpenOptions): WindowCommentMenuComponent | undefined => {
+    this.viewState.windowCommentMenu.Value?.openWindow(options);
+    return this.viewState.windowCommentMenu.Value;
   };
 
   openColorPickerWindow(options?: WindowOpenOptions): WindowColorPickerComponent | undefined {

@@ -1,0 +1,23 @@
+<div (click)="closeWindow()" class="background"></div>
+<div class="window" [style.width.rem]="width" [style.height.rem]="height" [style.top]="top" [style.left]="left" [style.right]="right" #window>
+  <div class="windowContainer">
+    <div class="windowHeader">
+      <div class="windowHeaderContainer">
+        <!--        <btn-close-window />-->
+        <div class="windowHeaderTitleContainer">
+          <span class="pointerFocus">{{ windowTitle }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="windowContent" [class.scrollable]="scrollable">
+      <ng-content />
+    </div>
+    <div class="windowFooter">
+      <div class="windowFooterContainer">
+        <div class="windowFooterTitleContainer">
+          <span class="pointerFocus my-1"><a href="https://youtu.be/-qko_WBh-is" target="_blank">Youtube: What Freezbe Is?</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

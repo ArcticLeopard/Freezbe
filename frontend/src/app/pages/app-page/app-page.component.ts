@@ -26,6 +26,7 @@ import {
   WindowShowShortcutsComponent
 } from "../../components/windows/window-show-shortcuts/window-show-shortcuts.component";
 import {WindowSyncComponent} from "../../components/windows/window-sync/window-sync.component";
+import {WindowCommentMenuComponent} from "../../components/windows/window-comment-menu/window-comment-menu.component";
 
 @Component({
   selector: 'app-page',
@@ -49,7 +50,8 @@ import {WindowSyncComponent} from "../../components/windows/window-sync/window-s
     WindowMessageBoxComponent,
     WindowChooseActionComponent,
     WindowShowShortcutsComponent,
-    WindowSyncComponent
+    WindowSyncComponent,
+    WindowCommentMenuComponent
   ],
   templateUrl: './app-page.component.html',
   styleUrl: './app-page.component.scss',
@@ -71,6 +73,7 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
   @ViewChild(WindowChooseActionComponent) windowChooseAction: WindowChooseActionComponent;
   @ViewChild(WindowShowShortcutsComponent) windowShowShortcuts: WindowShowShortcutsComponent;
   @ViewChild(WindowSyncComponent) windowSync: WindowSyncComponent;
+  @ViewChild(WindowCommentMenuComponent) windowCommentMenu: WindowCommentMenuComponent;
   @ViewChild(DetailMenuComponent) detailMenu: DetailMenuComponent;
 
   ngAfterViewInit(): void {
@@ -111,6 +114,9 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     if (this.viewState.windowSync.Value == undefined && this.windowSync != undefined) {
       this.viewState.windowSync.Value = this.windowSync;
     }
+    if (this.viewState.windowCommentMenu.Value == undefined && this.windowCommentMenu != undefined) {
+      this.viewState.windowCommentMenu.Value = this.windowCommentMenu;
+    }
     if (this.viewState.detailMenu.Value == undefined && this.detailMenu != undefined) {
       this.viewState.detailMenu.Value = this.detailMenu;
     }
@@ -129,6 +135,7 @@ export class AppPageComponent implements AfterViewInit, OnDestroy {
     this.viewState.windowChooseAction.Value = undefined;
     this.viewState.windowShowShortcuts.Value = undefined;
     this.viewState.windowSync.Value = undefined;
+    this.viewState.windowCommentMenu.Value = undefined;
     this.viewState.detailMenu.Value = undefined;
   }
 

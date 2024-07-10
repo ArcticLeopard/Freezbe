@@ -8,6 +8,7 @@ import {EscapeHtmlPipe} from "../../pipes/escape-html/escape-html.pipe";
 import {ListifyPipe} from "../../pipes/listify/listify.pipe";
 import {OrderedListifyPipe} from "../../pipes/ordered-listify/ordered-listify.pipe";
 import {CheckifyPipe} from "../../pipes/checkify/checkify.pipe";
+import {WindowCommentMenuComponent} from "../windows/window-comment-menu/window-comment-menu.component";
 
 @Component({
   selector: 'app-comment-list',
@@ -28,5 +29,12 @@ export class CommentListComponent {
 
   delete(comment: CommentType) {
     this.interactionService.deleteComment(comment.id);
+  }
+
+  showCommentMenu(comment: CommentType) {
+    let window: WindowCommentMenuComponent | undefined = this.interactionService.openCommentMenu({position: 'right'});
+    if (window) {
+      //TODO
+    }
   }
 }
