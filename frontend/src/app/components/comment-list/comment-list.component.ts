@@ -27,14 +27,7 @@ export class CommentListComponent {
     }, delay);
   }
 
-  delete(comment: CommentType) {
-    this.interactionService.deleteComment(comment.id);
-  }
-
   showCommentMenu(comment: CommentType) {
-    let window: WindowCommentMenuComponent | undefined = this.interactionService.openCommentMenu({position: 'right'});
-    if (window) {
-      //TODO
-    }
+    let window: WindowCommentMenuComponent | undefined = this.interactionService.openCommentMenu(comment, {position: 'right'});
   }
 }
