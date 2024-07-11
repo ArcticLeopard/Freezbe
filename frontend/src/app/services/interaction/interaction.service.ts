@@ -579,9 +579,14 @@ export class InteractionService {
     return this.viewState.windowProject.Value;
   };
 
-  openCommentMenu = (options?: WindowOpenOptions): WindowCommentMenuComponent | undefined => {
-    this.viewState.windowCommentMenu.Value?.openWindow(options);
-    return this.viewState.windowCommentMenu.Value;
+  openCommentMenu = (comment: CommentType, options?: WindowOpenOptions): WindowCommentMenuComponent | undefined => {
+    let window = this.viewState.windowCommentMenu.Value;
+    if (window) {
+      window.openWindow(options);
+      window.setContext(comment);
+      return window;
+    }
+    return undefined;
   };
 
   openColorPickerWindow(options?: WindowOpenOptions): WindowColorPickerComponent | undefined {

@@ -1,2 +1,10 @@
 @import "../../../../imports";
 @import "../window/window.component";
+
+.windowContent {
+  @extend .p-3;
+}
+
+btn-normal {
+  @extend .mb-2;
+}
