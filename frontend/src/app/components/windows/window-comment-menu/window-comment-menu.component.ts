@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {WindowComponent} from "../window/window.component";
 import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
 import {CommentType} from "../../../common/types";
+import {WindowRenameComponent} from "../window-rename/window-rename.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'window-comment-menu',
@@ -13,6 +15,8 @@ import {CommentType} from "../../../common/types";
   styleUrl: './window-comment-menu.component.scss'
 })
 export class WindowCommentMenuComponent extends WindowComponent {
+  private onCloseSubscription: Subscription;
+
   private comment: CommentType | null;
   protected override preOpen = () => {
     super.preOpen();
@@ -27,8 +31,17 @@ export class WindowCommentMenuComponent extends WindowComponent {
 
   edit() {
     if (this.comment != null) {
-      //TODO
-      alert("TODO");
+      let window: WindowRenameComponent | undefined = this.interactionService.openRenameWindow({position: "center"});
+      if (window) {
+        this.viewState.comment.Value = this.comment;
+        window.setContext('comment');
+        this.onCloseSubscription = window.onClose.subscribe(() => {
+          //this.buttonRefCollection.get(0)?.nativeElement?.focus();
+          this.viewState.update();
+          this.onCloseSubscription?.unsubscribe();
+          this.viewState.comment.Value = undefined;
+        });
+      }
     }
   }
 
