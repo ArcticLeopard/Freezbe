@@ -21,7 +21,7 @@ export enum CalendarChangeStrategy {
 
 export type AnyCollectionType = any[] | undefined | null;
 export type ActiveAreaType = 'workspaces' | 'projects' | 'tasks' | 'details';
-export type ObjectType = 'workspace' | 'project' | 'task'
+export type ObjectType = 'workspace' | 'project' | 'task' | 'comment'
 export type BackgroundTypes = 'background' | 'background-with-blur'
 export type BigButtonTypes = 'orange' | 'red' | 'gray';
 
