@@ -57,6 +57,7 @@ export class ViewStateService {
   public project: State<ProjectType | undefined>;
   public projects: ArrayState<ProjectType>;
   public task: State<TaskType | undefined>;
+  public comment: State<CommentType | undefined>;
   public tasks: ArrayState<TaskType>;
   public comments: ArrayState<CommentType>;
   public priorityTasks: ArrayState<TaskType>;
@@ -112,6 +113,7 @@ export class ViewStateService {
     this.projects = new ArrayState<ProjectType>(this.subject, this, []);
     this.task = new State<TaskType | undefined>(this.subject, this, undefined);
     this.tasks = new ArrayState<TaskType>(this.subject, this, []);
+    this.comment = new State<CommentType | undefined>(this.subject, this, undefined);
     this.comments = new ArrayState<CommentType>(this.subject, this, []);
     this.priorityTasks = new ArrayState<TaskType>(this.subject, this, []);
     this.incomingTasks = new ArrayState<TaskType>(this.subject, this, []);
@@ -194,6 +196,8 @@ export class ViewStateService {
         return this.projectIsEditable;
       case "task":
         return this.taskIsEditable;
+      case "comment":
+        return this.commentIsEditable;
     }
   }
 
@@ -210,5 +214,9 @@ export class ViewStateService {
 
   public get taskIsEditable(): boolean {
     return !!this.task.Value;
+  }
+
+  public get commentIsEditable(): boolean {
+    return true;
   }
 }

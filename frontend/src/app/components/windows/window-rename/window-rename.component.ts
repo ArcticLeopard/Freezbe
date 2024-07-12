@@ -4,7 +4,7 @@ import {WindowComponent} from "../window/window.component";
 import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
 import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboard-click.directive";
 import {ObjectType} from "../../../common/types";
-import {project, task, workspace} from "../../../common/consts";
+import {comment, project, task, workspace} from "../../../common/consts";
 
 @Component({
   selector: 'window-rename',
@@ -39,6 +39,9 @@ export class WindowRenameComponent extends WindowComponent {
     if (this.objectType === task) {
       this.input.nativeElement.value = this.viewState.task.Value?.name;
     }
+    if (this.objectType === comment) {
+      this.input.nativeElement.value = this.viewState.comment.Value?.content;
+    }
   }
 
   public Rename(): void {
@@ -51,6 +54,9 @@ export class WindowRenameComponent extends WindowComponent {
       }
       if (this.objectType === task && this.viewState.task.Value) {
         this.viewState.task.Value.name = this.input.nativeElement.value;
+      }
+      if (this.objectType === comment && this.viewState.comment.Value) {
+        this.viewState.comment.Value.content = this.input.nativeElement.value;
       }
       this.viewState.update();
       this.closeWindow();
