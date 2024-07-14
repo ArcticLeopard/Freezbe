@@ -2,8 +2,8 @@
 <div class="window" [style.width.rem]="width" [style.height.rem]="height" [style.top]="top" [style.left]="left" [style.right]="right" #window>
   <div class="windowContainer">
     <div class="windowContent" [class.scrollable]="scrollable">
-      <btn-normal color="orange" text="Edit Comment" (click)="edit()" />
-      <btn-normal color="red" text="Delete Comment" (click)="delete()" />
+      <btn-normal color="orange" text="Edit Comment" (click)="edit()" [keyboardClick]="1" />
+      <btn-normal color="red" text="Delete Comment" (click)="delete()" [keyboardClick]="2" />
     </div>
   </div>
 </div>
