@@ -22,6 +22,7 @@ import {WindowRenameComponent} from "../../components/windows/window-rename/wind
 import {WindowManagerService} from "../window-manager/window-manager.service";
 import {WorkspaceValidator} from "../../common/workspaceValidator";
 import {WindowCommentMenuComponent} from "../../components/windows/window-comment-menu/window-comment-menu.component";
+import {WindowSyncComponent} from "../../components/windows/window-sync/window-sync.component";
 
 @Injectable({
   providedIn: 'root'
@@ -553,6 +554,14 @@ export class InteractionService {
     }
   }
 
+  public onPressHash(event: KeyboardEvent): boolean {
+    if (event.key === '#') {
+      this.openSyncWindow();
+      return true;
+    }
+    return false;
+  }
+
   private GenerateId(date: Number | undefined = undefined): string {
     if (date == undefined) {
       return Date.now().toString(36); //Single User / Offline
@@ -597,6 +606,11 @@ export class InteractionService {
   openRenameWindow(options?: WindowOpenOptions): WindowRenameComponent | undefined {
     this.viewState.windowRename.Value?.openWindow(options);
     return this.viewState.windowRename.Value;
+  }
+
+  openSyncWindow(options?: WindowOpenOptions): WindowSyncComponent | undefined {
+    this.viewState.windowSync.Value?.openWindow(options);
+    return this.viewState.windowSync.Value;
   }
 
   moveTaskToProject(taskId: string, projectId: string): void {
