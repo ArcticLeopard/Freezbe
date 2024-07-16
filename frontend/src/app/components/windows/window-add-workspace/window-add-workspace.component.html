@@ -31,7 +31,8 @@
                 <span title="The limit is your browser's Local Storage limit.">Everything is unlimited.</span><br>
               </div>
               <btn-normal #firstStepButton (click)="setStep(2)" color="orange" text="Create a New Workspace" [keyboardClick]="0" />
-              <btn-import (onSuccessImported)="closeWindow(true)" [keyboardClick]="1" />
+              <btn-normal (click)="interactionService.openSyncWindow()" color="orange" text="Sync" [keyboardClick]="1" />
+              <btn-import (onSuccessImported)="closeWindow(true)" [keyboardClick]="2" />
             </div>
           </ng-container>
           <ng-container *ngSwitchCase="2">
