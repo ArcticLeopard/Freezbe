@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnDestroy, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {WindowComponent} from "../window/window.component";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {MonthPipe} from "../../../pipes/month/month.pipe";
@@ -10,6 +10,7 @@ import {KeyboardClickDirective} from "../../../directives/keyboard-click/keyboar
 import {LogotypeComponent} from "../../logotype/logotype.component";
 import {NormalButtonComponent} from "../../buttons/normal/normal-button.component";
 import {ImportComponent} from "../../buttons/import/import.component";
+import {CursorHtmlElement} from "../../../common/cursor";
 
 @Component({
   selector: 'window-add-workspace',
@@ -32,6 +33,8 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   @ViewChild('firstStepButton') firstStepButton: NormalButtonComponent;
   @ViewChild('colorPicker') colorPickerRef: ElementRef;
   private workspaceCandidate: WorkspaceCandidateDraft;
+  private buttonCursor: CursorHtmlElement;
+  @ViewChildren(NormalButtonComponent, {read: ElementRef<HTMLElement>}) buttonRefCollection: QueryList<ElementRef<HTMLElement>> = new QueryList<ElementRef<HTMLElement>>();
 
   override postOnDestroy() {
     this.colorSubscription?.unsubscribe();
@@ -72,6 +75,7 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
   protected override preOpen() {
     super.preOpen();
     this.setStep(1);
+    this.buttonCursor = new CursorHtmlElement(this.buttonRefCollection);
   }
 
   protected get currentStep(): number {
@@ -139,6 +143,20 @@ export class WindowAddWorkspaceComponent extends WindowComponent implements OnDe
           this.secondStepButton.focus();
         }
       }
+    }
+  };
+
+  @HostListener('window:keydown.arrowUp', ['$event']) onPressUp = (event: KeyboardEvent) => {
+    if (this.open) {
+      this.buttonCursor.prevFocus();
+      event.preventDefault();
+    }
+  };
+
+  @HostListener('window:keydown.arrowDown', ['$event']) onPressDown = (event: KeyboardEvent) => {
+    if (this.open) {
+      this.buttonCursor.nextFocus();
+      event.preventDefault();
     }
   };
 }
